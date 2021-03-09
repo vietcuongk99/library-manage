@@ -1,0 +1,16 @@
+html {
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/landing-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main-icon {
+    width: 70px;
+    height: 70px;
+}
