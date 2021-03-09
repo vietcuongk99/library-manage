@@ -12,9 +12,14 @@
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
+    <link href="css/your-account.css" rel="stylesheet">
     <link href="css/modern-business.css" rel="stylesheet">
+
+
 
 </head>
 
@@ -91,7 +96,7 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container mb-5">
 
         <!-- Page Heading/Breadcrumbs -->
         <h1 class="mt-4 mb-3">Tài khoản cá nhân
@@ -127,7 +132,7 @@
                     <a href="404.html" class="list-group-item">404</a>
                     <a href="pricing.html" class="list-group-item">Pricing Table</a> -->
                     <li class="list-group-item active" id="list-infor-list" data-toggle="list" role="tab" href="#list-infor-content" aria-controls="infor">Thông tin cá nhân</li>
-                    <li class="list-group-item" id="list-library-list" data-toggle="list" role="tab" href="#list-library-content" aria-controls="library">Giá sách của bạn</li>
+                    <li class="list-group-item" id="list-library-list" data-toggle="list" role="tab" href="#list-library-content" aria-controls="library">Thư viện của bạn</li>
                     <li class="list-group-item" id="list-account-list" data-toggle="list" role="tab" href="#list-account-content" aria-controls="account">Tài khoản</li>
                     <li class="list-group-item" id="list-activity-list" data-toggle="list" role="tab" href="#list-activity-content" aria-controls="activity">Nhật ký hoạt động</li>
 
@@ -136,15 +141,123 @@
             <!-- Content Column -->
             <div class="col-lg-9 mb-4">
                 <div class="tab-content" id="nav-tabContent">
+                    <!-- thông tin cá nhân -->
                     <div class="tab-pane fade show active" id="list-infor-content" role="tabpanel" aria-labelledby="list-infor-list">
                         <h2>Thông tin cá nhân</h2>
                     </div>
+
+                    <!-- thư viện của bạn -->
                     <div class="tab-pane fade" id="list-library-content" role="tabpanel" aria-labelledby="list-library-list">
-                        <h2>Giá sách của bạn</h2>
+                        <nav class="navbar navbar-light bg-light">
+                            <form class="form-inline">
+                                <input id="searchInput" class="form-control mr-5" type="search" placeholder="Search" aria-label="Search">
+                                <select id="filterGroup" class="custom-select">
+                                    <option value="1">Đang mượn</option>
+                                    <option value="1">Đã trả</option>
+                                </select>
+                            </form>
+                        </nav>
+
+                        <div class="row mt-4">
+                            <div class="col-md-4 col-sm-4 mb-4">
+                                <div class="row no-gutters">
+                                    <div class="col-5">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Project One</a>
+                                            </h4>
+                                            <p class="card-text">sách 1</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6 mb-4">
+                                <div class="row no-gutters">
+                                    <div class="col-5">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Project One</a>
+                                            </h4>
+                                            <p class="card-text">sách 1</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6 mb-4">
+                                <div class="row no-gutters">
+                                    <div class="col-5">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Project One</a>
+                                            </h4>
+                                            <p class="card-text">sách 1</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6 mb-4">
+                                <div class="row no-gutters">
+                                    <div class="col-5">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Project One</a>
+                                            </h4>
+                                            <p class="card-text">sách 1</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Pagination -->
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+
                     </div>
+
+                    <!-- tài khoản -->
                     <div class="tab-pane fade" id="list-account-content" role="tabpanel" aria-labelledby="list-account-list">
                         <h2>Tài khoản</h2>
                     </div>
+
+                    <!-- nhật ký hoạt động -->
                     <div class="tab-pane fade" id="list-activity-content" role="tabpanel" aria-labelledby="list-activity-list">
                         <h2>Nhật ký hoạt động</h2>
 
@@ -159,12 +272,12 @@
     <!-- /.container -->
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark fixed-bottom">
+    <!-- <footer class="py-2 bg-dark fixed-bottom">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
         </div>
-        <!-- /.container -->
-    </footer>
+        
+    </footer> -->
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
