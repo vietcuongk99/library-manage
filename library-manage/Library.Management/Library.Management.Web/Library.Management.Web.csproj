@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="APIContollers\Base\BaseController.cs" />
+    <Content Include="APIContollers\Library\LibraryController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\content\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\js\" />
