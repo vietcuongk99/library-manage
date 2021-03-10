@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <ProjectReference Include="..\Library.Management.BL\Library.Management.BL.csproj" />
   </ItemGroup>
 
 </Project>

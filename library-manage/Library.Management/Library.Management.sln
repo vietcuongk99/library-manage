@@ -3,15 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Management.Web", "Library.Management.Web\Library.Management.Web.csproj", "{3BB85B81-4A0C-48D3-8067-EF66671AF3E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Management.Web", "Library.Management.Web\Library.Management.Web.csproj", "{3BB85B81-4A0C-48D3-8067-EF66671AF3E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Management.BL", "Library.Management.BL\Library.Management.BL.csproj", "{2AE1AE7E-3A6A-405F-8A4E-0796BA0874CA}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3BB85B81-4A0C-48D3-8067-EF66671AF3E1} = {3BB85B81-4A0C-48D3-8067-EF66671AF3E1}
-		{BBCFB2AE-0A76-4298-9930-04C4509D13BE} = {BBCFB2AE-0A76-4298-9930-04C4509D13BE}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Management.BL", "Library.Management.BL\Library.Management.BL.csproj", "{2AE1AE7E-3A6A-405F-8A4E-0796BA0874CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Management.DL", "Library.Management.DL\Library.Management.DL.csproj", "{BBCFB2AE-0A76-4298-9930-04C4509D13BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Management.DL", "Library.Management.DL\Library.Management.DL.csproj", "{BBCFB2AE-0A76-4298-9930-04C4509D13BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
