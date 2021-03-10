@@ -10,4 +10,8 @@
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Library.Management.BL\Library.Management.BL.csproj" />
+  </ItemGroup>
+
 </Project>

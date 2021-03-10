@@ -1,9 +1,13 @@
+using Library.Management.BL.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Pomelo.EntityFrameworkCore.MySql.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +27,12 @@ namespace Library.Management.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddControllers();
+            services.AddDbContext<LibrarydbContext>(options => options
+   .UseMySql(LibrarydbContext.Connectionstring,
+       mysqlOptions =>
+           mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
