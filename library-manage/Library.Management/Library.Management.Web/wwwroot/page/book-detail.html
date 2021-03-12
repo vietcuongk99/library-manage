@@ -32,9 +32,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="about.html">Thông tin</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="services.html">Tính năng</a>
-                    </li>
+                    </li> -->
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAvatar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -63,74 +63,86 @@
                 <a href="index.html">Trang chủ</a>
             </li>
             <li class="breadcrumb-item active">Chi tiết sách</li>
-            <li class="breadcrumb-item">Project 1</li>
+            <li class="breadcrumb-item">CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP</li>
         </ol>
 
         <!-- Portfolio Item Row -->
         <div class="row">
 
             <div class="col-md-4">
-                <img class="img-fluid mb-2" src="http://placehold.it/300x400" alt="Ảnh bìa sách">
+                <img class="img-fluid mb-2" src="../content/img/clean-code.jpg" alt="Ảnh bìa sách" style="width: 300px;">
 
                 <ul class="list-group" style="width: 300px;">
                     <button id="btnBorrowBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Mượn sách</button>
-                    <button id="btnReturnBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Trả sách</button>
-                    <button id="btnExtendDate" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Gia hạn</button>
-                    <button id="btnBorrowBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Tải tài liệu</button>
+                    <button id="btnReturnBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalreturnBook">Trả sách</button>
+                    <button id="btnExtendDate" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalExtendDate">Gia hạn</button>
+                    <button id="btnDownloadFile" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#">Tải tài liệu</button>
                 </ul>
-
             </div>
 
-            <!-- sự kiện khi click nút Mượn sách -->
-            <!-- Modal -->
-            <div class="modal fade" id="modalBorrowBook" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Mượn sách</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
-                                Mượn thành công
-                            </div>
-                            <form>
-                                <div class="form-group">
-                                    <label for="returnDate">Ngày trả</label>
-                                    <input type="date" class="form-control" id="returnDate">
-                                </div>
-
-                            </form>
-                            <button id="confirmBorrowBtn" class="btn btn-primary">Xác nhận</button>
-                        </div>
-                        <div class="modal-footer">
-                            ...
-                        </div>
+            <!-- thông tin sách -->
+            <div class="col-md-8">
+                <h4 class="my-3">CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP</h4>
+                <p>Cuốn sách hướng dẫn các bạn developer viết ra “code sạch“ hoặc “viết code tinh giản“.
+                </p>
+                <h4 class="my-3">Thông tin sách</h4>
+                <div class="row">
+                    <div class="col-4">
+                        <b>Loại tài liệu:</b>
+                    </div>
+                    <div class="col-8">
+                        <p>Ebook</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-8">
-                <h3 class="my-3">Project Description</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis
-                    enim.
-                </p>
-                <h3 class="my-3">Project Details</h3>
-                <ul>
-                    <li>Lorem Ipsum</li>
-                    <li>Dolor Sit Amet</li>
-                    <li>Consectetur</li>
-                    <li>Adipiscing Elit</li>
-                </ul>
-                <h3 class="my-3">Project Details</h3>
-                <ul>
-                    <li>Lorem Ipsum</li>
-                    <li>Dolor Sit Amet</li>
-                    <li>Consectetur</li>
-                    <li>Adipiscing Elit</li>
-                </ul>
+                <div class="row">
+                    <div class="col-4">
+                        <b>Mã ngôn ngữ</b>
+                    </div>
+                    <div class="col-8">
+                        <p>en</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <b>Tác giả:</b>
+                    </div>
+                    <div class="col-8">
+                        <p>Robert C.Martin</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <b>Số trang:</b>
+                    </div>
+                    <div class="col-8">
+                        <p>462</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <b>Danh mục:</b>
+                    </div>
+                    <div class="col-8">
+                        <p>Công nghệ</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <b>Năm xuất bản:</b>
+                    </div>
+                    <div class="col-8">
+                        <p>2008</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <b>Mô tả chung:</b>
+                    </div>
+                    <div class="col-8">
+                        <p>Clean Code được chia thành ba phần. Phần đầu tiên mô tả các nguyên tắc, mẫu và thực hành viết mã sạch. Phần thứ hai bao gồm một số nghiên cứu trường hợp về sự phức tạp tăng dần. Mỗi trường hợp là một bài tập trong việc làm sạch
+                            mã nguồn mà bạn code.</p>
+                    </div>
+                </div>
 
             </div>
 
@@ -138,21 +150,123 @@
         <!-- /.row -->
 
 
+        <!-- sự kiện khi click nút Mượn sách -->
+        <!-- Modal -->
+        <div class="modal fade" id="modalBorrowBook" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Mượn sách</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="hiddenDiv()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
+                            Mượn thành công
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label for="returnDate">Ngày trả</label>
+                                <input type="date" class="form-control" id="returnDate">
+                            </div>
+
+                        </form>
+                        <button id="confirmBorrowBtn" class="btn btn-primary">Xác nhận</button>
+                    </div>
+                    <div class="modal-footer">
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- sự kiện khi click nút Trả sách -->
+        <!-- Modal -->
+        <div class="modal fade" id="modalReturnBook" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Trả sách</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="hiddenDiv()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
+                            Mượn thành công
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label for="returnDate">Ngày trả</label>
+                                <input type="date" class="form-control" id="returnDate">
+                            </div>
+
+                        </form>
+                        <button id="confirmBorrowBtn" class="btn btn-primary">Xác nhận</button>
+                    </div>
+                    <div class="modal-footer">
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- sự kiện khi click nút Gia hạn-->
+        <!-- Modal -->
+        <div class="modal fade" id="modalExtendDate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Gia hạn thời gian mượn sách</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="hiddenDiv()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
+                            Gia hạn thành công
+                        </div>
+                        <form>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p>Ngày trả cũ:</p>
+                                </div>
+                                <div class="col-8">
+                                    <p id="oldReturnDate">22/12/2020</p>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="returnDate">Ngày trả mới</label>
+                                <input type="date" class="form-control" id="returnDate">
+                            </div>
+
+                        </form>
+                        <button id="confirmBorrowBtn" class="btn btn-primary">Xác nhận</button>
+                    </div>
+                    <div class="modal-footer">
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Related Projects Row -->
         <h3 class="mt-5 d-inline-flex align-middle">Sách cùng thể loại</h3>
         <button type="button" class="btn btn-outline-success btn-sm d-inline ml-1 mt-5 align-middle" onclick="window.location.href='search-result.html'">Xem thêm</button>
 
         <div class="row mt-4">
 
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="row no-gutters">
-                    <div class="col-5">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="row no-gutters border">
+                    <div class="col-6">
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x500" alt=""></a>
                     </div>
-                    <div class="col-7">
+                    <div class="col-6">
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">Project One</a>
+                                <a href="#">Sách 1</a>
                             </h4>
                             <p class="card-text">sách 1</p>
                         </div>
@@ -160,15 +274,15 @@
                 </div>
             </div>
 
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="row no-gutters">
-                    <div class="col-5">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="row no-gutters border">
+                    <div class="col-6">
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x500" alt=""></a>
                     </div>
-                    <div class="col-7">
+                    <div class="col-6">
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">Project One</a>
+                                <a href="#">Sách 2</a>
                             </h4>
                             <p class="card-text">sách 1</p>
                         </div>
@@ -176,31 +290,15 @@
                 </div>
             </div>
 
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="row no-gutters">
-                    <div class="col-5">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="row no-gutters border">
+                    <div class="col-6">
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x500" alt=""></a>
                     </div>
-                    <div class="col-7">
+                    <div class="col-6">
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">Project One</a>
-                            </h4>
-                            <p class="card-text">sách 1</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="row no-gutters">
-                    <div class="col-5">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
-                    </div>
-                    <div class="col-7">
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Project One</a>
+                                <a href="#">Sách 3</a>
                             </h4>
                             <p class="card-text">sách 1</p>
                         </div>
@@ -220,7 +318,7 @@
                     <div class="form-group">
                         <textarea id="comment-content" class="form-control" rows="3"></textarea>
                     </div>
-                    <button id="submit-btn" type="submit" class="btn btn-primary">Submit</button>
+                    <button id="submit-btn" type="submit" class="btn btn-primary">Gửi bình luận</button>
                 </form>
             </div>
         </div>
@@ -229,8 +327,8 @@
         <div class="media mb-4">
             <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
             <div class="media-body">
-                <h5 class="mt-0">Commenter Name</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                <h5 class="mt-0">Vũ Dũng</h5>
+                Sách thật sự hay và bổ ích. Đọc nhé
             </div>
         </div>
 
@@ -238,8 +336,8 @@
         <div class="media mb-4">
             <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
             <div class="media-body">
-                <h5 class="mt-0">Commenter Name</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                <h5 class="mt-0">Bui Van Bao</h5>
+                Sách này thật sự hay và bổ ích
             </div>
         </div>
 
@@ -289,7 +387,13 @@
             $('#confirmBorrowBtn').click(function() {
                 $('.alert').show()
             })
+
         });
+
+        function hiddenDiv() {
+            debugger
+            $('.alert').hide()
+        }
     </script>
 
 </body>
