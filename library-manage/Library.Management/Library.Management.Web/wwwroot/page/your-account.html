@@ -78,9 +78,9 @@
             <!-- Sidebar Column -->
             <div class="col-lg-3 mb-4">
                 <div class="list-group">
-                    <li class="list-group-item active" id="list-infor-list" data-toggle="list" role="tab" href="#list-infor-content" aria-controls="infor">Thông tin cá nhân</li>
+                    <li class="list-group-item active" id="list-account-list" data-toggle="list" role="tab" href="#list-account-content" aria-controls="account">Tài khoản</li>
                     <li class="list-group-item" id="list-library-list" data-toggle="list" role="tab" href="#list-library-content" aria-controls="library">Thư viện của bạn</li>
-                    <li class="list-group-item" id="list-account-list" data-toggle="list" role="tab" href="#list-account-content" aria-controls="account">Tài khoản</li>
+                    <li class="list-group-item" id="list-infor-list" data-toggle="list" role="tab" href="#list-infor-content" aria-controls="infor">Thông tin cá nhân</li>
                     <li class="list-group-item" id="list-activity-list" data-toggle="list" role="tab" href="#list-activity-content" aria-controls="activity">Nhật ký hoạt động</li>
 
                 </div>
@@ -88,9 +88,38 @@
             <!-- Content Column -->
             <div class="col-lg-9 mb-4">
                 <div class="tab-content" id="nav-tabContent">
-                    <!-- thông tin cá nhân -->
-                    <div class="tab-pane fade show active" id="list-infor-content" role="tabpanel" aria-labelledby="list-infor-list">
-                        <h2>Thông tin cá nhân</h2>
+
+                    <!-- tài khoản -->
+                    <div class="tab-pane fade show active" id="list-account-content" role="tabpanel" aria-labelledby="list-account-list">
+                        <h2>Tài khoản</h2>
+                        <div class="form-group">
+                            <img src="../content/img/icon.jpg" class="img-thumbnail mr-2" alt="..." style="width: 200px; height: auto">
+                            <label class="btn btn-primary align-bottom">
+                            Chọn ảnh <input type="file" hidden></label>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Tên người dùng</label>
+                                    <input type="text" class="form-control" placeholder="username" value="cuong dinh viet">
+                                </div>
+                                <div class="col">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" placeholder="fisrt name" value="123456">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Email</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="email" value="17020624@vnu.edu.vn">
+                        </div>
+
+                        <button type="button" class="btn btn-primary">Thay đổi</button>
+                        <button type="button" class="btn btn-primary">Reset</button>
+
                     </div>
 
                     <!-- thư viện của bạn -->
@@ -107,6 +136,38 @@
 
                         <div class="row mt-4">
                             <div class="col-md-4 col-sm-4 mb-4">
+                                <div class="row no-gutters border">
+                                    <div class="col-5">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Project One</a>
+                                            </h4>
+                                            <p class="card-text">sách 1</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6 mb-4">
+                                <div class="row no-gutters border">
+                                    <div class="col-5">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <a href="#">Project One</a>
+                                            </h4>
+                                            <p class="card-text">sách 1</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6 mb-4">
                                 <div class="row no-gutters border">
                                     <div class="col-5">
                                         <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
@@ -199,9 +260,40 @@
 
                     </div>
 
-                    <!-- tài khoản -->
-                    <div class="tab-pane fade" id="list-account-content" role="tabpanel" aria-labelledby="list-account-list">
-                        <h2>Tài khoản</h2>
+                    <!-- thông tin cá nhân -->
+                    <div class="tab-pane fade" id="list-infor-content" role="tabpanel" aria-labelledby="list-infor-list">
+                        <h2>Thông tin cá nhân</h2>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Tên đệm và tên riêng</label>
+                                    <input type="text" class="form-control" placeholder="last name" value="việt Cường">
+                                </div>
+                                <div class="col">
+                                    <label>Tên họ</label>
+                                    <input type="text" class="form-control" placeholder="fisrt name" value="đinh">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Giới tính: </label>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="customRadioInline1" name="customRadioInline" class="custom-control-input" checked>
+                                <label class="custom-control-label" for="customRadioInline1">Nam</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="customRadioInline2" name="customRadioInline" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadioInline2">Nữ</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Địa chỉ</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="địa chỉ" value="Xuân Thủy, Cầu Giấy, Hà Nội">
+                        </div>
+
+                        <button type="button" class="btn btn-primary">Thay đổi</button>
+                        <button type="button" class="btn btn-primary">Reset</button>
                     </div>
 
                     <!-- nhật ký hoạt động -->

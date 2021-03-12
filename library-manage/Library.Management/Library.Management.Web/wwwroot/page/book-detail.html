@@ -62,21 +62,54 @@
             <li class="breadcrumb-item">
                 <a href="index.html">Trang chủ</a>
             </li>
-            <li class="breadcrumb-item active">Chi tiết</li>
+            <li class="breadcrumb-item active">Chi tiết sách</li>
+            <li class="breadcrumb-item">Project 1</li>
         </ol>
 
         <!-- Portfolio Item Row -->
         <div class="row">
 
             <div class="col-md-4">
-                <img class="img-fluid mb-4" src="http://placehold.it/300x400" alt="Ảnh bìa sách">
+                <img class="img-fluid mb-2" src="http://placehold.it/300x400" alt="Ảnh bìa sách">
 
                 <ul class="list-group" style="width: 300px;">
-                    <button class="btn btn-sm btn-primary mb-2">Mượn sách</button>
-                    <button class="btn btn-sm btn-success mb-2">Trả sách</button>
-                    <button class="btn btn-sm btn-warning">Gia hạn</button>
-
+                    <button id="btnBorrowBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Mượn sách</button>
+                    <button id="btnReturnBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Trả sách</button>
+                    <button id="btnExtendDate" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Gia hạn</button>
+                    <button id="btnBorrowBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Tải tài liệu</button>
                 </ul>
+
+            </div>
+
+            <!-- sự kiện khi click nút Mượn sách -->
+            <!-- Modal -->
+            <div class="modal fade" id="modalBorrowBook" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Mượn sách</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
+                                Mượn thành công
+                            </div>
+                            <form>
+                                <div class="form-group">
+                                    <label for="returnDate">Ngày trả</label>
+                                    <input type="date" class="form-control" id="returnDate">
+                                </div>
+
+                            </form>
+                            <button id="confirmBorrowBtn" class="btn btn-primary">Xác nhận</button>
+                        </div>
+                        <div class="modal-footer">
+                            ...
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-8">
@@ -98,13 +131,7 @@
                     <li>Consectetur</li>
                     <li>Adipiscing Elit</li>
                 </ul>
-                <h3 class="my-3">Project Details</h3>
-                <ul>
-                    <li>Lorem Ipsum</li>
-                    <li>Dolor Sit Amet</li>
-                    <li>Consectetur</li>
-                    <li>Adipiscing Elit</li>
-                </ul>
+
             </div>
 
         </div>
@@ -257,6 +284,13 @@
     <!-- Bootstrap core JavaScript -->
     <script src="../content/vendor/jquery/jquery.min.js"></script>
     <script src="../content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#confirmBorrowBtn').click(function() {
+                $('.alert').show()
+            })
+        });
+    </script>
 
 </body>
 
