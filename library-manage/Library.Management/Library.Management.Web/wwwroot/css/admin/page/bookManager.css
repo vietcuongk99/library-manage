@@ -1,0 +1,18 @@
+﻿.book-manager-container .book-image {
+    width: 200px;
+    height: 270px;
+    margin-bottom: 15px;
+    border: 1px solid;
+}
+
+.book-manager-container .book-image img{
+    height: 100%;
+    width: 100%;
+}
+
+.book-manager-container #imgInp {
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

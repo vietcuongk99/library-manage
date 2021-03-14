@@ -1,0 +1,23 @@
+﻿@using MISA.LocationAPI.Extensions;
+
+<nav class="navbar-default navbar-static-side" style="position: fixed;" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="@Html.IsSelected(controller: "Home", action: "Index")">
+                <a href="@Url.Action("Index", "Home")"><i class="fa fa-desktop"></i> <span class="nav-label">Tổng quan</span></a>
+            </li>
+            <li class="@Html.IsSelected(controller: "BookManager", action: "Index")">
+                <a href="@Url.Action("Index", "BookManager")"><i class="fa fa-edit"> </i><span class="nav-label">Quản lý sách</span></a>
+            </li>
+            <li class="@Html.IsSelected(controller: "BorrowBook", action: "Index")">
+                <a href="@Url.Action("Index", "BorrowBook")"><i class="fa fa-book"></i> <span class="nav-label">Mượn trả sách</span></a>
+            </li>
+            <li class="@Html.IsSelected(controller: "UserManager", action: "Index")">
+                <a href="@Url.Action("Index", "UserManager")"><i class="fa fa-users"></i> <span class="nav-label">Quản lý người dùng</span></a>
+            </li>
+            <li class="@Html.IsSelected(controller: "OtherPage", action: "Index")">
+                <a href="@Url.Action("Index", "OtherPage")"><i class="fa fa-cog"></i> <span class="nav-label">Khác</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>

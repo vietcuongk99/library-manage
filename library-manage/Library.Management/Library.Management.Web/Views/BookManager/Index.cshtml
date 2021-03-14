@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Quản lý sách";
+}
+
+@section css{
+    <link href="~/css/admin/page/bookManager.css" rel="stylesheet" />
+}
+@section scripts
+{
+    <script src="~/js/admin/bookManager.js" asp-append-version="true"></script>
+}
+
+<div class="book-manager-container">
+    <div class="book-image">
+        <img id="blah" class="img-fluid mb-4" src="http://placehold.it/300x400" alt="Ảnh bìa sách">
+    </div>
+    <div>
+        <input type='file' id="imgInp" />
+    </div>
+</div>
