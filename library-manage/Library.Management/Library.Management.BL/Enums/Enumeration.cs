@@ -5,7 +5,8 @@ using System.Text;
 namespace Library.Management.BL.Enums
 {
     /// <summary>
-    /// Kiểu phương thức 
+    /// Kiểu phương thức
+    /// CreatedBy: VDDUNG1
     /// </summary>
     public enum EntityState
     {
@@ -32,6 +33,7 @@ namespace Library.Management.BL.Enums
 
     /// <summary>
     /// Các mã lỗi
+    /// CreatedBy: VDDUNG1(14/03/2021)
     /// </summary>
     public enum LibraryCode
     {
@@ -55,5 +57,37 @@ namespace Library.Management.BL.Enums
         /// Lỗi Exception
         /// </summary>
         Exception = 500,
+    }
+
+    /// <summary>
+    /// Tên kiểu store sẽ thực thi
+    /// </summary>
+    /// CreatedBy: VDDUNG1 (14/03/2021)
+    public enum ProcdureTypeName
+    {
+        /// <summary>
+        ///  Lấy dữ liệu
+        /// </summary>
+        Get,
+
+        /// <summary>
+        /// Lấy dữ liệu theo khóa chính
+        /// </summary>
+        GetById,
+
+        /// <summary>
+        /// Thêm mới
+        /// </summary>
+        Insert,
+
+        /// <summary>
+        /// Sửa/ cập nhật dữ liệu
+        /// </summary>
+        Update,
+
+        /// <summary>
+        /// Xóa dữ liệu
+        /// </summary>
+        Delete
     }
 }

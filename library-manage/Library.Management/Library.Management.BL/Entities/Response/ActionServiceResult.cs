@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Library.Management.BL.Entities.Response
 {
-    public class ActionResult
+    public class ActionServiceResult
     {
         public bool Success { get; set; }
         public string Message { get; set; }
@@ -16,7 +16,7 @@ namespace Library.Management.BL.Entities.Response
         /// <summary>
         /// Hàm khởi tạo mặc định
         /// </summary>
-        public ActionResult()
+        public ActionServiceResult()
         {
             Success = true;
             Message = GlobalResource.Success;
@@ -24,7 +24,7 @@ namespace Library.Management.BL.Entities.Response
             Data = null;
         }
 
-        public ActionResult(bool success, string message, LibraryCode librarycode, object data)
+        public ActionServiceResult(bool success, string message, LibraryCode librarycode, object data)
         {
             Success = success;
             Message = message;

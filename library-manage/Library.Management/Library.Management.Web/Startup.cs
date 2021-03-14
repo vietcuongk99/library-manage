@@ -1,4 +1,7 @@
+using Library.Management.BL.Interfaces;
 using Library.Management.BL.Models;
+using Library.Management.BL.Services;
+using Library.Management.DL.Data.Services;
 using Library.Management.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +38,9 @@ namespace Library.Management.Web
             .UseMySql(LibraryContext.Connectionstring,
                 mysqlOptions =>
             mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
+
+            services.AddScoped<ILibraryBL, LibraryBL>();
+            services.AddScoped<ILibraryDL, LibraryDL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

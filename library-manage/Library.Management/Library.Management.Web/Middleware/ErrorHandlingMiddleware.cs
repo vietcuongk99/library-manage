@@ -47,7 +47,7 @@ namespace Library.Management.Web.Middleware
         {
             var code = HttpStatusCode.InternalServerError;
             var result = JsonConvert.SerializeObject(
-                new ActionResult
+                new ActionServiceResult
                 {
                     Success = false,
                     Message = GlobalResource.Exception,
