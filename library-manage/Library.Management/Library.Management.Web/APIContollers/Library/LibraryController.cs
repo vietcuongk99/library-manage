@@ -1,4 +1,5 @@
-﻿using Library.Management.BL.Entities.Response;
+﻿using Library.Management.BL.Entities.Request;
+using Library.Management.BL.Entities.Response;
 using Library.Management.BL.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,34 @@ namespace Library.Management.Web.Controllers.Library
         {
             var res = new ActionServiceResult();
             res.Data = await _libraryBL.GetEntitiesByID(id);
+            return res;
+        }
+
+        /// <summary>
+        /// Thêm 1 bản ghi thông tin cuốn sách
+        /// </summary>
+        /// <param name="param">param truyền vào</param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 14/03/2021
+        [HttpGet("InsertBookDetail")]
+        public async Task<ActionServiceResult> InsertBookDetail(ParameterInsertBook param)
+        {
+            var res = new ActionServiceResult();
+            res.Data = await _libraryBL.InsertBookDetail(param);
+            return res;
+        }
+
+        /// <summary>
+        /// Thêm 1 bản ghi thông tin thể loại sách
+        /// </summary>
+        /// <param name="param">param truyền vào</param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 14/03/2021
+        [HttpGet("InsertBookCategory")]
+        public async Task<ActionServiceResult> InsertBookCategory(ParameterInsertBookCategory param)
+        {
+            var res = new ActionServiceResult();
+            res.Data = await _libraryBL.InsertBookCategory(param);
             return res;
         }
     }

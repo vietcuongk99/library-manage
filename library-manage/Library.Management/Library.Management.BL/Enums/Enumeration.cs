@@ -90,4 +90,16 @@ namespace Library.Management.BL.Enums
         /// </summary>
         Delete
     }
+
+    public enum StatusBook
+    {
+        /// <summary>
+        /// Còn sử dụng
+        /// </summary>
+        Active = 1,
+        /// <summary>
+        /// Không sử dụng
+        /// </summary>
+        DeActive = 0
+    }
 }

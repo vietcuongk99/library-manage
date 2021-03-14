@@ -73,6 +73,7 @@ namespace Library.Management.BL.Models
                     .HasCollation("utf8_unicode_ci");
 
                 entity.Property(e => e.BookCode)
+                    .IsRequired()
                     .HasColumnType("char(20)")
                     .HasComment("Mã sách")
                     .HasCharSet("utf8")
@@ -137,6 +138,7 @@ namespace Library.Management.BL.Models
                 entity.Property(e => e.BookBorrowId)
                     .HasColumnName("BookBorrowID")
                     .HasDefaultValueSql("''")
+                    .HasComment("khóa chính")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_unicode_ci");
 
@@ -215,11 +217,40 @@ namespace Library.Management.BL.Models
                     .HasDefaultValueSql("'0'")
                     .HasComment("Số lượng loại sách");
 
+                entity.Property(e => e.BookCategoryCode)
+                    .IsRequired()
+                    .HasColumnType("char(20)")
+                    .HasComment("Mã loại sách")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
                 entity.Property(e => e.BookCategoryName)
                     .HasColumnType("varchar(255)")
                     .HasComment("Tên thể loại sách")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.CreatedBy)
+                    .IsRequired()
+                    .HasColumnType("varchar(255)")
+                    .HasComment("Người tạo")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                    .HasComment("Ngày tạo");
+
+                entity.Property(e => e.ModifiedBy)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("Người sửa")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnType("datetime")
+                    .HasComment("Ngày sửa");
 
                 entity.Property(e => e.Status)
                     .HasColumnType("bit(1)")
