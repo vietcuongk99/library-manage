@@ -26,7 +26,7 @@ namespace Library.Management.DL.Data.Services
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
             _db.Open();
             var storeName = DatabaseUtility.GeneateStoreName<Book>(ProcdureTypeName.GetById);
-            var entities = _db.QueryFirstOrDefault<Book>(storeName, id, commandType: CommandType.StoredProcedure);
+            var entities = _db.QueryFirstOrDefault<Book>(storeName, new { id }, commandType: CommandType.StoredProcedure);
             _db.Clone();
             return await Task.FromResult(entities);
         }
