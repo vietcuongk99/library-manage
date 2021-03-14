@@ -1,4 +1,5 @@
 using Library.Management.BL.Models;
+using Library.Management.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -30,8 +31,8 @@ namespace Library.Management.Web
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddControllers();
             services.AddMvc();
-            services.AddDbContext<LibrarydbContext>(options => options
-            .UseMySql(LibrarydbContext.Connectionstring,
+            services.AddDbContext<LibraryContext>(options => options
+            .UseMySql(LibraryContext.Connectionstring,
                 mysqlOptions =>
             mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
         }
@@ -47,7 +48,7 @@ namespace Library.Management.Web
             }
 
             app.UseHttpsRedirection();
-
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseRouting();
 
             app.UseAuthorization();
