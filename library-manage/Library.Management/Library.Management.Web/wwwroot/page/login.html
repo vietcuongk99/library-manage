@@ -28,27 +28,33 @@
             </div>
             <form>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
+                    <label for="exampleInputEmail1">Tên người dùng</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
+                    <label for="exampleInputPassword1">Mật khẩu</label>
                     <input type="password" class="form-control" id="exampleInputPassword1">
                 </div>
                 <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    <div class="row">
+                        <div class="col">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Ghi nhớ</label>
+                        </div>
+                        <div class="col">
+                            <a id="changePassword" href="./forget-password.html">Quên mật khẩu?</a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="text-center">
-                    <button type="button" class="btn btn-primary" onclick="window.location.href='index.html'">Submit</button>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='index.html'">Đăng nhập</button>
                 </div>
 
             </form>
 
             <div class="text-center mt-2">
-                <a href="./signup.html">Create an account now</a>
+                <a href="./signup.html">Tạo tài khoản</a>
             </div>
         </div>
         <div class="col-1"></div>

@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Library.Management.BL.Models
 {
-    public partial class LibrarydbContext : DbContext
+    public partial class LibraryContext : DbContext
     {
         public static string Connectionstring = string.Empty;
-        public LibrarydbContext()
+        public LibraryContext()
         {
         }
 
-        public LibrarydbContext(DbContextOptions<LibrarydbContext> options)
+        public LibraryContext(DbContextOptions<LibraryContext> options)
             : base(options)
         {
         }
@@ -19,6 +19,9 @@ namespace Library.Management.BL.Models
         public virtual DbSet<Book> Book { get; set; }
         public virtual DbSet<BookBorrow> BookBorrow { get; set; }
         public virtual DbSet<BookCategory> BookCategory { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserComment> UserComment { get; set; }
+        public virtual DbSet<UserRole> UserRole { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -222,6 +225,186 @@ namespace Library.Management.BL.Models
                     .HasColumnType("bit(1)")
                     .HasDefaultValueSql("b'0'")
                     .HasComment("Trạng thái");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.HasComment("bảng lưu danh sách người dùng");
+
+                entity.Property(e => e.Age)
+                    .HasColumnType("int(11)")
+                    .HasDefaultValueSql("'0'")
+                    .HasComment("tuổi người dùng");
+
+                entity.Property(e => e.AvatarUrl)
+                    .HasColumnType("varchar(255)")
+                    .HasDefaultValueSql("''''''")
+                    .HasComment("url ảnh đại diện")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.Country)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("tên quốc gia")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.CreatedBy)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("người tạo")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.District)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("tên quận, huyện")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.Email)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("email người dùng")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.FirstName)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("tên họ")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.LastName)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("tên riêng và tên đệm")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.ModifiedBy)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("người sửa")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnType("datetime")
+                    .HasComment("ngày sửa");
+
+                entity.Property(e => e.Password)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("mật khẩu")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.Province)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("tên tỉnh, thành phố")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.Status)
+                    .HasColumnType("bit(1)")
+                    .HasDefaultValueSql("b'0'")
+                    .HasComment("trạng thái sử dụng: 0 - không, 1 - có");
+
+                entity.Property(e => e.Street)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("tên đường")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.UserId)
+                    .HasColumnName("UserID")
+                    .HasDefaultValueSql("''")
+                    .HasComment("id người dùng")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.UserName)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("tên người dùng")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+            });
+
+            modelBuilder.Entity<UserComment>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.HasComment("bảng lưu bình luận của người dùng");
+
+                entity.Property(e => e.Comment)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("nội dung bình luận")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.CommentId)
+                    .IsRequired()
+                    .HasColumnName("CommentID")
+                    .HasColumnType("varchar(255)")
+                    .HasDefaultValueSql("''")
+                    .HasComment("id bình luận")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.CreatedBy)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("người tạo")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                    .HasComment("ngày tạo");
+
+                entity.Property(e => e.ModifiedBy)
+                    .HasColumnType("varchar(255)")
+                    .HasComment("người sửa")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnType("datetime")
+                    .HasComment("ngày sửa");
+
+                entity.Property(e => e.Status)
+                    .HasColumnType("bit(1)")
+                    .HasDefaultValueSql("b'0'")
+                    .HasComment("trạng thái sử dụng: 0 - không, 1 - có");
+
+                entity.Property(e => e.UserId)
+                    .HasColumnName("UserID")
+                    .HasColumnType("varchar(255)")
+                    .HasComment("id người dùng")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+            });
+
+            modelBuilder.Entity<UserRole>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.HasComment("bảng lưu quyền người dùng");
+
+                entity.Property(e => e.RoleId)
+                    .HasColumnName("RoleID")
+                    .HasDefaultValueSql("''")
+                    .HasComment("id quyền tài khoản")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.RoleName)
+                    .HasColumnType("varchar(100)")
+                    .HasComment("tên quyền")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
             });
 
             OnModelCreatingPartial(modelBuilder);
