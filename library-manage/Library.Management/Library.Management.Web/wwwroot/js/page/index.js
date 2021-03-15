@@ -3,7 +3,7 @@ $(document).ready(function() {
 })
 
 
-
+//class quản lý các sự kiện trong trang index.html
 class IndexJS extends BaseJS {
     constructor() {
         super();
@@ -61,15 +61,17 @@ class IndexJS extends BaseJS {
     }
 
 
+    //gọi hàm xử lý tất cả các sự kiện trong trang index.html
     initEvent() {
 
+        //xử lý sự kiện khi click vào 1 card sách
         $('#newBookRow').children('div').on('click', 'div.card.h-100', this.cardOnClick)
         $('#hotBookRow').children('div').on('click', 'div.card.h-100', this.cardOnClick)
 
     }
 
 
-    //xử lý sự kiện khi click vào 1 sách
+    //chi tiết xử lý sự kiện khi click vào 1 card sách
     cardOnClick() {
 
         let bookId = $(this).data('bookId')
@@ -83,6 +85,7 @@ class IndexJS extends BaseJS {
 
 
 
+//fake data
 var newBookList = [{
         id: 1,
         url: "../content/img/clean-code.jpg",
