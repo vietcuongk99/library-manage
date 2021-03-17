@@ -9,8 +9,8 @@ namespace Library.Management.Entity.Models
         public string BookCode { get; set; }
         public string BookName { get; set; }
         public Guid BookCategoryId { get; set; }
-        public int Amount { get; set; }
-        public int? ActivedBook { get; set; }
+        public string BookDownloadUri { get; set; }
+        public int? BorrowTotal { get; set; }
         public ulong? Status { get; set; }
         public string BookAuthor { get; set; }
         public int? AmountPage { get; set; }

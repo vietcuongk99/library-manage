@@ -23,20 +23,6 @@ namespace Library.Management.Web
         }
 
         /// <summary>
-        /// Lấy ra dữ liệu bản ghi thông qua khóa chính
-        /// </summary>
-        /// <param name="id">Khóa chính</param>
-        /// <returns></returns>
-        /// CreatedBy: VDDUNG1 14/03/2021
-        [HttpGet("{id}")]
-        public async Task<ActionServiceResult> GetEntities(string id)
-        {
-            var res = new ActionServiceResult();
-            res.Data = await _baseBL.GetEntityById(id);
-            return res;
-        }
-
-        /// <summary>
         /// Thêm 1 bản ghi thông tin cuốn sách
         /// </summary>
         /// <param name="param">param truyền vào</param>

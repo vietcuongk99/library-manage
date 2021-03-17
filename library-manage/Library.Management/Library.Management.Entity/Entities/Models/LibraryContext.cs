@@ -47,17 +47,9 @@ namespace Library.Management.Entity.Models
                     .HasCharSet("utf8")
                     .HasCollation("utf8_unicode_ci");
 
-                entity.Property(e => e.ActivedBook)
-                    .HasColumnType("int(11)")
-                    .HasDefaultValueSql("'0'")
-                    .HasComment("Số sách đã mượn");
-
-                entity.Property(e => e.Amount)
-                    .HasColumnType("int(11)")
-                    .HasComment("Số lượng sách");
-
                 entity.Property(e => e.AmountPage)
                     .HasColumnType("int(11)")
+                    .HasDefaultValueSql("'0'")
                     .HasComment("Tổng số trang");
 
                 entity.Property(e => e.BookAuthor)
@@ -79,12 +71,23 @@ namespace Library.Management.Entity.Models
                     .HasCharSet("utf8")
                     .HasCollation("utf8_unicode_ci");
 
+                entity.Property(e => e.BookDownloadUri)
+                    .HasColumnType("varchar(500)")
+                    .HasComment("link tải tài liệu")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
                 entity.Property(e => e.BookName)
                     .IsRequired()
                     .HasColumnType("varchar(255)")
                     .HasComment("Tên sách")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_unicode_ci");
+
+                entity.Property(e => e.BorrowTotal)
+                    .HasColumnType("int(11)")
+                    .HasDefaultValueSql("'0'")
+                    .HasComment("Số lượt mượn");
 
                 entity.Property(e => e.CreatedBy)
                     .IsRequired()
@@ -122,6 +125,7 @@ namespace Library.Management.Entity.Models
 
                 entity.Property(e => e.YearOfPublication)
                     .HasColumnType("int(11)")
+                    .HasDefaultValueSql("'0'")
                     .HasComment("Năm xuất bản");
 
                 entity.HasOne(d => d.BookCategory)
