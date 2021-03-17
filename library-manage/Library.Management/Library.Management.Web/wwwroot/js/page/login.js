@@ -34,21 +34,23 @@ class LoginJS {
         var validateCheck = this.validateInput()
 
         if (validateCheck) {
+
             //lưu dữ liệu user vào localStorage với giá trị trả về từ API
-            localStorage.setItem("user", JSON.stringify(user))
-                //mở trang index.html
+            localStorage.setItem("user", JSON.stringify(user));
+            //mở trang index.html
             window.open("index.html", "_self")
         } else {
-            var alertDiv = $(`<div class="alert alert-danger" role="alert">Sai tên đăng nhập hoặc mật khẩu.
+            if ($('#alertDiv')) {
+                $('#alertDiv').remove()
+            }
+            var alertDiv = $(`<div id="alertDiv" class="alert alert-danger" role="alert">Sai tên đăng nhập hoặc mật khẩu.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>`)
             alertDiv.insertBefore('#usernameInputDiv')
-            console.log("Đăng nhập thất bại")
+            console.log("Dữ liệu chưa được validated. Đăng nhập thất bại")
         }
-
-
     }
 
     //chi tiết xử lý khi click link "đăng nhập với tư cách khách"
@@ -62,9 +64,9 @@ class LoginJS {
         alert("Hiển thị giao diện signup.html...")
     }
 
-    //validate input của người dùng
+    //chi tiết xử lý validate input của người dùng
     validateInput() {
-        var usernameInput = $('#usernameInput').val();
+        var usernameInput = $('#usernameInput').val()
         var passwordInput = $('#passwordInput').val()
 
         if (!usernameInput || usernameInput.length <= 0 || !passwordInput || passwordInput.length < 5) {

@@ -52,7 +52,7 @@ class IndexJS extends BaseJS {
                 <p class="text-truncate">` + book.bookAuthor + `</p>
             </div></div>`)
 
-            $(hotBookHTML).data('bookId', book.id)
+            hotBookHTML.data('bookId', book.id)
             $(card).append(hotBookHTML)
             $('#hotBookRow').append(card)
         })

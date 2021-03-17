@@ -28,15 +28,87 @@ class ChangePassJS {
 
     //chi tiết xử lý khi click nút "cập nhật"
     updatePassEvent() {
-        let user = {
-            userName: "dinh viet Cuong",
-            avatarUrl: "../content/img/avatar-sample.png",
-            role: "ROLE_ADMIN"
+        if (this.validateInput()) {
+            //lưu dữ liệu user vào localStorage với giá trị trả về từ API
+            localStorage.setItem("user", JSON.stringify(user))
+            window.open("index.html", "_self")
+        } else {
+            console.log("Dữ liệu chưa validated")
         }
 
-        //lưu dữ liệu user vào localStorage với giá trị trả về từ API
-        localStorage.setItem("user", JSON.stringify(user))
 
     }
 
+    validateInput() {
+        var result = true;
+        var emailInput = $('#emailInput').val()
+        var passwordInput = $('#passwordInput').val()
+        var rePasswordInput = $('#rePasswordInput').val()
+
+        //self - invoked
+        //validate email, password của người dùng
+        var emailValid = (function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        })(emailInput)
+
+        var passwordValid = (function validatePassword(password) {
+            return password.length >= 5
+        })(passwordInput)
+
+        if (passwordInput) {
+            var rePasswordValid = (function validateRePassWord(rePassword, password) {
+                return rePassword == password
+            })(rePasswordInput, passwordInput)
+        }
+
+        //xử lý nếu các input không thỏa mãn validate
+        var alertDiv;
+        if (!emailValid) {
+            alertDiv = $(`<small id="alertEmailInput" class="form-text text-danger">Email chưa đúng định dạng.</small>`)
+            if ($('#emailInput').next()) {
+                $('#emailInput').next().remove()
+            }
+            $('#emailInputDiv').append(alertDiv)
+            result = false;
+        } else {
+            if ($('#emailInput').next()) {
+                $('#emailInput').next().remove()
+            }
+        }
+        if (!passwordValid) {
+            alertDiv = $(`<small id="alertPasswordInput" class="form-text text-danger">Mật khẩu cần chứa tối thiểu 5 kí tự.</small>`)
+            if ($('#passwordInput').next()) {
+                $('#passwordInput').next().remove()
+            }
+            $('#passwordInputDiv').append(alertDiv)
+            result = false;
+        } else {
+            if ($('#passwordInput').next()) {
+                $('#passwordInput').next().remove()
+            }
+        }
+        if (!rePasswordValid && passwordInput) {
+            alertDiv = $(`<small id="alertRePassInput" class="form-text text-danger">Nhập lại mật khẩu chưa đúng.</small>`)
+            if ($('#rePasswordInput').next()) {
+                $('#rePasswordInput').next().remove()
+            }
+            $('#rePasswordInputDiv').append(alertDiv)
+            result = false;
+        } else {
+            if ($('#rePasswordInput').next()) {
+                $('#rePasswordInput').next().remove()
+            }
+        }
+
+        return result;
+
+    }
+
+}
+
+var user = {
+    userName: "dinh viet Cuong",
+    avatarUrl: "../content/img/avatar-sample.png",
+    role: "ROLE_ADMIN"
 }
