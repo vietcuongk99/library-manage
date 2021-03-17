@@ -1,5 +1,6 @@
 ﻿using Library.Management.BL;
 using Library.Management.Entity;
+using Library.Management.Entity.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,11 +12,13 @@ namespace Library.Management.Web
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookDetailController : ControllerBase
+    public class BookDetailController : BaseController<Book>
     {
+        private new readonly IBaseBL<Book> _baseBL;
         private readonly IBookDetailBL _bookDetailBL;
-        public BookDetailController(IBookDetailBL bookDetailBL)
+        public BookDetailController(IBaseBL<Book> baseBL, IBookDetailBL bookDetailBL) : base(baseBL)
         {
+            _baseBL = baseBL;
             _bookDetailBL = bookDetailBL;
         }
 
@@ -29,7 +32,7 @@ namespace Library.Management.Web
         public async Task<ActionServiceResult> GetEntities(string id)
         {
             var res = new ActionServiceResult();
-            res.Data = await _bookDetailBL.GetEntitiesByID(id);
+            res.Data = await _baseBL.GetEntityById(id);
             return res;
         }
 
@@ -39,11 +42,11 @@ namespace Library.Management.Web
         /// <param name="param">param truyền vào</param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 14/03/2021
-        [HttpGet("InsertBookDetail")]
+        [HttpPost("InsertBookDetail")]
         public async Task<ActionServiceResult> InsertBookDetail(ParameterInsertBook param)
         {
             var res = new ActionServiceResult();
-            res.Data = await _bookDetailBL.InsertBookDetail(param);
+            res.Data = await _baseBL.Insert(param);
             return res;
         }
 
@@ -53,7 +56,7 @@ namespace Library.Management.Web
         /// <param name="param">param truyền vào</param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 14/03/2021
-        [HttpGet("InsertBookCategory")]
+        [HttpPost("InsertBookCategory")]
         public async Task<ActionServiceResult> InsertBookCategory(ParameterInsertBookCategory param)
         {
             var res = new ActionServiceResult();

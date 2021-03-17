@@ -19,21 +19,6 @@ namespace Library.Management.DL
         {
             _config = config;
         }
-        /// <summary>
-        /// Lấy ra dữ liệu bản ghi thông qua khóa chính
-        /// </summary>
-        /// <param name="id">Khóa chính</param>
-        /// <returns></returns>
-        /// CreatedBy: VDDUNG1 14/03/2021
-        public async Task<Book> GetEntitiesByID(string id)
-        {
-            var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
-            _db.Open();
-            var storeName = DatabaseUtility.GeneateStoreName<Book>(ProcdureTypeName.GetById);
-            var entities = _db.QueryFirstOrDefault<Book>(storeName, new { id }, commandType: CommandType.StoredProcedure);
-            _db.Clone();
-            return await Task.FromResult(entities);
-        }
 
         /// <summary>
         /// Thêm 1 bản ghi thông tin cuốn sách

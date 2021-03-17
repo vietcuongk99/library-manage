@@ -9,13 +9,6 @@ namespace Library.Management.BL
 {
     public interface IBookDetailBL
     {
-        /// <summary>
-        /// Lấy ra dữ liệu bản ghi thông qua khóa chính
-        /// </summary>
-        /// <param name="id">Khóa chính</param>
-        /// <returns></returns>
-        /// CreatedBy: VDDUNG1 14/03/2021
-        Task<Book> GetEntitiesByID(string id);
 
         /// <summary>
         /// Thêm 1 bản ghi thông tin cuốn sách

@@ -16,16 +16,6 @@ namespace Library.Management.BL
         {
             _bookDetailDL = bookDetailDL;
         }
-        /// <summary>
-        /// Lấy ra dữ liệu bản ghi thông qua khóa chính
-        /// </summary>
-        /// <param name="id">Khóa chính</param>
-        /// <returns></returns>
-        /// CreatedBy: VDDUNG1 14/03/2021
-        public async Task<Book> GetEntitiesByID(string id)
-        {
-            return await _bookDetailDL.GetEntitiesByID(id);
-        }
 
         /// <summary>
         /// Thêm 1 bản ghi thông tin cuốn sách

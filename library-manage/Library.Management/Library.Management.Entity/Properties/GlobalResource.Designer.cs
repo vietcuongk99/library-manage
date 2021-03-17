@@ -70,6 +70,24 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thêm mới không thành công.
+        /// </summary>
+        public static string ErrorAddEntity {
+            get {
+                return ResourceManager.GetString("ErrorAddEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xóa dữ liệu không thành công.
+        /// </summary>
+        public static string ErrorDeleteEntity {
+            get {
+                return ResourceManager.GetString("ErrorDeleteEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lỗi Exception.
         /// </summary>
         public static string Exception {
@@ -79,11 +97,29 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lỗi không tìm thấy dữ liệu.
+        /// </summary>
+        public static string NotFound {
+            get {
+                return ResourceManager.GetString("NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thành công.
         /// </summary>
         public static string Success {
             get {
                 return ResourceManager.GetString("Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lỗi validate dữ liệu không hợp lệ.
+        /// </summary>
+        public static string ValidateEntity {
+            get {
+                return ResourceManager.GetString("ValidateEntity", resourceCulture);
             }
         }
     }

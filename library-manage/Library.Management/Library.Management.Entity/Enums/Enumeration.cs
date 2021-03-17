@@ -57,6 +57,14 @@ namespace Library.Management.Entity
         /// Lỗi Exception
         /// </summary>
         Exception = 500,
+        /// <summary>
+        /// Thêm mới không thành công
+        /// </summary>
+        ErrorAddEntity = 600,
+        /// <summary>
+        /// Xóa bản ghi không thành công
+        /// </summary>
+        ErrorDeleteEntity = 601
     }
 
     /// <summary>

@@ -38,6 +38,8 @@ namespace Library.Management.Web
                 mysqlOptions =>
             mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
 
+            services.AddScoped(typeof(IBaseBL<>), typeof(BaseBL<>));
+            services.AddScoped(typeof(IBaseDL<>), typeof(BaseDL<>));
             services.AddScoped<IBookDetailBL, BookDetailBL>();
             services.AddScoped<IBookDetailDL, BookDetailDL>();
         }
