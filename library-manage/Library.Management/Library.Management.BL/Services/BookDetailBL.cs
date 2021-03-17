@@ -1,22 +1,20 @@
-﻿using Library.Management.BL.Entities.Request;
-using Library.Management.BL.Entities.Response;
-using Library.Management.BL.Enums;
-using Library.Management.BL.Interfaces;
-using Library.Management.BL.Models;
-using Library.Management.BL.Properties;
+﻿using Library.Management.DL;
+using Library.Management.Entity;
+using Library.Management.Entity.Models;
+using Library.Management.Entity.Properties;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Management.BL.Services
+namespace Library.Management.BL
 {
-    public class LibraryBL : ILibraryBL
+    public class BookDetailBL : IBookDetailBL
     {
-        private readonly ILibraryDL _libraryDL;
-        public LibraryBL(ILibraryDL libraryDL)
+        private readonly IBookDetailDL _bookDetailDL;
+        public BookDetailBL(IBookDetailDL bookDetailDL)
         {
-            _libraryDL = libraryDL;
+            _bookDetailDL = bookDetailDL;
         }
         /// <summary>
         /// Lấy ra dữ liệu bản ghi thông qua khóa chính
@@ -26,7 +24,7 @@ namespace Library.Management.BL.Services
         /// CreatedBy: VDDUNG1 14/03/2021
         public async Task<Book> GetEntitiesByID(string id)
         {
-            return await _libraryDL.GetEntitiesByID(id);
+            return await _bookDetailDL.GetEntitiesByID(id);
         }
 
         /// <summary>
@@ -47,7 +45,7 @@ namespace Library.Management.BL.Services
                 Success = true,
                 Message = GlobalResource.Success,
                 LibraryCode = LibraryCode.Success,
-                Data = await _libraryDL.InsertBookDetail(param)
+                Data = await _bookDetailDL.InsertBookDetail(param)
             };
         }
 
@@ -66,7 +64,7 @@ namespace Library.Management.BL.Services
                 Success = true,
                 Message = GlobalResource.Success,
                 LibraryCode = LibraryCode.Success,
-                Data = await _libraryDL.InsertBookCategory(param)
+                Data = await _bookDetailDL.InsertBookCategory(param)
             };
         }
     }

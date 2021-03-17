@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <Content Include="APIContollers\Base\BaseController.cs" />
-    <Content Include="APIContollers\Library\LibraryController.cs" />
+    <Content Include="APIContollers\Library\BookDetailController.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Library.Management.BL\Library.Management.BL.csproj" />
     <ProjectReference Include="..\Library.Management.DL\Library.Management.DL.csproj" />
+    <ProjectReference Include="..\Library.Management.Entity\Library.Management.Entity.csproj" />
   </ItemGroup>
 
 </Project>

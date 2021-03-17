@@ -1,6 +1,5 @@
-﻿using Library.Management.BL.Entities.Response;
-using Library.Management.BL.Enums;
-using Library.Management.BL.Properties;
+﻿using Library.Management.Entity;
+using Library.Management.Entity.Properties;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;

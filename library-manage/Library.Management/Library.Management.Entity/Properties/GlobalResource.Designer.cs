@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Library.Management.BL.Properties {
+namespace Library.Management.Entity.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Library.Management.BL.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Library.Management.BL.Properties.GlobalResource", typeof(GlobalResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Library.Management.Entity.Properties.GlobalResource", typeof(GlobalResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

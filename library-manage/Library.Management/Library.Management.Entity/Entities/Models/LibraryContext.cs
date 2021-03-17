@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Library.Management.BL.Models
+namespace Library.Management.Entity.Models
 {
     public partial class LibraryContext : DbContext
     {

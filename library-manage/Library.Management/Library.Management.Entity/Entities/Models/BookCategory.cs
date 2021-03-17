@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Library.Management.BL.Models
+namespace Library.Management.Entity.Models
 {
     public partial class BookCategory
     {

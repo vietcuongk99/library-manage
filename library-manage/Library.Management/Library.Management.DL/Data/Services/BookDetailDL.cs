@@ -1,10 +1,7 @@
 ﻿using Dapper;
-using Library.Management.BL.Entities.Request;
-using Library.Management.BL.Entities.Response;
-using Library.Management.BL.Enums;
-using Library.Management.BL.Interfaces;
-using Library.Management.BL.Models;
 using Library.Management.DL.DbContext;
+using Library.Management.Entity;
+using Library.Management.Entity.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
@@ -13,12 +10,12 @@ using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Management.DL.Data.Services
+namespace Library.Management.DL
 {
-    public class LibraryDL: ILibraryDL
+    public class BookDetailDL: IBookDetailDL
     {
         private readonly IConfiguration _config;
-        public LibraryDL(IConfiguration config)
+        public BookDetailDL(IConfiguration config)
         {
             _config = config;
         }

@@ -1,6 +1,5 @@
-﻿using Library.Management.BL.Entities.Request;
-using Library.Management.BL.Entities.Response;
-using Library.Management.BL.Interfaces;
+﻿using Library.Management.BL;
+using Library.Management.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,16 +7,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Library.Management.Web.Controllers.Library
+namespace Library.Management.Web
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LibraryController : ControllerBase
+    public class BookDetailController : ControllerBase
     {
-        private readonly ILibraryBL _libraryBL;
-        public LibraryController(ILibraryBL libraryBL)
+        private readonly IBookDetailBL _bookDetailBL;
+        public BookDetailController(IBookDetailBL bookDetailBL)
         {
-            _libraryBL = libraryBL;
+            _bookDetailBL = bookDetailBL;
         }
 
         /// <summary>
@@ -30,7 +29,7 @@ namespace Library.Management.Web.Controllers.Library
         public async Task<ActionServiceResult> GetEntities(string id)
         {
             var res = new ActionServiceResult();
-            res.Data = await _libraryBL.GetEntitiesByID(id);
+            res.Data = await _bookDetailBL.GetEntitiesByID(id);
             return res;
         }
 
@@ -44,7 +43,7 @@ namespace Library.Management.Web.Controllers.Library
         public async Task<ActionServiceResult> InsertBookDetail(ParameterInsertBook param)
         {
             var res = new ActionServiceResult();
-            res.Data = await _libraryBL.InsertBookDetail(param);
+            res.Data = await _bookDetailBL.InsertBookDetail(param);
             return res;
         }
 
@@ -58,7 +57,7 @@ namespace Library.Management.Web.Controllers.Library
         public async Task<ActionServiceResult> InsertBookCategory(ParameterInsertBookCategory param)
         {
             var res = new ActionServiceResult();
-            res.Data = await _libraryBL.InsertBookCategory(param);
+            res.Data = await _bookDetailBL.InsertBookCategory(param);
             return res;
         }
     }

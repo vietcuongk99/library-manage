@@ -1,14 +1,13 @@
-﻿using Library.Management.BL.Entities.Request;
-using Library.Management.BL.Entities.Response;
-using Library.Management.BL.Models;
+﻿using Library.Management.Entity;
+using Library.Management.Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Management.BL.Interfaces
+namespace Library.Management.DL
 {
-    public interface ILibraryBL
+    public interface IBookDetailDL
     {
         /// <summary>
         /// Lấy ra dữ liệu bản ghi thông qua khóa chính
@@ -24,7 +23,7 @@ namespace Library.Management.BL.Interfaces
         /// <param name="param">param truyền vào</param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 14/03/2021
-        Task<ActionServiceResult> InsertBookDetail(ParameterInsertBook param);
+        Task<object> InsertBookDetail(ParameterInsertBook param);
 
         /// <summary>
         /// Thêm 1 bản ghi thông tin thể loại sách
@@ -32,6 +31,6 @@ namespace Library.Management.BL.Interfaces
         /// <param name="param">param truyền vào</param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 14/03/2021
-        Task<ActionServiceResult> InsertBookCategory(ParameterInsertBookCategory param);
+        Task<object> InsertBookCategory(ParameterInsertBookCategory param);
     }
 }

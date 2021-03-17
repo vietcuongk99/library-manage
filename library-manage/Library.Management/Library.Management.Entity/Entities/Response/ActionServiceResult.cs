@@ -1,10 +1,9 @@
-﻿using Library.Management.BL.Enums;
-using Library.Management.BL.Properties;
+﻿using Library.Management.Entity.Properties;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Library.Management.BL.Entities.Response
+namespace Library.Management.Entity
 {
     public class ActionServiceResult
     {

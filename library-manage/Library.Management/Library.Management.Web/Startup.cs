@@ -1,7 +1,6 @@
-using Library.Management.BL.Interfaces;
-using Library.Management.BL.Models;
-using Library.Management.BL.Services;
-using Library.Management.DL.Data.Services;
+using Library.Management.BL;
+using Library.Management.DL;
+using Library.Management.Entity.Models;
 using Library.Management.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,8 +38,8 @@ namespace Library.Management.Web
                 mysqlOptions =>
             mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
 
-            services.AddScoped<ILibraryBL, LibraryBL>();
-            services.AddScoped<ILibraryDL, LibraryDL>();
+            services.AddScoped<IBookDetailBL, BookDetailBL>();
+            services.AddScoped<IBookDetailDL, BookDetailDL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

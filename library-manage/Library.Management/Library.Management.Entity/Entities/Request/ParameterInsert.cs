@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Library.Management.BL.Entities.Request
+namespace Library.Management.Entity
 {
     public class ParameterInsertBook
     {

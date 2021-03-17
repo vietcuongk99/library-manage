@@ -1,4 +1,4 @@
-﻿using Library.Management.BL.Enums;
+﻿using Library.Management.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
