@@ -1,14 +1,14 @@
 $(document).ready(function() {
-
-    signUpJS = new SignUpJS()
+    changePassJS = new ChangePassJS()
 })
 
 
-//class quản lý các sự kiện trang signup.html
-class SignUpJS {
+//class quản lý các sự kiện trang change-pass.html
+class ChangePassJS {
 
 
     constructor() {
+        console.log("pass")
         this.loadData()
         this.initEvent()
     }
@@ -19,17 +19,15 @@ class SignUpJS {
         localStorage.clear()
     }
 
-    //gán sự kiện cho các thẻ liên quan trên trang signup.html
+    //gán sự kiện cho các thẻ liên quan trên trang change-pass.html
     initEvent() {
-        //bind đối tượng this cho hàm của signupJS Object
-        $('#signUpBtn').on('click', this.signUpEvent.bind(this))
+        //bind đối tượng this cho hàm của changePassJS Object
+        $('#confirmBtn').on('click', this.updatePassEvent.bind(this))
 
     }
 
     //chi tiết xử lý khi click nút "cập nhật"
-    signUpEvent() {
-
-
+    updatePassEvent() {
         let user = {
             userName: "dinh viet Cuong",
             avatarUrl: "../content/img/avatar-sample.png",
@@ -38,6 +36,7 @@ class SignUpJS {
 
         //lưu dữ liệu user vào localStorage với giá trị trả về từ API
         localStorage.setItem("user", JSON.stringify(user))
+
     }
 
 }

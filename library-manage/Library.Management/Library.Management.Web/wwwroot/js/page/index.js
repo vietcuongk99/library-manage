@@ -7,7 +7,6 @@ $(document).ready(function() {
 class IndexJS extends BaseJS {
     constructor() {
         super();
-
         this.loadBookData();
         this.initEvent();
 
