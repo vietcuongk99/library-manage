@@ -32,7 +32,7 @@ namespace Library.Management.Web
         public async Task<ActionServiceResult> InsertBookDetail(ParameterInsertBook param)
         {
             var res = new ActionServiceResult();
-            res.Data = await _baseBL.Insert(param);
+            res.Data = await _bookDetailBL.InsertBookDetail(param);
             return res;
         }
 

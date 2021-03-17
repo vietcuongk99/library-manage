@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\content\" />
+    <Folder Include="~Temp\FileImage\" />
+    <Folder Include="~Temp\FileInfo\" />
   </ItemGroup>
 
   <ItemGroup>

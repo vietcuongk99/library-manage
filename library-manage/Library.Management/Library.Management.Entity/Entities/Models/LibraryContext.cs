@@ -77,6 +77,12 @@ namespace Library.Management.Entity.Models
                     .HasCharSet("utf8")
                     .HasCollation("utf8_unicode_ci");
 
+                entity.Property(e => e.BookImageUri)
+                    .HasColumnType("varchar(500)")
+                    .HasComment("đường dẫn ảnh bìa sách")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_unicode_ci");
+
                 entity.Property(e => e.BookName)
                     .IsRequired()
                     .HasColumnType("varchar(255)")

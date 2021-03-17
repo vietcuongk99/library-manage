@@ -12,8 +12,10 @@ namespace Library.Management.BL
     public class BookDetailBL : IBookDetailBL
     {
         private readonly IBookDetailDL _bookDetailDL;
-        public BookDetailBL(IBookDetailDL bookDetailDL)
+        private readonly IBaseDL<Book> _baseDL;
+        public BookDetailBL(IBaseDL<Book> baseDL, IBookDetailDL bookDetailDL)
         {
+            _baseDL = baseDL;
             _bookDetailDL = bookDetailDL;
         }
 
@@ -35,7 +37,7 @@ namespace Library.Management.BL
                 Success = true,
                 Message = GlobalResource.Success,
                 LibraryCode = LibraryCode.Success,
-                Data = await _bookDetailDL.InsertBookDetail(param)
+                Data = await _baseDL.AddAsync(param)
             };
         }
 
