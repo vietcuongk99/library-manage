@@ -1,4 +1,3 @@
-const host = "https://localhost:44328/"
 $(document).ready(function() {
     bookDetailJS = new BookDetailJS()
 })

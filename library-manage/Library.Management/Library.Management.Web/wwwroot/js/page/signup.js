@@ -1,3 +1,4 @@
+const host = "https://localhost:44328/"
 $(document).ready(function() {
     // xóa bỏ dữ liệu cũ trong localStorage
     localStorage.clear()
