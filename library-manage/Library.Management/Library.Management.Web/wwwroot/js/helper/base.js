@@ -1,3 +1,5 @@
+const host = "https://localhost:44328/"
+
 $(document).ready(function() {
 
 })
@@ -21,10 +23,12 @@ class BaseJS {
 
             var userName = userObject.userName;
             var userAvatarURL = userObject.avatarUrl;
+            var adminUrl = host + "admin"
             console.log(userName)
 
             //khai báo các thành phần html
-            var manageSystemBtn = `<li class="nav-item"><a class="nav-link" href="admin.html">Quản lý hệ thống</a></li>`
+
+            var manageSystemBtn = `<li class="nav-item"><a class="nav-link" href="` + adminUrl + `">Quản lý hệ thống</a></li>`
 
             var dropDownAction = `<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAvatar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
