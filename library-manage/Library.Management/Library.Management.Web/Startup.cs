@@ -43,11 +43,6 @@ namespace Library.Management.Web
                 var xmlFile = Path.ChangeExtension(typeof(Startup).Assembly.Location, ".xml");
             });
 
-            services.AddDbContext<LibraryContext>(options => options
-            .UseMySql(LibraryContext.Connectionstring,
-                mysqlOptions =>
-            mysqlOptions.ServerVersion(new ServerVersion(new Version(10, 4, 6), ServerType.MariaDb))));
-
             services.AddScoped(typeof(IBaseBL<>), typeof(BaseBL<>));
             services.AddScoped(typeof(IBaseDL<>), typeof(BaseDL<>));
 

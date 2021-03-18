@@ -5,11 +5,6 @@ namespace Library.Management.Entity.Models
 {
     public partial class BookCategory
     {
-        public BookCategory()
-        {
-            Book = new HashSet<Book>();
-        }
-
         public Guid BookCategoryId { get; set; }
         public string BookCategoryCode { get; set; }
         public string BookCategoryName { get; set; }
@@ -20,6 +15,5 @@ namespace Library.Management.Entity.Models
         public DateTime? ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
 
-        public virtual ICollection<Book> Book { get; set; }
     }
 }

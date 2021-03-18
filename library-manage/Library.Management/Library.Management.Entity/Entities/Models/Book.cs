@@ -21,7 +21,5 @@ namespace Library.Management.Entity.Models
         public string CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
-
-        public virtual BookCategory BookCategory { get; set; }
     }
 }
