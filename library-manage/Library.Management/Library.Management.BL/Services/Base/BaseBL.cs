@@ -66,7 +66,7 @@ namespace Library.Management.BL
         /// CreatedBy: VDDUNG1 17/03/2021
         public async virtual Task<int> Delete(object id)
         {
-            return await _baseDL.Delete(new object[] { id });
+            return await _baseDL.Delete(id);
         }
     }
 }

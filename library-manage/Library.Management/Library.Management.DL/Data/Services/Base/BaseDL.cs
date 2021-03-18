@@ -27,10 +27,8 @@ namespace Library.Management.DL
         public async Task<T> GetEntityById(string id)
         {
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
-            _db.Open();
             var storeName = DatabaseUtility.GeneateStoreName<T>(ProcdureTypeName.GetById);
             var entities = _db.QueryFirstOrDefault<T>(storeName, new { id }, commandType: CommandType.StoredProcedure);
-            _db.Clone();
             return await Task.FromResult(entities);
         }
         /// <summary>
@@ -42,10 +40,8 @@ namespace Library.Management.DL
         public async Task<object> AddAsync(object param)
         {
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
-            _db.Open();
             var storeName = DatabaseUtility.GeneateStoreName<T>(ProcdureTypeName.Insert);
             var entities = _db.Query<T>(storeName, param, commandType: CommandType.StoredProcedure);
-            _db.Clone();
             return await Task.FromResult(entities);
         }
         /// <summary>
@@ -57,10 +53,8 @@ namespace Library.Management.DL
         public async Task<object> UpdateAsync(object param)
         {
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
-            _db.Open();
             var storeName = DatabaseUtility.GeneateStoreName<T>(ProcdureTypeName.Update);
             var entities = _db.Query<T>(storeName, param, commandType: CommandType.StoredProcedure);
-            _db.Clone();
             return await Task.FromResult(entities);
         }
 
@@ -70,13 +64,11 @@ namespace Library.Management.DL
         /// <param name="listID">List ID bản ghi</param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 17/03/2021
-        public async Task<int> Delete(object[] param)
+        public async Task<int> Delete(object id)
         {
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
-            _db.Open();
             var storeName = DatabaseUtility.GeneateStoreName<T>(ProcdureTypeName.Delete);
-            var entities = _db.Query<T>(storeName, param, commandType: CommandType.StoredProcedure);
-            _db.Clone();
+            var entities = _db.Query<T>(storeName, new { id }, commandType: CommandType.StoredProcedure);
             if (entities != null)
             {
                 return 1;

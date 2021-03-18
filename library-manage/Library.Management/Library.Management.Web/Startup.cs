@@ -50,8 +50,12 @@ namespace Library.Management.Web
 
             services.AddScoped(typeof(IBaseBL<>), typeof(BaseBL<>));
             services.AddScoped(typeof(IBaseDL<>), typeof(BaseDL<>));
+
             services.AddScoped<IBookDetailBL, BookDetailBL>();
             services.AddScoped<IBookDetailDL, BookDetailDL>();
+
+            services.AddScoped<IBookCategoryBL, BookCategoryBL>();
+            services.AddScoped<IBookCategoryDL, BookCategoryDL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

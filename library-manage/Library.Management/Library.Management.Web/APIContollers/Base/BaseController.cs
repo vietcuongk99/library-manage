@@ -145,6 +145,10 @@ namespace Library.Management.Web
                     response.Success = true;
                     response.Message = GlobalResource.Success;
                     response.LibraryCode = LibraryCode.Success;
+                    response.Data = new
+                    {
+                        TotalCountDelete = totalVoucherGroupDeleted
+                    };
                 }
             }
             return response;

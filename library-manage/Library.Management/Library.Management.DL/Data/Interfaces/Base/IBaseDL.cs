@@ -35,6 +35,6 @@ namespace Library.Management.DL
         /// <param name="listID">List ID bản ghi</param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 17/03/2021
-        Task<int> Delete(object[] param);
+        Task<int> Delete(object id);
     }
 }

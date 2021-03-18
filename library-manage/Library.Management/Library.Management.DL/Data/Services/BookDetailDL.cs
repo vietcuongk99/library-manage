@@ -29,10 +29,8 @@ namespace Library.Management.DL
         public async Task<object> InsertBookDetail(ParameterInsertBook param)
         {
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
-            _db.Open();
             var storeName = DatabaseUtility.GeneateStoreName<Book>(ProcdureTypeName.Insert);
             var entities = _db.Query<Book>(storeName, param, commandType: CommandType.StoredProcedure);
-            _db.Clone();
             return await Task.FromResult(entities);
         }
 
@@ -45,10 +43,8 @@ namespace Library.Management.DL
         public async Task<object> InsertBookCategory(ParameterInsertBookCategory param)
         {
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
-            _db.Open();
             var storeName = DatabaseUtility.GeneateStoreName<BookCategory>(ProcdureTypeName.Insert);
             var entities = _db.Query<BookCategory>(storeName, param, commandType: CommandType.StoredProcedure);
-            _db.Clone();
             return await Task.FromResult(entities);
         }
     }
