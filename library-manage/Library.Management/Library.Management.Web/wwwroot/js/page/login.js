@@ -1,4 +1,7 @@
 $(document).ready(function() {
+    //xóa dữ liệu user cũ trong localStorage
+    localStorage.clear()
+
     loginJS = new LoginJS()
 
 })
@@ -13,11 +16,7 @@ class LoginJS {
     }
 
 
-    loadData() {
-        //xóa dữ liệu user cũ trong localStorage
-        localStorage.clear()
-
-    }
+    loadData() {}
 
     //gán sự kiện cho các thẻ liên quan trên trang login.html
     initEvent() {
@@ -66,8 +65,8 @@ class LoginJS {
 
     //chi tiết xử lý validate input của người dùng
     validateInput() {
-        var usernameInput = $('#usernameInput').val()
-        var passwordInput = $('#passwordInput').val()
+        var usernameInput = $('#usernameInput').val().trim()
+        var passwordInput = $('#passwordInput').val().trim()
 
         if (!usernameInput || usernameInput.length <= 0 || !passwordInput || passwordInput.length < 5) {
             return false

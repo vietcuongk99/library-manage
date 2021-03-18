@@ -50,13 +50,13 @@
         <form class="form-inline">
             <div class="form-group mx-auto mb-3">
                 <select id="searchSelectGroup" class="custom-select custom-select-sm ml-1">
-                <option selected>Mọi trường</option>
+                <option value="0" selected>Mọi trường</option>
                 <option value="1">Tên sách</option>
                 <option value="2">Loại sách</option>
                 <option value="3">Năm xuất bản</option>
               </select>
-                <input class="form-control form-control-sm ml-1" type="text" placeholder="...">
-                <button id="searchBtn" type="button" class="btn btn-outline-light btn-sm ml-1" onclick="window.location.href='search-result.html'">Tìm kiếm</button>
+                <input id="searchInput" class="form-control form-control-sm ml-1" type="text" placeholder="...">
+                <button id="searchBtn" type="button" class="btn btn-outline-light btn-sm ml-1">Tìm kiếm</button>
             </div>
         </form>
     </header>
@@ -109,7 +109,7 @@
 
         <!-- new book Section -->
         <h3 class="text-uppercase d-inline-flex align-middle">Sách mới</h3>
-        <button type="button" class="btn btn-outline-success btn-sm d-inline ml-1 align-mid">Xem thêm</button>
+        <button id="showNewBookBtn" type="button" class="btn btn-outline-success btn-sm d-inline ml-1 align-mid">Xem thêm</button>
 
         <div id="newBookRow" class="row mt-2">
             <!-- nội dung sách mới ở đây -->
@@ -120,7 +120,7 @@
 
         <!-- hot book Section -->
         <h3 class="text-uppercase d-inline-flex align-middle">Sách hot</h3>
-        <button type="button" class="btn btn-outline-success btn-sm d-inline ml-1 align-middle">Xem thêm</button>
+        <button id="showHotBookBtn" type="button" class="btn btn-outline-success btn-sm d-inline ml-1 align-middle">Xem thêm</button>
 
         <div id="hotBookRow" class="row mt-2">
             <!-- nội dung sách hot ở đây -->

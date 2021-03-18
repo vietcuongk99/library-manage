@@ -1,11 +1,13 @@
 $(document).ready(function() {
+    // xóa bỏ dữ liệu cũ trong localStorage
+    localStorage.clear()
+
     changePassJS = new ChangePassJS()
 })
 
 
 //class quản lý các sự kiện trang change-pass.html
 class ChangePassJS {
-
 
     constructor() {
         console.log("pass")
@@ -14,10 +16,7 @@ class ChangePassJS {
     }
 
 
-    loadData() {
-        // xóa bỏ dữ liệu cũ trong localStorage
-        localStorage.clear()
-    }
+    loadData() {}
 
     //gán sự kiện cho các thẻ liên quan trên trang change-pass.html
     initEvent() {
@@ -39,11 +38,12 @@ class ChangePassJS {
 
     }
 
+    //chi tiết xử lý validate dữ liệu
     validateInput() {
         var result = true;
-        var emailInput = $('#emailInput').val()
-        var passwordInput = $('#passwordInput').val()
-        var rePasswordInput = $('#rePasswordInput').val()
+        var emailInput = $('#emailInput').val().trim()
+        var passwordInput = $('#passwordInput').val().trim()
+        var rePasswordInput = $('#rePasswordInput').val().trim()
 
         //self - invoked
         //validate email, password của người dùng

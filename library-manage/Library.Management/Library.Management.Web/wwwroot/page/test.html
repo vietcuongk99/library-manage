@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../content/vendor/jquery/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            loadData()
+        })
+
+        function loadData() {
+            $.ajax({
+                method: "GET",
+                url: "http://127.0.0.1:2020/api/products/all",
+                async: true,
+                contentType: "application/json"
+            }).done(function(res, xhr) {
+                if (res && xhr.status) {
+                    $.each(res, function(index, object) {
+                        var contentHTML = $(`<p>Tên sản phẩm: ` + object.vietnameseName + `</p>
+                                            <br>
+                                            <p>Id sản phẩm: ` + object.id + `</p>`)
+                        $('body').append(contentHTML)
+                    })
+
+                } else {
+                    console.log(xhr.status)
+                    console.log("Failed to load data")
+                }
+            }).fail(function(res) {
+
+            })
+        }
+    </script>
+</body>
+
+</html>

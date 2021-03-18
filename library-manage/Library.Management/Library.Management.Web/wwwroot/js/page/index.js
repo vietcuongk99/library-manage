@@ -1,4 +1,10 @@
 $(document).ready(function() {
+    //xóa thông tin tìm kiếm cũ trong localStorage
+    localStorage.removeItem("fieldValue")
+    localStorage.removeItem("searchContent")
+    localStorage.removeItem("showHotBook")
+    localStorage.removeItem("showNewBook")
+
     indexJS = new IndexJS()
 })
 
@@ -63,11 +69,19 @@ class IndexJS extends BaseJS {
     //gọi hàm xử lý tất cả các sự kiện trong trang index.html
     initEvent() {
 
-        //xử lý sự kiện khi click vào 1 card sách
+        //gán xử lý sự kiện khi click nút Tìm kiếm
+        $('#searchBtn').on('click', this.searchEvent.bind(this));
+        //gán xử lý sự kiện khi click nút Xem thêm Sách HOT
+        $('#showHotBookBtn').on('click', this.getAllHotBookEvent.bind(this));
+        //gán xử lý sự kiện khi click nút Xem thêm Sách Mới
+        $('#showNewBookBtn').on('click', this.getAllNewBookEvent.bind(this));
+        //gán xử lý sự kiện khi click vào 1 card sách
         $('#newBookRow').children('div').on('click', 'div.card.h-100', this.cardOnClick)
         $('#hotBookRow').children('div').on('click', 'div.card.h-100', this.cardOnClick)
 
     }
+
+
 
 
     //chi tiết xử lý sự kiện khi click vào 1 card sách
@@ -78,11 +92,43 @@ class IndexJS extends BaseJS {
         console.log(this)
     }
 
+    //chi tiết xử lý sự kiện khi click nút xem thêm SÁCH HOT
+    getAllHotBookEvent() {
+        localStorage.setItem("showHotBook", true)
+        window.open("search-result.html", "_self")
+    }
+
+
+    //chi tiết xử lý sự kiện khi click nút xem thêm SÁCH HOT
+    getAllNewBookEvent() {
+        localStorage.setItem("showNewBook", true)
+        window.open("search-result.html", "_self")
+    }
+
+    //chi tiết xử lý sự kiện khi click vào nút Tìm kiếm
+    searchEvent() {
+
+        //lấy thông tin tìm kiếm hiện tại
+        var fieldValue = $('#searchSelectGroup').val()
+        var fieldHTML = $('#searchSelectGroup option:selected').text()
+        var searchContent = $('#searchInput').val().trim()
+
+        if (!searchContent) {
+            alert("Hiển thị tất cả đầu sách có trong cơ sở dữ liệu")
+            window.open("search-result.html", "_self")
+        } else {
+
+            //lưu thông tin tìm kiếm vào localStorage
+            //hiển thị tại trang search-result.html
+            localStorage.setItem("fieldValue", fieldHTML)
+            localStorage.setItem("searchContent", searchContent)
+            window.open("search-result.html", "_self")
+        }
+
+    }
+
 
 }
-
-
-
 
 //fake data
 var newBookList = [{

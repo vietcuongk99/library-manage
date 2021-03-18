@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    // xóa bỏ dữ liệu cũ trong localStorage
+    localStorage.clear()
 
     signUpJS = new SignUpJS()
 })
@@ -14,10 +16,7 @@ class SignUpJS {
     }
 
 
-    loadData() {
-        // xóa bỏ dữ liệu cũ trong localStorage
-        localStorage.clear()
-    }
+    loadData() {}
 
     //gán sự kiện cho các thẻ liên quan trên trang signup.html
     initEvent() {
@@ -29,10 +28,12 @@ class SignUpJS {
     //chi tiết xử lý khi click nút "cập nhật"
     signUpEvent() {
 
+        debugger
         var checkValidated = this.validateInput()
         if (checkValidated) {
             //lưu dữ liệu user vào localStorage với giá trị trả về từ API
-            localStorage.setItem("user", JSON.stringify(user))
+            localStorage.setItem("user", JSON.stringify(user2))
+            debugger
             window.open("index.html", "_self")
         } else {
             console.log("Dữ liệu chưa được validated, đăng ký tài khoản thất bại")
@@ -44,10 +45,10 @@ class SignUpJS {
     validateInput() {
 
         var result = true;
-        var emailInput = $('#emailInput').val()
-        var usernameInput = $('#usernameInput').val()
-        var passwordInput = $('#passwordInput').val()
-        var rePasswordInput = $('#rePasswordInput').val()
+        var emailInput = $('#emailInput').val().trim()
+        var usernameInput = $('#usernameInput').val().trim()
+        var passwordInput = $('#passwordInput').val().trim()
+        var rePasswordInput = $('#rePasswordInput').val().trim()
         var checkBoxInput = $('#checkBox')[0].checked
 
         //self - invoked
@@ -102,7 +103,7 @@ class SignUpJS {
             }
         }
         if (!passwordValid) {
-            alertDiv = $(`<small id="alertPasswordInput" class="form-text text-danger">Mật khẩu cần chứa tối thiểu 5 kí tự.</small>`)
+            alertDiv = $(`<small id="alertPasswordInput" class="form-text text-danger">Mật khẩu cần chứa tối thiểu 5 kí tự và không có khoảng trắng.</small>`)
             if ($('#passwordInput').next()) {
                 $('#passwordInput').next().remove()
             }
@@ -145,7 +146,13 @@ class SignUpJS {
 
 //fake data
 var user = {
-    userName: "dinh viet Cuong",
+    userName: "vietcuong_admin",
     avatarUrl: "../content/img/avatar-sample.png",
     role: "ROLE_ADMIN"
+}
+
+var user2 = {
+    userName: "vietcuong",
+    avatarUrl: "../content/img/avatar-sample.png",
+    role: "ROLE_USER"
 }
