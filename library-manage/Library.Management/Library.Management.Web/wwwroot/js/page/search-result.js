@@ -16,7 +16,6 @@ class SearchResultJS extends BaseJS {
     loadData() {
 
         //khai báo và gán giá trị trong localStorage
-        var data = searchResult;
         var fieldValue = localStorage.getItem("fieldValue")
         var searchContent = localStorage.getItem("searchContent");
         var showNewBook = localStorage.getItem("showNewBook")
@@ -42,6 +41,27 @@ class SearchResultJS extends BaseJS {
                 $('#breadcrumbDiv').append(fieldHTML)
             }
         }
+
+
+        //load kết quả tìm kiếm
+        var data = searchResult;
+        data.forEach(book => {
+
+            var card = $(`<div class="col-lg-3 col-sm-6 portfolio-item">
+                            </div>`)
+            var bookHTML = $(`
+            <div class="card h-100">
+                    <a href="../page/book-detail.html" class="mx-auto"><img class="card-img-top" src="` + book.url + `" alt="" style="width: 150px;"></a>
+                    <div class="card-body">
+                        <p class="card-title font-weight-bold text-truncate">` + book.bookTitle + `</p>
+                        <p class="text-truncate">` + book.bookAuthor + `</p>
+                    </div>
+                </div>`)
+
+            bookHTML.data('bookId', book.id)
+            $(card).append(bookHTML)
+            $('#searchResultDiv').append(card)
+        });
 
     }
 

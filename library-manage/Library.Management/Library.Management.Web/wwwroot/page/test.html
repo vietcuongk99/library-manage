@@ -9,7 +9,8 @@
 </head>
 
 <body>
-    <script src="../content/vendor/jquery/jquery.min.js"></script>
+    <script src="../js/lib/jquery/jquery.min.js"></script>
+    <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
             loadData()
@@ -21,8 +22,11 @@
                 url: "http://127.0.0.1:2020/api/products/all",
                 async: true,
                 contentType: "application/json"
-            }).done(function(res, xhr) {
-                if (res && xhr.status) {
+            }).done(function(res) {
+                if (res) {
+
+
+
                     $.each(res, function(index, object) {
                         var contentHTML = $(`<p>Tên sản phẩm: ` + object.vietnameseName + `</p>
                                             <br>
@@ -31,7 +35,7 @@
                     })
 
                 } else {
-                    console.log(xhr.status)
+
                     console.log("Failed to load data")
                 }
             }).fail(function(res) {

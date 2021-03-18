@@ -31,7 +31,7 @@ class BaseJS {
             <img src="` + userAvatarURL + `" class="avatar-icon"></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAvatar">
                 <p class="dropdown-item" style="font-weight: bold;">` + userName + `</p>
-                <a class="dropdown-item" href="your-account.html">Tài khoản cá nhân</a>
+                <a class="dropdown-item" href="account.html">Tài khoản cá nhân</a>
                 <a class="dropdown-item" href="login.html">Đăng xuất</a>
             </div>
             </li>`

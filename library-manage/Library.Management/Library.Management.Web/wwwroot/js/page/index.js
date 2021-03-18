@@ -1,9 +1,10 @@
 $(document).ready(function() {
     //xóa thông tin tìm kiếm cũ trong localStorage
-    localStorage.removeItem("fieldValue")
-    localStorage.removeItem("searchContent")
-    localStorage.removeItem("showHotBook")
-    localStorage.removeItem("showNewBook")
+    // localStorage.removeItem("fieldValue")
+    // localStorage.removeItem("searchContent")
+    // localStorage.removeItem("showHotBook")
+    // localStorage.removeItem("showNewBook")
+    // localStorage.removeItem("bookId")
 
     indexJS = new IndexJS()
 })
@@ -90,6 +91,9 @@ class IndexJS extends BaseJS {
         let bookId = $(this).data('bookId')
         console.log(bookId)
         console.log(this)
+
+        localStorage.setItem("bookId", bookId)
+        window.open("book-detail.html", "_self")
     }
 
     //chi tiết xử lý sự kiện khi click nút xem thêm SÁCH HOT
@@ -113,17 +117,11 @@ class IndexJS extends BaseJS {
         var fieldHTML = $('#searchSelectGroup option:selected').text()
         var searchContent = $('#searchInput').val().trim()
 
-        if (!searchContent) {
-            alert("Hiển thị tất cả đầu sách có trong cơ sở dữ liệu")
-            window.open("search-result.html", "_self")
-        } else {
-
-            //lưu thông tin tìm kiếm vào localStorage
-            //hiển thị tại trang search-result.html
-            localStorage.setItem("fieldValue", fieldHTML)
-            localStorage.setItem("searchContent", searchContent)
-            window.open("search-result.html", "_self")
-        }
+        //lưu thông tin tìm kiếm vào localStorage
+        localStorage.setItem("fieldValue", fieldValue)
+        localStorage.setItem("fieldHTML", fieldHTML)
+        localStorage.setItem("searchContent", searchContent)
+        window.open("search-result.html", "_self")
 
     }
 
@@ -132,52 +130,52 @@ class IndexJS extends BaseJS {
 
 //fake data
 var newBookList = [{
-        id: 1,
+        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
         url: "../content/img/clean-code.jpg",
         bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 2,
+        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
         url: "../content/img/clean-code.jpg",
         bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 3,
+        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
         url: "../content/img/clean-code.jpg",
         bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 4,
+        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
         url: "../content/img/clean-code.jpg",
-        bookTitle: "Clean Code",
+        bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     }
 ]
 
 
 var hotBookList = [{
-        id: 1,
+        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
         url: "../content/img/clean-code.jpg",
         bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 2,
+        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
         url: "../content/img/clean-code.jpg",
         bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 3,
+        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
         url: "../content/img/clean-code.jpg",
         bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 4,
+        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
         url: "../content/img/clean-code.jpg",
         bookTitle: "Clean Code",
         bookAuthor: "Robert C.Martin"
