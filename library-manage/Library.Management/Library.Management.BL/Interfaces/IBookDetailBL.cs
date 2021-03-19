@@ -17,13 +17,5 @@ namespace Library.Management.BL
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 14/03/2021
         Task<ActionServiceResult> InsertBookDetail(ParameterInsertBook param);
-
-        /// <summary>
-        /// Thêm 1 bản ghi thông tin thể loại sách
-        /// </summary>
-        /// <param name="param">param truyền vào</param>
-        /// <returns></returns>
-        /// CreatedBy: VDDUNG1 14/03/2021
-        Task<ActionServiceResult> InsertBookCategory(ParameterInsertBookCategory param);
     }
 }

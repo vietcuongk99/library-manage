@@ -21,6 +21,15 @@ namespace Library.Management.DL
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 17/03/2021
         Task<T> GetEntityById(string Id);
+
+        /// <summary>
+        /// Lấy ra thông tin bản ghi theo mã bản ghi
+        /// </summary>
+        /// <param name="code">Mã bản ghi</param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 17/03/2021
+        Task<T> GetEntityByCode(string code);
+
         /// <summary>
         /// Thêm mới dữ liệu
         /// </summary>

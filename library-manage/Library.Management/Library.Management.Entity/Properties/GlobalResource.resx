@@ -123,6 +123,15 @@
   <data name="ErrorAddEntity" xml:space="preserve">
     <value>Thêm mới không thành công</value>
   </data>
+  <data name="ErrorBookCategory" xml:space="preserve">
+    <value>Thể loại sách không tồn tại.</value>
+  </data>
+  <data name="ErrorBookCategoryExist" xml:space="preserve">
+    <value>Mã loại sách không hợp lệ hoặc đã tồn tại, vui lòng thử lại.</value>
+  </data>
+  <data name="ErrorBookExist" xml:space="preserve">
+    <value>Mã sách không hợp lệ hoặc đã tồn tại, vui lòng thử lại.</value>
+  </data>
   <data name="ErrorDeleteEntity" xml:space="preserve">
     <value>Xóa dữ liệu không thành công</value>
   </data>

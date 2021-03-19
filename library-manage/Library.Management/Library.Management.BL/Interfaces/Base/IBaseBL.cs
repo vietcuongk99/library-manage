@@ -25,6 +25,14 @@ namespace Library.Management.BL
         Task<T> GetEntityById(string id);
 
         /// <summary>
+        /// Lấy ra thông tin bản ghi theo mã bản ghi
+        /// </summary>
+        /// <param name="code">mã bản ghi</param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 17/03/2021
+        Task<T> GetEntityByCode(string code);
+
+        /// <summary>
         /// Thêm mới dữ liệu
         /// </summary>
         /// <param name="param">Param đầu vào</param>

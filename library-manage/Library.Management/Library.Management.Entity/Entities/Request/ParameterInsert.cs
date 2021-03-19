@@ -18,25 +18,7 @@ namespace Library.Management.Entity
     }
     public class ParameterInsertBookCategory
     {
-        /// <summary>
-        ///Khóa chính
-        /// </summary>
-        public Guid BookCategoryId { get; set; }
-        /// <summary>
-        /// Mã thể loại sách
-        /// </summary>
         public string BookCategoryCode { get; set; }
-        /// <summary>
-        /// Tên loại sách
-        /// </summary>
         public string BookCategoryName { get; set; }
-        /// <summary>
-        /// Số lượng sách
-        /// </summary>
-        public int? Amount { get; set; }
-        /// <summary>
-        /// Trạng thái hoạt động 1 - On, 0 - Off
-        /// </summary>
-        public ulong Status { get; set; }
     }
 }

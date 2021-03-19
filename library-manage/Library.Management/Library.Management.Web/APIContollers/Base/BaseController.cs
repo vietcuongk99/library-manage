@@ -82,6 +82,40 @@ namespace Library.Management.Web
         }
 
         /// <summary>
+        /// Lấy ra thông tin bản ghi theo mã code
+        /// </summary>
+        /// <param name="code">Mã bản ghi</param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 17/03/2021
+        [HttpGet("GetEntityByCode")]
+        public virtual async Task<ActionServiceResult> GetEntityByCode(string code)
+        {
+            var res = new ActionServiceResult();
+            if (string.IsNullOrEmpty(code))
+            {
+                res.Success = false;
+                res.LibraryCode = LibraryCode.ValidateEntity;
+                res.Message = GlobalResource.ValidateEntity;
+            }
+            else
+            {
+                var entity = await _baseBL.GetEntityByCode(code);
+                if (entity == null)
+                {
+                    res.Success = false;
+                    res.LibraryCode = LibraryCode.NotFound;
+                    res.Message = GlobalResource.NotFound;
+                }
+                else
+                {
+                    res.Data = entity;
+                }
+            }
+
+            return res;
+        }
+
+        /// <summary>
         /// Thêm mới dữ liệu
         /// </summary>
         /// <param name="param">Param đầu vào</param>
