@@ -9,8 +9,16 @@
 </head>
 
 <body>
+    <div id="tableContent"></div>
+    <table id="tableProduct">
+        <!-- <tr>
+            <th>Id</th>
+            <th>Product name</th>
+        </tr> -->
+    </table>
     <script src="../js/lib/jquery/jquery.min.js"></script>
     <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../js/lib/pagination.min.js"></script>
     <script>
         $(document).ready(function() {
             loadData()
@@ -21,26 +29,40 @@
                 method: "GET",
                 url: "http://127.0.0.1:2020/api/products/all",
                 async: true,
-                contentType: "application/json"
-            }).done(function(res) {
-                if (res) {
-
-
-
-                    $.each(res, function(index, object) {
-                        var contentHTML = $(`<p>Tên sản phẩm: ` + object.vietnameseName + `</p>
-                                            <br>
-                                            <p>Id sản phẩm: ` + object.id + `</p>`)
-                        $('body').append(contentHTML)
-                    })
-
-                } else {
-
-                    console.log("Failed to load data")
+                contentType: "application/json",
+                beforeSend: function () {
+                    $('#tableContent').html('Loading data...');
                 }
-            }).fail(function(res) {
+            }).done(function (res) {
+                if (res) {
+                    $('body').pagination({
+                        dataSource: res,
+
+                        //item in one page
+                        pageSize: 6,
+
+                        callback: function (res, pagination) {
+                            //debugger
+
+                            var table = $(`<table></table>`)
+
+                            $.each(res, (index, object) => {
+                                console.log(index)
+                                var tr = $(`<tr></tr>`)
+                                var td = $(`<td>` + object.id + `</td><td>` + object.vietnameseName + `</td>`)
+                                tr.append(td)
+                                table.append(tr)
+                            })
+                            $('#tableContent').html(table)
+                        },
+
+
+                    })
+                }
+            }).fail((res) => {
 
             })
+            
         }
     </script>
 </body>

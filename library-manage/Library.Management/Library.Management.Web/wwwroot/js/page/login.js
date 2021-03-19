@@ -32,10 +32,11 @@ class LoginJS {
     loginEvent() {
 
         var validateCheck = this.validateInput()
+        var checkUserValid = this.checkUserValid()
 
-        if (validateCheck) {
-
-            //lưu dữ liệu user vào localStorage với giá trị trả về từ API
+        if (validateCheck && checkUserValid) {
+            var user = checkUserValid
+                //lưu dữ liệu user vào localStorage với giá trị trả về từ API
             localStorage.setItem("user", JSON.stringify(user));
             //mở trang index.html
             window.open("index.html", "_self")
@@ -75,12 +76,34 @@ class LoginJS {
             return true
         }
     }
+
+    checkUserValid() {
+        var usernameVal = $('#usernameInput').val().trim()
+        var passwordVal = $('#passwordInput').val().trim()
+        var result = null
+        $.each(fakeData, function(index, obj) {
+            if (usernameVal == obj.username && passwordVal == obj.password) {
+
+                result = obj
+
+            }
+        })
+
+        return result
+
+    }
 }
 
 
 //fake data
-var user = {
-    userName: "dinh viet Cuong",
+var fakeData = [{
+    username: "cuong",
+    password: "12345",
+    avatarUrl: "../content/img/avatar-sample.png",
+    role: "ROLE_USER"
+}, {
+    username: "admin",
+    password: "12345",
     avatarUrl: "../content/img/avatar-sample.png",
     role: "ROLE_ADMIN"
-}
+}]

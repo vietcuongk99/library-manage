@@ -21,7 +21,7 @@ class BaseJS {
         //nếu user khác null
         if (userObject) {
 
-            var userName = userObject.userName;
+            var userName = userObject.username;
             var userAvatarURL = userObject.avatarUrl;
             var adminUrl = host + "admin"
             console.log(userName)
