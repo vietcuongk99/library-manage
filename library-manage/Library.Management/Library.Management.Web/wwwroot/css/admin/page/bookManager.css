@@ -16,3 +16,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.downloadTemplateFile {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+}

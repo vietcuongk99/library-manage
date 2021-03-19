@@ -1,4 +1,6 @@
 using Library.Management.BL;
+using Library.Management.BL.Interfaces;
+using Library.Management.BL.Services;
 using Library.Management.DL;
 using Library.Management.Entity.Models;
 using Library.Management.Web.Middleware;
@@ -51,6 +53,8 @@ namespace Library.Management.Web
 
             services.AddScoped<IBookCategoryBL, BookCategoryBL>();
             services.AddScoped<IBookCategoryDL, BookCategoryDL>();
+
+            services.AddScoped<IUploadBL, UploadBL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
