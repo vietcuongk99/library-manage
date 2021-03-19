@@ -64,5 +64,80 @@ namespace Library.Management.BL
             bookMaster.CreatedDate = DateTime.Now;
             bookMaster.CreatedBy = GlobalResource.CreatedBy;
         }
+
+        /// <summary>
+        /// Cập nhật thể loại sách
+        /// </summary>
+        /// <param name="param">param truyền vào</param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 19/03/2021
+        public async Task<ActionServiceResult> UpdateBookCategory(ParameterUpdateBookCategory param)
+        {
+            var bookMaster = new BookCategory();
+            ConvertParamBeforeUpdate(param, bookMaster);
+
+            if (bookMaster.BookCategoryId != null)
+            {
+                //checkID nếu chưa tồn tại bản ghi thì báo lỗi
+                var bookMasterID = await _baseDLMaster.GetEntityById(bookMaster.BookCategoryId.ToString());
+                if (bookMasterID == null)
+                {
+                    return new ActionServiceResult
+                    {
+                        Success = false,
+                        Message = GlobalResource.ErrorNotIDEntity,
+                        LibraryCode = LibraryCode.ErrorNotIDEntity
+                    };
+                }
+                else
+                {
+                    //Kiểm tra xem mã Code đã tồn tại chưa, nếu tồn tại rồi thì báo đã tồn tại
+                    var bookMasterCode = await _baseDLMaster.GetEntityByCode(bookMaster.BookCategoryCode);
+                    if (bookMasterCode != null && bookMasterCode.BookCategoryCode != bookMasterID.BookCategoryCode)
+                    {
+                        return new ActionServiceResult
+                        {
+                            Success = false,
+                            Message = GlobalResource.ErrorBookCategoryExist,
+                            LibraryCode = LibraryCode.ErrorBookCategoryExist
+                        };
+                    }
+                    else
+                    {
+                        return new ActionServiceResult
+                        {
+                            Success = true,
+                            Message = GlobalResource.Success,
+                            LibraryCode = LibraryCode.Success,
+                            Data = await _baseDLMaster.UpdateAsync(bookMaster)
+                        };
+                    }
+                }
+            }
+            // Mặc định trả về lỗi
+            return new ActionServiceResult
+            {
+                Success = false,
+                LibraryCode = LibraryCode.ErrorUpdateEntity,
+                Message = GlobalResource.ErrorUpdateEntity,
+            };
+        }
+
+        /// <summary>
+        /// Chuyển dữ liệu từ request về Entity trước khi cập nhật lên DB
+        /// </summary>
+        /// <param name="param">đầu vào</param>
+        /// <param name="bookMaster">response cập nhật lên db</param>
+        /// CreatedBy: VDDUNG1 19/03/2021
+        private static void ConvertParamBeforeUpdate(ParameterUpdateBookCategory param, BookCategory bookMaster)
+        {
+            bookMaster.BookCategoryId = param.BookCategoryId;
+            bookMaster.BookCategoryCode = param.BookCategoryCode;
+            bookMaster.BookCategoryName = param.BookCategoryName;
+            bookMaster.Amount = param.Amount;
+            bookMaster.Status = (ulong)param.Status;
+            bookMaster.ModifiedDate = DateTime.Now;
+            bookMaster.ModifiedBy = GlobalResource.CreatedBy;
+        }
     }
 }

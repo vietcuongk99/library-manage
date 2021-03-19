@@ -76,7 +76,15 @@ namespace Library.Management.Entity
         /// <summary>
         /// Mã loại sách đã tồn tại
         /// </summary>
-        ErrorBookCategoryExist = 604
+        ErrorBookCategoryExist = 604,
+        /// <summary>
+        /// Cập nhật không thành công
+        /// </summary>
+        ErrorUpdateEntity = 605,
+        /// <summary>
+        /// Lỗi không tìm thấy dữ liệu
+        /// </summary>
+        ErrorNotIDEntity = 606
     }
 
     /// <summary>

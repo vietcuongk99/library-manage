@@ -79,7 +79,7 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thể loại sách không tồn tại..
+        ///   Looks up a localized string similar to Thể loại sách không tồn tại.
         /// </summary>
         public static string ErrorBookCategory {
             get {
@@ -111,6 +111,24 @@ namespace Library.Management.Entity.Properties {
         public static string ErrorDeleteEntity {
             get {
                 return ResourceManager.GetString("ErrorDeleteEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không tìm thấy dữ liệu, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorNotIDEntity {
+            get {
+                return ResourceManager.GetString("ErrorNotIDEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cập nhật không thành công.
+        /// </summary>
+        public static string ErrorUpdateEntity {
+            get {
+                return ResourceManager.GetString("ErrorUpdateEntity", resourceCulture);
             }
         }
         

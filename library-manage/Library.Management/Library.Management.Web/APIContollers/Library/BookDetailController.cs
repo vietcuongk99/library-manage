@@ -35,5 +35,18 @@ namespace Library.Management.Web
             var res = await _bookDetailBL.InsertBookDetail(param);
             return res;
         }
+
+        /// <summary>
+        /// Cập nhật 1 cuốn sách
+        /// </summary>
+        /// <param name="param">param truyền vào</param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 19/03/2021
+        [HttpPut("UpdateBookDetail")]
+        public async Task<ActionServiceResult> UpdateBookDetail(ParameterUpdateBook param)
+        {
+            var res = await _bookDetailBL.UpdateBookDetail(param);
+            return res;
+        }
     }
 }

@@ -34,5 +34,18 @@ namespace Library.Management.Web
             var res = await _bookCategoryBL.InsertBookCategory(param);
             return res;
         }
+
+        /// <summary>
+        /// Cập nhật thể loại sách
+        /// </summary>
+        /// <param name="param">param truyền vào</param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 19/03/2021
+        [HttpPut("UpdateBookCategory")]
+        public async Task<ActionServiceResult> UpdateBookCategory(ParameterUpdateBookCategory param)
+        {
+            var res = await _bookCategoryBL.UpdateBookCategory(param);
+            return res;
+        }
     }
 }
