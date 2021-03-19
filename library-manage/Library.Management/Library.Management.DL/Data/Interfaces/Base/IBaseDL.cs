@@ -7,6 +7,13 @@ namespace Library.Management.DL
 {
     public interface IBaseDL<T>
     {
+
+        /// <summary>
+        /// Lấy toàn bộ dữ liệu trong bảng
+        /// </summary>
+        /// <returns></returns>
+        Task<IReadOnlyList<T>> GetListAsync();
+
         /// <summary>
         /// Lấy ra thông tin bản ghi theo khóa chính
         /// </summary>

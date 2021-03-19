@@ -8,6 +8,14 @@ namespace Library.Management.BL
 {
     public interface IBaseBL<T>
     {
+
+        /// <summary>
+        /// Lấy toàn bộ dữ liệu
+        /// </summary>
+        /// <returns></returns>
+        /// CreateBy: VDDUNG(19/03/2021)
+        Task<IReadOnlyList<T>> GetEntities();
+
         /// <summary>
         /// Lấy ra thông tin bản ghi theo khóa chính
         /// </summary>

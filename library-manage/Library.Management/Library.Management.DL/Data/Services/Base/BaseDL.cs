@@ -18,6 +18,20 @@ namespace Library.Management.DL
         {
             _config = config;
         }
+
+        /// <summary>
+        /// Lấy toàn bộ danh sách các bản ghi của bảng có trong Database
+        /// </summary>
+        /// <returns></returns>
+        /// CreateBy: VDDUNG(19/03/2021)
+        public async Task<IReadOnlyList<T>> GetListAsync()
+        {
+            var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
+            var storeName = DatabaseUtility.GeneateStoreName<T>(ProcdureTypeName.Get);
+            var entities = _db.Query<T>(storeName, commandType: CommandType.StoredProcedure);
+            return (IReadOnlyList<T>)await Task.FromResult(entities);
+        }
+
         /// <summary>
         /// Lấy ra thông tin bản ghi theo khóa chính
         /// </summary>

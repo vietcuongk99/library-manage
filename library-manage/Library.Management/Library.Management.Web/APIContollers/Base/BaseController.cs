@@ -19,6 +19,34 @@ namespace Library.Management.Web
         {
             _baseBL = baseBL;
         }
+
+        /// <summary>
+        /// Lấy toàn bộ danh sách đối tượng
+        /// </summary>
+        /// <returns></returns>
+        /// CreateBy: VDDUNG(19/03/2021)
+        [HttpGet]
+        public virtual async Task<ActionServiceResult> GetEntities()
+        {
+            var res = new ActionServiceResult();
+            var entities = await _baseBL.GetEntities();
+            if (entities == null)
+            {
+                res.Success = false;
+                res.LibraryCode = LibraryCode.NotFound;
+                res.Message = GlobalResource.NotFound;
+            }
+            else
+            {
+                res.Data = new
+                {
+                    totalRecord = entities.Count(),
+                    lstData = entities
+                };
+            }
+            return res;
+        }
+
         /// <summary>
         /// Lấy ra thông tin bản ghi theo khóa chính
         /// </summary>

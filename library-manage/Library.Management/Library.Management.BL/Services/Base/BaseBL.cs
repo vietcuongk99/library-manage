@@ -15,6 +15,19 @@ namespace Library.Management.BL
         {
             _baseDL = baseDL;
         }
+
+        /// <summary>
+        /// Lấy toàn bộ dữ liệu
+        /// </summary>
+        /// <returns></returns>
+        /// CreateBy: VDDUNG(19/03/2021)
+        public async virtual Task<IReadOnlyList<T>> GetEntities()
+        {
+            var entities = await _baseDL.GetListAsync();
+            return entities;
+        }
+
+
         /// <summary>
         /// Lấy ra thông tin bản ghi theo khóa chính
         /// </summary>
