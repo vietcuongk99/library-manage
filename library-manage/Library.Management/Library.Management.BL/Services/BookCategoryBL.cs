@@ -56,7 +56,7 @@ namespace Library.Management.BL
         /// CreatedBy: VDDUNG1 19/03/2021
         private void InsertRequestBuildBeforeUpdate(ParameterInsertBookCategory param, BookCategory bookMaster)
         {
-            bookMaster.BookCategoryId = Guid.NewGuid();
+            bookMaster.BookCategoryId = param.BookCategoryId;
             bookMaster.BookCategoryCode = param.BookCategoryCode;
             bookMaster.BookCategoryName = param.BookCategoryName;
             bookMaster.Amount = 0;

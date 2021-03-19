@@ -85,7 +85,7 @@ namespace Library.Management.BL
         /// CreatedBy: VDDUNG1 19/03/2021
         private void InsertRequestBuildBeforeUpdate(ParameterInsertBook param, Book bookDetail)
         {
-            bookDetail.BookId = Guid.NewGuid();
+            bookDetail.BookId = param.BookId;
             bookDetail.BookCode = param.BookCode;
             bookDetail.BookName = param.BookName;
             bookDetail.BookCategoryId = param.BookCategoryId;
