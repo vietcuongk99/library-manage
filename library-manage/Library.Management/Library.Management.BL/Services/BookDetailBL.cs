@@ -165,7 +165,7 @@ namespace Library.Management.BL
         /// <param name="param">Param đầu vào</param>
         /// <param name="bookDetail">Entity được cập nhật</param>
         /// CreatedBy: VDDUNG1 19/03/2021
-        private static void ConvertParamBeforeUpdate(ParameterUpdateBook param, Book bookDetail)
+        private void ConvertParamBeforeUpdate(ParameterUpdateBook param, Book bookDetail)
         {
             bookDetail.BookId = param.BookId;
             bookDetail.BookCode = param.BookCode;

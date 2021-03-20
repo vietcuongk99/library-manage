@@ -35,6 +35,7 @@ namespace Library.Management.Web
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddControllers();
             services.AddMvc();
+            services.AddMemoryCache();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -51,6 +52,11 @@ namespace Library.Management.Web
 
             services.AddScoped<IBookCategoryBL, BookCategoryBL>();
             services.AddScoped<IBookCategoryDL, BookCategoryDL>();
+
+            services.AddScoped<IUserAccountBL, UserAccountBL>();
+            services.AddScoped<IUserAccountDL, UserAccountDL>();
+
+            services.AddScoped<IBaseMemoryCache, BaseMemoryCache>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

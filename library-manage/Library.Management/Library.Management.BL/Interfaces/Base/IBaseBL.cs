@@ -1,6 +1,7 @@
 ﻿using Library.Management.Entity;
 using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -55,5 +56,33 @@ namespace Library.Management.BL
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 17/03/2021
         Task<int> Delete(object id);
+
+        /// <summary>
+        /// Gửi mail sử dụng máy chủ SMTP của Google
+        /// </summary>
+        /// <param name="_from"></param>
+        /// <param name="_to"></param>
+        /// <param name="_subject"></param>
+        /// <param name="_body"></param>
+        /// <param name="_gmailsend"></param>
+        /// <param name="_gmailpassword"></param>
+        /// <returns></returns>
+        Task<bool> SendMailGoogleSmtp(string _from, string _to, string _subject,
+                                                           string _body, string _gmailsend, string _gmailpassword);
+        /// <summary>
+        /// Gửi mail bước 2
+        /// </summary>
+        /// <param name="_from"></param>
+        /// <param name="_to"></param>
+        /// <param name="_subject"></param>
+        /// <param name="_body"></param>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        Task<bool> SendMail(string _from, string _to, string _subject, string _body, SmtpClient client);
+        /// <summary>
+        /// Sinh mã OTP
+        /// </summary>
+        /// <returns></returns>
+        int RandomOTPSMTP();
     }
 }

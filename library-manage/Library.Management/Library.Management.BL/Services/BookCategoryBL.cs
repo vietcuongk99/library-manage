@@ -129,7 +129,7 @@ namespace Library.Management.BL
         /// <param name="param">đầu vào</param>
         /// <param name="bookMaster">response cập nhật lên db</param>
         /// CreatedBy: VDDUNG1 19/03/2021
-        private static void ConvertParamBeforeUpdate(ParameterUpdateBookCategory param, BookCategory bookMaster)
+        private void ConvertParamBeforeUpdate(ParameterUpdateBookCategory param, BookCategory bookMaster)
         {
             bookMaster.BookCategoryId = param.BookCategoryId;
             bookMaster.BookCategoryCode = param.BookCategoryCode;

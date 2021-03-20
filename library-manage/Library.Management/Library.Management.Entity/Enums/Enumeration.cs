@@ -84,7 +84,11 @@ namespace Library.Management.Entity
         /// <summary>
         /// Lỗi không tìm thấy dữ liệu
         /// </summary>
-        ErrorNotIDEntity = 606
+        ErrorNotIDEntity = 606,
+
+        ErrorUserAccount = 607,
+
+        Failed = 1000
     }
 
     /// <summary>

@@ -133,6 +133,15 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tài khoản không tồn tại, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorUserAccount {
+            get {
+                return ResourceManager.GetString("ErrorUserAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lỗi Exception.
         /// </summary>
         public static string Exception {
@@ -142,11 +151,47 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thất bại.
+        /// </summary>
+        public static string Failed {
+            get {
+                return ResourceManager.GetString("Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to meom7646@gmail.com.
+        /// </summary>
+        public static string MailSendAccount {
+            get {
+                return ResourceManager.GetString("MailSendAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aa9685354.
+        /// </summary>
+        public static string MailSendPassWord {
+            get {
+                return ResourceManager.GetString("MailSendPassWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lỗi không tìm thấy dữ liệu.
         /// </summary>
         public static string NotFound {
             get {
                 return ResourceManager.GetString("NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;b&gt;Library Management&lt;/b&gt;: Mã xác thực OTP của tài khoản &lt;b&gt;{0}&lt;/b&gt; là &lt;b&gt;{1}&lt;/b&gt;. Bạn đang thực hiện &lt;b&gt;{2}&lt;/b&gt; trên hệ thống Library, mật khẩu mới là &lt;b&gt;{3}&lt;/b&gt;..
+        /// </summary>
+        public static string SubjectSendMail {
+            get {
+                return ResourceManager.GetString("SubjectSendMail", resourceCulture);
             }
         }
         

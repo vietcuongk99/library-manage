@@ -23,4 +23,17 @@ namespace Library.Management.Entity
         public string BookCategoryCode { get; set; }
         public string BookCategoryName { get; set; }
     }
+
+    public class ParameterRegisterAccount
+    {
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+
+    public class ParameterLoginAccount
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
 }

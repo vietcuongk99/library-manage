@@ -141,11 +141,26 @@
   <data name="ErrorUpdateEntity" xml:space="preserve">
     <value>Cập nhật không thành công</value>
   </data>
+  <data name="ErrorUserAccount" xml:space="preserve">
+    <value>Tài khoản không tồn tại, vui lòng thử lại.</value>
+  </data>
   <data name="Exception" xml:space="preserve">
     <value>Lỗi Exception</value>
   </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Thất bại</value>
+  </data>
+  <data name="MailSendAccount" xml:space="preserve">
+    <value>meom7646@gmail.com</value>
+  </data>
+  <data name="MailSendPassWord" xml:space="preserve">
+    <value>Aa9685354</value>
+  </data>
   <data name="NotFound" xml:space="preserve">
     <value>Lỗi không tìm thấy dữ liệu</value>
+  </data>
+  <data name="SubjectSendMail" xml:space="preserve">
+    <value>&lt;b&gt;Library Management&lt;/b&gt;: Mã xác thực OTP của tài khoản &lt;b&gt;{0}&lt;/b&gt; là &lt;b&gt;{1}&lt;/b&gt;. Bạn đang thực hiện &lt;b&gt;{2}&lt;/b&gt; trên hệ thống Library, mật khẩu mới là &lt;b&gt;{3}&lt;/b&gt;.</value>
   </data>
   <data name="Success" xml:space="preserve">
     <value>Thành công</value>
