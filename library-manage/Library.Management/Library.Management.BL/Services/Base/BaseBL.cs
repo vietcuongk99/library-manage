@@ -49,7 +49,7 @@ namespace Library.Management.BL
         /// CreatedBy: VDDUNG1 17/03/2021
         public async virtual Task<T> GetEntityByCode(string code)
         {
-            return await _baseDL.GetEntityByCode(code);
+            return await _baseDL.GetEntityByCode(code, ProcdureTypeName.GetByCode);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Library.Management.BL
                     Success = true,
                     LibraryCode = LibraryCode.Success,
                     Message = GlobalResource.Success,
-                    Data = await _baseDL.AddAsync(param)
+                    Data = await _baseDL.AddAsync(param, ProcdureTypeName.Insert)
                 };
         }
         /// <summary>

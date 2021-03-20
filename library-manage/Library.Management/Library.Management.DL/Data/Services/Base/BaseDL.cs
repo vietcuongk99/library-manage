@@ -52,10 +52,10 @@ namespace Library.Management.DL
         /// <param name="code">Mã bản ghi</param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 19/03/2021
-        public async Task<T> GetEntityByCode(string code)
+        public async Task<T> GetEntityByCode(string code, ProcdureTypeName procdureTypeName)
         {
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
-            var storeName = DatabaseUtility.GeneateStoreName<T>(ProcdureTypeName.GetByCode);
+            var storeName = DatabaseUtility.GeneateStoreName<T>(procdureTypeName);
             var entities = _db.QueryFirstOrDefault<T>(storeName, new { code }, commandType: CommandType.StoredProcedure);
             return await Task.FromResult(entities);
         }
@@ -68,10 +68,10 @@ namespace Library.Management.DL
         /// <param name="param">Param đầu vào</param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 17/03/2021
-        public async Task<object> AddAsync(object param)
+        public async Task<object> AddAsync(object param, ProcdureTypeName procdureTypeName)
         {
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
-            var storeName = DatabaseUtility.GeneateStoreName<T>(ProcdureTypeName.Insert);
+            var storeName = DatabaseUtility.GeneateStoreName<T>(procdureTypeName);
             var entities = _db.Query<T>(storeName, param, commandType: CommandType.StoredProcedure);
             return await Task.FromResult(entities);
         }

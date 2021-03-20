@@ -29,7 +29,7 @@ namespace Library.Management.BL
             var bookMaster = new BookCategory();
             InsertRequestBuildBeforeUpdate(param, bookMaster);
             //Kiểm tra xem mã loại sách đã tồn tại hay chưa, nếu tồn tại rồi log lỗi luôn
-            var bookMasterCode = await _baseDLMaster.GetEntityByCode(bookMaster.BookCategoryCode);
+            var bookMasterCode = await _baseDLMaster.GetEntityByCode(bookMaster.BookCategoryCode, ProcdureTypeName.GetByCode);
             if (bookMasterCode != null)
             {
                 return new ActionServiceResult
@@ -44,7 +44,7 @@ namespace Library.Management.BL
                 Success = true,
                 Message = GlobalResource.Success,
                 LibraryCode = LibraryCode.Success,
-                Data = await _baseDLMaster.AddAsync(bookMaster)
+                Data = await _baseDLMaster.AddAsync(bookMaster, ProcdureTypeName.Insert)
             };
         }
 
@@ -60,7 +60,7 @@ namespace Library.Management.BL
             bookMaster.BookCategoryCode = param.BookCategoryCode;
             bookMaster.BookCategoryName = param.BookCategoryName;
             bookMaster.Amount = 0;
-            bookMaster.Status = (int)StatusBook.Active;
+            bookMaster.Status = (int)Status.Active;
             bookMaster.CreatedDate = DateTime.Now;
             bookMaster.CreatedBy = GlobalResource.CreatedBy;
         }
@@ -92,7 +92,7 @@ namespace Library.Management.BL
                 else
                 {
                     //Kiểm tra xem mã Code đã tồn tại chưa, nếu tồn tại rồi thì báo đã tồn tại
-                    var bookMasterCode = await _baseDLMaster.GetEntityByCode(bookMaster.BookCategoryCode);
+                    var bookMasterCode = await _baseDLMaster.GetEntityByCode(bookMaster.BookCategoryCode, ProcdureTypeName.GetByCode);
                     if (bookMasterCode != null && bookMasterCode.BookCategoryCode != bookMasterID.BookCategoryCode)
                     {
                         return new ActionServiceResult

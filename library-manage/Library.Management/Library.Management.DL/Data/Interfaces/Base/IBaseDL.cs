@@ -29,7 +29,7 @@ namespace Library.Management.DL
         /// <param name="code">Mã bản ghi</param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 17/03/2021
-        Task<T> GetEntityByCode(string code);
+        Task<T> GetEntityByCode(string code, ProcdureTypeName procdureTypeName);
 
         /// <summary>
         /// Thêm mới dữ liệu
@@ -37,7 +37,7 @@ namespace Library.Management.DL
         /// <param name="param">Param đầu vào</param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 17/03/2021
-        Task<object> AddAsync(object param);
+        Task<object> AddAsync(object param, ProcdureTypeName procdureTypeName);
         /// <summary>
         /// Cập nhật dữ liệu
         /// </summary>

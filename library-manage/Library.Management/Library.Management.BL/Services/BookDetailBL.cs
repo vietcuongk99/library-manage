@@ -32,7 +32,7 @@ namespace Library.Management.BL
             var bookDetail = new Book();
             InsertRequestBuildBeforeUpdate(param, bookDetail);
             //Kiểm tra xem mã sách đã tồn tại hay chưa, nếu tồn tại rồi log lỗi luôn
-            var bookDetailCode = await _baseDL.GetEntityByCode(bookDetail.BookCode);
+            var bookDetailCode = await _baseDL.GetEntityByCode(bookDetail.BookCode, ProcdureTypeName.GetByCode);
             if(bookDetailCode != null)
             {
                 return new ActionServiceResult
@@ -55,7 +55,7 @@ namespace Library.Management.BL
                         Success = true,
                         Message = GlobalResource.Success,
                         LibraryCode = LibraryCode.Success,
-                        Data = await _baseDL.AddAsync(bookDetail)
+                        Data = await _baseDL.AddAsync(bookDetail, ProcdureTypeName.Insert)
                     };
                 }
                 else
@@ -92,7 +92,7 @@ namespace Library.Management.BL
             bookDetail.BookImageUri = param.BookImageUri;
             bookDetail.BookDownloadUri = param.BookDownloadUri;
             bookDetail.BorrowTotal = 0;
-            bookDetail.Status = (int)StatusBook.Active;
+            bookDetail.Status = (int)Status.Active;
             bookDetail.BookAuthor = param.BookAuthor;
             bookDetail.AmountPage = param.AmountPage;
             bookDetail.YearOfPublication = param.YearOfPublication;
@@ -128,7 +128,7 @@ namespace Library.Management.BL
                 else
                 {
                     //Kiểm tra xem mã Code đã tồn tại chưa, nếu tồn tại rồi thì báo đã tồn tại
-                    var bookDetailCode = await _baseDL.GetEntityByCode(bookDetail.BookCode);
+                    var bookDetailCode = await _baseDL.GetEntityByCode(bookDetail.BookCode, ProcdureTypeName.GetByCode);
                     if (bookDetailCode != null && bookDetailCode.BookCode != bookDetailID.BookCode)
                     {
                         return new ActionServiceResult

@@ -44,10 +44,23 @@ namespace Library.Management.Web
             return res;
         }
 
+        /// <summary>
+        /// Đổi mật khẩu bước 2, confirm mã OTP
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 20/03/2021
         [HttpPost("ChangeConfirmPassWordStepTwo")]
         public async Task<ActionServiceResult> ChangeConfirmPassWordStepTwo(ParameterChangeConfirmOTP param)
         {
             var res = await _userAccountBL.ChangeConfirmPassWordStepTwo(param);
+            return res;
+        }
+
+        [HttpPost("RegisterUserAccount")]
+        public async Task<ActionServiceResult> RegisterUserAccount(ParameterRegisterAccount param)
+        {
+            var res = await _userAccountBL.RegisterUserAccount(param);
             return res;
         }
     }
