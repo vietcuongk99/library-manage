@@ -20,32 +20,5 @@ namespace Library.Management.DL
             _config = config;
         }
 
-        /// <summary>
-        /// Thêm 1 bản ghi thông tin cuốn sách
-        /// </summary>
-        /// <param name="param">param truyền vào</param>
-        /// <returns></returns>
-        /// CreatedBy: VDDUNG1 14/03/2021
-        public async Task<object> InsertBookDetail(ParameterInsertBook param)
-        {
-            var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
-            var storeName = DatabaseUtility.GeneateStoreName<Book>(ProcdureTypeName.Insert);
-            var entities = _db.Query<Book>(storeName, param, commandType: CommandType.StoredProcedure);
-            return await Task.FromResult(entities);
-        }
-
-        /// <summary>
-        /// Thêm 1 bản ghi thông tin thể loại sách
-        /// </summary>
-        /// <param name="param">param truyền vào</param>
-        /// <returns></returns>
-        /// CreatedBy: VDDUNG1 14/03/2021
-        public async Task<object> InsertBookCategory(ParameterInsertBookCategory param)
-        {
-            var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
-            var storeName = DatabaseUtility.GeneateStoreName<BookCategory>(ProcdureTypeName.Insert);
-            var entities = _db.Query<BookCategory>(storeName, param, commandType: CommandType.StoredProcedure);
-            return await Task.FromResult(entities);
-        }
     }
 }

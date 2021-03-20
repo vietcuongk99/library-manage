@@ -1,6 +1,7 @@
 ﻿using Library.Management.BL;
 using Library.Management.Entity;
 using Library.Management.Entity.Models;
+using Library.Management.Entity.Properties;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -31,22 +32,20 @@ namespace Library.Management.Web
         [HttpPost("InsertBookDetail")]
         public async Task<ActionServiceResult> InsertBookDetail(ParameterInsertBook param)
         {
-            var res = new ActionServiceResult();
-            res.Data = await _bookDetailBL.InsertBookDetail(param);
+            var res = await _bookDetailBL.InsertBookDetail(param);
             return res;
         }
 
         /// <summary>
-        /// Thêm 1 bản ghi thông tin thể loại sách
+        /// Cập nhật 1 cuốn sách
         /// </summary>
         /// <param name="param">param truyền vào</param>
         /// <returns></returns>
-        /// CreatedBy: VDDUNG1 14/03/2021
-        [HttpPost("InsertBookCategory")]
-        public async Task<ActionServiceResult> InsertBookCategory(ParameterInsertBookCategory param)
+        /// CreatedBy: VDDUNG1 19/03/2021
+        [HttpPut("UpdateBookDetail")]
+        public async Task<ActionServiceResult> UpdateBookDetail(ParameterUpdateBook param)
         {
-            var res = new ActionServiceResult();
-            res.Data = await _bookDetailBL.InsertBookCategory(param);
+            var res = await _bookDetailBL.UpdateBookDetail(param);
             return res;
         }
     }

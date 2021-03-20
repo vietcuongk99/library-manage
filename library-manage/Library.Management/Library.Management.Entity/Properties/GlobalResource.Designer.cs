@@ -79,11 +79,56 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thể loại sách không tồn tại.
+        /// </summary>
+        public static string ErrorBookCategory {
+            get {
+                return ResourceManager.GetString("ErrorBookCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã loại sách không hợp lệ hoặc đã tồn tại, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorBookCategoryExist {
+            get {
+                return ResourceManager.GetString("ErrorBookCategoryExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã sách không hợp lệ hoặc đã tồn tại, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorBookExist {
+            get {
+                return ResourceManager.GetString("ErrorBookExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xóa dữ liệu không thành công.
         /// </summary>
         public static string ErrorDeleteEntity {
             get {
                 return ResourceManager.GetString("ErrorDeleteEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không tìm thấy dữ liệu, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorNotIDEntity {
+            get {
+                return ResourceManager.GetString("ErrorNotIDEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cập nhật không thành công.
+        /// </summary>
+        public static string ErrorUpdateEntity {
+            get {
+                return ResourceManager.GetString("ErrorUpdateEntity", resourceCulture);
             }
         }
         

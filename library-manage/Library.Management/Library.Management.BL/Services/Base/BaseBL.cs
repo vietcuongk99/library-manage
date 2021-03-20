@@ -38,6 +38,18 @@ namespace Library.Management.BL
         {
             return await _baseDL.GetEntityById(id);
         }
+
+        /// <summary>
+        /// Lấy ra thông tin bản ghi theo mã bản ghi
+        /// </summary>
+        /// <param name="code">mã bản ghi</param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 17/03/2021
+        public async virtual Task<T> GetEntityByCode(string code)
+        {
+            return await _baseDL.GetEntityByCode(code);
+        }
+
         /// <summary>
         /// Thêm mới dữ liệu
         /// </summary>

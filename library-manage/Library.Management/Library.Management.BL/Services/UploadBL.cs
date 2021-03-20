@@ -15,11 +15,13 @@ namespace Library.Management.BL.Services
     public class UploadBL : IUploadBL
     {
         private readonly IBookCategoryBL _bookCategoryBL;
-        private readonly IBookDetailDL _bookDetailDL;
-        public UploadBL(IBookCategoryBL bookCategoryBL, IBookDetailDL bookDetailDL)
+        private readonly IBookCategoryDL _bookCategoryDL;
+        private readonly IBookDetailBL _bookDetailBL;
+        public UploadBL(IBookCategoryBL bookCategoryBL, IBookDetailBL bookDetailBL, IBookCategoryDL bookCategoryDL)
         {
             _bookCategoryBL = bookCategoryBL;
-            _bookDetailDL = bookDetailDL;
+            _bookCategoryDL = bookCategoryDL;
+            _bookDetailBL = bookDetailBL;
         }
         public bool ImportBookData(IFormFile fileImport)
         {
@@ -61,7 +63,7 @@ namespace Library.Management.BL.Services
                         bookDetail.YearOfPublication = Int32.Parse(nowRow.GetCell(6).NumericCellValue.ToString());
                         bookDetail.Description = nowRow.GetCell(7).StringCellValue;
 
-                        var bookCategory = _bookCategoryBL.GetBookCategoryByName(categoryName).Result;
+                        var bookCategory = _bookCategoryDL.GetBookCategoryByName(categoryName).Result;
 
                         if (bookCategory == null)
                         {
@@ -72,16 +74,15 @@ namespace Library.Management.BL.Services
                             newCategory.BookCategoryId = newGuid;
                             newCategory.BookCategoryCode = RemoveUnicode(categoryName);
                             newCategory.BookCategoryName = categoryName;
-                            newCategory.Status = 1;
 
-                            var a = _bookDetailDL.InsertBookCategory(newCategory);
+                            var a = _bookCategoryBL.InsertBookCategory(newCategory);
                         }
                         else
                         {
                             bookDetail.BookCategoryId = bookCategory.BookCategoryId;
                         }
 
-                        var b = _bookDetailDL.InsertBookDetail(bookDetail);
+                        var b = _bookDetailBL.InsertBookDetail(bookDetail);
                     }
                 }
             }

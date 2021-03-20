@@ -19,11 +19,11 @@ namespace Library.Management.BL
         Task<ActionServiceResult> InsertBookDetail(ParameterInsertBook param);
 
         /// <summary>
-        /// Thêm 1 bản ghi thông tin thể loại sách
+        /// Cập nhật 1 cuốn sách
         /// </summary>
         /// <param name="param">param truyền vào</param>
         /// <returns></returns>
-        /// CreatedBy: VDDUNG1 14/03/2021
-        Task<ActionServiceResult> InsertBookCategory(ParameterInsertBookCategory param);
+        /// CreatedBy: VDDUNG1 19/03/2021
+        Task<ActionServiceResult> UpdateBookDetail(ParameterUpdateBook param);
     }
 }

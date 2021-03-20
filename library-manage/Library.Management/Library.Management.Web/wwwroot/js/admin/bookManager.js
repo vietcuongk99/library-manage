@@ -53,7 +53,7 @@ class BookManager {
 
     uploadFileImport() {
         var fileNew = $('#fileNewupload').val();
-        debugger
+        
         if (this.checkFile(fileNew)) {
             var fdata = new FormData();
             var fileNewUpload = $("#fileNewupload").get(0);
@@ -66,6 +66,9 @@ class BookManager {
                 contentType: false,
                 processData: false,
                 success: function (response) {
+                    $(".check-file-upload").val('');
+                    $(".check-file-upload").next().text("Chọn file nhập khẩu");
+                    $('.close').click();
                     alert('Nhập khẩu thành công');
                 },
                 error: function (e) {
@@ -82,14 +85,14 @@ class BookManager {
     */
     checkFile(filename) {
         var fileExtension = ['xls', 'xlsx'];
-        if (filename.length == 0) {
-            alert(Common.object.uploadFile);
+        if (filename.length == 0 || !filename || filename == null) {
+            alert("Vui lòng chọn file");
             return false;
         }
         else {
             var extension = filename.replace(/^.*\./, '');
             if ($.inArray(extension, fileExtension) == -1) {
-                alert(Common.object.excelFile);
+                alert("Vui lòng chọn file Excel");
                 return false;
             }
         }

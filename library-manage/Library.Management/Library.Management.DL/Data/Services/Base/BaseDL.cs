@@ -45,6 +45,23 @@ namespace Library.Management.DL
             var entities = _db.QueryFirstOrDefault<T>(storeName, new { id }, commandType: CommandType.StoredProcedure);
             return await Task.FromResult(entities);
         }
+
+        /// <summary>
+        /// Lấy ra bản ghi theo mã code
+        /// </summary>
+        /// <param name="code">Mã bản ghi</param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 19/03/2021
+        public async Task<T> GetEntityByCode(string code)
+        {
+            var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
+            var storeName = DatabaseUtility.GeneateStoreName<T>(ProcdureTypeName.GetByCode);
+            var entities = _db.QueryFirstOrDefault<T>(storeName, new { code }, commandType: CommandType.StoredProcedure);
+            return await Task.FromResult(entities);
+        }
+        
+
+
         /// <summary>
         /// Thêm mới dữ liệu
         /// </summary>

@@ -64,7 +64,27 @@ namespace Library.Management.Entity
         /// <summary>
         /// Xóa bản ghi không thành công
         /// </summary>
-        ErrorDeleteEntity = 601
+        ErrorDeleteEntity = 601,
+        /// <summary>
+        /// Thể loại sách không tồn tại
+        /// </summary>
+        ErrorBookCategory = 602,
+        /// <summary>
+        /// Mã sách đã tồn tại
+        /// </summary>
+        ErrorBookExist = 603,
+        /// <summary>
+        /// Mã loại sách đã tồn tại
+        /// </summary>
+        ErrorBookCategoryExist = 604,
+        /// <summary>
+        /// Cập nhật không thành công
+        /// </summary>
+        ErrorUpdateEntity = 605,
+        /// <summary>
+        /// Lỗi không tìm thấy dữ liệu
+        /// </summary>
+        ErrorNotIDEntity = 606
     }
 
     /// <summary>
@@ -82,7 +102,10 @@ namespace Library.Management.Entity
         /// Lấy dữ liệu theo khóa chính
         /// </summary>
         GetById,
-
+        /// <summary>
+        /// Lấy dữ liệu theo mã code
+        /// </summary>
+        GetByCode,
         /// <summary>
         /// Thêm mới
         /// </summary>
