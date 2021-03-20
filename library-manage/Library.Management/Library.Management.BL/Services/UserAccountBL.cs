@@ -2,6 +2,7 @@
 using Library.Management.Entity;
 using Library.Management.Entity.Models;
 using Library.Management.Entity.Properties;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace Library.Management.BL
         {
             var entity = new ActionServiceResult();
             //Validate kiểm tra xem tài khoản người dùng có tồn tại hay không
-            var userAcountName = await _baseDL.GetEntityByCode(param.Email, ProcdureTypeName.GetByCode);
+            var userAcountName = await _baseDL.GetEntityByProperty(new { param.Email }, ProcdureTypeName.GetByEmail);
             if (userAcountName == null)
             {
                 entity.Success = false;
@@ -156,6 +157,20 @@ namespace Library.Management.BL
                 
             }
             return entity;
+        }
+
+        public async Task<ActionServiceResult> LoginUserAccount(ParameterLoginAccount param)
+        {
+            var res = new ActionServiceResult();
+            var userAccount = await _baseDL.GetEntityByProperty(param, ProcdureTypeName.GetByUserAndPassWord);
+            if(userAccount == null)
+            {
+                res.Success = false;
+                res.Message = GlobalResource.ErrorUserAccountValidate;
+                res.LibraryCode = LibraryCode.ErrorUserAccountValidate;
+                res.Data = false;
+            }
+            return res;
         }
     }
 }

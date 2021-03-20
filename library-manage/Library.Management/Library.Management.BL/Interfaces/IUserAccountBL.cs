@@ -26,6 +26,7 @@ namespace Library.Management.BL
         Task<ActionServiceResult> RegisterUserAccount(ParameterRegisterAccount param);
 
         Task<ActionServiceResult> UpdateUserInfo(ParameterUpdateUser param);
+        Task<ActionServiceResult> LoginUserAccount(ParameterLoginAccount param);
         
     }
 }

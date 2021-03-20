@@ -103,6 +103,10 @@ namespace Library.Management.Entity
         /// </summary>
         IsUsedEmail = 610,
         /// <summary>
+        /// Tài khoản hoặc mật khẩu không chính xác
+        /// </summary>
+        ErrorUserAccountValidate = 611,
+        /// <summary>
         /// Thất bại
         /// </summary>
         Failed = 1000
@@ -135,6 +139,10 @@ namespace Library.Management.Entity
         /// Lấy thông tin tài khoản qua email
         /// </summary>
         GetByEmail,
+        /// <summary>
+        /// Kiểm tra tài khoản và mật khẩu
+        /// </summary>
+        GetByUserAndPassWord,
         /// <summary>
         /// Thêm mới
         /// </summary>
