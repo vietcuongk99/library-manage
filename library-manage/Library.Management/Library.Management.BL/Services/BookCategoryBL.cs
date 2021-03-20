@@ -1,9 +1,13 @@
-﻿using Library.Management.DL;
+﻿using Dapper;
+using Library.Management.DL;
 using Library.Management.Entity;
 using Library.Management.Entity.Models;
 using Library.Management.Entity.Properties;
+using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,10 +17,13 @@ namespace Library.Management.BL
     {
         private readonly IBookCategoryDL _bookCategoryDL;
         private readonly IBaseDL<BookCategory> _baseDLMaster;
-        public BookCategoryBL(IBaseDL<BookCategory> baseDLMaster, IBookCategoryDL bookCategoryDL)
+        private readonly IConfiguration _config;
+        public BookCategoryBL(IBaseDL<BookCategory> baseDLMaster, IBookCategoryDL bookCategoryDL, IConfiguration config)
         {
             _baseDLMaster = baseDLMaster;
             _bookCategoryDL = bookCategoryDL;
+
+
         }
         /// <summary>
         /// Thêm 1 bản ghi thông tin thể loại sách
