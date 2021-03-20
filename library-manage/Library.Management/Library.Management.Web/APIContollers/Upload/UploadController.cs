@@ -45,7 +45,7 @@ namespace Library.Management.Web.APIContollers.Upload
                 Success = true,
                 LibraryCode = LibraryCode.Success,
                 Message = GlobalResource.Success,
-                Data = _uploadBL.ImportBookData(fileExcel)
+                Data = _uploadBL.ImportBookDataAsync(fileExcel)
             };
         }
     }

@@ -59,6 +59,9 @@ class BookManager {
             var fileNewUpload = $("#fileNewupload").get(0);
             fdata.append(fileNewUpload.files[0].name, fileNewUpload.files[0]);
 
+            $('#loader').show();
+            $('.main-container').addClass("loading");
+
             $.ajax({
                 type: "POST",
                 url: `api/Upload/uploadFileImport`,
@@ -66,12 +69,27 @@ class BookManager {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    $(".check-file-upload").val('');
-                    $(".check-file-upload").next().text("Chọn file nhập khẩu");
-                    $('.close').click();
-                    alert('Nhập khẩu thành công');
+                    debugger
+                    var result = response.data.result;
+
+                    if (result) {
+                        $('#loader').hide();
+                        $('.main-container').removeClass("loading");
+
+                        alert(`Nhập khẩu thành công ${result.InsertCategorySuccess} thể loại mới và ${result.InsertBookSuccess} / ${result.TotalRecord} cuốn sách.`);
+                        $(".check-file-upload").val('');
+                        $(".check-file-upload").next().text("Chọn file nhập khẩu");
+                        $('.close').click();
+                    }
+                    else {
+                        $('#loader').hide();
+                        $('.main-container').removeClass("loading");
+                        alert('Nhập khẩu thất bại');
+                    }
                 },
                 error: function (e) {
+                    $('#loader').hide();
+                    $('.main-container').removeClass("loading");
                     alert('Nhập khẩu thất bại');
                 }
             });
