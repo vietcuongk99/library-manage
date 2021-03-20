@@ -169,6 +169,24 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tên tài khoản hoặc địa chỉ email đã tồn tại, vui lòng thử lại..
+        /// </summary>
+        public static string IsExistUserAccount {
+            get {
+                return ResourceManager.GetString("IsExistUserAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Địa chỉ email đã được sử dụng, vui lòng thử lại..
+        /// </summary>
+        public static string IsUsedEmail {
+            get {
+                return ResourceManager.GetString("IsUsedEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to meom7646@gmail.com.
         /// </summary>
         public static string MailSendAccount {

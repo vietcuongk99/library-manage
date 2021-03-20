@@ -63,5 +63,12 @@ namespace Library.Management.Web
             var res = await _userAccountBL.RegisterUserAccount(param);
             return res;
         }
+
+        [HttpPut("UpdateUserInfo")]
+        public async Task<ActionServiceResult> UpdateUserInfo(ParameterUpdateUser param)
+        {
+            var res = await _userAccountBL.UpdateUserInfo(param);
+            return res;
+        }
     }
 }

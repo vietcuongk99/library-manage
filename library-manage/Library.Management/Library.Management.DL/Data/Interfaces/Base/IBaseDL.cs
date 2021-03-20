@@ -31,6 +31,8 @@ namespace Library.Management.DL
         /// CreatedBy: VDDUNG1 17/03/2021
         Task<T> GetEntityByCode(string code, ProcdureTypeName procdureTypeName);
 
+        Task<T> GetEntityByProperty(object entity, ProcdureTypeName procdureTypeName);
+
         /// <summary>
         /// Thêm mới dữ liệu
         /// </summary>

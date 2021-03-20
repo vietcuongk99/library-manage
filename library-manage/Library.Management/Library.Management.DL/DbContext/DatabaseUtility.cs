@@ -29,6 +29,12 @@ namespace Library.Management.DL.DbContext
                 case ProcdureTypeName.GetByCode:
                     storeName = $"Proc_Get{tableName}ByCode";
                     break;
+                case ProcdureTypeName.GetByUserName:
+                    storeName = $"Proc_Get{tableName}ByUserName";
+                    break;
+                case ProcdureTypeName.GetByEmail:
+                    storeName = $"Proc_Get{tableName}ByEmail";
+                    break;
                 case ProcdureTypeName.Insert:
                     storeName = $"Proc_Insert{tableName}";
                     break;

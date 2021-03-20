@@ -95,6 +95,14 @@ namespace Library.Management.Entity
         /// </summary>
         ErrorOTPCode = 608,
         /// <summary>
+        /// Tên tài khoản hoặc địa chỉ mail đã tồn tại
+        /// </summary>
+        IsExistUserAccount = 609,
+        /// <summary>
+        /// Địa chỉ mail đã tồn tại
+        /// </summary>
+        IsUsedEmail = 610,
+        /// <summary>
         /// Thất bại
         /// </summary>
         Failed = 1000
@@ -119,6 +127,14 @@ namespace Library.Management.Entity
         /// Lấy dữ liệu theo mã code
         /// </summary>
         GetByCode,
+        /// <summary>
+        /// Lấy thông tin theo 1 trường thông tin
+        /// </summary>
+        GetByUserName,
+        /// <summary>
+        /// Lấy thông tin tài khoản qua email
+        /// </summary>
+        GetByEmail,
         /// <summary>
         /// Thêm mới
         /// </summary>

@@ -153,6 +153,12 @@
   <data name="Failed" xml:space="preserve">
     <value>Thất bại</value>
   </data>
+  <data name="IsExistUserAccount" xml:space="preserve">
+    <value>Tên tài khoản hoặc địa chỉ email đã tồn tại, vui lòng thử lại.</value>
+  </data>
+  <data name="IsUsedEmail" xml:space="preserve">
+    <value>Địa chỉ email đã được sử dụng, vui lòng thử lại.</value>
+  </data>
   <data name="MailSendAccount" xml:space="preserve">
     <value>meom7646@gmail.com</value>
   </data>
