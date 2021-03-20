@@ -8,125 +8,193 @@ class SearchResultJS extends BaseJS {
     constructor() {
         super();
         this.loadData();
+        this.initEvent();
 
     }
 
+    //gán sự kiện trong trang search-result.html
+    initEvent() {
+        //gán xử lý sự kiện khi click vào 1 card sách
+        $('#searchResultDiv').on('click', '.card.h-100', this.cardOnClick)
+
+    }
 
     ///load dữ liệu
     loadData() {
 
         //khai báo và gán giá trị trong localStorage
         var fieldValue = localStorage.getItem("fieldValue")
-        var searchContent = localStorage.getItem("searchContent");
+        var fieldText = localStorage.getItem("fieldText")
+        var searchValue = localStorage.getItem("searchValue");
         var showNewBook = localStorage.getItem("showNewBook")
         var showHotBook = localStorage.getItem("showHotBook");
-        var fieldHTML
+        var showAllBook = localStorage.getItem("showAllBook");
 
         //load dữ liệu các thành phần HTML
         //dữ liệu thay đổi phụ thuộc event trên trang index
-        //nếu user tìm kiếm theo một trường xác định
-        if (fieldValue && searchContent) {
-            fieldHTML = $(`<li class="breadcrumb-item">` + fieldValue + `</li><li class="breadcrumb-item">` + searchContent + `</li>`)
-            $('#breadcrumbDiv').append(fieldHTML)
-        } else {
-            //nếu user ấn button 'xem thêm' sách hot
-            if (showHotBook) {
-                fieldHTML = $(`<li class="breadcrumb-item">Sách HOT</li>`)
-                $('#breadcrumbDiv').append(fieldHTML)
-            }
+        //nếu user ấn button 'xem thêm' sách hot trên trang index
+        if (showHotBook) {
 
-            //nếu user ấn button 'xem thêm' sách mới
-            if (showNewBook) {
-                fieldHTML = $(`<li class="breadcrumb-item">Sách Mới</li>`)
-                $('#breadcrumbDiv').append(fieldHTML)
-            }
+            //load dữ liệu
+            var fieldHTML = $(`<li class="breadcrumb-item">Sách HOT</li>`)
+            $('#breadcrumbDiv').append(fieldHTML)
+            commonJS.appendDataToHTML(fakeData, "#searchResultDiv")
+            paginationHTML.insertBefore('footer')
+
+
+        }
+
+        //nếu user ấn button 'xem thêm' sách mới trên trang index
+        if (showNewBook) {
+
+            //load dữ liệu
+            var fieldHTML = $(`<li class="breadcrumb-item">Sách Mới</li>`)
+            $('#breadcrumbDiv').append(fieldHTML)
+            commonJS.appendDataToHTML(fakeData, "#searchResultDiv")
+            paginationHTML.insertBefore('footer')
+        }
+
+        //nếu user ấn nút tìm kiếm trên trang index
+        //chưa có dữ liệu tìm kiếm
+        if (showAllBook) {
+            //lấy ra tất cả đầu sách trong csdl
+            $.ajax({
+                method: "GET",
+                url: host + "api/BookDetail/",
+                async: true,
+                contentType: "application/json",
+                beforeSend: function() {
+                    $('#searchResultDiv').html(`<div class="loader mx-auto mb-5"></div>`);
+                    $('footer').addClass("fixed-bottom")
+                }
+            }).done(function(res) {
+                if (res.success) {
+
+                    //load kết quả tìm kiếm
+                    $(`<div class="loader mx-auto my-auto"></div>`).remove()
+
+                    //thay đổi giao diện
+                    $('footer').removeClass("fixed-bottom")
+                    var data = res.data.lstData
+                    commonJS.appendDataToHTML(data, "#searchResultDiv")
+                    paginationHTML.insertBefore('footer')
+
+                } else {
+
+                    console.log("Lấy dữ liệu thất bại")
+                }
+            }).fail(function(res) {
+                console.log("Lấy dữ liệu không thành công")
+            })
+        }
+
+        //nếu user ấn nút tìm kiếm trên trang index
+        //đã có dữ liệu tìm kiếm
+        if (searchValue && fieldValue) {
+
+            var fieldHTML = $(`<li class="breadcrumb-item">` + fieldText + `</li><li class="breadcrumb-item">` + searchValue.trim() + `</li>`)
+            $('#breadcrumbDiv').append(fieldHTML)
         }
 
 
-        //load kết quả tìm kiếm
-        var data = searchResult;
-        data.forEach(book => {
-
-            var card = $(`<div class="col-lg-3 col-sm-6 portfolio-item">
-                            </div>`)
-            var bookHTML = $(`
-            <div class="card h-100">
-                    <a href="../page/book-detail.html" class="mx-auto"><img class="card-img-top" src="` + book.url + `" alt="" style="width: 150px;"></a>
-                    <div class="card-body">
-                        <p class="card-title font-weight-bold text-truncate">` + book.bookTitle + `</p>
-                        <p class="text-truncate">` + book.bookAuthor + `</p>
-                    </div>
-                </div>`)
-
-            bookHTML.data('bookId', book.id)
-            $(card).append(bookHTML)
-            $('#searchResultDiv').append(card)
-        });
-
     }
 
+    //chi tiết xử lý sự kiện khi click vào 1 card sách
+    cardOnClick() {
+
+        let bookId = $(this).data('bookId')
+        console.log(bookId)
+        console.log(this)
+        localStorage.setItem("bookId", bookId)
+        window.open("book-detail.html", "_self")
+    }
 
 }
 
+var paginationHTML = $(`<ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+        `)
+
 //fake data
-var searchResult = [{
-        id: 1,
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
+var fakeData = [{
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 2,
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 3,
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 4,
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "Clean Code",
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 5,
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "Clean Code",
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 6,
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "Clean Code",
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 7,
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "Clean Code",
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 8,
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "Clean Code",
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 9,
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "Clean Code",
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: 10,
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "Clean Code",
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     }
 ]

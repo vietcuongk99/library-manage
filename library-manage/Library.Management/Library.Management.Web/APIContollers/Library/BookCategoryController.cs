@@ -31,6 +31,8 @@ namespace Library.Management.Web
         [HttpPost("InsertBookCategory")]
         public async Task<ActionServiceResult> InsertBookCategory(ParameterInsertBookCategory param)
         {
+            //Khai báo lại ID vì bên client không cần truyền lên ID, ID tự sinh
+            param.BookCategoryId = Guid.NewGuid();
             var res = await _bookCategoryBL.InsertBookCategory(param);
             return res;
         }

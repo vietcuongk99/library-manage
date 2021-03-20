@@ -116,7 +116,7 @@ namespace Library.Management.BL
                             Success = true,
                             Message = GlobalResource.Success,
                             LibraryCode = LibraryCode.Success,
-                            Data = await _baseDLMaster.UpdateAsync(bookMaster)
+                            Data = await _baseDLMaster.UpdateAsync(bookMaster, ProcdureTypeName.Update)
                         };
                     }
                 }
@@ -136,7 +136,7 @@ namespace Library.Management.BL
         /// <param name="param">đầu vào</param>
         /// <param name="bookMaster">response cập nhật lên db</param>
         /// CreatedBy: VDDUNG1 19/03/2021
-        private static void ConvertParamBeforeUpdate(ParameterUpdateBookCategory param, BookCategory bookMaster)
+        private void ConvertParamBeforeUpdate(ParameterUpdateBookCategory param, BookCategory bookMaster)
         {
             bookMaster.BookCategoryId = param.BookCategoryId;
             bookMaster.BookCategoryCode = param.BookCategoryCode;

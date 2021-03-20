@@ -17,10 +17,11 @@ namespace Library.Management.Entity.Models
         public string District { get; set; }
         public string Province { get; set; }
         public string Country { get; set; }
+        public ulong IsAdmin { get; set; }
+        public ulong? Status { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
-        public ulong? Status { get; set; }
     }
 }

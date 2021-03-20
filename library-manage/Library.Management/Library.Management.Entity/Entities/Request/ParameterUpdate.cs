@@ -27,4 +27,16 @@ namespace Library.Management.Entity
         public int? Amount { get; set; }
         public ulong? Status { get; set; }
     }
+
+    public class ParameterChangeConfirmPassWord
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+    public class ParameterChangeConfirmOTP
+    {
+        public string Email { get; set; }
+        public string PassWord { get; set; }
+        public int OTP { get; set; }
+    }
 }

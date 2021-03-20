@@ -1,10 +1,12 @@
 $(document).ready(function() {
     //xóa thông tin tìm kiếm cũ trong localStorage
-    // localStorage.removeItem("fieldValue")
-    // localStorage.removeItem("searchContent")
-    // localStorage.removeItem("showHotBook")
-    // localStorage.removeItem("showNewBook")
-    // localStorage.removeItem("bookId")
+    localStorage.removeItem("fieldValue")
+    localStorage.removeItem("fieldText")
+    localStorage.removeItem("searchValue")
+    localStorage.removeItem("showHotBook")
+    localStorage.removeItem("showNewBook")
+    localStorage.removeItem("showAllBook")
+    localStorage.removeItem("bookId")
 
     indexJS = new IndexJS()
 })
@@ -23,46 +25,11 @@ class IndexJS extends BaseJS {
     ///load dữ liệu
     loadBookData() {
 
-        var data = newBookList;
-        var data2 = hotBookList;
-
         //load dữ liệu Sách Mới
-        data.forEach(book => {
-
-            var card = $(`<div class="col-lg-3 col-sm-6 portfolio-item">
-                            </div>`)
-
-            var newBookHTML = $(`
-            <div class="card h-100">                
-            <img class="mx-auto card-img-top" src="` + book.url + `" alt="" style="width: 150px;"></a>
-            <div class="card-body">
-                <p class="card-title font-weight-bold text-truncate">` + book.bookTitle + `</p>
-                <p class="text-truncate">` + book.bookAuthor + `</p>
-            </div></div>`)
-
-            $(newBookHTML).data('bookId', book.id)
-            $(card).append(newBookHTML)
-
-            $('#newBookRow').append(card)
-        })
+        commonJS.appendDataToHTML(fakeData, "#newBookRow")
 
         //load dữ liệu Sách HOT
-        data2.forEach(book => {
-            var card = $(`<div class="col-lg-3 col-sm-6 portfolio-item">
-                            </div>`)
-
-            var hotBookHTML = $(`
-            <div class="card h-100">                
-            <img class="mx-auto card-img-top" src="` + book.url + `" alt="" style="width: 150px;"></a>
-            <div class="card-body">
-                <p class="card-title font-weight-bold text-truncate">` + book.bookTitle + `</p>
-                <p class="text-truncate">` + book.bookAuthor + `</p>
-            </div></div>`)
-
-            hotBookHTML.data('bookId', book.id)
-            $(card).append(hotBookHTML)
-            $('#hotBookRow').append(card)
-        })
+        commonJS.appendDataToHTML(fakeData, "#hotBookRow")
 
     }
 
@@ -114,13 +81,18 @@ class IndexJS extends BaseJS {
 
         //lấy thông tin tìm kiếm hiện tại
         var fieldValue = $('#searchSelectGroup').val()
-        var fieldHTML = $('#searchSelectGroup option:selected').text()
-        var searchContent = $('#searchInput').val().trim()
+        var fieldText = $('#searchSelectGroup option:selected').text()
+        var searchValue = $('#searchInput').val().trim()
 
         //lưu thông tin tìm kiếm vào localStorage
-        localStorage.setItem("fieldValue", fieldValue)
-        localStorage.setItem("fieldHTML", fieldHTML)
-        localStorage.setItem("searchContent", searchContent)
+        if (searchValue.length > 0) {
+            localStorage.setItem("fieldText", fieldText)
+            localStorage.setItem("fieldValue", fieldValue)
+            localStorage.setItem("searchValue", searchValue)
+        } else {
+            localStorage.setItem("showAllBook", true)
+        }
+
         window.open("search-result.html", "_self")
 
     }
@@ -129,55 +101,28 @@ class IndexJS extends BaseJS {
 }
 
 //fake data
-var newBookList = [{
-        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
+var fakeData = [{
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     },
     {
-        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    }
-]
-
-
-var hotBookList = [{
-        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    },
-    {
-        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    },
-    {
-        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    },
-    {
-        id: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee58",
-        url: "../content/img/clean-code.jpg",
-        bookTitle: "Clean Code",
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        bookImageUri: "../content/img/clean-code.jpg",
+        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
         bookAuthor: "Robert C.Martin"
     }
 ]

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Management.Entity;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,7 +44,7 @@ namespace Library.Management.DL
         /// <param name="param">Param truyền vào</param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 17/03/2021
-        Task<object> UpdateAsync(object param);
+        Task<object> UpdateAsync(object param, ProcdureTypeName procedureTypeName);
 
         /// <summary>
         /// Xóa nhiều bản ghi
