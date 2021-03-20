@@ -15,7 +15,14 @@ namespace Library.Management.BL
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 20/03/2021
         Task<ActionServiceResult> ChangeConfirmPassWordStepOne(ParameterChangeConfirmPassWord param);
-
+        /// <summary>
+        /// Đổi mật khẩu bước 2, confirm mã OTP
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 20/03/2021
         Task<ActionServiceResult> ChangeConfirmPassWordStepTwo(ParameterChangeConfirmOTP param);
+
+        Task<ActionServiceResult> RegisterUserAccount(ParameterRegisterAccount param);
     }
 }

@@ -34,7 +34,7 @@ namespace Library.Management.BL
         {
             var entity = new ActionServiceResult();
             //Validate kiểm tra xem tài khoản người dùng có tồn tại hay không
-            var userAcountName = await _baseDL.GetEntityByCode(param.Email);
+            var userAcountName = await _baseDL.GetEntityByCode(param.Email, ProcdureTypeName.GetByCode);
             if (userAcountName == null)
             {
                 entity.Success = false;
@@ -62,6 +62,12 @@ namespace Library.Management.BL
             return entity;
         }
 
+        /// <summary>
+        /// Đổi mật khẩu bước 2, confirm mã OTP
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 20/03/2021
         public async Task<ActionServiceResult> ChangeConfirmPassWordStepTwo(ParameterChangeConfirmOTP param)
         {
             var entity = new ActionServiceResult();
@@ -86,6 +92,25 @@ namespace Library.Management.BL
                 entity.LibraryCode = LibraryCode.ErrorOTPCode;
             }
             return entity;
+        }
+
+        public async Task<ActionServiceResult> RegisterUserAccount(ParameterRegisterAccount param)
+        {
+            var entity = new ActionServiceResult();
+            var userAcount = new User();
+            InsertRequestBeforeUpdateDB(param, userAcount);
+            entity.Data = await _baseDL.AddAsync(userAcount, ProcdureTypeName.Insert);
+            return entity;
+        }
+
+        private void InsertRequestBeforeUpdateDB(ParameterRegisterAccount param, User userAcount)
+        {
+            userAcount.UserId = Guid.NewGuid();
+            userAcount.UserName = param.UserName;
+            userAcount.Email = param.Email;
+            userAcount.Password = param.Password;
+            userAcount.IsAdmin = 0; //0 - user, 1 - admin
+            userAcount.Status = (int)Status.Active;
         }
     }
 }

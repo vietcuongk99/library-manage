@@ -139,7 +139,7 @@ namespace Library.Management.Entity
         Delete
     }
 
-    public enum StatusBook
+    public enum Status
     {
         /// <summary>
         /// Còn sử dụng
