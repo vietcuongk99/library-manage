@@ -35,12 +35,19 @@ namespace Library.Management.Web
         public async Task<ActionServiceResult> ChangeConfirmPassWordStepOne(ParameterChangeConfirmPassWord param)
         {
             var res = await _userAccountBL.ChangeConfirmPassWordStepOne(param);
-            if(res.Data != null && (bool)res.Data == false)
+            if (res.Data != null && (bool)res.Data == false)
             {
                 res.Success = false;
                 res.Message = GlobalResource.Failed;
                 res.LibraryCode = LibraryCode.Failed;
             }
+            return res;
+        }
+
+        [HttpPost("ChangeConfirmPassWordStepTwo")]
+        public async Task<ActionServiceResult> ChangeConfirmPassWordStepTwo(ParameterChangeConfirmOTP param)
+        {
+            var res = await _userAccountBL.ChangeConfirmPassWordStepTwo(param);
             return res;
         }
     }

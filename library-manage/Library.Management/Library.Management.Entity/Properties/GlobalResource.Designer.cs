@@ -124,6 +124,15 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mã OTP không chính xác, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorOTPCode {
+            get {
+                return ResourceManager.GetString("ErrorOTPCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cập nhật không thành công.
         /// </summary>
         public static string ErrorUpdateEntity {

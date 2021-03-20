@@ -81,7 +81,7 @@ namespace Library.Management.BL
                 Success = true,
                 LibraryCode = LibraryCode.Success,
                 Message = GlobalResource.Success,
-                Data = await _baseDL.UpdateAsync(param)
+                Data = await _baseDL.UpdateAsync(param, ProcdureTypeName.Update)
             };
         }
 

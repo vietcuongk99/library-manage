@@ -2,6 +2,7 @@
 using Library.Management.Entity;
 using Library.Management.Entity.Models;
 using Library.Management.Entity.Properties;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -51,8 +52,38 @@ namespace Library.Management.BL
                 //Set Cache mã OTP trước khi chuyển sang bước 2
                 if(entity.Data != null && (bool)entity.Data == true)
                 {
-                    _baseMemoryCache.SetCache(param.Email, OTPNew);
+                    _baseMemoryCache.SetCache(param.Email, new { 
+                        Email = param.Email,
+                        PassWord = param.Password,
+                        OTP = OTPNew
+                    });
                 }
+            }
+            return entity;
+        }
+
+        public async Task<ActionServiceResult> ChangeConfirmPassWordStepTwo(ParameterChangeConfirmOTP param)
+        {
+            var entity = new ActionServiceResult();
+            if (_baseMemoryCache.CacheGet(param.Email) != null)
+            {
+                //Đọc dữ liệu bản ghi từ Cache
+                var output = JsonConvert.SerializeObject(_baseMemoryCache.CacheGet(param.Email));
+                var cachevalueOTP = JsonConvert.DeserializeObject<ParameterChangeConfirmOTP>(output);
+                //Check mã OTP, nếu mã chính xác thì cho phép đổi mật khẩu
+                if (param.OTP == cachevalueOTP.OTP)
+                {
+                    var paramConfirmPassWord = new ParameterChangeConfirmPassWord();
+                    paramConfirmPassWord.Email = param.Email;
+                    paramConfirmPassWord.Password = param.PassWord;
+                    entity.Data = await _baseDL.UpdateAsync(paramConfirmPassWord, ProcdureTypeName.UpdateAccount);
+                }
+            }
+            else
+            {
+                entity.Success = false;
+                entity.Message = GlobalResource.ErrorOTPCode;
+                entity.LibraryCode = LibraryCode.ErrorOTPCode;
             }
             return entity;
         }

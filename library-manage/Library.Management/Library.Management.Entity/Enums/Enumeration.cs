@@ -85,9 +85,18 @@ namespace Library.Management.Entity
         /// Lỗi không tìm thấy dữ liệu
         /// </summary>
         ErrorNotIDEntity = 606,
-
+        /// <summary>
+        /// Lỗi tài khoản không tồn tại
+        /// </summary>
         ErrorUserAccount = 607,
 
+        /// <summary>
+        /// Lỗi mã OTP sai
+        /// </summary>
+        ErrorOTPCode = 608,
+        /// <summary>
+        /// Thất bại
+        /// </summary>
         Failed = 1000
     }
 
@@ -119,6 +128,10 @@ namespace Library.Management.Entity
         /// Sửa/ cập nhật dữ liệu
         /// </summary>
         Update,
+        /// <summary>
+        /// Cập nhật tài khoản
+        /// </summary>
+        UpdateAccount,
 
         /// <summary>
         /// Xóa dữ liệu

@@ -138,6 +138,9 @@
   <data name="ErrorNotIDEntity" xml:space="preserve">
     <value>Không tìm thấy dữ liệu, vui lòng thử lại.</value>
   </data>
+  <data name="ErrorOTPCode" xml:space="preserve">
+    <value>Mã OTP không chính xác, vui lòng thử lại.</value>
+  </data>
   <data name="ErrorUpdateEntity" xml:space="preserve">
     <value>Cập nhật không thành công</value>
   </data>

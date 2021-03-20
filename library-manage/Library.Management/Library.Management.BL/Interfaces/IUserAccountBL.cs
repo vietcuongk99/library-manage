@@ -15,5 +15,7 @@ namespace Library.Management.BL
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 20/03/2021
         Task<ActionServiceResult> ChangeConfirmPassWordStepOne(ParameterChangeConfirmPassWord param);
+
+        Task<ActionServiceResult> ChangeConfirmPassWordStepTwo(ParameterChangeConfirmOTP param);
     }
 }

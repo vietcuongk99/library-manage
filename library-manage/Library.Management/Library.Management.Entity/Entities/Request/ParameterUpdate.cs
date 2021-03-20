@@ -33,4 +33,10 @@ namespace Library.Management.Entity
         public string Email { get; set; }
         public string Password { get; set; }
     }
+    public class ParameterChangeConfirmOTP
+    {
+        public string Email { get; set; }
+        public string PassWord { get; set; }
+        public int OTP { get; set; }
+    }
 }

@@ -81,10 +81,10 @@ namespace Library.Management.DL
         /// <param name="param">Param truyền vào</param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 17/03/2021
-        public async Task<object> UpdateAsync(object param)
+        public async Task<object> UpdateAsync(object param, ProcdureTypeName procdureTypeName)
         {
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
-            var storeName = DatabaseUtility.GeneateStoreName<T>(ProcdureTypeName.Update);
+            var storeName = DatabaseUtility.GeneateStoreName<T>(procdureTypeName);
             var entities = _db.Query<T>(storeName, param, commandType: CommandType.StoredProcedure);
             return await Task.FromResult(entities);
         }

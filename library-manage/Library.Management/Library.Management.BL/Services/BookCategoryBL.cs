@@ -109,7 +109,7 @@ namespace Library.Management.BL
                             Success = true,
                             Message = GlobalResource.Success,
                             LibraryCode = LibraryCode.Success,
-                            Data = await _baseDLMaster.UpdateAsync(bookMaster)
+                            Data = await _baseDLMaster.UpdateAsync(bookMaster, ProcdureTypeName.Update)
                         };
                     }
                 }
