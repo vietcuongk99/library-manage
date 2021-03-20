@@ -22,20 +22,47 @@ class SignUpJS {
     //gán sự kiện cho các thẻ liên quan trên trang signup.html
     initEvent() {
         //bind đối tượng this cho hàm của signupJS Object
-        $('#signUpBtn').on('click', this.signUpEvent.bind(this))
+        $('#signUpBtn').click(this.signUpEvent.bind(this))
 
     }
 
-    //chi tiết xử lý khi click nút "cập nhật"
+    //chi tiết xử lý khi click nút "đăng ký"
     signUpEvent() {
 
-        debugger
         var checkValidated = this.validateInput()
+
         if (checkValidated) {
-            //lưu dữ liệu user vào localStorage với giá trị trả về từ API
-            localStorage.setItem("user", JSON.stringify(user2))
+            var data = {
+                "userName": $('#usernameInput').val().trim(),
+                "email": $('#emailInput').val().trim(),
+                "password": $('#passwordInput').val().trim()
+            };
             debugger
-            window.open("index.html", "_self")
+
+            //gọi api
+            $.ajax({
+                method: "POST",
+                url: host + "api/UserAccount/RegisterUserAccount",
+                contentType: "application/json",
+                data: JSON.stringify(data)
+            }).done(function(res) {
+                if (res.success) {
+                    debugger
+                    alert("Đăng ký tài khoản thành công")
+                    window.open("login.html", "_self")
+
+                } else {
+                    debugger
+                    alert("Đăng ký tài khoản thất bại")
+                }
+            }).fail(function(res) {
+                debugger
+                alert("Không thực hiện được thao tác đăng ký")
+            })
+
+            // localStorage.setItem("user", JSON.stringify(user2))
+            // debugger
+            // window.open("index.html", "_self")
         } else {
             console.log("Dữ liệu chưa được validated, đăng ký tài khoản thất bại")
         }
@@ -47,7 +74,7 @@ class SignUpJS {
 
         var result = true;
         var emailInput = $('#emailInput').val().trim()
-        var usernameInput = $('#usernameInput').val().trim()
+        var usernameInput = $('#usernameInput').val().trim();
         var passwordInput = $('#passwordInput').val().trim()
         var rePasswordInput = $('#rePasswordInput').val().trim()
         var checkBoxInput = $('#checkBox')[0].checked
@@ -60,7 +87,12 @@ class SignUpJS {
         })(emailInput)
 
         var usernameValid = (function validateUserName(username) {
-            return username.length >= 5
+            if (username.includes(" ")) {
+                return false
+            } else {
+                return username.length >= 5
+            }
+
         })(usernameInput)
 
         var passwordValid = (function validatePassword(password) {
@@ -92,7 +124,7 @@ class SignUpJS {
             }
         }
         if (!usernameValid) {
-            alertDiv = $(`<small id="alertUsernameInput" class="form-text text-danger">Tên đăng nhập cần chứa tối thiểu 5 kí tự.</small>`)
+            alertDiv = $(`<small id="alertUsernameInput" class="form-text text-danger">Tên đăng nhập cần chứa tối thiểu 5 kí tự và không có khoảng trắng.</small>`)
             if ($('#usernameInput').next()) {
                 $('#usernameInput').next().remove()
             }

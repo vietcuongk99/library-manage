@@ -9,7 +9,7 @@
     <meta name="author" content="Cường, Bảo, Dũng">
 
 
-    <title>Đăng ký tài khoản</title>
+    <title>Xác nhận mã OTP</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -46,32 +46,14 @@
             <div class="col-1"></div>
             <div class="col-10 border mx-3 px-5 py-5 bg-light">
                 <div class="form-group">
-                    <div id="emailInputDiv" class="form-group">
-                        <label for="emailInput">Email đăng ký</label>
-                        <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
-                        <!-- <small id="emailHelp" class="form-text text-muted">Chúng tôi không chia sẻ email này cho bất kì bên nào khác.</small> -->
-                    </div>
-                    <div id="usernameInputDiv" class="form-group">
-                        <label for="usernameInput">Tên đăng nhập</label>
-                        <input type="text" class="form-control" id="usernameInput">
-                    </div>
-                    <div id="passwordInputDiv" class="form-group">
-                        <label for="passwordInput">Mật khẩu</label>
-                        <input type="password" class="form-control" id="passwordInput">
-                    </div>
-                    <div id="rePasswordInputDiv" class="form-group">
-                        <label for="rePasswordInput">Nhập lại mật khẩu</label>
-                        <input type="password" class="form-control" id="rePasswordInput">
-                    </div>
-                    <div id="checkboxInputDiv" class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="checkBox">
-                        <label id="checkBoxTitle" class="form-check-label" for="checkBox">Tôi đã đọc thông tin điều khoản của hệ thống</label>
+                    <div id="codeInputDiv" class="form-group">
+                        <label for="codeInput">Nhập mã OTP</label>
+                        <input type="number" class="form-control" id="codeInput">
                     </div>
                     <div class="text-center">
-                        <button id="signUpBtn" class="btn btn-primary">Đăng ký</button>
+                        <button id="confirmBtn" type="button" class="btn btn-primary">Xác nhận</button>
                     </div>
                 </div>
-
             </div>
             <div class="col-1"></div>
         </div>
@@ -80,7 +62,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="../js/lib/jquery/jquery.min.js"></script>
     <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
-    <script src="../js/page/signup.js"></script>
+    <script src="../js/page/confirm-otp.js"></script>
 
 </body>
 

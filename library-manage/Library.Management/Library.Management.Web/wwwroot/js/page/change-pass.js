@@ -2,7 +2,6 @@ const host = "https://localhost:44328/"
 $(document).ready(function() {
     // xóa bỏ dữ liệu cũ trong localStorage
     localStorage.clear()
-
     changePassJS = new ChangePassJS()
 })
 
@@ -26,12 +25,38 @@ class ChangePassJS {
 
     }
 
-    //chi tiết xử lý khi click nút "cập nhật"
+    //chi tiết xử lý khi click nút "thay đổi"
     updatePassEvent() {
         if (this.validateInput()) {
-            //lưu dữ liệu user vào localStorage với giá trị trả về từ API
-            localStorage.setItem("user", JSON.stringify(user))
-            window.open("index.html", "_self")
+
+            var data = {
+                "email": $('#emailInput').val().trim(),
+                "password": $('#passwordInput').val().trim()
+            }
+
+            //call api
+            $.ajax({
+                method: "POST",
+                url: host + "api/UserAccount/ChangeConfirmPassWordStepOne",
+                contentType: "application/json",
+                data: JSON.stringify(data)
+            }).done(function(res) {
+                if (res.success) {
+                    debugger
+                    localStorage.setItem("email", $('#emailInput').val().trim())
+                    localStorage.setItem("password", $('#passwordInput').val().trim())
+                    alert("Gửi mail chứa mã OTP thành công. Vui lòng kiểm tra email.")
+                    window.open("confirm-otp.html", "_self")
+
+                } else {
+                    debugger
+                    alert("Gửi mail chứa mã OTP thất bại")
+                }
+            }).fail(function(res) {
+                debugger
+                alert("Không thực hiện được thao tác gửi mã OTP")
+            })
+
         } else {
             console.log("Dữ liệu chưa validated")
         }
