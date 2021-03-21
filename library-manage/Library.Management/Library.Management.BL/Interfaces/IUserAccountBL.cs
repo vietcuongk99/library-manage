@@ -24,6 +24,10 @@ namespace Library.Management.BL
         Task<ActionServiceResult> ChangeConfirmPassWordStepTwo(ParameterChangeConfirmOTP param);
 
         Task<ActionServiceResult> RegisterUserAccount(ParameterRegisterAccount param);
+
+        Task<ActionServiceResult> UpdateUserInfo(ParameterUpdateUser param);
+        Task<ActionServiceResult> LoginUserAccount(ParameterLoginAccount param);
+        
         Task<ActionServiceResult> ChangeUserAdmin(ParamChangeUserAdmin param);
     }
 }

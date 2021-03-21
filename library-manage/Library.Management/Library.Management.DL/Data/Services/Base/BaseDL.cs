@@ -60,7 +60,20 @@ namespace Library.Management.DL
             return await Task.FromResult(entities);
         }
         
-
+        /// <summary>
+        /// Lấy ra dữ liệu từ 1 trường thông tin truyền vào bất kỳ
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="procdureTypeName"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 20/03/2021
+        public async Task<T> GetEntityByProperty(object entity, ProcdureTypeName procdureTypeName)
+        {
+            var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
+            var storeName = DatabaseUtility.GeneateStoreName<T>(procdureTypeName);
+            var entities = _db.QueryFirstOrDefault<T>(storeName, entity, commandType: CommandType.StoredProcedure);
+            return await Task.FromResult(entities);
+        }
 
         /// <summary>
         /// Thêm mới dữ liệu

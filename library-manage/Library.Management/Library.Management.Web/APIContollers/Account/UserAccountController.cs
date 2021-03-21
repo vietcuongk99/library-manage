@@ -25,6 +25,17 @@ namespace Library.Management.Web
             _userAccountBL = userAccountBL;
         }
 
+        [HttpPost("LoginUserAccount")]
+        public async Task<ActionServiceResult> LoginUserAccount(ParameterLoginAccount param)
+        {
+            var res = await _userAccountBL.LoginUserAccount(param);
+            if (res.Success)
+            {
+                HttpContext.Session.SetString("UserName", param.UserName);
+            }
+            return res;
+        }
+
         /// <summary>
         /// Đổi mật khẩu bước 1, Validate gửi mail nhận OTP cho dự án
         /// </summary>
@@ -61,6 +72,13 @@ namespace Library.Management.Web
         public async Task<ActionServiceResult> RegisterUserAccount(ParameterRegisterAccount param)
         {
             var res = await _userAccountBL.RegisterUserAccount(param);
+            return res;
+        }
+
+        [HttpPut("UpdateUserInfo")]
+        public async Task<ActionServiceResult> UpdateUserInfo(ParameterUpdateUser param)
+        {
+            var res = await _userAccountBL.UpdateUserInfo(param);
             return res;
         }
         

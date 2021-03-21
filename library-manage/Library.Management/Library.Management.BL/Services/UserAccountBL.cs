@@ -2,6 +2,7 @@
 using Library.Management.Entity;
 using Library.Management.Entity.Models;
 using Library.Management.Entity.Properties;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace Library.Management.BL
         {
             var entity = new ActionServiceResult();
             //Validate kiểm tra xem tài khoản người dùng có tồn tại hay không
-            var userAcountName = await _baseDL.GetEntityByCode(param.Email, ProcdureTypeName.GetByCode);
+            var userAcountName = await _baseDL.GetEntityByProperty(new { param.Email }, ProcdureTypeName.GetByEmail);
             if (userAcountName == null)
             {
                 entity.Success = false;
@@ -97,9 +98,20 @@ namespace Library.Management.BL
         public async Task<ActionServiceResult> RegisterUserAccount(ParameterRegisterAccount param)
         {
             var entity = new ActionServiceResult();
-            var userAcount = new User();
-            InsertRequestBeforeUpdateDB(param, userAcount);
-            entity.Data = await _baseDL.AddAsync(userAcount, ProcdureTypeName.Insert);
+            var checkAccount = await _baseDL.GetEntityByProperty(new { param.UserName, param.Email}, ProcdureTypeName.GetByUserName);
+            //check xem tên tài khoản hoặc mail đã được sử dụng hay chưa
+            if (checkAccount != null)
+            {
+                entity.Success = false;
+                entity.Message = GlobalResource.IsExistUserAccount;
+                entity.LibraryCode = LibraryCode.IsExistUserAccount;
+            }
+            else
+            {
+                var userAcount = new User();
+                InsertRequestBeforeUpdateDB(param, userAcount);
+                entity.Data = await _baseDL.AddAsync(userAcount, ProcdureTypeName.Insert);
+            }
             return entity;
         }
 
@@ -111,6 +123,54 @@ namespace Library.Management.BL
             userAcount.Password = param.Password;
             userAcount.IsAdmin = 0; //0 - user, 1 - admin
             userAcount.Status = (int)Status.Active;
+        }
+
+        public async Task<ActionServiceResult> UpdateUserInfo(ParameterUpdateUser param)
+        {
+            var entity = new ActionServiceResult();
+            param.ModifiedDate = DateTime.Now;
+            if (param.UserId != null)
+            {
+                var checkUserAccount = await _baseDL.GetEntityById(param.UserId.ToString());
+                var checkUserAccountByEmail = await _baseDL.GetEntityByProperty(new { param.Email }, ProcdureTypeName.GetByEmail);
+                if(checkUserAccount == null)
+                {
+                    entity.Success = false;
+                    entity.Message = GlobalResource.ErrorUserAccount;
+                    entity.LibraryCode = LibraryCode.ErrorUserAccount;
+                    return entity;
+                }
+                else
+                {
+                    if (checkUserAccountByEmail != null)
+                    {
+                        entity.Success = false;
+                        entity.Message = GlobalResource.IsUsedEmail;
+                        entity.LibraryCode = LibraryCode.IsUsedEmail;
+                        return entity;
+                    }
+                    else
+                    {
+                        entity.Data = await _baseDL.UpdateAsync(param, ProcdureTypeName.Update);
+                    }
+                }
+                
+            }
+            return entity;
+        }
+
+        public async Task<ActionServiceResult> LoginUserAccount(ParameterLoginAccount param)
+        {
+            var res = new ActionServiceResult();
+            var userAccount = await _baseDL.GetEntityByProperty(param, ProcdureTypeName.GetByUserAndPassWord);
+            if(userAccount == null)
+            {
+                res.Success = false;
+                res.Message = GlobalResource.ErrorUserAccountValidate;
+                res.LibraryCode = LibraryCode.ErrorUserAccountValidate;
+                res.Data = false;
+            }
+            return res;
         }
 
         public async Task<ActionServiceResult> ChangeUserAdmin(ParamChangeUserAdmin param)

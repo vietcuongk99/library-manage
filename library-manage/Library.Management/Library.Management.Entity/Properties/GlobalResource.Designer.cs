@@ -151,6 +151,15 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tài khoản hoặc mật khẩu không chính xác.
+        /// </summary>
+        public static string ErrorUserAccountValidate {
+            get {
+                return ResourceManager.GetString("ErrorUserAccountValidate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lỗi Exception.
         /// </summary>
         public static string Exception {
@@ -165,6 +174,24 @@ namespace Library.Management.Entity.Properties {
         public static string Failed {
             get {
                 return ResourceManager.GetString("Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên tài khoản hoặc địa chỉ email đã tồn tại, vui lòng thử lại..
+        /// </summary>
+        public static string IsExistUserAccount {
+            get {
+                return ResourceManager.GetString("IsExistUserAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Địa chỉ email đã được sử dụng, vui lòng thử lại..
+        /// </summary>
+        public static string IsUsedEmail {
+            get {
+                return ResourceManager.GetString("IsUsedEmail", resourceCulture);
             }
         }
         
