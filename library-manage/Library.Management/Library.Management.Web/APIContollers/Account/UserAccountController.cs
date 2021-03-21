@@ -25,6 +25,12 @@ namespace Library.Management.Web
             _userAccountBL = userAccountBL;
         }
 
+        /// <summary>
+        /// Đăng nhập
+        /// </summary>
+        /// <param name="param"></param>h
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 21/03/2021
         [HttpPost("LoginUserAccount")]
         public async Task<ActionServiceResult> LoginUserAccount(ParameterLoginAccount param)
         {
@@ -68,6 +74,12 @@ namespace Library.Management.Web
             return res;
         }
 
+        /// <summary>
+        /// Đăng ký tài khoản
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 21/03/2021
         [HttpPost("RegisterUserAccount")]
         public async Task<ActionServiceResult> RegisterUserAccount(ParameterRegisterAccount param)
         {
@@ -75,6 +87,12 @@ namespace Library.Management.Web
             return res;
         }
 
+        /// <summary>
+        /// Cập nhật thông tin cá nhân
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 21/03/2021
         [HttpPut("UpdateUserInfo")]
         public async Task<ActionServiceResult> UpdateUserInfo(ParameterUpdateUser param)
         {
