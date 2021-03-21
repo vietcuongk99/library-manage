@@ -63,5 +63,12 @@ namespace Library.Management.Web
             var res = await _userAccountBL.RegisterUserAccount(param);
             return res;
         }
+        
+        [HttpPost("ChangeUserAdmin")]
+        public async Task<ActionServiceResult> ChangeUserAdmin(ParamChangeUserAdmin param)
+        {
+            var res = await _userAccountBL.ChangeUserAdmin(param);
+            return res;
+        }
     }
 }

@@ -69,7 +69,6 @@ class BookManager {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    debugger
                     var result = response.data.result;
 
                     if (result) {

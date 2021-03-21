@@ -15,15 +15,33 @@
 
 <div class="main-container">
     <div class="toolbar">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">
-            Nhập khẩu
-        </button>
+        <div class="toolbar-left">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <select id="searchSelectGroup" class="custom-select custom-select-sm ml-1">
+                        <option value="0" selected>Mọi trường</option>
+                        <option value="1">Tên sách</option>
+                        <option value="2">Loại sách</option>
+                        <option value="3">Năm xuất bản</option>
+                    </select>
+                </div>
+                <input type="text" class="form-control searchInp" placeholder="Tìm kiếm...">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary fa fa-search"></button>
+                </div>
+            </div>
+        </div>
+        <div class="toolbar-right">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btnExcel btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                Nhập khẩu
+            </button>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Xuất khẩu
-        </button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btnExcel btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Xuất khẩu
+            </button>
+        </div>
     </div>
 
     <div class="book-manager-container">

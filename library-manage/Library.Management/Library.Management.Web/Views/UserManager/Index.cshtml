@@ -1,7 +1,49 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Quản lý người dùng";
 }
 
-<h1>Index</h1>
+@section scripts
+{
+    <script src="~/js/admin/userManager.js" asp-append-version="true"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h2>Danh sách người dùng</h2>
+
+        <div class="toast" style="position: absolute; top: 0; right: 0;" role="alert" aria-atomic="true" data-delay="1000">
+            <div class="toast-header">
+                <strong class="mr-auto text-primary" style="color: white">Thành công</strong>
+            </div>
+            <div class="toast-body" style="color: white">
+                Cập nhật dữ liệu thành công
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body" style="height: calc(100vh - 125px);">
+                <div class="table-responsive scrollable-table">
+                    <table id="tbl-filechanges" class="table table-hover table-bordered dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tên đăng nhập</th>
+                                <th>Email</th>
+                                <th>Họ tên</th>
+                                <th>Tuổi</th>
+                                <th>Địa chỉ</th>
+                                <th>Admin</th>
+                                <th>Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lstUserGrid"></tbody>
+                    </table>
+                    <span id="noUsers">Không có bản ghi nào</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

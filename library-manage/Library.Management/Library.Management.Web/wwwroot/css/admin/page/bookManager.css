@@ -23,12 +23,21 @@
     text-decoration: underline;
 }
 .toolbar {
-    width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
-.btn{
+.custom-select {
+    height: 35px !important;
+    border-radius: 3px 0px 0px 3px;
+}
+.btnExcel {
     margin-left: 10px !important;
+}
+
+.searchInp {
+    height: 35px !important;
+    width: 270px !important;
+    border: 1px solid #ced4da;
 }
 
 #loader {

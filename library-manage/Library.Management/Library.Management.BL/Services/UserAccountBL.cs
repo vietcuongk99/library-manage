@@ -112,5 +112,12 @@ namespace Library.Management.BL
             userAcount.IsAdmin = 0; //0 - user, 1 - admin
             userAcount.Status = (int)Status.Active;
         }
+
+        public async Task<ActionServiceResult> ChangeUserAdmin(ParamChangeUserAdmin param)
+        {
+            var entity = new ActionServiceResult();
+            entity.Data = await _userAccountDL.ChangeUserAdmin(param.UserID, param.IsAdmin);
+            return entity;
+        }
     }
 }
