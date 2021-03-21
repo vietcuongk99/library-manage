@@ -2,6 +2,7 @@ const host = "https://localhost:44328/"
 $(document).ready(function() {
     // xóa bỏ dữ liệu cũ trong localStorage
     localStorage.clear()
+    sessionStorage.clear()
     changePassJS = new ChangePassJS()
 })
 
@@ -20,20 +21,21 @@ class ChangePassJS {
 
     //gán sự kiện cho các thẻ liên quan trên trang change-pass.html
     initEvent() {
-        //bind đối tượng this cho hàm của changePassJS Object
+        //this = changePassJS object
         $('#confirmBtn').on('click', this.updatePassEvent.bind(this))
 
     }
 
     //chi tiết xử lý khi click nút "thay đổi"
     updatePassEvent() {
+        //this = changePassJS 
         if (this.validateInput()) {
 
+            //khai báo và gán data trước khi gọi api
             var data = {
                 "email": $('#emailInput').val().trim(),
                 "password": $('#passwordInput').val().trim()
-            }
-
+            };
             //call api
             $.ajax({
                 method: "POST",
@@ -42,18 +44,20 @@ class ChangePassJS {
                 data: JSON.stringify(data)
             }).done(function(res) {
                 if (res.success) {
-                    debugger
-                    localStorage.setItem("email", $('#emailInput').val().trim())
-                    localStorage.setItem("password", $('#passwordInput').val().trim())
-                    alert("Gửi mail chứa mã OTP thành công. Vui lòng kiểm tra email.")
+                    //lưu thông tin email và pass mới vào sessionStorage
+                    sessionStorage.setItem("email", $('#emailInput').val().trim());
+                    sessionStorage.setItem("password", $('#passwordInput').val().trim());
+                    //show alert
+                    alert("Gửi mail chứa mã OTP thành công. Vui lòng kiểm tra email.");
+                    //mở trang confirm-otp
                     window.open("confirm-otp.html", "_self")
 
                 } else {
-                    debugger
+                    //show alert
                     alert("Gửi mail chứa mã OTP thất bại")
                 }
             }).fail(function(res) {
-                debugger
+                //show alert
                 alert("Không thực hiện được thao tác gửi mã OTP")
             })
 
@@ -66,7 +70,9 @@ class ChangePassJS {
 
     //chi tiết xử lý validate dữ liệu
     validateInput() {
+        //khai báo và gán giá trị kết quả trả về
         var result = true;
+        //khai báo và gán giá trị từ input người dùng
         var emailInput = $('#emailInput').val().trim()
         var passwordInput = $('#passwordInput').val().trim()
         var rePasswordInput = $('#rePasswordInput').val().trim()
@@ -78,10 +84,16 @@ class ChangePassJS {
             return re.test(email);
         })(emailInput)
 
+        //password chứa tối thiểu 5 kí tự và không có khoảng trắng
         var passwordValid = (function validatePassword(password) {
-            return password.length >= 5
+            if (password.includes(" ")) {
+                return false
+            } else {
+                return password.length >= 5
+            }
         })(passwordInput)
 
+        //password và repassword phải trùng khớp
         if (passwordInput) {
             var rePasswordValid = (function validateRePassWord(rePassword, password) {
                 return rePassword == password
@@ -103,7 +115,7 @@ class ChangePassJS {
             }
         }
         if (!passwordValid) {
-            alertDiv = $(`<small id="alertPasswordInput" class="form-text text-danger">Mật khẩu cần chứa tối thiểu 5 kí tự.</small>`)
+            alertDiv = $(`<small id="alertPasswordInput" class="form-text text-danger">Mật khẩu cần chứa tối thiểu 5 kí tự và không chứa khoảng trắng.</small>`)
             if ($('#passwordInput').next()) {
                 $('#passwordInput').next().remove()
             }
@@ -131,10 +143,4 @@ class ChangePassJS {
 
     }
 
-}
-
-var user = {
-    userName: "dinh viet Cuong",
-    avatarUrl: "../content/img/avatar-sample.png",
-    role: "ROLE_ADMIN"
 }

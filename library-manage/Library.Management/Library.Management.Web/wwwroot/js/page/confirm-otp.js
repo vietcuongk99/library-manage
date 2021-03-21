@@ -8,7 +8,6 @@ $(document).ready(function() {
 class ConfirmChangePassJS {
 
     constructor() {
-        console.log("pass")
         this.loadData()
         this.initEvent()
     }
@@ -26,15 +25,16 @@ class ConfirmChangePassJS {
     //chi tiết xử lý khi click nút "xác nhận"
     confirmOTPCodeEvent() {
         if (this.validateInput()) {
-            //lấy giá trị otp code từ input và giá trị email, password trong localStorage
+            //lấy giá trị otp code từ input và giá trị email, password trong sessionStorage
             var codeInput = $('#codeInput').val()
-            debugger
+            var emailValue = sessionStorage.getItem("email");
+            var passwordValue = sessionStorage.getItem("password");
+            //khai báo và gán giá trị data trước khi gọi api
             var data = {
-                "email": localStorage.getItem("email"),
-                "passWord": localStorage.getItem("password"),
+                "email": emailValue,
+                "passWord": passwordValue,
                 "otp": parseInt(codeInput)
-            }
-
+            };
             //call api
             $.ajax({
                 method: "POST",
@@ -43,16 +43,17 @@ class ConfirmChangePassJS {
                 data: JSON.stringify(data)
             }).done(function(res) {
                 if (res.success) {
-                    debugger
-                    alert("Thay đổi mật khẩu thành công. Quay trở lại màn hình đăng nhập.")
+                    //show alert
+                    alert("Thay đổi mật khẩu thành công. Quay trở lại màn hình đăng nhập.");
+                    //chuyển sang trang login
                     window.open("login.html", "_self")
 
                 } else {
-                    debugger
+                    //show alert
                     alert("Thay đổi mật khẩu thất bại")
                 }
             }).fail(function(res) {
-                debugger
+                //show alert
                 alert("Không thực hiện được thao tác thay đổi mật khẩu")
             })
 
@@ -65,13 +66,16 @@ class ConfirmChangePassJS {
 
     //chi tiết xử lý validate dữ liệu
     validateInput() {
+        //khai báo và gán giá trị kết quả trả về
         var result = true;
+        //lấy input từ người dùng
         var codeInput = $('#codeInput').val().trim()
 
         //self - invoked
         //validate email, password của người dùng
+        //code otp gồm số 6 chữ số
         var codeValid = (function validateCode(code) {
-            return code >= 100000;
+            return (code >= 100000 && code <= 999999);
         })(codeInput)
 
         //xử lý nếu các input không thỏa mãn validate
@@ -92,10 +96,4 @@ class ConfirmChangePassJS {
 
     }
 
-}
-
-var user = {
-    userName: "dinh viet Cuong",
-    avatarUrl: "../content/img/avatar-sample.png",
-    role: "ROLE_ADMIN"
 }

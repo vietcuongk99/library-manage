@@ -1,7 +1,9 @@
 const host = "https://localhost:44328/"
 $(document).ready(function() {
-    //xóa dữ liệu user cũ trong localStorage
+    //xóa dữ liệu user cũ trong localStorage và sessionStorage
     localStorage.clear()
+    sessionStorage.clear()
+
     loginJS = new LoginJS()
 
 })
@@ -20,35 +22,57 @@ class LoginJS {
 
     //gán sự kiện cho các thẻ liên quan trên trang login.html
     initEvent() {
-        //bind đối tượng this cho hàm của loginJS Object
+        //this = loginJS
         $('#loginBtn').on('click', this.loginEvent.bind(this))
-        $('#guestLoginLink').on('click', this.guestLoginEvent.bind(this))
-        $('#signUpLink').on('click', this.signUpEvent.bind(this))
+        $('#guestLoginLink').prop('href', "./index.html").on('click', this.guestLoginEvent.bind(this))
+        $('#signUpLink').prop('href', "./signup.html").on('click', this.signUpEvent.bind(this))
+        $('#changePassword').prop('href', "./change-pass.html").on('click', this.changePassEvent.bind(this))
 
     }
 
     //chi tiết xử lý khi click nút "đăng nhập"
     loginEvent() {
-
+        //lấy dữ liệu input và validate input
         var validateCheck = this.validateInput()
-        var checkUserValid = this.checkUserValid()
+        var usernameInput = $('#usernameInput').val().trim()
+        var passwordInput = $('#passwordInput').val().trim()
 
-        if (validateCheck && checkUserValid) {
-            var user = checkUserValid
-                //lưu dữ liệu user vào localStorage với giá trị trả về từ API
-            localStorage.setItem("user", JSON.stringify(user));
-            //mở trang index.html
-            window.open("index.html", "_self")
+        //nếu validate thành công
+        if (validateCheck) {
+            //khởi tạo data trước khi call api
+            var user = { "userName": usernameInput, "passWord": passwordInput };
+            //call api
+            $.ajax({
+                method: "POST",
+                url: host + "api/UserAccount/LoginUserAccount",
+                data: JSON.stringify(user),
+                contentType: "application/json"
+
+            }).done(function(res) {
+                //nếu response trả về success (response.success: true)
+                if (res.success) {
+                    //show alert
+                    alert("Đăng nhập thành công");
+                    //lưu thông tin đăng nhập vào localStorage
+                    localStorage.setItem("user", JSON.stringify(user));
+                    //chuyển sang trang index
+                    window.open("index.html", "_self");
+                } else {
+                    //gọi phương thức thêm alert div của loginJS object
+                    loginJS.addAlertDiv(); //this = ajax
+                    //show alert cảnh báo
+                    alert("Đăng nhập thất bại")
+                }
+            }).fail(function(res) {
+                //show alert cảnh báo
+                //lỗi bên server
+                alert("Đăng nhập không thể thực hiện.")
+            })
+
         } else {
-            if ($('#alertDiv')) {
-                $('#alertDiv').remove()
-            }
-            var alertDiv = $(`<div id="alertDiv" class="alert alert-danger" role="alert">Sai tên đăng nhập hoặc mật khẩu.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>`)
-            alertDiv.insertBefore('#usernameInputDiv')
+            //gọi phương thức thêm alert div của loginJS object
+            this.addAlertDiv(); //this = loginJS
+            //show alert cảnh báo
             console.log("Dữ liệu chưa được validated. Đăng nhập thất bại")
         }
     }
@@ -60,49 +84,40 @@ class LoginJS {
     }
 
     //chi tiết xử lý khi click link "đăng ký"
-    signUpEvent() {
-        alert("Hiển thị giao diện signup.html...")
-    }
+    signUpEvent() {}
+
+    //chi tiết xử lý khi click link "quên mật khẩu"
+    changePassEvent() {}
 
     //chi tiết xử lý validate input của người dùng
     validateInput() {
+        //lấy dữ liệu input
         var usernameInput = $('#usernameInput').val().trim()
         var passwordInput = $('#passwordInput').val().trim()
 
-        if (!usernameInput || usernameInput.length <= 0 || !passwordInput || passwordInput.length < 5) {
+        //username chứa tối thiểu 5 kí tự và không có khoảng trắng
+        //password chứa tối thiểu 5 kí tự và không có khoảng trắng
+        if (!usernameInput || usernameInput.length < 5 ||
+            !passwordInput || passwordInput.length < 5 ||
+            usernameInput.includes(" ") ||
+            passwordInput.includes(" ")) {
             return false
         } else {
             return true
         }
     }
 
-    checkUserValid() {
-        var usernameVal = $('#usernameInput').val().trim()
-        var passwordVal = $('#passwordInput').val().trim()
-        var result = null
-        $.each(fakeData, function(index, obj) {
-            if (usernameVal == obj.username && passwordVal == obj.password) {
-
-                result = obj
-
-            }
-        })
-
-        return result
-
+    //thêm thành phần html cho sự kiện alert khi đăng nhập
+    addAlertDiv() {
+        if ($('#alertDiv')) {
+            $('#alertDiv').remove()
+        }
+        var alertDiv = $(`<div id="alertDiv" class="alert alert-danger" role="alert">Sai tên đăng nhập hoặc mật khẩu.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>`)
+        alertDiv.insertBefore('#usernameInputDiv')
     }
+
 }
-
-
-//fake data
-var fakeData = [{
-    username: "cuong",
-    password: "12345",
-    avatarUrl: "../content/img/avatar-sample.png",
-    role: "ROLE_USER"
-}, {
-    username: "admin",
-    password: "12345",
-    avatarUrl: "../content/img/avatar-sample.png",
-    role: "ROLE_ADMIN"
-}]
