@@ -160,7 +160,14 @@ namespace Library.Management.Entity
         /// Cập nhật tài khoản
         /// </summary>
         UpdateAccount,
+        /// <summary>
+        /// Cập nhật ảnh đại diện người dùng
+        /// </summary>
         UpdateAvatarUrl,
+        /// <summary>
+        /// Cập nhật ảnh đại diện sách
+        /// </summary>
+        UpdateBookImageUri,
 
         /// <summary>
         /// Xóa dữ liệu

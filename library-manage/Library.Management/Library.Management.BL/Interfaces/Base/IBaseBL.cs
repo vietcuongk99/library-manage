@@ -1,6 +1,8 @@
 ﻿using Library.Management.Entity;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
@@ -79,10 +81,26 @@ namespace Library.Management.BL
         /// <param name="client"></param>
         /// <returns></returns>
         Task<bool> SendMail(string _from, string _to, string _subject, string _body, SmtpClient client);
+
         /// <summary>
         /// Sinh mã OTP
         /// </summary>
         /// <returns></returns>
         int RandomOTPSMTP();
+
+        /// <summary>
+        /// Convert từ Image sang Base64
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
+        string ImageToBase64(Image image, ImageFormat format);
+        /// <summary>
+        /// Convert từ Base64 sang Image
+        /// </summary>
+        /// <param name="base64String"></param>
+        /// <returns></returns>
+        Image Base64ToImage(string base64String);
+
     }
 }

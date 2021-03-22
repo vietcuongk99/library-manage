@@ -182,5 +182,17 @@ namespace Library.Management.BL
             bookDetail.ModifiedBy = GlobalResource.CreatedBy;
             bookDetail.ModifiedDate = DateTime.Now;
         }
+
+        /// <summary>
+        /// Cập nhật ảnh đại diện sách
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public async Task<ActionServiceResult> SaveBookImageToUri(object param)
+        {
+            var res = new ActionServiceResult();
+            res.Data = await _baseDL.UpdateAsync(param, ProcdureTypeName.UpdateBookImageUri);
+            return res;
+        }
     }
 }

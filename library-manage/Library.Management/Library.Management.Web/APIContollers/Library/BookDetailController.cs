@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -48,6 +51,75 @@ namespace Library.Management.Web
         public async Task<ActionServiceResult> UpdateBookDetail(ParameterUpdateBook param)
         {
             var res = await _bookDetailBL.UpdateBookDetail(param);
+            return res;
+        }
+
+
+        /// <summary>
+        /// Lấy ảnh đại diện sách từ đường dẫn
+        /// </summary>
+        /// <param name="bookID"></param>
+        /// <param name="bookImageUri"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 22/03/2021
+        [HttpGet("GetImageFromUrl")]
+        public ActionServiceResult GetImageFromUrl(string bookID, string bookImageUri)
+        {
+            var res = new ActionServiceResult();
+            var bookDetailUri = new BookImageUri();
+            bookDetailUri.BookID = bookID;
+            string imagePath;
+            if (bookImageUri != null)
+            {
+                imagePath = Directory.GetCurrentDirectory() + bookImageUri;
+            }
+            else
+            {
+                imagePath = Directory.GetCurrentDirectory() + GlobalResource.DirectoryBookImageUri + GlobalResource.AvatarBookDefault;
+            }
+            // Nếu tồn tại đường dẫn chứa ảnh thì gọi đến, không thì gọi về ảnh mặc định
+            if (System.IO.File.Exists(imagePath))
+            {
+                using (Image img = Image.FromFile(imagePath))
+                {
+                    if (img != null)
+                    {
+                        bookDetailUri.BookDetailImageUri = _baseBL.ImageToBase64(img, ImageFormat.Jpeg);
+                    }
+                }
+            }
+            res.Data = bookDetailUri;
+            return res;
+        }
+
+        /// <summary>
+        /// Lưu ảnh đại diện sách 
+        /// </summary>
+        /// <param name="bookImageUri"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 22/03/2021
+        [HttpPost("SaveImageToUrl")]
+        public async Task<ActionServiceResult> SaveImageToUrl(BookImageUri bookImageUri)
+        {
+            var res = new ActionServiceResult();
+            //For demo purpose I only use jpg file and save file name by userId
+            if (!string.IsNullOrEmpty(bookImageUri.BookDetailImageUri))
+            {
+                using (Image image = _baseBL.Base64ToImage(bookImageUri.BookDetailImageUri))
+                {
+                    string bookDetailImageUri = GlobalResource.DirectoryBookImageUri + bookImageUri.BookID + ".jpg";
+                    string strFileName = Directory.GetCurrentDirectory() + bookDetailImageUri;
+                    image.Save(strFileName, ImageFormat.Jpeg);
+                    var param = new { BookID = bookImageUri.BookID, BookImageUri = bookDetailImageUri };
+                    await _bookDetailBL.SaveBookImageToUri(param);
+                }
+            }
+            else
+            {
+                res.Success = false;
+                res.Message = GlobalResource.Failed;
+                res.LibraryCode = LibraryCode.Failed;
+            }
             return res;
         }
     }

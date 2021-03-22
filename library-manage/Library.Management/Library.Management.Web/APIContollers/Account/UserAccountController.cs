@@ -131,34 +131,12 @@ namespace Library.Management.Web
                 {
                     if (img != null)
                     {
-                        userProfile.UserAvatarBase64String = ImageToBase64(img, ImageFormat.Jpeg);
+                        userProfile.UserAvatarBase64String = _baseBL.ImageToBase64(img, ImageFormat.Jpeg);
                     }
                 }
             }
             res.Data = userProfile;
             return res;
-        }
-
-        /// <summary>
-        /// Convert từ Image sang Base64
-        /// </summary>
-        /// <param name="image"></param>
-        /// <param name="format"></param>
-        /// <returns></returns>
-        private string ImageToBase64(Image image, ImageFormat format)
-        {
-            string base64String;
-            using (MemoryStream ms = new MemoryStream())
-            {
-                // Convert Image to byte[]
-                image.Save(ms, format);
-                ms.Position = 0;
-                byte[] imageBytes = ms.ToArray();
-
-                // Convert byte[] to Base64 String
-                base64String = Convert.ToBase64String(imageBytes);
-            }
-            return base64String;
         }
 
         /// <summary>
@@ -173,7 +151,7 @@ namespace Library.Management.Web
             //For demo purpose I only use jpg file and save file name by userId
             if (!string.IsNullOrEmpty(userProfile.UserAvatarBase64String))
             {
-                using (Image image = Base64ToImage(userProfile.UserAvatarBase64String))
+                using (Image image = _baseBL.Base64ToImage(userProfile.UserAvatarBase64String))
                 {
                     string avatarUrl = GlobalResource.DirectoryImage + userProfile.UserId + ".jpg";
                     string strFileName = Directory.GetCurrentDirectory() + avatarUrl;
@@ -190,31 +168,5 @@ namespace Library.Management.Web
             }
             return res;
         }
-        
-        /// <summary>
-        /// Convert từ Base64 sang Image
-        /// </summary>
-        /// <param name="base64String"></param>
-        /// <returns></returns>
-        private Image Base64ToImage(string base64String)
-        {
-            // Convert Base64 String to byte[]
-            byte[] imageBytes = Convert.FromBase64String(base64String);
-            Bitmap tempBmp;
-            using (MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
-            {
-                // Convert byte[] to Image
-                ms.Write(imageBytes, 0, imageBytes.Length);
-                using (Image image = Image.FromStream(ms, true))
-                {
-                    //Create another object image for dispose old image handler
-                    tempBmp = new Bitmap(image.Width, image.Height);
-                    Graphics g = Graphics.FromImage(tempBmp);
-                    g.DrawImage(image, 0, 0, image.Width, image.Height);
-                }
-            }
-            return tempBmp;
-        }
-
     }
 }
