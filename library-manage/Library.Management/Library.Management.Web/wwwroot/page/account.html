@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link href="../css/your-account.css" rel="stylesheet">
+    <link href="../css/account.css" rel="stylesheet">
     <link href="../css/modern-business.css" rel="stylesheet">
 
 
@@ -52,7 +52,7 @@
         <h1 class="mt-4 mb-3">Tài khoản cá nhân
         </h1>
 
-        <ol class="breadcrumb">
+        <ol id="breadCrumbBar" class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="index.html">Trang chủ</a>
             </li>
@@ -65,10 +65,9 @@
             <div class="col-lg-3 mb-4">
                 <div class="list-group">
                     <li class="list-group-item active" id="list-account-list" data-toggle="list" role="tab" href="#list-account-content" aria-controls="account">Tài khoản</li>
-                    <li class="list-group-item" id="list-library-list" data-toggle="list" role="tab" href="#list-library-content" aria-controls="library">Thư viện của bạn</li>
-                    <li class="list-group-item" id="list-infor-list" data-toggle="list" role="tab" href="#list-infor-content" aria-controls="infor">Thông tin cá nhân</li>
-                    <li class="list-group-item" id="list-activity-list" data-toggle="list" role="tab" href="#list-activity-content" aria-controls="activity">Nhật ký hoạt động</li>
-
+                    <li class="list-group-item" id="list-library-list" data-toggle="list" role="tab" href="#list-library-content" aria-controls="library">Sách đang mượn</li>
+                    <!-- <li class="list-group-item" id="list-infor-list" data-toggle="list" role="tab" href="#list-infor-content" aria-controls="infor">Thông tin cá nhân</li> -->
+                    <!-- <li class="list-group-item" id="list-activity-list" data-toggle="list" role="tab" href="#list-activity-content" aria-controls="activity">Nhật ký hoạt động</li> -->
                 </div>
             </div>
             <!-- Content Column -->
@@ -77,150 +76,184 @@
 
                     <!-- tài khoản -->
                     <div class="tab-pane fade show active" id="list-account-content" role="tabpanel" aria-labelledby="list-account-list">
-                        <h2>Tài khoản</h2>
-                        <div class="form-group">
-                            <img src="../content/img/icon.jpg" class="img-thumbnail mr-2" alt="..." style="width: 200px; height: auto">
-                            <label class="btn btn-primary align-bottom">
-                            Chọn ảnh <input type="file" hidden></label>
-                        </div>
-
-
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col">
-                                    <label>Tên người dùng</label>
-                                    <input id="usernameVal" type="text" class="form-control" placeholder="tên người dùng" value="cuong dinh viet">
+                        <h2>Thông tin tài khoản</h2>
+                        <hr>
+                        <div class="row">
+                            <!-- Trường dữ liệu -->
+                            <div class="col-9">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <b>Họ tên:</b>
+                                    </div>
+                                    <div class="col-5">
+                                        <input id="userFullName" type="text" class="form-control" placeholder="..." value="">
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <a id="confirmFullName" href="" style="color: green;">Cập nhật</a>
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <label>Password</label>
-                                    <input id="passwordVal" type="password" class="form-control" placeholder="mật khẩu" value="123456">
+                                <hr>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <b>Địa chỉ:</b>
+                                    </div>
+                                    <div class="col-5">
+                                        <textarea id="userAddress" type="text" class="form-control" placeholder="..."></textarea>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <a id="confirmAddress" href="" style="color: green;">Cập nhật</a>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <b>Tên đăng nhập:</b>
+                                    </div>
+                                    <div class="col-5">
+                                        <input id="userName" type="text" class="form-control" placeholder="..." value="">
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <a id="confirmUserName" href="" style="color: green;">Cập nhật</a>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <b>Email:</b>
+                                    </div>
+                                    <div class="col-5">
+                                        <input id="userEmail" type="email" class="form-control" placeholder="..." value="">
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <a id="confirmEmail" href="" style="color: green;">Cập nhật</a>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <b>Mật khẩu:</b>
+                                    </div>
+                                    <div class="col-5">
+                                        <input readonly id="userPassword" type="password" class="form-control" placeholder="..." value="">
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <a id="changePassword" href="change-pass.html" style="color: green;">Cập nhật</a>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- Ảnh đại diện -->
+                            <div class="col-3 text-center">
+                                <img id="userAvatar" src="../content/img/avatar-sample.png" class="img-thumbnail rounded-circle mb-1" alt="avatar">
+                                <label id="updateImg" class="btn btn-success" data-toggle="#" data-target="#">Cập nhật<input id="chooseImg" type="file" hidden></label>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Email</label>
-                            <input type="text" class="form-control" id="emailVal" placeholder="địa chỉ email" value="17020624@vnu.edu.vn">
-                        </div>
-
-                        <button type="button" class="btn btn-primary">Thay đổi</button>
-                        <button type="button" class="btn btn-primary">Reset</button>
-
                     </div>
 
-                    <!-- thư viện của bạn -->
+                    <!-- Sách đang mượn -->
                     <div class="tab-pane fade" id="list-library-content" role="tabpanel" aria-labelledby="list-library-list">
                         <nav class="navbar navbar-light bg-light">
                             <form class="form-inline">
-                                <input id="searchInput" class="form-control mr-5" type="search" placeholder="Search" aria-label="Search">
-                                <select id="filterGroup" class="custom-select">
-                                    <option value="1">Đang mượn</option>
-                                    <option value="1">Đã trả</option>
+                                <input id="searchInput" class="form-control mr-5" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm">
+                                <select id="filterDate" class="custom-select mr-5">
+                                    <option value="0">Ngày mượn</option>
+                                    <option value="1">Ngày trả</option>
+                                </select>
+                                <select id="filterValue" class="custom-select">
+                                    <option value="0">Tăng dần</option>
+                                    <option value="1">Giảm dần</option>
                                 </select>
                             </form>
                         </nav>
 
-                        <div class="row mt-4">
-                            <div class="col-md-4 col-sm-4 mb-4">
+                        <div class="row mt-2">
+                            <div class="col-md-4 col-sm-6 mb-2">
                                 <div class="row no-gutters border">
-                                    <div class="col-5">
-                                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+                                    <div class="col-6">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/450x600" alt=""></a>
                                     </div>
-                                    <div class="col-7">
+                                    <div class="col-6">
                                         <div class="card-body">
-                                            <h4 class="card-title">
-                                                <a href="#">Project One</a>
-                                            </h4>
+                                            <p class="card-title font-weight-bold text-truncate text-uppercase">Project One</p>
                                             <p class="card-text">sách 1</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-4 col-sm-6 mb-4">
+                            <div class="col-md-4 col-sm-6 mb-2">
                                 <div class="row no-gutters border">
-                                    <div class="col-5">
-                                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+                                    <div class="col-6">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/450x600" alt=""></a>
                                     </div>
-                                    <div class="col-7">
+                                    <div class="col-6">
                                         <div class="card-body">
-                                            <h4 class="card-title">
-                                                <a href="#">Project One</a>
-                                            </h4>
+                                            <p class="card-title font-weight-bold text-truncate text-uppercase">Project One</p>
                                             <p class="card-text">sách 1</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-4 col-sm-6 mb-4">
+                            <div class="col-md-4 col-sm-6 mb-2">
                                 <div class="row no-gutters border">
-                                    <div class="col-5">
-                                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+                                    <div class="col-6">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/450x600" alt=""></a>
                                     </div>
-                                    <div class="col-7">
+                                    <div class="col-6">
                                         <div class="card-body">
-                                            <h4 class="card-title">
-                                                <a href="#">Project One</a>
-                                            </h4>
+                                            <p class="card-title font-weight-bold text-truncate text-uppercase">Project One</p>
+                                            <p class="card-text">sách 1</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 mb-2">
+                                <div class="row no-gutters border">
+                                    <div class="col-6">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/450x600" alt=""></a>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card-body">
+                                            <p class="card-title font-weight-bold text-truncate text-uppercase">Project One</p>
                                             <p class="card-text">sách 1</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-4 col-sm-6 mb-4">
+                            <div class="col-md-4 col-sm-6 mb-2">
                                 <div class="row no-gutters border">
-                                    <div class="col-5">
-                                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+                                    <div class="col-6">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/450x600" alt=""></a>
                                     </div>
-                                    <div class="col-7">
+                                    <div class="col-6">
                                         <div class="card-body">
-                                            <h4 class="card-title">
-                                                <a href="#">Project One</a>
-                                            </h4>
+                                            <p class="card-title font-weight-bold text-truncate text-uppercase">Project One</p>
                                             <p class="card-text">sách 1</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-4 col-sm-6 mb-4">
+                            <div class="col-md-4 col-sm-6 mb-2">
                                 <div class="row no-gutters border">
-                                    <div class="col-5">
-                                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
+                                    <div class="col-6">
+                                        <a href="#"><img class="card-img-top" src="http://placehold.it/450x600" alt=""></a>
                                     </div>
-                                    <div class="col-7">
+                                    <div class="col-6">
                                         <div class="card-body">
-                                            <h4 class="card-title">
-                                                <a href="#">Project One</a>
-                                            </h4>
+                                            <p class="card-title font-weight-bold text-truncate text-uppercase">Project One</p>
                                             <p class="card-text">sách 1</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-4 col-sm-6 mb-4">
-                                <div class="row no-gutters border">
-                                    <div class="col-5">
-                                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x700" alt=""></a>
-                                    </div>
-                                    <div class="col-7">
-                                        <div class="card-body">
-                                            <h4 class="card-title">
-                                                <a href="#">Project One</a>
-                                            </h4>
-                                            <p class="card-text">sách 1</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
 
-                        <!-- Pagination -->
-                        <ul class="pagination justify-content-center">
+
+                    </div>
+
+                    <!-- Pagination -->
+                    <!-- <ul class="pagination justify-content-center">
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
@@ -242,12 +275,12 @@
                                     <span class="sr-only">Next</span>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> -->
 
-                    </div>
+                </div>
 
-                    <!-- thông tin cá nhân -->
-                    <div class="tab-pane fade" id="list-infor-content" role="tabpanel" aria-labelledby="list-infor-list">
+                <!-- thông tin cá nhân -->
+                <!-- <div class="tab-pane fade" id="list-infor-content" role="tabpanel" aria-labelledby="list-infor-list">
                         <h2>Thông tin cá nhân</h2>
                         <div class="form-group">
                             <div class="row">
@@ -280,18 +313,40 @@
 
                         <button type="button" class="btn btn-primary">Thay đổi</button>
                         <button type="button" class="btn btn-primary">Reset</button>
-                    </div>
+                    </div> -->
 
-                    <!-- nhật ký hoạt động -->
-                    <div class="tab-pane fade" id="list-activity-content" role="tabpanel" aria-labelledby="list-activity-list">
+                <!-- nhật ký hoạt động -->
+                <!-- <div class="tab-pane fade" id="list-activity-content" role="tabpanel" aria-labelledby="list-activity-list">
                         <h2>Nhật ký hoạt động</h2>
 
-                    </div>
-                </div>
-
+                    </div> -->
             </div>
         </div>
-        <!-- /.row -->
+
+    </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- sự kiện khi click nút Cập nhật (ảnh đại diện)-->
+    <!-- Modal -->
+    <div class="modal fade" id="modalUpdateAvatar" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cập nhật ảnh đại diện</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="previewImg" src="../content/img/avatar-sample.png" class="rounded-circle">
+                </div>
+                <div class="modal-footer">
+                    <button id="confirmImg" class="btn btn-success mx-auto">Đặt ảnh trên làm ảnh đại diện</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     </div>
     <!-- /.container -->

@@ -20,6 +20,7 @@ class SignUpJS {
     initEvent() {
         //this = signUpJS
         $('#signUpBtn').click(this.signUpEvent.bind(this))
+        commonJS.addEnterEvent(this.signUpEvent)
 
     }
 
@@ -27,7 +28,7 @@ class SignUpJS {
     signUpEvent() {
 
         //lấy giá trị validate input
-        var checkValidated = this.validateInput()
+        var checkValidated = signUpJS.validateInput()
 
         //nếu validate input thành công
         if (checkValidated) {
@@ -133,7 +134,7 @@ class SignUpJS {
             }
         }
         if (!usernameValid) {
-            alertDiv = $(`<small id="alertUsernameInput" class="form-text text-danger">Tên đăng nhập cần chứa tối thiểu 5 kí tự và không có khoảng trắng.</small>`)
+            alertDiv = $(`<small id="alertUsernameInput" class="form-text text-danger">Tên đăng nhập chứa tối thiểu 5 kí tự và không có khoảng trắng.</small>`)
             if ($('#usernameInput').next()) {
                 $('#usernameInput').next().remove()
             }
@@ -145,7 +146,7 @@ class SignUpJS {
             }
         }
         if (!passwordValid) {
-            alertDiv = $(`<small id="alertPasswordInput" class="form-text text-danger">Mật khẩu cần chứa tối thiểu 5 kí tự và không có khoảng trắng.</small>`)
+            alertDiv = $(`<small id="alertPasswordInput" class="form-text text-danger">Mật khẩu chứa tối thiểu 5 kí tự và không có khoảng trắng.</small>`)
             if ($('#passwordInput').next()) {
                 $('#passwordInput').next().remove()
             }

@@ -1,8 +1,8 @@
 const host = "https://localhost:44328/"
 $(document).ready(function() {
-    // xóa bỏ dữ liệu cũ trong localStorage
-    localStorage.clear()
-    sessionStorage.clear()
+    // xóa bỏ dữ liệu cũ trong localStorage và sessionStorage
+    // localStorage.clear()
+    // sessionStorage.clear()
     changePassJS = new ChangePassJS()
 })
 
@@ -11,7 +11,6 @@ $(document).ready(function() {
 class ChangePassJS {
 
     constructor() {
-        console.log("pass")
         this.loadData()
         this.initEvent()
     }
@@ -23,13 +22,14 @@ class ChangePassJS {
     initEvent() {
         //this = changePassJS object
         $('#confirmBtn').on('click', this.updatePassEvent.bind(this))
+        commonJS.addEnterEvent(this.updatePassEvent)
 
     }
 
     //chi tiết xử lý khi click nút "thay đổi"
     updatePassEvent() {
         //this = changePassJS 
-        if (this.validateInput()) {
+        if (changePassJS.validateInput()) {
 
             //khai báo và gán data trước khi gọi api
             var data = {
@@ -115,7 +115,7 @@ class ChangePassJS {
             }
         }
         if (!passwordValid) {
-            alertDiv = $(`<small id="alertPasswordInput" class="form-text text-danger">Mật khẩu cần chứa tối thiểu 5 kí tự và không chứa khoảng trắng.</small>`)
+            alertDiv = $(`<small id="alertPasswordInput" class="form-text text-danger">Mật khẩu chứa tối thiểu 5 kí tự và không có khoảng trắng.</small>`)
             if ($('#passwordInput').next()) {
                 $('#passwordInput').next().remove()
             }

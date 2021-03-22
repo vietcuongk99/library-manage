@@ -1,0 +1,13 @@
+.nav .nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+    border: 0;
+}
+
+#userAvatar {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    width: 200px;
+    height: 200px;
+}

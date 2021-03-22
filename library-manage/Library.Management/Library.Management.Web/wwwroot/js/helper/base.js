@@ -8,11 +8,13 @@ $(document).ready(function() {
 //class quản lý các sự kiện cho thanh header dùng chung
 class BaseJS {
     constructor() {
-        this.loadUserData();
+        this.loadDataNav()
+        this.loadAvatarNav();
     }
 
 
-    loadUserData() {
+    //load dữ liệu trên thanh nav bar
+    loadDataNav() {
 
         //lấy thông tin user từ localStorage
         var userValue = localStorage.getItem("user")
@@ -21,18 +23,15 @@ class BaseJS {
         //nếu user khác null
         if (userObject) {
 
+            //khai báo biến lưu giá trị từ userObject
             var userName = userObject.userName;
-            var userAvatarURL = userObject.avatarUrl;
             var adminUrl = host + "admin"
-            console.log(userName)
 
             //khai báo các thành phần html
-
             var manageSystemBtn = `<li class="nav-item"><a class="nav-link" href="` + adminUrl + `">Quản lý hệ thống</a></li>`
-
             var dropDownAction = `<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAvatar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="` + userAvatarURL + `" class="avatar-icon"></a>
+            <img id="userAvatarNav" class="avatar-icon"></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAvatar">
                 <p class="dropdown-item" style="font-weight: bold;">` + userName + `</p>
                 <a class="dropdown-item" href="account.html">Tài khoản cá nhân</a>
@@ -42,7 +41,7 @@ class BaseJS {
 
             //nếu user là admin
             //thêm đường dẫn tới trang admin.html
-            if (userObject.role == "ROLE_ADMIN") {
+            if (userObject.isAdmin == 1) {
                 $('#navItemList').append(manageSystemBtn)
                 $('#navItemList').append(dropDownAction)
             }
@@ -55,6 +54,29 @@ class BaseJS {
             $('#navItemList').append(loginBtn)
             console.log(userObject)
         }
+
+    }
+
+    //load dữ liệu ảnh đại diện user trên thanh nav bar
+    loadAvatarNav() {
+        //lấy thông tin user từ localStorage
+        var userValue = localStorage.getItem("user")
+        var userObject = JSON.parse(userValue)
+
+        $.ajax({
+            method: "GET",
+            url: host + "api/UserAccount/GetImageFromUrl" + "?userID=" + userObject.userID + "&avatarUrl=" + userObject.avatarUrl,
+            contentType: "application/json"
+        }).done(function(res) {
+            if (res.success) {
+                var userData = res.data
+                $('#userAvatarNav').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
+            } else {
+                alert("Tải avatar người dùng thất bại")
+            }
+        }).fail(function(res) {
+            alert("Lấy dữ liệu avatar của người dùng không thành công")
+        })
 
     }
 
