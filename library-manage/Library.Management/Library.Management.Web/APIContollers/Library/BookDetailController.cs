@@ -110,9 +110,46 @@ namespace Library.Management.Web
                     string bookDetailImageUri = GlobalResource.DirectoryBookImageUri + bookImageUri.BookID + ".jpg";
                     string strFileName = Directory.GetCurrentDirectory() + bookDetailImageUri;
                     image.Save(strFileName, ImageFormat.Jpeg);
-                    var param = new { BookID = bookImageUri.BookID, BookImageUri = bookDetailImageUri };
-                    await _bookDetailBL.SaveBookImageToUri(param);
+                    if (System.IO.File.Exists(strFileName))
+                    {
+                        var param = new { BookID = bookImageUri.BookID, BookImageUri = bookDetailImageUri };
+                        await _bookDetailBL.SaveBookImageToUri(param);
+                    }
+                    else
+                    {
+                        res.Success = false;
+                        res.Message = GlobalResource.Failed;
+                        res.LibraryCode = LibraryCode.Failed;
+                    }
                 }
+            }
+            else
+            {
+                res.Success = false;
+                res.Message = GlobalResource.Failed;
+                res.LibraryCode = LibraryCode.Failed;
+            }
+            return res;
+        }
+
+        /// <summary>
+        /// Lưu file mượn sách của thư viện
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 23/03/2021
+        [HttpPost("SaveFileBookInfo")]
+        public async Task<ActionServiceResult> SaveFileBookInfo(BookDetailDownloadInfo param)
+        {
+            var res = new ActionServiceResult();
+            string bookDetailDownloadInfo = GlobalResource.DirectoryBookInfo + param.BookID + ".pdf";
+            string strFileName = Directory.GetCurrentDirectory() + bookDetailDownloadInfo;
+            byte[] bytes = Convert.FromBase64String(param.BookDetailBase64String);
+            System.IO.File.WriteAllBytes(strFileName, bytes);
+            if (System.IO.File.Exists(strFileName))
+            {
+                var parameter = new { BookID = param.BookID, BookDownloadUri = bookDetailDownloadInfo };
+                await _bookDetailBL.SaveFileBookInfo(parameter);
             }
             else
             {

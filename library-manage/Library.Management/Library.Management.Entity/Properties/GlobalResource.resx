@@ -129,6 +129,9 @@
   <data name="DirectoryBookImageUri" xml:space="preserve">
     <value>\~Temp\FileImage\AvatarBook\</value>
   </data>
+  <data name="DirectoryBookInfo" xml:space="preserve">
+    <value>\~Temp\FileInfo\</value>
+  </data>
   <data name="DirectoryImage" xml:space="preserve">
     <value>\~Temp\FileImage\AvatarUser\</value>
   </data>
