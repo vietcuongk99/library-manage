@@ -122,7 +122,7 @@ namespace Library.Management.Web
             }
             else
             {
-                imagePath = Directory.GetCurrentDirectory() + GlobalResource.DirectoryImage + "a5.jpg";
+                imagePath = Directory.GetCurrentDirectory() + GlobalResource.DirectoryImage + GlobalResource.AvatarUserDefault;
             }
             // Nếu tồn tại đường dẫn chứa ảnh thì gọi đến, không thì gọi về ảnh mặc định
             if (System.IO.File.Exists(imagePath))

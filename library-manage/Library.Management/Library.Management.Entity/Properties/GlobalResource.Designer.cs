@@ -61,6 +61,15 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to avatar-sample.jpg.
+        /// </summary>
+        public static string AvatarUserDefault {
+            get {
+                return ResourceManager.GetString("AvatarUserDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string CreatedBy {
@@ -70,7 +79,7 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \~Temp\FileImage\.
+        ///   Looks up a localized string similar to \~Temp\FileImage\AvatarUser\.
         /// </summary>
         public static string DirectoryImage {
             get {

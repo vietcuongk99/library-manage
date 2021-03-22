@@ -215,6 +215,12 @@ namespace Library.Management.BL
             return res;
         }
 
+        /// <summary>
+        /// Cập nhật đường dẫn ảnh đại diện
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 22/03/2021
         public async Task<ActionServiceResult> SaveImageToUrl(object param)
         {
             var res = new ActionServiceResult();

@@ -47,6 +47,11 @@ namespace Library.Management.BL
         /// CreateBy: VDDUNG1 21/03/2021
         Task<ActionServiceResult> LoginUserAccount(ParameterLoginAccount param);
 
+        /// <summary>
+        /// Cập nhật đường dẫn ảnh đại diện
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
         Task<ActionServiceResult> SaveImageToUrl(object param);
     }
 }
