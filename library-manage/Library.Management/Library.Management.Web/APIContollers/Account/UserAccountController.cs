@@ -156,8 +156,17 @@ namespace Library.Management.Web
                     string avatarUrl = GlobalResource.DirectoryImage + userProfile.UserId + ".jpg";
                     string strFileName = Directory.GetCurrentDirectory() + avatarUrl;
                     image.Save(strFileName, ImageFormat.Jpeg);
-                    var param = new { UserID = userProfile.UserId, AvatarUrl = avatarUrl };
-                    await _userAccountBL.SaveImageToUrl(param);
+                    if (System.IO.File.Exists(strFileName))
+                    {
+                        var param = new { UserID = userProfile.UserId, AvatarUrl = avatarUrl };
+                        await _userAccountBL.SaveImageToUrl(param);
+                    }
+                    else
+                    {
+                        res.Success = false;
+                        res.Message = GlobalResource.Failed;
+                        res.LibraryCode = LibraryCode.Failed;
+                    }
                 }
             }
             else

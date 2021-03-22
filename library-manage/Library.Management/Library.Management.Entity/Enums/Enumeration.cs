@@ -169,6 +169,8 @@ namespace Library.Management.Entity
         /// </summary>
         UpdateBookImageUri,
 
+        UpdateBookDownloadUri,
+
         /// <summary>
         /// Xóa dữ liệu
         /// </summary>

@@ -50,6 +50,9 @@ namespace Library.Management.DL.DbContext
                 case ProcdureTypeName.UpdateBookImageUri:
                     storeName = $"Proc_Update{tableName}ImageUri";
                     break;
+                case ProcdureTypeName.UpdateBookDownloadUri:
+                    storeName = $"Proc_Update{tableName}DownloadUri";
+                    break;
                 case ProcdureTypeName.UpdateAccount:
                     storeName = $"Proc_Update{tableName}Account";
                     break;

@@ -97,6 +97,15 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to \~Temp\FileInfo\.
+        /// </summary>
+        public static string DirectoryBookInfo {
+            get {
+                return ResourceManager.GetString("DirectoryBookInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to \~Temp\FileImage\AvatarUser\.
         /// </summary>
         public static string DirectoryImage {

@@ -194,5 +194,18 @@ namespace Library.Management.BL
             res.Data = await _baseDL.UpdateAsync(param, ProcdureTypeName.UpdateBookImageUri);
             return res;
         }
+
+        /// <summary>
+        /// Lưu file mượn sách của thư viện
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 23/03/2021
+        public async Task<ActionServiceResult> SaveFileBookInfo(object parameter)
+        {
+            var res = new ActionServiceResult();
+            res.Data = await _baseDL.UpdateAsync(parameter, ProcdureTypeName.UpdateBookDownloadUri);
+            return res;
+        }
     }
 }
