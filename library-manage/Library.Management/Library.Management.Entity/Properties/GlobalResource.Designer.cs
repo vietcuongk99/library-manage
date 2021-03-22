@@ -70,6 +70,15 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to \~Temp\FileImage\.
+        /// </summary>
+        public static string DirectoryImage {
+            get {
+                return ResourceManager.GetString("DirectoryImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thêm mới không thành công.
         /// </summary>
         public static string ErrorAddEntity {
@@ -102,6 +111,15 @@ namespace Library.Management.Entity.Properties {
         public static string ErrorBookExist {
             get {
                 return ResourceManager.GetString("ErrorBookExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không thể đổi mật khẩu, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorConfirmOTPPassWord {
+            get {
+                return ResourceManager.GetString("ErrorConfirmOTPPassWord", resourceCulture);
             }
         }
         

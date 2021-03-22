@@ -107,6 +107,10 @@ namespace Library.Management.Entity
         /// </summary>
         ErrorUserAccountValidate = 611,
         /// <summary>
+        /// Không thể đổi mật khẩu
+        /// </summary>
+        ErrorConfirmOTPPassWord = 612,
+        /// <summary>
         /// Thất bại
         /// </summary>
         Failed = 1000
@@ -156,6 +160,7 @@ namespace Library.Management.Entity
         /// Cập nhật tài khoản
         /// </summary>
         UpdateAccount,
+        UpdateAvatarUrl,
 
         /// <summary>
         /// Xóa dữ liệu

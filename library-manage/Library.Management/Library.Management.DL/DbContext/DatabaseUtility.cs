@@ -44,6 +44,9 @@ namespace Library.Management.DL.DbContext
                 case ProcdureTypeName.Update:
                     storeName = $"Proc_Update{tableName}";
                     break;
+                case ProcdureTypeName.UpdateAvatarUrl:
+                    storeName = $"Proc_Update{tableName}AvatarUrl";
+                    break;
                 case ProcdureTypeName.UpdateAccount:
                     storeName = $"Proc_Update{tableName}Account";
                     break;

@@ -46,6 +46,7 @@ namespace Library.Management.BL
         /// <returns></returns>
         /// CreateBy: VDDUNG1 21/03/2021
         Task<ActionServiceResult> LoginUserAccount(ParameterLoginAccount param);
-        
+
+        Task<ActionServiceResult> SaveImageToUrl(object param);
     }
 }

@@ -85,12 +85,20 @@ namespace Library.Management.BL
                     paramConfirmPassWord.Password = param.PassWord;
                     entity.Data = await _baseDL.UpdateAsync(paramConfirmPassWord, ProcdureTypeName.UpdateAccount);
                 }
+                //Báo lỗi OTP
+                else
+                {
+                    entity.Success = false;
+                    entity.Message = GlobalResource.ErrorOTPCode;
+                    entity.LibraryCode = LibraryCode.ErrorOTPCode;
+                }
             }
+            //Báo lỗi đổi mật khẩu
             else
             {
                 entity.Success = false;
-                entity.Message = GlobalResource.ErrorOTPCode;
-                entity.LibraryCode = LibraryCode.ErrorOTPCode;
+                entity.Message = GlobalResource.ErrorConfirmOTPPassWord;
+                entity.LibraryCode = LibraryCode.ErrorConfirmOTPPassWord;
             }
             return entity;
         }
@@ -194,6 +202,23 @@ namespace Library.Management.BL
                 res.LibraryCode = LibraryCode.ErrorUserAccountValidate;
                 res.Data = false;
             }
+            else
+            {
+                res.Data = new
+                {
+                    UserID = userAccount.UserId,
+                    UserName = userAccount.UserName,
+                    AvatarUrl = userAccount.AvatarUrl,
+                    IsAdmin = userAccount.IsAdmin
+                };
+            }
+            return res;
+        }
+
+        public async Task<ActionServiceResult> SaveImageToUrl(object param)
+        {
+            var res = new ActionServiceResult();
+            res.Data = await _baseDL.UpdateAsync(param, ProcdureTypeName.UpdateAvatarUrl);
             return res;
         }
     }

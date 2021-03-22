@@ -120,6 +120,9 @@
   <data name="CreatedBy" xml:space="preserve">
     <value>Admin</value>
   </data>
+  <data name="DirectoryImage" xml:space="preserve">
+    <value>\~Temp\FileImage\</value>
+  </data>
   <data name="ErrorAddEntity" xml:space="preserve">
     <value>Thêm mới không thành công</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="ErrorBookExist" xml:space="preserve">
     <value>Mã sách không hợp lệ hoặc đã tồn tại, vui lòng thử lại.</value>
+  </data>
+  <data name="ErrorConfirmOTPPassWord" xml:space="preserve">
+    <value>Không thể đổi mật khẩu, vui lòng thử lại.</value>
   </data>
   <data name="ErrorDeleteEntity" xml:space="preserve">
     <value>Xóa dữ liệu không thành công</value>
