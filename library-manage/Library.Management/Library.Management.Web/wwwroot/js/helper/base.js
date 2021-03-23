@@ -72,10 +72,10 @@ class BaseJS {
                 var userData = res.data
                 $('#userAvatarNav').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
             } else {
-                alert("Tải avatar người dùng thất bại")
+                commonBaseJS.showToastMsgFailed(res.message);
             }
         }).fail(function(res) {
-            alert("Lấy dữ liệu avatar của người dùng không thành công")
+            commonBaseJS.showToastMsgFailed("Tải ảnh đại diện không thành công.");
         })
 
     }
