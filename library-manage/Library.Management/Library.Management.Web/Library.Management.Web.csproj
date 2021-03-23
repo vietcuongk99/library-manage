@@ -12,7 +12,8 @@
   <ItemGroup>
     <Folder Include="wwwroot\content\" />
     <Folder Include="wwwroot\UploadImage\" />
-    <Folder Include="~Temp\FileImage\" />
+    <Folder Include="~Temp\FileImage\AvatarUser\" />
+    <Folder Include="~Temp\FileImage\AvatarBook\" />
     <Folder Include="~Temp\FileInfo\" />
   </ItemGroup>
 

@@ -85,16 +85,30 @@ namespace Library.Management.BL
                     paramConfirmPassWord.Password = param.PassWord;
                     entity.Data = await _baseDL.UpdateAsync(paramConfirmPassWord, ProcdureTypeName.UpdateAccount);
                 }
+                //Báo lỗi OTP
+                else
+                {
+                    entity.Success = false;
+                    entity.Message = GlobalResource.ErrorOTPCode;
+                    entity.LibraryCode = LibraryCode.ErrorOTPCode;
+                }
             }
+            //Báo lỗi đổi mật khẩu
             else
             {
                 entity.Success = false;
-                entity.Message = GlobalResource.ErrorOTPCode;
-                entity.LibraryCode = LibraryCode.ErrorOTPCode;
+                entity.Message = GlobalResource.ErrorConfirmOTPPassWord;
+                entity.LibraryCode = LibraryCode.ErrorConfirmOTPPassWord;
             }
             return entity;
         }
 
+        /// <summary>
+        /// Đăng ký tài khoản
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 21/03/2021
         public async Task<ActionServiceResult> RegisterUserAccount(ParameterRegisterAccount param)
         {
             var entity = new ActionServiceResult();
@@ -115,6 +129,12 @@ namespace Library.Management.BL
             return entity;
         }
 
+        /// <summary>
+        /// Chuyển thông tin từ Param sang Entity User để cập nhật lên DB
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="userAcount"></param>
+        /// CreatedBy: VDDUNG1 21/03/2021
         private void InsertRequestBeforeUpdateDB(ParameterRegisterAccount param, User userAcount)
         {
             userAcount.UserId = Guid.NewGuid();
@@ -125,6 +145,12 @@ namespace Library.Management.BL
             userAcount.Status = (int)Status.Active;
         }
 
+        /// <summary>
+        /// Cập nhật thông tin cá nhân
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 21/03/2021
         public async Task<ActionServiceResult> UpdateUserInfo(ParameterUpdateUser param)
         {
             var entity = new ActionServiceResult();
@@ -159,6 +185,12 @@ namespace Library.Management.BL
             return entity;
         }
 
+        /// <summary>
+        /// Đăng nhập
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 21/03/2021
         public async Task<ActionServiceResult> LoginUserAccount(ParameterLoginAccount param)
         {
             var res = new ActionServiceResult();
@@ -170,6 +202,29 @@ namespace Library.Management.BL
                 res.LibraryCode = LibraryCode.ErrorUserAccountValidate;
                 res.Data = false;
             }
+            else
+            {
+                res.Data = new
+                {
+                    UserID = userAccount.UserId,
+                    UserName = userAccount.UserName,
+                    AvatarUrl = userAccount.AvatarUrl,
+                    IsAdmin = userAccount.IsAdmin
+                };
+            }
+            return res;
+        }
+
+        /// <summary>
+        /// Cập nhật đường dẫn ảnh đại diện
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 22/03/2021
+        public async Task<ActionServiceResult> SaveImageToUrl(object param)
+        {
+            var res = new ActionServiceResult();
+            res.Data = await _baseDL.UpdateAsync(param, ProcdureTypeName.UpdateAvatarUrl);
             return res;
         }
 

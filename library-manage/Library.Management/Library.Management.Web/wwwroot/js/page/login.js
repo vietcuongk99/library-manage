@@ -13,6 +13,7 @@ $(document).ready(function() {
 class LoginJS {
 
     constructor() {
+
         this.loadData()
         this.initEvent()
     }
@@ -22,8 +23,11 @@ class LoginJS {
 
     //gán sự kiện cho các thẻ liên quan trên trang login.html
     initEvent() {
+
         //this = loginJS
-        $('#loginBtn').on('click', this.loginEvent.bind(this))
+        $('#loginBtn').on('click', this.loginEvent.bind(this));
+        //gán sự kiện cho nút đăng nhập khi nhấn enter
+        commonJS.addEnterEvent(this.loginEvent)
         $('#guestLoginLink').prop('href', "./index.html").on('click', this.guestLoginEvent.bind(this))
         $('#signUpLink').prop('href', "./signup.html").on('click', this.signUpEvent.bind(this))
         $('#changePassword').prop('href', "./change-pass.html").on('click', this.changePassEvent.bind(this))
@@ -33,19 +37,19 @@ class LoginJS {
     //chi tiết xử lý khi click nút "đăng nhập"
     loginEvent() {
         //lấy dữ liệu input và validate input
-        var validateCheck = this.validateInput()
+        var validateCheck = loginJS.validateInput()
         var usernameInput = $('#usernameInput').val().trim()
         var passwordInput = $('#passwordInput').val().trim()
 
         //nếu validate thành công
         if (validateCheck) {
             //khởi tạo data trước khi call api
-            var user = { "userName": usernameInput, "passWord": passwordInput };
+            var userInput = { "userName": usernameInput, "passWord": passwordInput };
             //call api
             $.ajax({
                 method: "POST",
                 url: host + "api/UserAccount/LoginUserAccount",
-                data: JSON.stringify(user),
+                data: JSON.stringify(userInput),
                 contentType: "application/json"
 
             }).done(function(res) {
@@ -54,11 +58,13 @@ class LoginJS {
                     //show alert
                     alert("Đăng nhập thành công");
                     //lưu thông tin đăng nhập vào localStorage
+                    var user = res.data
                     localStorage.setItem("user", JSON.stringify(user));
                     //chuyển sang trang index
                     window.open("index.html", "_self");
                 } else {
                     //gọi phương thức thêm alert div của loginJS object
+
                     loginJS.addAlertDiv(); //this = ajax
                     //show alert cảnh báo
                     alert("Đăng nhập thất bại")
@@ -70,8 +76,9 @@ class LoginJS {
             })
 
         } else {
+
             //gọi phương thức thêm alert div của loginJS object
-            this.addAlertDiv(); //this = loginJS
+            loginJS.addAlertDiv();
             //show alert cảnh báo
             console.log("Dữ liệu chưa được validated. Đăng nhập thất bại")
         }

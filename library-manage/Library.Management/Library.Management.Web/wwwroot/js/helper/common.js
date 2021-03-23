@@ -36,5 +36,21 @@ var commonJS = {
         })
 
         $(selector).html(row)
+    },
+
+    //gán sự kiện khi ấn nút enter
+    addEnterEvent(action) {
+        var enterClicked = false
+
+        $(document).on("keyup", function(event) {
+            if (event.keyCode == 13) {
+
+                //alert("Enter clicked");
+                enterClicked = true
+                event.preventDefault()
+                action()
+            }
+
+        });
     }
 }

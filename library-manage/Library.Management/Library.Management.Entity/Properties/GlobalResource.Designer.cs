@@ -61,11 +61,56 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to avatar-book-default.jpg.
+        /// </summary>
+        public static string AvatarBookDefault {
+            get {
+                return ResourceManager.GetString("AvatarBookDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to avatar-sample.jpg.
+        /// </summary>
+        public static string AvatarUserDefault {
+            get {
+                return ResourceManager.GetString("AvatarUserDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string CreatedBy {
             get {
                 return ResourceManager.GetString("CreatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \~Temp\FileImage\AvatarBook\.
+        /// </summary>
+        public static string DirectoryBookImageUri {
+            get {
+                return ResourceManager.GetString("DirectoryBookImageUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \~Temp\FileInfo\.
+        /// </summary>
+        public static string DirectoryBookInfo {
+            get {
+                return ResourceManager.GetString("DirectoryBookInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \~Temp\FileImage\AvatarUser\.
+        /// </summary>
+        public static string DirectoryImage {
+            get {
+                return ResourceManager.GetString("DirectoryImage", resourceCulture);
             }
         }
         
@@ -102,6 +147,15 @@ namespace Library.Management.Entity.Properties {
         public static string ErrorBookExist {
             get {
                 return ResourceManager.GetString("ErrorBookExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không thể đổi mật khẩu, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorConfirmOTPPassWord {
+            get {
+                return ResourceManager.GetString("ErrorConfirmOTPPassWord", resourceCulture);
             }
         }
         

@@ -25,5 +25,19 @@ namespace Library.Management.BL
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 19/03/2021
         Task<ActionServiceResult> UpdateBookDetail(ParameterUpdateBook param);
+
+        /// <summary>
+        /// Cập nhật ảnh đại diện sách
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        Task<ActionServiceResult> SaveBookImageToUri(object param);
+
+        /// <summary>
+        /// Lưu file mượn sách của thư viện
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        Task<ActionServiceResult> SaveFileBookInfo(object parameter);
     }
 }

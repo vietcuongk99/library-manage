@@ -1,11 +1,11 @@
 const host = "https://localhost:44328/"
 $(document).ready(function() {
-    confirmChangePassJS = new ConfirmChangePassJS()
+    confirmOTPCodeJS = new ConfirmOTPCodeJS()
 })
 
 
 //class quản lý các sự kiện trang confirm-otp.html
-class ConfirmChangePassJS {
+class ConfirmOTPCodeJS {
 
     constructor() {
         this.loadData()
@@ -19,12 +19,13 @@ class ConfirmChangePassJS {
     initEvent() {
         //bind đối tượng this cho hàm của changePassJS Object
         $('#confirmBtn').on('click', this.confirmOTPCodeEvent.bind(this))
+        commonJS.addEnterEvent(this.confirmOTPCodeEvent)
 
     }
 
     //chi tiết xử lý khi click nút "xác nhận"
     confirmOTPCodeEvent() {
-        if (this.validateInput()) {
+        if (confirmOTPCodeJS.validateInput()) {
             //lấy giá trị otp code từ input và giá trị email, password trong sessionStorage
             var codeInput = $('#codeInput').val()
             var emailValue = sessionStorage.getItem("email");

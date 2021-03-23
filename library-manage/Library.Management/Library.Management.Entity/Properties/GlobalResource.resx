@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AvatarBookDefault" xml:space="preserve">
+    <value>avatar-book-default.jpg</value>
+  </data>
+  <data name="AvatarUserDefault" xml:space="preserve">
+    <value>avatar-sample.jpg</value>
+  </data>
   <data name="CreatedBy" xml:space="preserve">
     <value>Admin</value>
+  </data>
+  <data name="DirectoryBookImageUri" xml:space="preserve">
+    <value>\~Temp\FileImage\AvatarBook\</value>
+  </data>
+  <data name="DirectoryBookInfo" xml:space="preserve">
+    <value>\~Temp\FileInfo\</value>
+  </data>
+  <data name="DirectoryImage" xml:space="preserve">
+    <value>\~Temp\FileImage\AvatarUser\</value>
   </data>
   <data name="ErrorAddEntity" xml:space="preserve">
     <value>Thêm mới không thành công</value>
@@ -131,6 +146,9 @@
   </data>
   <data name="ErrorBookExist" xml:space="preserve">
     <value>Mã sách không hợp lệ hoặc đã tồn tại, vui lòng thử lại.</value>
+  </data>
+  <data name="ErrorConfirmOTPPassWord" xml:space="preserve">
+    <value>Không thể đổi mật khẩu, vui lòng thử lại.</value>
   </data>
   <data name="ErrorDeleteEntity" xml:space="preserve">
     <value>Xóa dữ liệu không thành công</value>
