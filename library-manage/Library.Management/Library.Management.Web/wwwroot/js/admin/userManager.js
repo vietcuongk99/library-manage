@@ -49,11 +49,11 @@ class UserManager {
                 }
             } else {
                 $('#noUsers').show();
-                console.log("Lấy dữ liệu thất bại")
+                alert("Lấy dữ liệu thất bại")
             }
         }).fail(function (res) {
             $('#noUsers').show();
-            console.log("Lấy dữ liệu không thành công")
+            alert("Lấy dữ liệu không thành công")
         })
     }
 
@@ -80,10 +80,10 @@ class UserManager {
                     self.loadDataUser();
                     $('.toast').toast('show');
                 } else {
-                    console.log("Cập nhật thất bại")
+                    alert("Cập nhật thất bại")
                 }
             }).fail(function (res) {
-                console.log("Cập nhật không thành công")
+                alert("Cập nhật không thành công")
             })
         } else {
             alert('Phải có ít nhất 1 admin.');
@@ -100,13 +100,13 @@ class UserManager {
             var conf = confirm("Bạn có thực sự muốn xóa người dùng này?");
             if (conf == true) {
 
-                var UserID = [];
-                UserID.push(itemDel.closest('tr').getAttribute('userID'));
+                var listID = [];
+                listID.push(itemDel.closest('tr').getAttribute('userID'));
 
                 $.ajax({
                     method: "DELETE",
                     url: "/api/UserAccount/GroupID/",
-                    data: JSON.stringify(UserID),
+                    data: JSON.stringify(listID),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     async: false,
@@ -116,10 +116,10 @@ class UserManager {
                         self.loadDataUser();
                         $('.toast').toast('show');
                     } else {
-                        console.log("Xóa người dùng không thành công")
+                        alert("Xóa người dùng không thành công")
                     }
                 }).fail(function (res) {
-                    console.log("Xóa người dùng không thành công")
+                    alert("Xóa người dùng không thành công")
                 })
             }
         } else {

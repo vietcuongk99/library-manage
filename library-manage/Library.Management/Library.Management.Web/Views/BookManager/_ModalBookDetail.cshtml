@@ -1,0 +1,88 @@
+﻿<div class="modal fade" id="modalAddBook" tabindex="-1" role="dialog" aria-labelledby="modalAddBookLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalAddBookLabel">Thêm sách</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modalBookDetail">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3>Ảnh bìa sách</h3>
+                        <div class="book-manager-container">
+                            <div class="book-image">
+                                <img id="blah" class="img-fluid mb-4" alt="Ảnh bìa sách">
+                            </div>
+                            <div>
+                                <input type='file' id="imgInp" accept=".png,.jpg" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <h3>Thông tin:</h3>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label for="bookCode">Mã sách:<span class="requirelabel">*</span></label>
+                                    <input type="text" class="form-control checkBookCode" id="bookCode" required>
+                                    <span class="input-error"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="bookCategory">Loại sách:<span class="requirelabel">*</span></label>
+                                    <select class="custom-select" id="bookCategory" required>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="bookYear">Năm xuất bản:<span class="requirelabel">*</span></label>
+                                    <input type="number" class="form-control checkNumInput" id="bookYear" min="1900" max="2021" required>
+                                    <span class="input-error"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <label for="bookName">Tên sách:<span class="requirelabel">*</span></label>
+                                    <input type="text" class="form-control checkRequire" id="bookName" required>
+                                    <span class="input-error"></span>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="bookAuthor">Tên tác giả:<span class="requirelabel">*</span></label>
+                                    <input type="text" class="form-control checkRequire" id="bookAuthor" required>
+                                    <span class="input-error"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="bookName">Số trang:<span class="requirelabel">*</span></label>
+                                    <input type="number" class="form-control checkNumInput" id="bookPage" min="10" max="1000" required>
+                                    <span class="input-error"></span>
+                                </div>
+                                <div class="col-md-9">
+                                    <label for="bookAuthor">Link tải tài liệu:</label>
+                                    <input type="text" class="form-control" id="bookDownLink">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Mô tả:<span class="requirelabel">*</span></label>
+                            <textarea class="form-control checkRequire" rows="3" id="bookDescription" required></textarea>
+                            <span class="input-error"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-discard" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary saveDataBook">Lưu sách</button>
+            </div>
+        </div>
+    </div>
+</div>

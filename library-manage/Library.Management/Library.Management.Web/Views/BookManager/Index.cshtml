@@ -9,6 +9,8 @@
 @section scripts
 {
     <script src="~/js/admin/bookManager.js" asp-append-version="true"></script>
+    <script src="~/js/admin/validate.js" asp-append-version="true"></script>
+    <script src="~/js/admin/modalBookDetail.js" asp-append-version="true"></script>
 }
 
 <div id="loader" style="display:none"></div>
@@ -32,6 +34,10 @@
             </div>
         </div>
         <div class="toolbar-right">
+            <button type="button" class="btn btnAdd btn-info" data-toggle="modal" data-target="#modalAddBook">
+                Thêm mới
+            </button>
+
             <!-- Button trigger modal -->
             <button type="button" class="btn btnExcel btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">
                 Nhập khẩu
@@ -41,15 +47,6 @@
             <button type="button" class="btn btnExcel btn-primary" data-toggle="modal" data-target="#exampleModal">
                 Xuất khẩu
             </button>
-        </div>
-    </div>
-
-    <div class="book-manager-container">
-        <div class="book-image">
-            <img id="blah" class="img-fluid mb-4" src="http://placehold.it/300x400" alt="Ảnh bìa sách">
-        </div>
-        <div>
-            <input type='file' id="imgInp" />
         </div>
     </div>
 
@@ -95,7 +92,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    Tính năng đang phát triển
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -104,4 +101,6 @@
             </div>
         </div>
     </div>
+
+    <partial name="/Views/BookManager/_ModalBookDetail.cshtml" />
 </div>

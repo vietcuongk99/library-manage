@@ -8,7 +8,6 @@ class BookManager {
     }
 
     initEvents() {
-        $("#imgInp").on('change', this.readURL.bind(this));
         $(".downloadTemplateFile").on('click', this.downloadTemplateFile.bind(this));
         $("#btn-import").on('click', this.uploadFileImport.bind(this));
         $(".check-file-upload").on("change", function () {
@@ -23,20 +22,6 @@ class BookManager {
         });
     }
 
-    readURL(event) {
-        var input = event.currentTarget;
-
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#blah').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
     downloadTemplateFile(event) {
         var url = `api/Upload/downloadTemplateFile`;
 
@@ -44,7 +29,6 @@ class BookManager {
             type: "GET",
             url: url,
             success: function (res) {
-                debugger
                 window.open(url, '_blank');
             },
             error: function (e) { debugger }

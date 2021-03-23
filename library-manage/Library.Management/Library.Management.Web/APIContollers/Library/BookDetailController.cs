@@ -36,7 +36,7 @@ namespace Library.Management.Web
         public async Task<ActionServiceResult> InsertBookDetail(ParameterInsertBook param)
         {
             //Khai báo lại ID vì bên client không cần truyền lên ID, ID tự sinh
-            param.BookId = Guid.NewGuid();
+            param.BookImageUri = GlobalResource.DirectoryImage + param.BookId + ".jpg";
             var res = await _bookDetailBL.InsertBookDetail(param);
             return res;
         }
