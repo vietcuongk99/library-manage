@@ -56,7 +56,7 @@ class LoginJS {
                 //nếu response trả về success (response.success: true)
                 if (res.success) {
                     //show alert
-                    alert("Đăng nhập thành công");
+                    commonBaseJS.showToastMsgSuccess("Đăng nhập thành công.");
                     //lưu thông tin đăng nhập vào localStorage
                     var user = res.data
                     localStorage.setItem("user", JSON.stringify(user));
@@ -67,12 +67,12 @@ class LoginJS {
 
                     loginJS.addAlertDiv(); //this = ajax
                     //show alert cảnh báo
-                    alert("Đăng nhập thất bại")
+                    alert(res.message);
                 }
             }).fail(function(res) {
                 //show alert cảnh báo
                 //lỗi bên server
-                alert("Đăng nhập không thể thực hiện.")
+                commonBaseJS.showToastMsgFailed("Đăng nhập không thành công.");
             })
 
         } else {
@@ -80,7 +80,7 @@ class LoginJS {
             //gọi phương thức thêm alert div của loginJS object
             loginJS.addAlertDiv();
             //show alert cảnh báo
-            console.log("Dữ liệu chưa được validated. Đăng nhập thất bại")
+            commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng nhập không thành công.");
         }
     }
 

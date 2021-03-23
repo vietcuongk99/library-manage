@@ -47,21 +47,21 @@ class SignUpJS {
             }).done(function(res) {
                 if (res.success) {
                     //show alert
-                    alert("Đăng ký tài khoản thành công");
+                    commonBaseJS.showToastMsgSuccess("Đăng ký tài khoản thành công.");
                     //mở trang login
                     window.open("login.html", "_self")
 
                 } else {
                     //show aleert
-                    alert("Đăng ký tài khoản thất bại")
+                    commonBaseJS.showToastMsgFailed(res.message);
                 }
             }).fail(function(res) {
                 //show alert
-                alert("Không thực hiện được thao tác đăng ký")
+                commonBaseJS.showToastMsgFailed("Đăng ký không thành công.");
             })
 
         } else {
-            console.log("Dữ liệu chưa được validated, đăng ký tài khoản thất bại")
+            commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng ký không thành công.");
         }
 
     }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,6 +15,7 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/modern-business.css" rel="stylesheet">
+    <link href="../css/base/common.css" rel="stylesheet" />
 
 </head>
 
@@ -25,8 +26,8 @@
         <div class="container">
             <a class="navbar-brand" href="index.html"><img src="../content/img/icon.jpg" class="main-icon">Hệ thống quản lý thư viện</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul id="navItemList" class="navbar-nav ml-auto">
                     <li id="aboutBtn" class="nav-item">
@@ -131,8 +132,6 @@
 
         </div>
         <!-- /.row -->
-
-
         <!-- sự kiện khi click nút Mượn sách -->
         <!-- Modal -->
         <div class="modal fade" id="modalBorrowBook" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -141,8 +140,8 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Mượn sách</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="hiddenDiv()">
-            <span aria-hidden="true">&times;</span>
-          </button>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
                         <div id="modalConfirm1" class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
@@ -172,8 +171,8 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận trả sách</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="hiddenDiv()">
-            <span aria-hidden="true">&times;</span>
-          </button>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
                         <div id="modalConfirm2" class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
@@ -214,8 +213,8 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Gia hạn thời gian mượn sách</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="hiddenDiv()">
-            <span aria-hidden="true">&times;</span>
-          </button>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
                         <div id="modalConfirm3" class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
@@ -301,8 +300,6 @@
 
         </div>
         <!-- /.row -->
-
-
         <!-- Comments Form -->
         <div class="card my-4">
             <h5 class="card-header">Bình luận</h5>
@@ -363,7 +360,6 @@
 
     </div>
     <!-- /.container -->
-
     <!-- Footer -->
     <footer class="py-5 bg-dark">
         <div class="container">
@@ -372,20 +368,31 @@
         <!-- /.container -->
     </footer>
 
+    <div class="toastMsg">
+        <span class="toastMsg-img-success"></span> Thành công
+        <div class="toastMsg-text"></div>
+    </div>
+
+    <div class="toastMsgFailed">
+        <span class="toastMsgFailed-img"></span> Thất bại
+        <div class="toastMsgFailed-text"></div>
+    </div>
+
     <!-- Bootstrap core JavaScript -->
     <script src="../js/lib/jquery/jquery.min.js"></script>
     <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../js/base/commonBase.js"></script>
     <script src="../js/helper/base.js"></script>
     <script src="../js/page/book-detail.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#confirmBorrowBtn').click(function() {
+        $(document).ready(function () {
+            $('#confirmBorrowBtn').click(function () {
                 $('#modalConfirm1').show()
             })
-            $('#confirmExtendBtn').click(function() {
+            $('#confirmExtendBtn').click(function () {
                 $('#modalConfirm3').show()
             })
-            $('#confirmReturnBtn').click(function() {
+            $('#confirmReturnBtn').click(function () {
                 $('#modalConfirm2').show()
             })
 

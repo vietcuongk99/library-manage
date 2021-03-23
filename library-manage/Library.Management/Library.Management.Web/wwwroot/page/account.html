@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -18,6 +18,7 @@
     <!-- Custom styles for this template -->
     <link href="../css/account.css" rel="stylesheet">
     <link href="../css/modern-business.css" rel="stylesheet">
+    <link href="../css/base/common.css" rel="stylesheet" />
 
 
 
@@ -30,8 +31,8 @@
         <div class="container">
             <a class="navbar-brand" href="index.html"><img src="../content/img/icon.jpg" class="main-icon">Hệ thống quản lý thư viện</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul id="navItemList" class="navbar-nav ml-auto">
                     <li id="aboutBtn" class="nav-item">
@@ -49,7 +50,8 @@
     <div class="container mb-5">
 
         <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3">Tài khoản cá nhân
+        <h1 class="mt-4 mb-3">
+            Tài khoản cá nhân
         </h1>
 
         <ol id="breadCrumbBar" class="breadcrumb">
@@ -314,7 +316,6 @@
                         <button type="button" class="btn btn-primary">Thay đổi</button>
                         <button type="button" class="btn btn-primary">Reset</button>
                     </div> -->
-
                 <!-- nhật ký hoạt động -->
                 <!-- <div class="tab-pane fade" id="list-activity-content" role="tabpanel" aria-labelledby="list-activity-list">
                         <h2>Nhật ký hoạt động</h2>
@@ -324,9 +325,7 @@
         </div>
 
     </div>
-    </div>
     <!-- /.row -->
-
     <!-- sự kiện khi click nút Cập nhật (ảnh đại diện)-->
     <!-- Modal -->
     <div class="modal fade" id="modalUpdateAvatar" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
@@ -335,8 +334,8 @@
                 <div class="modal-header">
                     <h5 class="modal-title">Cập nhật ảnh đại diện</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body text-center">
                     <img id="previewImg" src="../content/img/avatar-sample.png" class="rounded-circle">
@@ -348,20 +347,28 @@
         </div>
     </div>
 
-    </div>
     <!-- /.container -->
-
     <!-- Footer -->
     <!-- <footer class="py-2 bg-dark fixed-bottom">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
         </div>
-        
+
     </footer> -->
+    <div class="toastMsg">
+        <span class="toastMsg-img-success"></span> Thành công
+        <div class="toastMsg-text"></div>
+    </div>
+
+    <div class="toastMsgFailed">
+        <span class="toastMsgFailed-img"></span> Thất bại
+        <div class="toastMsgFailed-text"></div>
+    </div>
 
     <!-- Bootstrap core JavaScript -->
     <script src="../js/lib/jquery/jquery.min.js"></script>
     <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../js/base/commonBase.js"></script>
     <script src="../js/helper/base.js"></script>
     <script src="../js/page/account.js"></script>
 

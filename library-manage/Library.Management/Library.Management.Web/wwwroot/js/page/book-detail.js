@@ -48,18 +48,18 @@ class BookDetailJS extends BaseJS {
                         $('#bookCategoryName').text(data.bookCategoryName);
                     } else {
 
-                        console.log("ID không tồn tại. Lấy dữ liệu thất bại")
+                        commonBaseJS.showToastMsgFailed(res.message);
                     }
                 }).fail(function(res) {
-                    console.log("Lấy dữ liệu không thành công")
+                    commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
                 })
 
             } else {
 
-                console.log("ID không tồn tại. Lấy dữ liệu thất bại")
+                commonBaseJS.showToastMsgFailed(res.message);
             }
         }).fail(function(res) {
-            console.log("Lấy dữ liệu không thành công")
+            commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
         })
 
         //call api lấy thông tin sách

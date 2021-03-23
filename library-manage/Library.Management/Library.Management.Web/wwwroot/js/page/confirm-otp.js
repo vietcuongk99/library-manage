@@ -45,21 +45,21 @@ class ConfirmOTPCodeJS {
             }).done(function(res) {
                 if (res.success) {
                     //show alert
-                    alert("Thay đổi mật khẩu thành công. Quay trở lại màn hình đăng nhập.");
+                     commonBaseJS.showToastMsgSuccess("Thay đổi mật khẩu thành công.");
                     //chuyển sang trang login
                     window.open("login.html", "_self")
 
                 } else {
                     //show alert
-                    alert("Thay đổi mật khẩu thất bại")
+                    commonBaseJS.showToastMsgFailed(res.message);
                 }
             }).fail(function(res) {
                 //show alert
-                alert("Không thực hiện được thao tác thay đổi mật khẩu")
+                commonBaseJS.showToastMsgFailed("Đổi mật khẩu không thành công.");
             })
 
         } else {
-            console.log("Dữ liệu chưa validated")
+            commonBaseJS.showToastMsgFailed("Xử lý dữ liệu không thành công.");
         }
 
 
