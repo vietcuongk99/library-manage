@@ -29,6 +29,7 @@ class AccountJS extends BaseJS {
         }).done(function(res) {
             if (res.success) {
                 userData = res.data;
+                //commonBaseJS.showToastMsgSuccess("Lấy dữ liệu thành công.");
                 //gán giá trị và thuộc tính cho các thành phần input trên trang account
                 $('#userFullName').attr('value', userData.firstName + userData.lastName)
                 $('#userAddress').text(userData.street + ', ' + userData.district + ', ' + userData.province)
@@ -36,10 +37,10 @@ class AccountJS extends BaseJS {
                 $('#userEmail').attr('value', userData.email)
                 $('#userPassword').attr('value', userData.password)
             } else {
-                alert("Lấy dữ liệu người dùng thất bại")
+                commonBaseJS.showToastMsgFailed(res.message);
             }
         }).fail(function(res) {
-            alert("Lấy dữ liệu user không thành công")
+            commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
         })
 
     }
@@ -54,15 +55,16 @@ class AccountJS extends BaseJS {
         }).done(function(res) {
             if (res.success) {
                 var userData = res.data;
+                //commonBaseJS.showToastMsgSuccess("Lấy dữ liệu thành công.");
                 //gán giá trị cho thuộc tính của thành phần image trên trang account.html và thanh nav bar
                 //cập nhật thay đổi mới nhất sau khi setUserAvatar() thực thi thành công
                 $('#userAvatar').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
                 $('#userAvatarNav').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
             } else {
-                alert("Tải avatar người dùng thất bại")
+                commonBaseJS.showToastMsgFailed(res.message);
             }
         }).fail(function(res) {
-            alert("Lấy dữ liệu avatar của người dùng không thành công")
+            commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
         })
 
     }
@@ -113,34 +115,34 @@ class AccountJS extends BaseJS {
                 // alert("Thay đổi avatar thành công.");
                 //ẩn modal thay đổi avatar
                 $('#modalUpdateAvatar').modal('hide');
-                accountJS.addAlertDiv();
+                commonBaseJS.showToastMsgSuccess("Cập nhật thành công.");
                 //gọi lại hàm loadUserAvatar của accountJS Object
                 //cập nhật lại thay đổi mới nhất
                 accountJS.loadUserAvatar();
 
             } else {
                 //show alert
-                alert("Thay đổi avatar thất bại")
+                commonBaseJS.showToastMsgFailed(res.message);
             }
         }).fail(function(res) {
             //show alert
-            alert("Không thực hiện được thao tác thay đổi avatar")
+            commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
         })
     }
 
 
-    //thêm thành phần html khi thay đổi avatar thành công
-    addAlertDiv() {
-        if ($('#alertDiv')) {
-            $('#alertDiv').remove()
-        }
-        var alertDiv = $(`<div id="alertDiv" class="alert alert-success" role="alert">Thay đổi ảnh đại diện thành công.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>`)
-        alertDiv.insertBefore('#breadCrumbBar')
-    }
+    ////thêm thành phần html khi thay đổi avatar thành công
+    //addAlertDiv() {
+    //    if ($('#alertDiv')) {
+    //        $('#alertDiv').remove()
+    //    }
+    //    var alertDiv = $(`<div id="alertDiv" class="alert alert-success" role="alert">Thay đổi ảnh đại diện thành công.
+    //    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    //      <span aria-hidden="true">&times;</span>
+    //    </button>
+    //  </div>`)
+    //    alertDiv.insertBefore('#breadCrumbBar')
+    //}
 
 
 }

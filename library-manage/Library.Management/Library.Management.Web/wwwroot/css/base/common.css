@@ -1,0 +1,68 @@
+﻿.toastMsg {
+    display: none;
+    background-color: #fff;
+    border-color: #349a4a;
+    border: 1px solid #0fa655;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #0fa655;
+    font-weight: bold;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    width: 250px;
+}
+
+.toastMsg-img-success {
+    background-image: url('/content/img/successv1.png');
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-top: 3px;
+    margin-right: 8px;
+    background-size: contain;
+}
+
+.toastMsg-text {
+    font-size: 13px;
+    color: #000;
+    font-weight: 400 !important;
+    margin-top: 4px;
+    margin-left: 28px;
+}
+
+
+.toastMsgFailed {
+    display: none;
+    background-color: #fff;
+    border-color: #ff3333;
+    border: 1px solid #ff3333;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #ff3333;
+    font-weight: bold;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    width: 250px;
+}
+
+.toastMsgFailed-img {
+    background-image: url('/content/img/failv1.jpg');
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-top: 3px;
+    margin-right: 8px;
+    background-size: contain;
+}
+
+.toastMsgFailed-text {
+    font-size: 13px;
+    color: #000;
+    font-weight: 400 !important;
+    margin-top: 4px;
+    margin-left: 28px;
+}

@@ -81,10 +81,10 @@ class SearchResultJS extends BaseJS {
 
                 } else {
 
-                    console.log("Lấy dữ liệu thất bại")
+                    commonBaseJS.showToastMsgFailed(res.message);
                 }
             }).fail(function(res) {
-                console.log("Lấy dữ liệu không thành công")
+                commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
             })
         }
 

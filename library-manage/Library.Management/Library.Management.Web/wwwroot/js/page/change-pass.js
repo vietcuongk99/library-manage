@@ -48,21 +48,24 @@ class ChangePassJS {
                     sessionStorage.setItem("email", $('#emailInput').val().trim());
                     sessionStorage.setItem("password", $('#passwordInput').val().trim());
                     //show alert
-                    alert("Gửi mail chứa mã OTP thành công. Vui lòng kiểm tra email.");
+                    commonBaseJS.showToastMsgSuccess("Gửi mail chứa mã OTP thành công, vui lòng kiểm tra email.");
                     //mở trang confirm-otp
-                    window.open("confirm-otp.html", "_self")
+                    setTimeout(function () {
+                        window.open("confirm-otp.html", "_self")
+                    }, 3000);
+                    
 
                 } else {
                     //show alert
-                    alert("Gửi mail chứa mã OTP thất bại")
+                    commonBaseJS.showToastMsgFailed(res.message);
                 }
             }).fail(function(res) {
                 //show alert
-                alert("Không thực hiện được thao tác gửi mã OTP")
+                commonBaseJS.showToastMsgFailed("Gửi mã OTP không thành công.");
             })
 
         } else {
-            console.log("Dữ liệu chưa validated")
+            commonBaseJS.showToastMsgFailed("Xử lý dữ liệu không thành công.");
         }
 
 

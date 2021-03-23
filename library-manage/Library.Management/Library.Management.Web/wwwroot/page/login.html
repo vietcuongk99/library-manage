@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,6 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/login&signup.css" rel="stylesheet">
+    <link href="../css/base/common.css" rel="stylesheet" />
 </head>
 
 <body class="d-flex border align-items-center justify-content-center">
@@ -60,10 +61,20 @@
         <div class="col-1"></div>
     </div>
 
+    <div class="toastMsg">
+        <span class="toastMsg-img-success"></span> Thành công
+        <div class="toastMsg-text"></div>
+    </div>
+
+    <div class="toastMsgFailed">
+        <span class="toastMsgFailed-img"></span> Thất bại
+        <div class="toastMsgFailed-text"></div>
+    </div>
 
     <!-- Script -->
     <script src="../js/lib/jquery/jquery.min.js"></script>
     <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../js/base/commonBase.js"></script>
     <script src="../js/helper/common.js"></script>
     <script src="../js/page/login.js"></script>
 

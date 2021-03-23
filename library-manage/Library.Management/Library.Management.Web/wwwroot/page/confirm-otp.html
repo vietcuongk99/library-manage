@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,6 +17,7 @@
     <!-- Custom styles for this template -->
     <link href="../css/login&signup.css" rel="stylesheet">
     <link href="../css/modern-business.css" rel="stylesheet">
+    <link href="../css/base/common.css" rel="stylesheet" />
 
 </head>
 
@@ -27,8 +28,8 @@
         <div class="container">
             <a class="navbar-brand" href="index.html"><img src="../content/img/icon.jpg" class="main-icon">Hệ thống quản lý thư viện</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
@@ -59,9 +60,20 @@
         </div>
     </main>
 
+    <div class="toastMsg">
+        <span class="toastMsg-img-success"></span> Thành công
+        <div class="toastMsg-text"></div>
+    </div>
+
+    <div class="toastMsgFailed">
+        <span class="toastMsgFailed-img"></span> Thất bại
+        <div class="toastMsgFailed-text"></div>
+    </div>
+
     <!-- Bootstrap core JavaScript -->
     <script src="../js/lib/jquery/jquery.min.js"></script>
     <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../js/base/commonBase.js"></script>
     <script src="../js/helper/common.js"></script>
     <script src="../js/page/confirm-otp.js"></script>
 

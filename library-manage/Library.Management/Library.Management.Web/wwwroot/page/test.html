@@ -1,10 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="../css/base/common.css" rel="stylesheet" />
     <title>Document</title>
 </head>
 
@@ -16,11 +18,23 @@
             <th>Product name</th>
         </tr> -->
     </table>
+
+    <div class="toastMsg">
+        <span class="toastMsg-img-success"></span> Thành công
+        <div class="toastMsg-text"></div>
+    </div>
+
+    <div class="toastMsgFailed">
+        <span class="toastMsgFailed-img"></span> Thất bại
+        <div class="toastMsgFailed-text"></div>
+    </div>
+
+    <script src="../js/base/commonBase.js"></script>
     <script src="../js/lib/jquery/jquery.min.js"></script>
     <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../js/lib/pagination.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             loadData()
         })
 
@@ -62,7 +76,7 @@
             }).fail((res) => {
 
             })
-            
+
         }
     </script>
 </body>

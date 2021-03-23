@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,6 +15,7 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/modern-business.css" rel="stylesheet">
+    <link href="../css/base/common.css" rel="stylesheet" />
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
 </head>
@@ -26,8 +27,8 @@
         <div class="container">
             <a class="navbar-brand" href="index.html"><img src="../content/img/icon.jpg" class="main-icon">Hệ thống quản lý thư viện</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul id="navItemList" class="navbar-nav ml-auto">
                     <li id="aboutBtn" class="nav-item">
@@ -44,17 +45,16 @@
     <header>
         <div class="container text-center">
             <h1>Hệ thống quản lý thư viện</h1>
-            <p class="lead">hệ thống quản lý thư viện</p>
         </div>
 
         <form class="form-inline">
             <div class="form-group mx-auto mb-3">
                 <select id="searchSelectGroup" class="custom-select custom-select-sm ml-1">
-                <option value="0" selected>Mọi trường</option>
-                <option value="1">Tên sách</option>
-                <option value="2">Loại sách</option>
-                <option value="3">Năm xuất bản</option>
-              </select>
+                    <option value="0" selected>Mọi trường</option>
+                    <option value="1">Tên sách</option>
+                    <option value="2">Loại sách</option>
+                    <option value="3">Năm xuất bản</option>
+                </select>
                 <input id="searchInput" class="form-control form-control-sm ml-1" type="text" placeholder="...">
                 <button id="searchBtn" type="button" class="btn btn-outline-light btn-sm ml-1">Tìm kiếm</button>
             </div>
@@ -104,9 +104,8 @@
                 </div>
             </div>
         </div>
-        <hr/>
+        <hr />
         <!-- /.row -->
-
         <!-- SÁCH MỚI -->
         <h3 class="text-uppercase d-inline-flex align-middle">Sách mới</h3>
         <button id="showNewBookBtn" type="button" class="btn btn-outline-success btn-sm d-inline ml-1 align-mid">Xem thêm</button>
@@ -114,10 +113,8 @@
         <div id="newBookRow" class="mt-2">
             <!-- nội dung sách mới ở đây -->
         </div>
-        <hr/>
+        <hr />
         <!-- /.row -->
-
-
         <!-- SÁCH HOT -->
         <h3 class="text-uppercase d-inline-flex align-middle">Sách hot</h3>
         <button id="showHotBookBtn" type="button" class="btn btn-outline-success btn-sm d-inline ml-1 align-middle">Xem thêm</button>
@@ -125,9 +122,8 @@
         <div id="hotBookRow" class="mt-2">
             <!-- nội dung sách hot ở đây -->
         </div>
-        <hr/>
+        <hr />
         <!-- /.row -->
-
         <!-- Features Section -->
         <div class="row">
             <div class="col-lg-6">
@@ -153,7 +149,6 @@
 
     </div>
     <!-- /.container -->
-
     <!-- Footer -->
     <footer class="py-2 bg-dark">
         <div class="container">
@@ -162,11 +157,27 @@
         <!-- /.container -->
     </footer>
 
+    <div class="msg-box">
+        <span class="msg-box-img-warning"></span>
+        <div class="msg-box-text"></div>
+    </div>
+
+    <div class="toastMsg">
+        <span class="toastMsg-img-success"></span> Thành công
+        <div class="toastMsg-text"></div>
+    </div>
+
+    <div class="toastMsgFailed">
+        <span class="toastMsgFailed-img"></span> Thất bại
+        <div class="toastMsgFailed-text"></div>
+    </div>
+
     <!-- Bootstrap core JavaScript -->
     <script src="../js/lib/jquery/jquery.min.js"></script>
     <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../js/helper/base.js"></script>
     <script src="../js/helper/common.js"></script>
+    <script src="../js/base/commonBase.js"></script>
     <script src="../js/page/index.js"></script>
 
 </body>

@@ -30,7 +30,6 @@ class IndexJS extends BaseJS {
 
         //load dữ liệu Sách HOT
         commonJS.appendDataToHTML(fakeData, "#hotBookRow")
-
     }
 
 
