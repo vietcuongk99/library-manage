@@ -61,10 +61,10 @@ class LoginJS {
                     var user = res.data
                     localStorage.setItem("user", JSON.stringify(user));
                     //chuyển sang trang index
-                    setTimeout(function () {
+                    setTimeout(function() {
                         window.open("index.html", "_self")
                     }, 3000);
-                    
+
                 } else {
                     //gọi phương thức thêm alert div của loginJS object
 
@@ -115,7 +115,6 @@ class LoginJS {
             return true
         }
     }
-
     ////thêm thành phần html cho sự kiện alert khi đăng nhập
     //addAlertDiv() {
     //    if ($('#alertDiv')) {

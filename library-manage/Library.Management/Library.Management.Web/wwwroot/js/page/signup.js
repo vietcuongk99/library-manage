@@ -49,7 +49,7 @@ class SignUpJS {
                     //show alert
                     commonBaseJS.showToastMsgSuccess("Đăng ký tài khoản thành công.");
                     //mở trang login
-                    setTimeout(function () {
+                    setTimeout(function() {
                         window.open("login.html", "_self")
                     }, 3000);
                 } else {

@@ -34,7 +34,7 @@ class BaseJS {
             <img id="userAvatarNav" class="avatar-icon"></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAvatar">
                 <p class="dropdown-item" style="font-weight: bold;">` + userName + `</p>
-                <a class="dropdown-item" href="account.html">Tài khoản cá nhân</a>
+                <a class="dropdown-item" href="account.html">Chi tiết tài khoản</a>
                 <a class="dropdown-item" href="login.html">Đăng xuất</a>
             </div>
             </li>`
@@ -62,21 +62,22 @@ class BaseJS {
         //lấy thông tin user từ localStorage
         var userValue = localStorage.getItem("user")
         var userObject = JSON.parse(userValue)
-
-        $.ajax({
-            method: "GET",
-            url: host + "api/UserAccount/GetImageFromUrl" + "?userID=" + userObject.userID + "&avatarUrl=" + userObject.avatarUrl,
-            contentType: "application/json"
-        }).done(function(res) {
-            if (res.success) {
-                var userData = res.data
-                $('#userAvatarNav').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
-            } else {
-                commonBaseJS.showToastMsgFailed(res.message);
-            }
-        }).fail(function(res) {
-            commonBaseJS.showToastMsgFailed("Tải ảnh đại diện không thành công.");
-        })
+        if (userObject) {
+            $.ajax({
+                method: "GET",
+                url: host + "api/UserAccount/GetImageFromUrl" + "?userID=" + userObject.userID + "&avatarUrl=" + userObject.avatarUrl,
+                contentType: "application/json"
+            }).done(function(res) {
+                if (res.success) {
+                    var userData = res.data
+                    $('#userAvatarNav').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
+                } else {
+                    commonBaseJS.showToastMsgFailed(res.message);
+                }
+            }).fail(function(res) {
+                commonBaseJS.showToastMsgFailed("Tải ảnh đại diện không thành công.");
+            })
+        }
 
     }
 
