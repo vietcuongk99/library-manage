@@ -50,7 +50,10 @@ class ChangePassJS {
                     //show alert
                     commonBaseJS.showToastMsgSuccess("Gửi mail chứa mã OTP thành công, vui lòng kiểm tra email.");
                     //mở trang confirm-otp
-                    window.open("confirm-otp.html", "_self")
+                    setTimeout(function () {
+                        window.open("confirm-otp.html", "_self")
+                    }, 3000);
+                    
 
                 } else {
                     //show alert

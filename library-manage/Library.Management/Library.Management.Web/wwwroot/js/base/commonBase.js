@@ -4,13 +4,13 @@
         $('.toastMsg').show();
         setTimeout(function () {
             $('.toastMsg').hide();
-        }, 4000);
+        }, 3000);
     },
     showToastMsgFailed: function (text) {
         $('.toastMsgFailed-text').text(text);
         $('.toastMsgFailed').show();
         setTimeout(function () {
             $('.toastMsgFailed').hide();
-        }, 4000);
+        }, 3000);
     },
 }

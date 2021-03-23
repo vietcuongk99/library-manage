@@ -47,9 +47,13 @@ class SignUpJS {
             }).done(function(res) {
                 if (res.success) {
                     //show alert
+                    debugger
                     commonBaseJS.showToastMsgSuccess("Đăng ký tài khoản thành công.");
+                    setTimeout(function () {
+                        window.open("login.html", "_self")
+                    }, 3000);
                     //mở trang login
-                    window.open("login.html", "_self")
+                    
 
                 } else {
                     //show aleert

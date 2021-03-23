@@ -2,7 +2,7 @@
     display: none;
     background-color: #fff;
     border-color: #349a4a;
-    border: 2px solid #0fa655;
+    border: 1px solid #0fa655;
     border-radius: 4px;
     font-size: 16px;
     color: #0fa655;
@@ -37,7 +37,7 @@
     display: none;
     background-color: #fff;
     border-color: #ff3333;
-    border: 2px solid #ff3333;
+    border: 1px solid #ff3333;
     border-radius: 4px;
     font-size: 16px;
     color: #ff3333;

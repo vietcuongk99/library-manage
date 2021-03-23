@@ -61,7 +61,10 @@ class LoginJS {
                     var user = res.data
                     localStorage.setItem("user", JSON.stringify(user));
                     //chuyển sang trang index
-                    window.open("index.html", "_self");
+                    setTimeout(function () {
+                        window.open("index.html", "_self")
+                    }, 3000);
+                    
                 } else {
                     //gọi phương thức thêm alert div của loginJS object
 

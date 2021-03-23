@@ -47,7 +47,10 @@ class ConfirmOTPCodeJS {
                     //show alert
                      commonBaseJS.showToastMsgSuccess("Thay đổi mật khẩu thành công.");
                     //chuyển sang trang login
-                    window.open("login.html", "_self")
+                    setTimeout(function () {
+                        window.open("login.html", "_self")
+                    }, 3000);
+                    
 
                 } else {
                     //show alert
