@@ -134,12 +134,55 @@ namespace Library.Management.Web
         }
 
         /// <summary>
-        /// Lưu file mượn sách của thư viện
+        /// Convert list ảnh sách về dạng base64 để hiển thị lên giao diện
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="lstBookImageUri"></param>
         /// <returns></returns>
-        /// CreatedBy: VDDUNG1 23/03/2021
-        [HttpPost("SaveFileBookInfo")]
+        /// CreatedBy: VDDUNG1 24/03/2021
+        [HttpPost("ShowListBookImageConvertBase64String")]
+        public ActionServiceResult ShowListBookImageConvertBase64String(List<BookImageUri> lstBookImageUri)
+        {
+            var res = new ActionServiceResult();
+            var lstBookUriConvertBase64 = new List<BookDetailDownloadInfo>();
+            var bookUriConvertBase64 = new BookDetailDownloadInfo();
+            string imagePath;
+            // Vòng for trả về list Book chứa các đường dẫn Base64 được convert từ link ảnh
+            foreach (BookImageUri bookImageUri in lstBookImageUri)
+            {
+                bookUriConvertBase64.BookID = bookImageUri.BookID;
+                if (bookImageUri != null)
+                {
+                    imagePath = Directory.GetCurrentDirectory() + bookImageUri;
+                }
+                else
+                {
+                    imagePath = Directory.GetCurrentDirectory() + GlobalResource.DirectoryBookImageUri + GlobalResource.AvatarBookDefault;
+                }
+                // Nếu tồn tại đường dẫn chứa ảnh thì gọi đến, không thì gọi về ảnh mặc định
+                if (System.IO.File.Exists(imagePath))
+                {
+                    using (Image img = Image.FromFile(imagePath))
+                    {
+                        if (img != null)
+                        {
+                            bookUriConvertBase64.BookDetailBase64String = _baseBL.ImageToBase64(img, ImageFormat.Jpeg);
+                            lstBookUriConvertBase64.Add(bookUriConvertBase64);
+                        }
+                    }
+                }
+            }
+            
+            res.Data = lstBookUriConvertBase64;
+            return res;
+        }
+
+            /// <summary>
+            /// Lưu file mượn sách của thư viện
+            /// </summary>
+            /// <param name="param"></param>
+            /// <returns></returns>
+            /// CreatedBy: VDDUNG1 23/03/2021
+            [HttpPost("SaveFileBookInfo")]
         public async Task<ActionServiceResult> SaveFileBookInfo(BookDetailDownloadInfo param)
         {
             var res = new ActionServiceResult();
