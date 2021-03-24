@@ -11,6 +11,7 @@ class AccountJS extends BaseJS {
     constructor() {
         super();
         this.loadUserData();
+        this.loadUserAvatar();
         this.initEvent();
 
     }
@@ -38,10 +39,10 @@ class AccountJS extends BaseJS {
                 var userFullNameTxt = ((userData.firstName) ? userData.firstName + " " : "") + ((userData.lastName) ? userData.lastName : "");
                 if (userFullNameTxt.trim().length == 0) { userFullNameTxt = "chưa có" }
                 //địa chỉ người dùng
-                var userAddressTxt = ((userData.ward) ? userData.ward : "") +
-                    ((userData.district) ? ", " + userData.district : "") +
-                    ((userData.province) ? ", " + userData.province : "") +
-                    ((userData.country) ? ", " + userData.country : "")
+                var userAddressTxt = ((userData.ward) ? userData.ward + ", " : "") +
+                    ((userData.district) ? userData.district + ", " : "") +
+                    ((userData.province) ? userData.province + ", " : "") +
+                    ((userData.country) ? userData.country : "")
                 if (userAddressTxt.trim().length == 0) { userAddressTxt = "chưa xác định" }
                 //email của người dùng
                 var userEmailTxt = (userData.email || userData.email.length > 0) ? userData.email : "chưa có"
@@ -65,15 +66,6 @@ class AccountJS extends BaseJS {
                 $('#countryInput').val(userData.country);
                 $('#emailInput').val(userData.email);
 
-                //avatarUrl của người dùng
-                //cập nhật thông tin mới nhất vào localStorage
-                userObject.avatarUrl = userData.avatarUrl
-                localStorage.setItem("user", JSON.stringify(userObject));
-                // lấy thông tin user vừa cập nhật từ localStorage
-                userObject = JSON.parse(localStorage.getItem("user"));
-                //gọi hàm loadUserAvatar()
-                accountJS.loadUserAvatar(userID, userObject.avatarUrl)
-
 
             } else {
                 //show alert
@@ -87,7 +79,12 @@ class AccountJS extends BaseJS {
     }
 
     //load dữ liệu ảnh đại diện của user
-    loadUserAvatar(userID, userAvatarURL) {
+    loadUserAvatar() {
+
+        // lấy userId từ localStorage
+        var userObject = JSON.parse(localStorage.getItem("user"))
+        var userID = userObject.userID
+        var userAvatarURL = userObject.avatarUrl
 
         //call api
         $.ajax({
@@ -122,6 +119,8 @@ class AccountJS extends BaseJS {
             window.open("change-pass.html", "_self")
         })
         $('#updateInforBtn').on('click', this.updateUserInfor.bind(this))
+        $('#dismissModal').on('click', this.resetValueModal.bind(this))
+
 
 
 
@@ -183,9 +182,17 @@ class AccountJS extends BaseJS {
                 //ẩn modal thay đổi avatar
                 $('#modalUpdateAvatar').modal('hide');
                 commonBaseJS.showToastMsgSuccess("Cập nhật thành công.");
-                //gọi lại hàm loadUserData của accountJS Object
-                //cập nhật lại thay đổi mới nhất
-                accountJS.loadUserData();
+
+                //avatarUrl của người dùng
+                //cập nhật thông tin mới nhất vào localStorage
+                userObject.avatarUrl = res.data
+                localStorage.setItem("user", JSON.stringify(userObject));
+                // lấy thông tin user vừa cập nhật từ localStorage
+                userObject = JSON.parse(localStorage.getItem("user"));
+                //gọi hàm loadUserAvatar()
+                //cập nhật ảnh mới nhất
+                accountJS.loadUserAvatar();
+
             } else {
                 //show alert
                 commonBaseJS.showToastMsgFailed(res.message);
@@ -197,33 +204,83 @@ class AccountJS extends BaseJS {
     }
 
     //validate email nhập vào từ người dùng (modal cập nhật thông tin)
-    validateEmailInput() {
+    validateUserInput() {
 
         //khai báo kết quả trả về
         var result = true;
+        var alertDiv;
+
         //lấy email input của người dùng
-        var emailInput = $('#emailInput').val().trim()
-            //kiểm tra input đã có chưa
-        if (emailInput.length == 0) {
-            $('#alertEmailTxt').text("Bạn không được để trống trường này.")
+        var emailInput = $('#emailInput').val().trim();
+        var firstNameInput = $('#firstNameInput').val().trim();
+        var lastNameInput = $('#lastNameInput').val().trim();
+
+        //validate email
+        var emailValid = (function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        })(emailInput)
+
+        //validate tên họ và tên đệm
+        var firstNameValid = (function validateFirstName(firstName) {
+            return firstName.length > 0;
+        })(firstNameInput)
+
+        //validate tên riêng
+        var lastNameValid = (function validateLastName(lastName) {
+            return lastName.length > 0;
+        })(lastNameInput)
+
+        //nếu email, tên họ, tên đệm chưa được validate
+        //thêm thành phần html
+        if (!firstNameValid) {
+            //khai báo thành phần alert
+            alertDiv = $(`<div id="firstNameAlert" class="row mb-1">
+                <label class="col-4"></label>
+                <small class="form-text text-danger col-6">Không được để trống trường này.</small>
+            </div>`)
+            if ($('#firstNameAlert')) {
+                $('#firstNameAlert').remove()
+            }
+            $('#firstNameDiv').append(alertDiv)
             result = false;
+        } else {
+            if ($('#firstNameAlert')) {
+                $('#firstNameAlert').remove()
+            }
         }
-        //nếu đã có input 
-        else {
-            //validate email input
-            var emailValid = (function validateEmail(email) {
-                var re = /\S+@\S+\.\S+/;
-                return re.test(email);
-            })(emailInput)
 
-            //nếu email chưa được validate
-            //thêm thành phần html
-            if (!emailValid) {
-                $('#alertEmailTxt').text("Email chưa đúng định dạng.")
+        if (!lastNameValid) {
+            //khai báo thành phần alert
+            alertDiv = $(`<div id="lastNameAlert" class="row mb-1">
+                <label class="col-4"></label>
+                <small class="form-text text-danger col-6">Không được để trống trường này.</small>
+            </div>`)
+            if ($('#lastNameAlert')) {
+                $('#lastNameAlert').remove()
+            }
+            $('#lastNameDiv').append(alertDiv)
+            result = false;
+        } else {
+            if ($('#lastNameAlert')) {
+                $('#lastNameAlert').remove()
+            }
+        }
 
-                result = false;
-            } else {
-                $('#alertEmailTxt').text("")
+        if (!emailValid) {
+            //khai báo thành phần alert
+            alertDiv = $(`<div id="emailAlert" class="row mb-1">
+                <label class="col-4"></label>
+                <small class="form-text text-danger col-6">Email chưa đúng định dạng.</small>
+            </div>`)
+            if ($('#emailAlert')) {
+                $('#emailAlert').remove()
+            }
+            $('#emailDiv').append(alertDiv)
+            result = false;
+        } else {
+            if ($('#emailAlert')) {
+                $('#emailAlert').remove()
             }
         }
 
@@ -234,17 +291,15 @@ class AccountJS extends BaseJS {
 
     //xử lý sự kiện khi click nút Lưu thông tin (modal)
     updateUserInfor() {
-
         // lấy userId từ localStorage
         var userObject = JSON.parse(localStorage.getItem("user"))
         var userID = userObject.userID
-        var userAvatarURL = userObject.avatarUrl
 
         //khai báo validate email input
-        var validateEmailRes = accountJS.validateEmailInput()
+        var validateUserInput = accountJS.validateUserInput()
 
         //nếu email được validate
-        if (validateEmailRes) {
+        if (validateUserInput) {
             //lấy input từ người dùng
             var userFirstName = $('#firstNameInput').val().trim();
             var userLastName = $('#lastNameInput').val().trim();
@@ -259,7 +314,6 @@ class AccountJS extends BaseJS {
             var data = {
                 userId: userID,
                 email: userEmail,
-                avatarUrl: userAvatarURL,
                 firstName: userFirstName,
                 lastName: userLastName,
                 age: userAge,
@@ -296,42 +350,14 @@ class AccountJS extends BaseJS {
         }
     }
 
-    //hiển thị khung xác nhận cập nhật thông tin(modal cập nhật thông tin)
-    // showConfirmInforDiv() {
+    resetValueModal() {
 
-    //     //khai báo validate email input
-    //     var validateEmailRes = this.validateEmailInput()
+        $('#modalUpdateInfor').hide()
 
-    //     //nếu email được validate
-    //     if (validateEmailRes) {
-    //         //khai báo thành phần html xác nhận sự kiện thay đổi thông tin tài khoản
-    //         var confirmDiv = $(`<div id="confirmInforDiv" class="alert alert-warning w-100" role="alert">
-    //                                     Yêu cầu sẽ được gửi ngay bây giờ. Bạn chắc chứ ?
-    //                                 </div>
-    //                                 <button id="confirmInforBtn" class="btn btn-success">Xác nhận</button>
-    //                                 <button id="dismissInforBtn" class="btn btn-danger">Hủy bỏ</button>`)
-    //         $('.modal-footer').append(confirmDiv)
 
-    //         //disable nút "lưu thông tin vào tài khoản"
-    //         $('#updateInforBtn').prop('disabled', true);
-    //         
-    //         //gán sự kiện cho nút 'Xác nhận'
-    //         $('#confirmInforBtn').click(function() {
-    //                 
-    //                 $('#confirmInforDiv').remove()
-    //             })
-    //             //gán sự kiện cho nút 'Hủy bỏ'
-    //         $('#dismissInforBtn').click(function() {
 
-    //             $('#confirmInforDiv').remove()
-    //         })
-    //     }
-    //     //nếu email chưa được validate 
-    //     else {
-    //         //show alert
-    //         commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, cập nhật thông tin không thành công.");
-    //     }
-    // }
+
+    }
 
 
 }
