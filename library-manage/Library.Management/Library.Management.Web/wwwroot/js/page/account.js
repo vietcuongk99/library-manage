@@ -1,5 +1,7 @@
 //hằng số lưu giá trị file hợp lệ
 const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/jpg'];
+//biến lưu giá trị ban đầu của user, trả về từ /api/UserAccount/{userId}
+var userData = {}
 
 $(document).ready(function() {
     accountJS = new AccountJS()
@@ -19,7 +21,6 @@ class AccountJS extends BaseJS {
 
     ///load dữ liệu cá nhân của user
     loadUserData() {
-        var userData = {}
 
         // lấy userId từ localStorage
         var userObject = JSON.parse(localStorage.getItem("user"))
@@ -113,16 +114,42 @@ class AccountJS extends BaseJS {
 
     //gán sự kiện trong trang
     initEvent() {
-        this.showImgPreviewModal()
-        $('#confirmImg').on('click', this.setUserAvatar)
+        this.showImgPreviewModal();
+        //sự kiện khi click nút Lưu ảnh trong modal avatar
+        $('#confirmImg').on('click', this.setUserAvatar);
+        //sự kiện khi click nút Cập nhật mật khẩu
         $('#changePassword').on('click', function() {
+            debugger
             window.open("change-pass.html", "_self")
+        });
+        //sự kiện khi click nút Xác nhận trong modal infor
+        $('#updateInforBtn').on('click', this.updateUserInfor.bind(this));
+        //sự kiện khi click nút Hủy bỏ trong modal
+        $('#modalUpdateInfor #dismissModal').on('click', function() {
+            //đóng modal
+            $('#modalUpdateInfor').modal('hide')
+
+            //xóa alert validate nếu có
+            if ($('#emailAlert')) {
+                $('#emailAlert').remove()
+            }
+            if ($('#firstNameAlert')) {
+                $('#firstNameAlert').remove()
+            }
+            if ($('#lastNameAlert')) {
+                $('#lastNameAlert').remove()
+            }
+            //lấy dữ liệu từ biến userData
+            //gán giá trị cho các trường input trong modal
+            $('#firstNameInput').val(userData.firstName);
+            $('#lastNameInput').val(userData.lastName);
+            $('#ageInput').val(userData.age);
+            $('#wardInput').val(userData.ward);
+            $('#districtInput').val(userData.district);
+            $('#provinceInput').val(userData.province);
+            $('#countryInput').val(userData.country);
+            $('#emailInput').val(userData.email);
         })
-        $('#updateInforBtn').on('click', this.updateUserInfor.bind(this))
-        $('#dismissModal').on('click', this.resetValueModal.bind(this))
-
-
-
 
     }
 
@@ -349,15 +376,5 @@ class AccountJS extends BaseJS {
             commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng ký không thành công.");
         }
     }
-
-    resetValueModal() {
-
-        $('#modalUpdateInfor').hide()
-
-
-
-
-    }
-
 
 }
