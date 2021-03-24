@@ -160,6 +160,7 @@ namespace Library.Management.Web
                     {
                         var param = new { UserID = userProfile.UserId, AvatarUrl = avatarUrl };
                         await _userAccountBL.SaveImageToUrl(param);
+                        res.Data = avatarUrl;
                     }
                     else
                     {

@@ -114,6 +114,7 @@ namespace Library.Management.Web
                     {
                         var param = new { BookID = bookImageUri.BookID, BookImageUri = bookDetailImageUri };
                         await _bookDetailBL.SaveBookImageToUri(param);
+                        res.Data = bookDetailImageUri;
                     }
                     else
                     {
@@ -150,6 +151,7 @@ namespace Library.Management.Web
             {
                 var parameter = new { BookID = param.BookID, BookDownloadUri = bookDetailDownloadInfo };
                 await _bookDetailBL.SaveFileBookInfo(parameter);
+                res.Data = bookDetailDownloadInfo;
             }
             else
             {
