@@ -1,10 +1,10 @@
 ﻿$(document).ready(function () {
     var setting = new UserManager();
+    var userObject = JSON.parse(localStorage.getItem("user"));
 });
 
 class UserManager {
     constructor() {
-        $('.toast').toast('show');
         this.loadDataUser();
     }
 
@@ -78,15 +78,14 @@ class UserManager {
                 if (res.success) {
                     $('#lstUserGrid').empty();
                     self.loadDataUser();
-                    $('.toast').toast('show');
+                    commonBaseJS.showToastMsgSuccess("Cập nhật thành công.");
                 } else {
-                    alert("Cập nhật thất bại")
+                    commonBaseJS.showToastMsgFailed("Cập nhật thất bại")
                 }
             }).fail(function (res) {
-                alert("Cập nhật không thành công")
+                commonBaseJS.showToastMsgFailed("Cập nhật không thành công")
             })
         } else {
-            alert('Phải có ít nhất 1 admin.');
             checkBox.checked = true;
         }
     }
@@ -95,7 +94,7 @@ class UserManager {
         var itemDel = event.target;
         var self = this;
 
-        if (this.validateDelete()) {
+        if (this.validateDelete(itemDel)) {
 
             var conf = confirm("Bạn có thực sự muốn xóa người dùng này?");
             if (conf == true) {
@@ -114,12 +113,12 @@ class UserManager {
                     if (res.success) {
                         $('#lstUserGrid').empty();
                         self.loadDataUser();
-                        $('.toast').toast('show');
+                        commonBaseJS.showToastMsgSuccess("Xóa người dùng thành công.");
                     } else {
-                        alert("Xóa người dùng không thành công")
+                        commonBaseJS.showToastMsgFailed("Xóa người dùng không thành công")
                     }
                 }).fail(function (res) {
-                    alert("Xóa người dùng không thành công")
+                    commonBaseJS.showToastMsgFailed("Xóa người dùng không thành công")
                 })
             }
         } else {
@@ -128,23 +127,40 @@ class UserManager {
 
     }
 
-    validateDelete() {
+    validateDelete(element) {
         //Check không được xóa chính mình khỏi danh sách
-        return true;
+        var bvalid = true,
+            thisTrId = element.closest('tr').getAttribute('userID');
+
+        if (userObject.userID == thisTrId) {
+            bvalid = false;
+        } 
+
+        return bvalid;
     }
 
     validateAdmin(element) {
         var bvalid = false,
-            checkBox = $(".tdIsAdmin");
-
-        if (!element.checked) {
-            $.each(checkBox, function (index, item) {
-                if (item.checked) {
-                    bvalid = true;
-                }
-            });
+            checkBox = $(".tdIsAdmin"),
+            thisTrId = element.closest('tr').getAttribute('userID');
+        
+        if (userObject.userID == thisTrId) {
+            alert('Bạn không được gỡ quyền admin của mình.');
         } else {
-            bvalid = true;
+
+            if (!element.checked) {
+                $.each(checkBox, function (index, item) {
+                    if (item.checked) {
+                        bvalid = true;
+                    }
+                });
+            } else {
+                bvalid = true;
+            }
+
+            if (!bvalid) {
+                alert('Phải có ít nhất 1 admin.');
+            }
         }
         return bvalid;
     }

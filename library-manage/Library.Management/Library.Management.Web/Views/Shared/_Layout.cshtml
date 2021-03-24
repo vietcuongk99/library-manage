@@ -7,17 +7,19 @@
     <title>@ViewData["Title"]</title>
 
     <environment names="Development">
-        <script src="~/js/admin/validate.js"></script>
+        <script src="~/js/admin/homepage.js"></script>
         <link rel="shortcut icon" type="image/ico" href="~/content/img/icon.jpg" />
         <link href="~/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+        <link href="~/css/base/common.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/admin/animate.css" />
         <link rel="stylesheet" href="~/css/admin/style.css" asp-append-version="true" />
         <link href="~/css/modern-business.css" rel="stylesheet">
     </environment>
     <environment names="Staging,Production">
-        <script src="~/js/admin/validate.js"></script>
+        <script src="~/js/admin/homepage.js"></script>
+        <link href="~/css/base/common.css" rel="stylesheet" />
         <link rel="shortcut icon" type="image/ico" href="~/content/img/icon.jpg" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
@@ -40,7 +42,7 @@
         <partial name="_Navigation" />
 
         <!-- Page wraper -->
-        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass" style="min-height: calc(100vh - 66px) !important;">
 
             <!-- Top Navbar -->
             <partial name="_TopNavbar" />
@@ -48,6 +50,22 @@
                 <!-- Main view  -->
                 @RenderBody()
             </div>
+
+            <div class="msg-box">
+                <span class="msg-box-img-warning"></span>
+                <div class="msg-box-text"></div>
+            </div>
+
+            <div class="toastMsg">
+                <span class="toastMsg-img-success"></span> Thành công
+                <div class="toastMsg-text"></div>
+            </div>
+
+            <div class="toastMsgFailed">
+                <span class="toastMsgFailed-img"></span> Thất bại
+                <div class="toastMsgFailed-text"></div>
+            </div>
+
             <!-- Footer -->
             <partial name="_Footer" />
 
@@ -70,8 +88,10 @@
         <script src="~/js/base/commonBase.js"></script>
         <script src="~/js/helper/common.js"></script>
         <script src="~/js/helper/base.js"></script>
+        <script src="~/js/lib/jquery/jquery.min.js"></script>
+        <script src="~/js/lib/bootstrap/bootstrap.bundle.min.js"></script>
         <script>
-            $(document).ready(function(){
+            $(document).ready(function () {
                 var baseJS = new BaseJS();
             })
         </script>
@@ -92,6 +112,8 @@
         <script src="~/js/base/commonBase.js"></script>
         <script src="~/js/helper/common.js"></script>
         <script src="~/js/helper/base.js"></script>
+        <script src="~/js/lib/jquery/jquery.min.js"></script>
+        <script src="~/js/lib/bootstrap/bootstrap.bundle.min.js"></script>
         <script>
             $(document).ready({
                 baseJS = new BaseJS()

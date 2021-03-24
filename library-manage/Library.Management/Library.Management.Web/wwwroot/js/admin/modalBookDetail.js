@@ -29,10 +29,10 @@ class BookDetailJS {
                 }
 
             } else {
-                console.log("ID không tồn tại. Lấy dữ liệu thất bại")
+                commonBaseJS.showToastMsgFailed("Load thể loại sách thất bại")
             }
         }).fail(function (res) {
-            console.log("Lấy dữ liệu không thành công")
+            commonBaseJS.showToastMsgFailed("Load thể loại sách thất bại")
         })
     }
 
@@ -57,26 +57,26 @@ class BookDetailJS {
                 $('#blah').attr('src', e.target.result);
 
                 var data = {
-                    userId: newGuid,
-                    userAvatarBase64String: $("#blah").attr("src").split(",")[1]
+                    BookID: newGuid,
+                    BookDetailImageUri: $("#blah").attr("src").split(",")[1]
                 };
 
                 //call api
                 $.ajax({
                     method: "POST",
-                    url: "/api/UserAccount/SaveImageToUrl",
+                    url: "/api/BookDetail/SaveImageToUrl",
                     contentType: "application/json",
                     data: JSON.stringify(data)
                 }).done(function (res) {
                     if (res.success) {
-                        alert("Tải ảnh lên thành công")
+                        commonBaseJS.showToastMsgSuccess("Tải ảnh lên thành công")
                     } else {
                         //show alert
-                        alert("Tải ảnh lên thất bại")
+                        commonBaseJS.showToastMsgFailed("Tải ảnh lên thất bại")
                     }
                 }).fail(function (res) {
                     //show alert
-                    alert("Tải ảnh lên thất bại")
+                    commonBaseJS.showToastMsgFailed("Tải ảnh lên thất bại")
                 })
             }
 
@@ -106,23 +106,24 @@ class BookDetailJS {
                 contentType: "application/json"
             }).done(function (res) {
                 if (res.success) {
+                    commonBaseJS.showToastMsgSuccess("Thêm mới sách thành công.")
                     $('.btn-discard').click();
-                    alert("Thêm mới sách thành công.")
+                    $('.fade').hide();
 
                 } else {
-                    console.log("ID không tồn tại. Lấy dữ liệu thất bại")
+                    commonBaseJS.showToastMsgFailed("Thêm sách thất bại")
                 }
             }).fail(function (res) {
-                console.log("Lấy dữ liệu không thành công")
+                commonBaseJS.showToastMsgFailed("Thêm sách thất bại")
             })
         }
     }
 
     validateSave() {
         let $modal = $('.modalBookDetail');
-        $modal.find('.checkBookCode').blur(); 
-        $modal.find('.checkNumInput').blur(); 
-        $modal.find('.checkRequire').blur(); 
+        $modal.find('.checkBookCode').blur();
+        $modal.find('.checkNumInput').blur();
+        $modal.find('.checkRequire').blur();
         let allAreValid = true;
         let $errors = $modal.find('.input-error'); // span thông báo lỗi
         $.each($errors, function (index, item) {
@@ -130,7 +131,7 @@ class BookDetailJS {
                 allAreValid = false;
             }
         });
-        
+
         return allAreValid;
     }
 
@@ -157,7 +158,7 @@ class BookDetailJS {
     onblurBookCode(event) {
         let me = $(event.target),
             $error = me.next();
-        
+
         let validateObj = Validation.validateBookDetail('BookCode', me.val(), null, null);
         if (!validateObj.idIsValid) {
             $error.show().text(validateObj.msg);
