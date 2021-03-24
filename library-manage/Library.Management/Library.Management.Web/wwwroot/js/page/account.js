@@ -38,10 +38,10 @@ class AccountJS extends BaseJS {
                 var userFullNameTxt = ((userData.firstName) ? userData.firstName + " " : "") + ((userData.lastName) ? userData.lastName : "");
                 if (userFullNameTxt.trim().length == 0) { userFullNameTxt = "chưa có" }
                 //địa chỉ người dùng
-                var userAddressTxt = ((userData.ward) ? userData.ward + ", " : "") +
-                    ((userData.district) ? userData.district + ", " : "") +
-                    ((userData.province) ? userData.province + ", " : "") +
-                    ((userData.country) ? userData.country : "")
+                var userAddressTxt = ((userData.ward) ? userData.ward : "") +
+                    ((userData.district) ? ", " + userData.district : "") +
+                    ((userData.province) ? ", " + userData.province : "") +
+                    ((userData.country) ? ", " + userData.country : "")
                 if (userAddressTxt.trim().length == 0) { userAddressTxt = "chưa xác định" }
                 //email của người dùng
                 var userEmailTxt = (userData.email || userData.email.length > 0) ? userData.email : "chưa có"
