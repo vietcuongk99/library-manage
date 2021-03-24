@@ -68,19 +68,17 @@
                 <div class="list-group">
                     <li class="list-group-item active" id="list-account-list" data-toggle="list" role="tab" href="#list-account-content" aria-controls="account">Tài khoản</li>
                     <li class="list-group-item" id="list-library-list" data-toggle="list" role="tab" href="#list-library-content" aria-controls="library">Sách đang mượn</li>
-                    <!-- <li class="list-group-item" id="list-infor-list" data-toggle="list" role="tab" href="#list-infor-content" aria-controls="infor">Thông tin cá nhân</li> -->
-                    <!-- <li class="list-group-item" id="list-activity-list" data-toggle="list" role="tab" href="#list-activity-content" aria-controls="activity">Nhật ký hoạt động</li> -->
                 </div>
             </div>
             <!-- Content Column -->
             <div class="col-lg-9 mb-4">
                 <div class="tab-content" id="nav-tabContent">
-
                     <!-- tài khoản -->
                     <div class="tab-pane fade show active" id="list-account-content" role="tabpanel" aria-labelledby="list-account-list">
                         <div class="form-inline">
                             <h2>Thông tin tài khoản</h2>
-                            <button id="changeInforBtn" type="button" class="btn btn-success ml-4" data-target="#modalUpdateInfor" data-toggle="modal">Cập nhật</button></div>
+                            <button id="changeInforBtn" type="button" class="btn btn-success ml-4" data-target="#modalUpdateInfor" data-toggle="modal">Cập nhật</button>
+                        </div>
                         <hr>
                         <div class="row">
                             <!-- Trường dữ liệu -->
@@ -92,9 +90,6 @@
                                     <div class="col-5">
                                         <p id="userFullName"></p>
                                     </div>
-                                    <!-- <div class="col-4 text-center">
-                                        <a id="confirmFullName" href="" style="color: green;">Cập nhật</a>
-                                    </div> -->
                                 </div>
                                 <hr>
                                 <div class="row">
@@ -104,9 +99,6 @@
                                     <div class="col-5">
                                         <p id="userAge"></p>
                                     </div>
-                                    <!-- <div class="col-4 text-center">
-                                        <a id="confirmFullName" href="" style="color: green;">Cập nhật</a>
-                                    </div> -->
                                 </div>
                                 <hr>
                                 <div class="row">
@@ -116,9 +108,6 @@
                                     <div class="col-5">
                                         <p id="userAddress"></p>
                                     </div>
-                                    <!-- <div class="col-4 text-center">
-                                        <a id="confirmAddress" href="" style="color: green;">Cập nhật</a>
-                                    </div> -->
                                 </div>
                                 <hr>
                                 <div class="row">
@@ -128,9 +117,6 @@
                                     <div class="col-5">
                                         <p id="userEmail"></p>
                                     </div>
-                                    <!-- <div class="col-4 text-center">
-                                        <a id="confirmEmail" href="" style="color: green;">Cập nhật</a>
-                                    </div> -->
                                 </div>
                             </div>
                             <!-- Ảnh đại diện -->
@@ -139,8 +125,8 @@
                                 <label id="updateImg" class="btn btn-success" data-toggle="#" data-target="#">Cập nhật<input id="chooseImg" type="file" hidden></label>
                             </div>
                         </div>
-                        <hr>
-                        <h2>Bảo mật</h2>
+                        <!-- bảo mật -->
+                        <h2 class="mt-2">Bảo mật</h2>
                         <hr>
                         <div class="row">
                             <div class="col-8">
@@ -166,7 +152,6 @@
                                     <div class="col-4">
                                     </div>
                                 </div>
-
                             </div>
                             <div class="col-4"></div>
                         </div>
@@ -299,64 +284,23 @@
                                 </a>
                             </li>
                         </ul> -->
-
                 </div>
+            </div>
+        </div>
 
-                <!-- thông tin cá nhân -->
-                <!-- <div class="tab-pane fade" id="list-infor-content" role="tabpanel" aria-labelledby="list-infor-list">
-                        <h2>Thông tin cá nhân</h2>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col">
-                                    <label>Tên đệm và tên riêng</label>
-                                    <input id="lastNameVal" type="text" class="form-control" placeholder="last name" value="việt Cường">
-                                </div>
-                                <div class="col">
-                                    <label>Tên họ</label>
-                                    <input id="firstNameVal" type="text" class="form-control" placeholder="first name" value="đinh">
-                                </div>
-                            </div>
-                        </div>
+    
 
-                        <div class="form-group">
-                            <label>Giới tính: </label>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="customRadioInline1" name="customRadioInline" class="custom-control-input" checked>
-                                <label class="custom-control-label" for="customRadioInline1">Nam</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="customRadioInline2" name="customRadioInline" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadioInline2">Nữ</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Địa chỉ</label>
-                            <input type="text" class="form-control" id="locationValue" placeholder="địa chỉ" value="Xuân Thủy, Cầu Giấy, Hà Nội">
-                        </div>
-
-                        <button type="button" class="btn btn-primary">Thay đổi</button>
-                                        <button type="button" class="btn btn-primary">Reset</button>
-                                    </div> -->
-                                    <!-- nhật ký hoạt động -->
-                                    <!-- <div class="tab-pane fade" id="list-activity-content" role="tabpanel" aria-labelledby="list-activity-list">
-                        <h2>Nhật ký hoạt động</h2>
-
-                    </div> -->
-                                </div>
-                            </div>
-
-                        </div>
                         <!-- /.row -->
                         <!-- sự kiện khi click nút Cập nhật (ảnh đại diện)-->
                         <!-- Modal -->
                         <div class="modal fade" id="modalUpdateAvatar" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Cập nhật ảnh đại diện</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Cập nhật ảnh đại diện</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                     </div>
                                     <div class="modal-body text-center">
                                         <img id="previewImg" src="../content/img/avatar-sample.png" class="rounded-circle">
@@ -374,91 +318,86 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content p-2">
                                     <div class="modal-header">
-                                        <p class="modal-title font-weight-bold">Cập nhật thông tin tài khoản</p>
-                                        <button id="closeModal" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        <h5 class="modal-title font-weight-bold">Cập nhật thông tin tài khoản</h5>
                                     </div>
                                     <div class="modal-body">
                                         <!-- form điền thông tin -->
                                         <div class="row mb-1">
-                                            <label for="firstNameInput" class="col-3 font-weight-bold">Tên họ</label>
-                                            <input id="firstNameInput" type="text" class="form-control col-6" placeholder="Tên họ">
+                                            <label for="firstNameInput" class="col-4">Tên họ</label>
+                                            <input id="firstNameInput" type="text" class="form-control col-6" placeholder="...">
 
                                         </div>
                                         <div class="row mb-1">
-                                            <label for="lastNameInput" class="col-3 font-weight-bold">Tên riêng</label>
-                                            <input id="lastNameInput" type="text" class="form-control col-6" placeholder="Tên riêng">
+                                            <label for="lastNameInput" class="col-4">Tên riêng</label>
+                                            <input id="lastNameInput" type="text" class="form-control col-6" placeholder="...">
                                         </div>
                                         <hr>
                                         <div class="row mb-1">
-                                            <label for="ageInput" class="col-3 font-weight-bold">Tuổi</label>
-                                            <input id="ageInput" type="number" class="form-control col-3" placeholder="18">
+                                            <label for="ageInput" class="col-4">Tuổi</label>
+                                            <input id="ageInput" type="number" class="form-control col-4" placeholder="0">
                                         </div>
                                         <hr>
                                         <div class="row mb-1">
-                                            <label for="streetInput" class="col-3 font-weight-bold">Địa chỉ</label>
-                                            <input id="streetInput" type="text" class="form-control col-6" placeholder="Tên đường/xã/thị trấn">
+                                            <label for="streetInput" class="col-4">Đường/thôn/xã</label>
+                                            <input id="streetInput" type="text" class="form-control col-6" placeholder="...">
                                         </div>
                                         <div class="row mb-1">
-                                            <label for="districtInput" class="col-3"></label>
-                                            <input id="districtInput" type="text" class="form-control col-6" placeholder="Quận/huyện">
+                                            <label for="districtInput" class="col-4">Quận/huyện</label>
+                                            <input id="districtInput" type="text" class="form-control col-6" placeholder="...">
                                         </div>
                                         <div class="row mb-1">
-                                            <label for="provinceInput" class="col-3"></label>
-                                            <input id="provinceInput" type="text" class="form-control col-6" placeholder="Tỉnh/thành phố">
+                                            <label for="provinceInput" class="col-4">Tỉnh/thành phố</label>
+                                            <input id="provinceInput" type="text" class="form-control col-6" placeholder="...">
                                         </div>
                                         <div class="row mb-1">
-                                            <label for="countryInput" class="col-3"></label>
-                                            <input id="countryInput" type="text" class="form-control col-6" placeholder="Quốc gia">
+                                            <label for="countryInput" class="col-4">Quốc gia</label>
+                                            <input id="countryInput" type="text" class="form-control col-6" placeholder="...">
                                         </div>
                                         <hr>
                                         <div class="row mb-1">
-                                            <label for="emailInput" class="col-3 font-weight-bold">Email</label>
+                                            <label for="emailInput" class="col-4">Địa chỉ email</label>
                                             <input id="emailInput" type="text" class="form-control col-6" placeholder="abc@gmail.com">
                                         </div>
                                         <div class="row">
-                                            <small class="form-text text-danger col-3">bắt buộc</small>
-                                            <small id="alertEmailTxt" class="form-text text-danger col-8"></small>
+                                            <small class="form-text text-danger col-4">bắt buộc</small>
+                                            <small id="alertEmailTxt" class="form-text text-danger col-6"></small>
                                         </div>
-                                        <hr>
-                                        <button id="updateInforBtn" class="btn btn-success w-100">Lưu thông tin này vào tài khoản của bạn</button>
+
                                     </div>
                                     <div class="modal-footer">
-                                        <!-- <div class="alert alert-warning w-100" role="alert">
-                                            Yêu cầu sẽ được gửi ngay bây giờ. Bạn chắc chứ ?
-                                        </div>
-                                        <button id="confirmInforBtn" class="btn btn-success">Xác nhận</button>
-                                        <button id="dismissInforBtn" data-dismiss="modal" class="btn btn-danger">Hủy bỏ</button> -->
+                                        <button id="updateInforBtn" class="btn btn-success">Xác nhận</button>
+                                        <button id="dismissModal" type="button" data-dismiss="modal" class="btn btn-outline-secondary">Hủy bỏ</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- /.container -->
-                        <!-- Footer -->
-                        <!-- <footer class="py-2 bg-dark fixed-bottom">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-        </div>
 
-    </footer> -->
-                        <div class="toastMsg">
-                            <span class="toastMsg-img-success"></span> Thành công
-                            <div class="toastMsg-text"></div>
+                    <!-- /.container -->
+                    <!-- Footer -->
+                    <!-- <footer class="py-2 bg-dark fixed-bottom">
+                        <div class="container">
+                        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
                         </div>
+                    </footer> -->
 
-                        <div class="toastMsgFailed">
-                            <span class="toastMsgFailed-img"></span> Thất bại
-                            <div class="toastMsgFailed-text"></div>
-                        </div>
+                    <div class="toastMsg">
+                        <span class="toastMsg-img-success"></span> Thành công
+                        <div class="toastMsg-text"></div>
+                    </div>
 
-                        <!-- Bootstrap core JavaScript -->
-                        <script src="../js/lib/jquery/jquery.min.js"></script>
-                        <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
-                        <script src="../js/base/commonBase.js"></script>
-                        <script src="../js/helper/base.js"></script>
-                        <script src="../js/page/account.js"></script>
+                    <div class="toastMsgFailed">
+                        <span class="toastMsgFailed-img"></span> Thất bại
+                        <div class="toastMsgFailed-text"></div>
+                    </div>
+
+                    <!-- Bootstrap core JavaScript -->
+                    <script src="../js/lib/jquery/jquery.min.js"></script>
+                    <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
+                    <script src="../js/base/commonBase.js"></script>
+                    <script src="../js/helper/base.js"></script>
+                    <script src="../js/page/account.js"></script>
 
 </body>
 

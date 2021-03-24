@@ -51,7 +51,7 @@ class SignUpJS {
                     //mở trang login
                     setTimeout(function() {
                         window.open("login.html", "_self")
-                    }, 3000);
+                    }, 2000);
                 } else {
                     //show alert
                     commonBaseJS.showToastMsgFailed(res.message);

@@ -18,7 +18,6 @@ class AccountJS extends BaseJS {
 
     }
 
-
     ///load dữ liệu cá nhân của user
     loadUserData() {
         var userData = {}

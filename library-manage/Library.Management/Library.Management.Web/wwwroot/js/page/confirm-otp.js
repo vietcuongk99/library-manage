@@ -45,12 +45,12 @@ class ConfirmOTPCodeJS {
             }).done(function(res) {
                 if (res.success) {
                     //show alert
-                     commonBaseJS.showToastMsgSuccess("Thay đổi mật khẩu thành công.");
+                    commonBaseJS.showToastMsgSuccess("Thay đổi mật khẩu thành công.");
                     //chuyển sang trang login
-                    setTimeout(function () {
+                    setTimeout(function() {
                         window.open("login.html", "_self")
-                    }, 3000);
-                    
+                    }, 2000);
+
 
                 } else {
                     //show alert

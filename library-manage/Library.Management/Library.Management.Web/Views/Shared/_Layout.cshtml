@@ -9,7 +9,7 @@
     <environment names="Development">
         <script src="~/js/admin/validate.js"></script>
         <link rel="shortcut icon" type="image/ico" href="~/content/img/icon.jpg" />
-        <link href="~/content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="~/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
         <link rel="stylesheet" href="~/css/admin/animate.css" />
@@ -65,7 +65,16 @@
         <script src="~/lib/slimScroll/jquery.slimscroll.js"></script>
         <script src="~/lib/pace/pace.js"></script>
         <script src="~/js/script.js" asp-append-version="true"></script>
-        <script src="~/js/admin/common.js"></script>
+
+
+        <script src="~/js/base/commonBase.js"></script>
+        <script src="~/js/helper/common.js"></script>
+        <script src="~/js/helper/base.js"></script>
+        <script>
+            $(document).ready(function(){
+                var baseJS = new BaseJS();
+            })
+        </script>
 
         <!-- Only for demo purpose -->
         <script src="~/js/skin.config.js"></script>
@@ -78,7 +87,16 @@
         <script src="~/lib/pace/pace.min.js"></script>
         <script src="~/lib/slimScroll/jquery.slimscroll.min.js"></script>
         <script src="~/js/script.js" asp-append-version="true"></script>
-        <script src="~/js/admin/common.js"></script>
+
+
+        <script src="~/js/base/commonBase.js"></script>
+        <script src="~/js/helper/common.js"></script>
+        <script src="~/js/helper/base.js"></script>
+        <script>
+            $(document).ready({
+                baseJS = new BaseJS()
+            })
+        </script>
     </environment>
 
     @RenderSection("scripts", required: false)

@@ -115,17 +115,5 @@ class LoginJS {
             return true
         }
     }
-    ////thêm thành phần html cho sự kiện alert khi đăng nhập
-    //addAlertDiv() {
-    //    if ($('#alertDiv')) {
-    //        $('#alertDiv').remove()
-    //    }
-    //    var alertDiv = $(`<div id="alertDiv" class="alert alert-danger" role="alert">Sai tên đăng nhập hoặc mật khẩu.
-    //    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    //      <span aria-hidden="true">&times;</span>
-    //    </button>
-    //  </div>`)
-    //    alertDiv.insertBefore('#usernameInputDiv')
-    //}
 
 }

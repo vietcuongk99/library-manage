@@ -52,7 +52,7 @@ class ChangePassJS {
                     //mở trang confirm-otp
                     setTimeout(function () {
                         window.open("confirm-otp.html", "_self")
-                    }, 3000);
+                    }, 2000);
                     
 
                 } else {

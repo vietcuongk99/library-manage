@@ -34,8 +34,8 @@ class BaseJS {
             <img id="userAvatarNav" class="avatar-icon"></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAvatar">
                 <p class="dropdown-item" style="font-weight: bold;">` + userName + `</p>
-                <a class="dropdown-item" href="account.html">Chi tiết tài khoản</a>
-                <a class="dropdown-item" href="login.html">Đăng xuất</a>
+                <a class="dropdown-item" href="/page/account.html">Chi tiết tài khoản</a>
+                <a class="dropdown-item" href="/page/login.html">Đăng xuất</a>
             </div>
             </li>`
 
@@ -50,7 +50,7 @@ class BaseJS {
                 $('#navItemList').append(dropDownAction)
             }
         } else {
-            var loginBtn = `<li class="nav-item"><a class="nav-link" href="login.html">Đăng nhập</a></li>`
+            var loginBtn = `<li class="nav-item"><a class="nav-link" href="/page/login.html">Đăng nhập</a></li>`
             $('#navItemList').append(loginBtn)
             console.log(userObject)
         }
