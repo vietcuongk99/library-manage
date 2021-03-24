@@ -70,3 +70,31 @@
 .label-required {
     color: #ff0000;
 }
+
+
+/**
+    Xử lý scroll
+*/
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #9aa4bb;
+    -webkit-border-radius: 10px;
+    border-radius: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #9aa4bb;
+    -webkit-box-shadow: inset 0 0 6px #9aa4bb;
+}
+
+    ::-webkit-scrollbar-thumb:window-inactive {
+        background: #9aa4bb;
+    }

@@ -168,7 +168,7 @@ namespace Library.Management.BL
                 }
                 else
                 {
-                    if (checkUserAccountByEmail != null)
+                    if (checkUserAccountByEmail != null && checkUserAccountByEmail.UserId != param.UserId)
                     {
                         entity.Success = false;
                         entity.Message = GlobalResource.IsUsedEmail;
