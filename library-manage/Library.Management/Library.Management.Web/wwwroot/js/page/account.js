@@ -1,9 +1,7 @@
-// lấy userId từ localStorage
-var userObject = JSON.parse(localStorage.getItem("user"))
-var userID = userObject.userID
-var userAvatarURL = userObject.avatarUrl
-$(document).ready(function() {
+//hằng số lưu giá trị file hợp lệ
+const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/jpg'];
 
+$(document).ready(function() {
     accountJS = new AccountJS()
 })
 
@@ -12,15 +10,21 @@ $(document).ready(function() {
 class AccountJS extends BaseJS {
     constructor() {
         super();
-        this.loadUserAvatar();
         this.loadUserData();
         this.initEvent();
 
     }
 
+
     ///load dữ liệu cá nhân của user
     loadUserData() {
         var userData = {}
+
+        // lấy userId từ localStorage
+        var userObject = JSON.parse(localStorage.getItem("user"))
+        var userID = userObject.userID
+
+        //call api
         $.ajax({
             method: "GET",
             url: host + "api/UserAccount/" + userID,
@@ -41,6 +45,7 @@ class AccountJS extends BaseJS {
                 if (userAddressTxt.trim().length == 0) { userAddressTxt = "chưa xác định" }
                 //email của người dùng
                 var userEmailTxt = (userData.email || userData.email.length > 0) ? userData.email : "chưa có"
+                var userAge = (userData.age || userData.age > 0) ? userData.age : "chưa có"
 
                 //gán giá trị và thuộc tính cho các thành phần thẻ p trên trang account
                 $('#userFullName').text(userFullNameTxt)
@@ -48,17 +53,26 @@ class AccountJS extends BaseJS {
                 $('#userEmail').text(userEmailTxt)
                 $('#userName').text(userData.userName)
                 $('#userPassword').attr('value', userData.password)
-                $('#userAge').text(userData.age)
+                $('#userAge').text(userAge)
 
                 //gán giá trị và thuộc tính cho các thành phần input trong modal trên trang account
-                $('#firstNameInput').val(userData.firstName.trim());
-                $('#lastNameInput').val(userData.lastName.trim());
+                $('#firstNameInput').val(userData.firstName);
+                $('#lastNameInput').val(userData.lastName);
                 $('#ageInput').val(userData.age);
-                $('#streetInput').val(userData.street.trim());
-                $('#districtInput').val(userData.district.trim());
-                $('#provinceInput').val(userData.province.trim());
-                $('#countryInput').val(userData.country.trim());
-                $('#emailInput').val(userData.email.trim());
+                $('#streetInput').val(userData.street);
+                $('#districtInput').val(userData.district);
+                $('#provinceInput').val(userData.province);
+                $('#countryInput').val(userData.country);
+                $('#emailInput').val(userData.email);
+
+                //avatarUrl của người dùng
+                //cập nhật thông tin mới nhất vào localStorage
+                userObject.avatarUrl = userData.avatarUrl
+                localStorage.setItem("user", JSON.stringify(userObject));
+                // lấy thông tin user vừa cập nhật từ localStorage
+                userObject = JSON.parse(localStorage.getItem("user"));
+                //gọi hàm loadUserAvatar()
+                accountJS.loadUserAvatar(userID, userObject.avatarUrl)
 
 
             } else {
@@ -73,8 +87,9 @@ class AccountJS extends BaseJS {
     }
 
     //load dữ liệu ảnh đại diện của user
-    loadUserAvatar() {
+    loadUserAvatar(userID, userAvatarURL) {
 
+        //call api
         $.ajax({
             method: "GET",
             url: host + "api/UserAccount/GetImageFromUrl" + "?userID=" + userID + "&avatarUrl=" + userAvatarURL,
@@ -85,8 +100,11 @@ class AccountJS extends BaseJS {
                 //commonBaseJS.showToastMsgSuccess("Lấy dữ liệu thành công.");
                 //gán giá trị cho thuộc tính của thành phần image trên trang account.html và thanh nav bar
                 //cập nhật thay đổi mới nhất sau khi setUserAvatar() thực thi thành công
-                $('#userAvatar').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
-                $('#userAvatarNav').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
+                if (userData.userAvatarBase64String != null) {
+                    $('#userAvatar').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
+                    $('#userAvatarNav').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
+                }
+
             } else {
                 commonBaseJS.showToastMsgFailed(res.message);
             }
@@ -113,15 +131,27 @@ class AccountJS extends BaseJS {
     //tham khảo:https://tungnt.net/download-va-upload-anh-su-dung-asp-net-web-api-tren-asp-net-mvc/?fbclid=IwAR2hYsV3SOdp-E2TYrNdmFSx6I6x6pOQz88GhKu8ljKLVQ9VdzUAKA2PpMc
     showImgPreviewModal() {
         $('#chooseImg').change(function() {
-            $('#previewImg').attr('style', 'width: 300px; height: 300px')
-            $('#modalUpdateAvatar').modal('show')
+
+            //kiểm tra file input của người dùng
             if (this.files && this.files[0]) {
-                //When choose image complete using FileReader to convert image to Base64 string
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#previewImg').attr('src', e.target.result);
+
+
+                //kiểm tra file hợp lệ
+                //nếu file không phải định dạng jpg, jpeg, gif, png
+                if (!validImageTypes.includes(this.files[0]['type'])) {
+                    commonBaseJS.showToastMsgFailed("Định dạng file không hợp lệ (gif, jpeg, jpg, png)")
+
+                } else {
+                    $('#previewImg').attr('style', 'width: 300px; height: 300px');
+                    $('#modalUpdateAvatar').modal('show');
+                    //When choose image complete using FileReader to convert image to Base64 string
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#previewImg').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0])
                 }
-                reader.readAsDataURL(this.files[0])
+
             }
 
         })
@@ -129,11 +159,14 @@ class AccountJS extends BaseJS {
 
     //xử lý sự kiện khi click nút "Đặt ảnh đại diện"
     setUserAvatar() {
-        //lấy dữ liệu user từ localStorage
-        var userObject = JSON.parse(localStorage.getItem("user"));
+
+        // lấy userId từ localStorage
+        var userObject = JSON.parse(localStorage.getItem("user"))
+        var userID = userObject.userID
+
         //tạo data
         var data = {
-            userId: userObject.userID,
+            userId: userID,
             userAvatarBase64String: $("#previewImg").attr("src").split(",")[1]
         };
 
@@ -150,10 +183,9 @@ class AccountJS extends BaseJS {
                 //ẩn modal thay đổi avatar
                 $('#modalUpdateAvatar').modal('hide');
                 commonBaseJS.showToastMsgSuccess("Cập nhật thành công.");
-                //gọi lại hàm loadUserAvatar của accountJS Object
+                //gọi lại hàm loadUserData của accountJS Object
                 //cập nhật lại thay đổi mới nhất
-                accountJS.loadUserAvatar();
-
+                accountJS.loadUserData();
             } else {
                 //show alert
                 commonBaseJS.showToastMsgFailed(res.message);
@@ -202,6 +234,12 @@ class AccountJS extends BaseJS {
 
     //xử lý sự kiện khi click nút Lưu thông tin (modal)
     updateUserInfor() {
+
+        // lấy userId từ localStorage
+        var userObject = JSON.parse(localStorage.getItem("user"))
+        var userID = userObject.userID
+        var userAvatarURL = userObject.avatarUrl
+
         //khai báo validate email input
         var validateEmailRes = accountJS.validateEmailInput()
 
@@ -276,10 +314,10 @@ class AccountJS extends BaseJS {
 
     //         //disable nút "lưu thông tin vào tài khoản"
     //         $('#updateInforBtn').prop('disabled', true);
-    //         debugger
+    //         
     //         //gán sự kiện cho nút 'Xác nhận'
     //         $('#confirmInforBtn').click(function() {
-    //                 debugger
+    //                 
     //                 $('#confirmInforDiv').remove()
     //             })
     //             //gán sự kiện cho nút 'Hủy bỏ'

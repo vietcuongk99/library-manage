@@ -80,7 +80,7 @@ class LoginJS {
         } else {
 
             //gọi phương thức thêm alert div của loginJS object
-            loginJS.addAlertDiv();
+            //loginJS.addAlertDiv();
             //show alert cảnh báo
             commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng nhập không thành công.");
         }

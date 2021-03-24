@@ -70,7 +70,12 @@ class BaseJS {
             }).done(function(res) {
                 if (res.success) {
                     var userData = res.data
-                    $('#userAvatarNav').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
+                    if (userData.userAvatarBase64String != null) {
+                        $('#userAvatarNav').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
+                    } else {
+                        $('#userAvatarNav').attr('src', "../content/img/avatar-sample.png")
+                    }
+
                 } else {
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
