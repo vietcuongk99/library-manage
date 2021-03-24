@@ -66,15 +66,6 @@ class AccountJS extends BaseJS {
                 $('#countryInput').val(userData.country);
                 $('#emailInput').val(userData.email);
 
-                //avatarUrl của người dùng
-                //cập nhật thông tin mới nhất vào localStorage
-                // userObject.avatarUrl = userData.avatarUrl
-                // localStorage.setItem("user", JSON.stringify(userObject));
-                // // lấy thông tin user vừa cập nhật từ localStorage
-                // userObject = JSON.parse(localStorage.getItem("user"));
-                // //gọi hàm loadUserAvatar()
-                // accountJS.loadUserAvatar(userID, userObject.avatarUrl)
-
 
             } else {
                 //show alert
@@ -128,6 +119,8 @@ class AccountJS extends BaseJS {
             window.open("change-pass.html", "_self")
         })
         $('#updateInforBtn').on('click', this.updateUserInfor.bind(this))
+        $('#dismissModal').on('click', this.resetValueModal.bind(this))
+
 
 
 
@@ -355,6 +348,15 @@ class AccountJS extends BaseJS {
         } else {
             commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng ký không thành công.");
         }
+    }
+
+    resetValueModal() {
+
+        $('#modalUpdateInfor').hide()
+
+
+
+
     }
 
 
