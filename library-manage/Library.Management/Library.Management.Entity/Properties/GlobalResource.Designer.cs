@@ -169,6 +169,15 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bạn đang không mượn cuốn sách này, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorExtendBookBorrow {
+            get {
+                return ResourceManager.GetString("ErrorExtendBookBorrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không tìm thấy dữ liệu, vui lòng thử lại..
         /// </summary>
         public static string ErrorNotIDEntity {

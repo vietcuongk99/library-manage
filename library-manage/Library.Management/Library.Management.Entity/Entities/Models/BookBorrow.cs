@@ -8,8 +8,8 @@ namespace Library.Management.Entity.Models
         public Guid BookBorrowId { get; set; }
         public Guid BookId { get; set; }
         public Guid UserId { get; set; }
-        public DateTime? ReturnDate { get; set; }
-        public DateTime? BorrowDate { get; set; }
+        public DateTime ReturnDate { get; set; }
+        public DateTime BorrowDate { get; set; }
         public ulong? BorrowStatus { get; set; }
         public ulong? ReturnStatus { get; set; }
         public DateTime? CreatedDate { get; set; }

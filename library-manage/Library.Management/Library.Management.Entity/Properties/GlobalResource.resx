@@ -153,6 +153,9 @@
   <data name="ErrorDeleteEntity" xml:space="preserve">
     <value>Xóa dữ liệu không thành công</value>
   </data>
+  <data name="ErrorExtendBookBorrow" xml:space="preserve">
+    <value>Bạn đang không mượn cuốn sách này, vui lòng thử lại.</value>
+  </data>
   <data name="ErrorNotIDEntity" xml:space="preserve">
     <value>Không tìm thấy dữ liệu, vui lòng thử lại.</value>
   </data>

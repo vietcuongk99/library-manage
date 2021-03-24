@@ -111,6 +111,10 @@ namespace Library.Management.Entity
         /// </summary>
         ErrorConfirmOTPPassWord = 612,
         /// <summary>
+        /// Chưa mượn cuốn sách này
+        /// </summary>
+        ErrorExtendBookBorrow = 613,
+        /// <summary>
         /// Thất bại
         /// </summary>
         Failed = 1000
@@ -168,8 +172,14 @@ namespace Library.Management.Entity
         /// Cập nhật ảnh đại diện sách
         /// </summary>
         UpdateBookImageUri,
-
+        /// <summary>
+        /// Cập nhật link xem chi tiết sách
+        /// </summary>
         UpdateBookDownloadUri,
+        /// <summary>
+        /// Gia hạn sách
+        /// </summary>
+        ExtendBookBorrow,
 
         /// <summary>
         /// Xóa dữ liệu
@@ -180,11 +190,11 @@ namespace Library.Management.Entity
     public enum Status
     {
         /// <summary>
-        /// Còn sử dụng
+        /// Còn sử dụng, đã mượn sách, đã trả sách
         /// </summary>
         Active = 1,
         /// <summary>
-        /// Không sử dụng
+        /// Không sử dụng, chưa mượn sách, chưa trả sách
         /// </summary>
         DeActive = 0
     }

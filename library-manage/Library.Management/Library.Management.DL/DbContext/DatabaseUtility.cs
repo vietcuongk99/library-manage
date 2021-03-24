@@ -56,6 +56,9 @@ namespace Library.Management.DL.DbContext
                 case ProcdureTypeName.UpdateAccount:
                     storeName = $"Proc_Update{tableName}Account";
                     break;
+                case ProcdureTypeName.ExtendBookBorrow:
+                    storeName = $"Proc_Update{tableName}Extend";
+                    break;
                 case ProcdureTypeName.Delete:
                     storeName = $"Proc_Delete{tableName}";
                     break;

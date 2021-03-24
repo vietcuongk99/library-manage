@@ -53,4 +53,15 @@ namespace Library.Management.Entity
         public string Country { get; set; }
         public DateTime? ModifiedDate { get; set; }
     }
+
+    public class ParameterUpdateBookBorrow
+    {
+        public Guid BookBorrowId { get; set; }
+    }
+    
+    public class ParameterExtendBookBorrow
+    {
+        public Guid BookBorrowId { get; set; }
+        public DateTime ReturnDate { get; set; }
+    }
 }
