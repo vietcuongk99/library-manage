@@ -38,7 +38,7 @@ class AccountJS extends BaseJS {
                 var userFullNameTxt = ((userData.firstName) ? userData.firstName + " " : "") + ((userData.lastName) ? userData.lastName : "");
                 if (userFullNameTxt.trim().length == 0) { userFullNameTxt = "chưa có" }
                 //địa chỉ người dùng
-                var userAddressTxt = ((userData.street) ? userData.street + ", " : "") +
+                var userAddressTxt = ((userData.ward) ? userData.ward + ", " : "") +
                     ((userData.district) ? userData.district + ", " : "") +
                     ((userData.province) ? userData.province + ", " : "") +
                     ((userData.country) ? userData.country : "")
@@ -59,7 +59,7 @@ class AccountJS extends BaseJS {
                 $('#firstNameInput').val(userData.firstName);
                 $('#lastNameInput').val(userData.lastName);
                 $('#ageInput').val(userData.age);
-                $('#streetInput').val(userData.street);
+                $('#wardInput').val(userData.ward);
                 $('#districtInput').val(userData.district);
                 $('#provinceInput').val(userData.province);
                 $('#countryInput').val(userData.country);
@@ -249,7 +249,7 @@ class AccountJS extends BaseJS {
             var userFirstName = $('#firstNameInput').val().trim();
             var userLastName = $('#lastNameInput').val().trim();
             var userAge = parseInt($('#ageInput').val());
-            var userStreet = $('#streetInput').val().trim();
+            var userWard = $('#wardInput').val().trim();
             var userDistrict = $('#districtInput').val().trim();
             var userProvince = $('#provinceInput').val().trim();
             var userCountry = $('#countryInput').val().trim();
@@ -263,7 +263,7 @@ class AccountJS extends BaseJS {
                 firstName: userFirstName,
                 lastName: userLastName,
                 age: userAge,
-                street: userStreet,
+                ward: userWard,
                 district: userDistrict,
                 province: userProvince,
                 country: userCountry
