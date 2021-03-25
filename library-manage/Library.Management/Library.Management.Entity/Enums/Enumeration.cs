@@ -156,6 +156,18 @@ namespace Library.Management.Entity
         /// </summary>
         GetByUserAndPassWord,
         /// <summary>
+        /// Lấy ra bình luận của 1 người dùng trên 1 cuốn sách
+        /// </summary>
+        GetByUserAndBookDetail,
+        /// <summary>
+        /// Lấy ra các bình luận của 1 người dùng
+        /// </summary>
+        GetByUser,
+        /// <summary>
+        /// Lấy ra các bình luận của 1 cuốn sách
+        /// </summary>
+        GetByBookDetail,
+        /// <summary>
         /// Thêm mới
         /// </summary>
         Insert,

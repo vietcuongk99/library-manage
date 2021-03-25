@@ -23,6 +23,51 @@ namespace Library.Management.Web
         }
 
         /// <summary>
+        /// Lấy ra các bình luận của 1 người dùng trên 1 cuốn sách
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="bookId"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 25/03/2021
+        [HttpGet("GetCommentByUserAndBookDetail")]
+        public async Task<ActionServiceResult> GetCommentByUserAndBookDetail(string userId, string bookId)
+        {
+            var param = new
+            {
+                UserId = userId,
+                bookId = bookId
+            };
+            var res = await _userComment.GetCommentByUserAndBookDetail(param);
+            return res;
+        }
+
+        /// <summary>
+        /// Lấy ra các bình luận của 1 người dùng
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 25/03/2021
+        [HttpGet("GetCommentByUser")]
+        public async Task<ActionServiceResult> GetCommentByUser(string UserId)
+        {
+            var res = await _userComment.GetCommentByUser(UserId);
+            return res;
+        }
+
+        /// <summary>
+        /// Lấy ra các bình luận trên 1 cuốn sách
+        /// </summary>
+        /// <param name="BookId"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 25/03/2021
+        [HttpGet("GetCommentByBookDetail")]
+        public async Task<ActionServiceResult> GetCommentByBookDetail(string BookId)
+        {
+            var res = await _userComment.GetCommentByBookDetail(BookId);
+            return res;
+        }
+
+        /// <summary>
         /// Thêm mới bình luận
         /// </summary>
         /// <param name="param"></param>

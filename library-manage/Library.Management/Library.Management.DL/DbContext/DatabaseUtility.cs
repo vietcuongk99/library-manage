@@ -38,6 +38,15 @@ namespace Library.Management.DL.DbContext
                 case ProcdureTypeName.GetByUserAndPassWord:
                     storeName = $"Proc_Get{tableName}ByUserNameAndPassWord";
                     break;
+                case ProcdureTypeName.GetByUserAndBookDetail:
+                    storeName = $"Proc_Get{tableName}ByUserAndBookDetail";
+                    break;
+                case ProcdureTypeName.GetByUser:
+                    storeName = $"Proc_Get{tableName}ByUser";
+                    break;
+                case ProcdureTypeName.GetByBookDetail:
+                    storeName = $"Proc_Get{tableName}ByBookDetail";
+                    break;
                 case ProcdureTypeName.Insert:
                     storeName = $"Proc_Insert{tableName}";
                     break;

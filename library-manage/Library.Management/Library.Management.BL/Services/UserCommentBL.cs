@@ -19,6 +19,45 @@ namespace Library.Management.BL
         }
 
         /// <summary>
+        /// Lấy ra các bình luận của 1 người dùng trên 1 cuốn sách
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 25/03/2021
+        public async Task<ActionServiceResult> GetCommentByUserAndBookDetail(object param)
+        {
+            var res = new ActionServiceResult();
+            res.Data = await _baseDL.GetEntityByProperty(param, ProcdureTypeName.GetByUserAndBookDetail);
+            return res;
+        }
+
+        /// <summary>
+        /// Lấy ra các bình luận của 1 người dùng
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 25/03/2021
+        public async Task<ActionServiceResult> GetCommentByUser(string UserId)
+        {
+            var res = new ActionServiceResult();
+            res.Data = await _baseDL.GetEntityByProperty(UserId, ProcdureTypeName.GetByUser);
+            return res;
+        }
+
+        /// <summary>
+        /// Lấy ra các bình luận trên 1 cuốn sách
+        /// </summary>
+        /// <param name="BookId"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 25/03/2021
+        public async Task<ActionServiceResult> GetCommentByBookDetail(string BookId)
+        {
+            var res = new ActionServiceResult();
+            res.Data = await _baseDL.GetEntityByProperty(BookId, ProcdureTypeName.GetByBookDetail);
+            return res;
+        }
+
+        /// <summary>
         /// Thêm 1 bình luận mới
         /// </summary>
         /// <param name="param"></param>
