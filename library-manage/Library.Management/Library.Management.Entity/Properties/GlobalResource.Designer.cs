@@ -151,6 +151,15 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bình luận không tồn tại, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorCommentUser {
+            get {
+                return ResourceManager.GetString("ErrorCommentUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không thể đổi mật khẩu, vui lòng thử lại..
         /// </summary>
         public static string ErrorConfirmOTPPassWord {

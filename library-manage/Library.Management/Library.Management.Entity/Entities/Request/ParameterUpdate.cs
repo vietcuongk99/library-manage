@@ -64,4 +64,9 @@ namespace Library.Management.Entity
         public Guid BookBorrowId { get; set; }
         public DateTime ReturnDate { get; set; }
     }
+    public class ParameterModifyComment
+    {
+        public Guid CommentId { get; set; }
+        public string Comment { get; set; }
+    }
 }

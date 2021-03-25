@@ -115,6 +115,10 @@ namespace Library.Management.Entity
         /// </summary>
         ErrorExtendBookBorrow = 613,
         /// <summary>
+        /// Bình luận không tồn tại
+        /// </summary>
+        ErrorCommentUser = 614,
+        /// <summary>
         /// Thất bại
         /// </summary>
         Failed = 1000

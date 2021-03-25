@@ -50,4 +50,11 @@ namespace Library.Management.Entity
         public DateTime ReturnDate { get; set; }
         public DateTime BorrowDate { get; set; }
     }
+
+    public class ParameterCommentBookDetail
+    {
+        public Guid UserId { get; set; }
+        public Guid BookId { get; set; }
+        public string Comment { get; set; }
+    }
 }

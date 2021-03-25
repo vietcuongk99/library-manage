@@ -31,8 +31,7 @@ namespace Library.Management.Web
         [HttpPost("BorrowActivation")]
         public async Task<ActionServiceResult> BorrowActivation(ParameterInsertBookBorrow param)
         {
-            var res = new ActionServiceResult();
-            res = await _bookBorrowBL.BorrowActivation(param);
+            var res = await _bookBorrowBL.BorrowActivation(param);
             return res;
         }
 
@@ -42,11 +41,10 @@ namespace Library.Management.Web
         /// <param name="param"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 24/03/2021
-        [HttpPost("RestoreActivation")]
+        [HttpPut("RestoreActivation")]
         public async Task<ActionServiceResult> RestoreActivation(ParameterUpdateBookBorrow param)
         {
-            var res = new ActionServiceResult();
-            res = await _bookBorrowBL.RestoreActivation(param);
+            var res = await _bookBorrowBL.RestoreActivation(param);
             return res;
         }
 
@@ -56,11 +54,10 @@ namespace Library.Management.Web
         /// <param name="param"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 24/03/2021
-        [HttpPost("ExtendActivation")]
+        [HttpPut("ExtendActivation")]
         public async Task<ActionServiceResult> ExtendActivation(ParameterExtendBookBorrow param)
         {
-            var res = new ActionServiceResult();
-            res = await _bookBorrowBL.ExtendActivation(param);
+            var res = await _bookBorrowBL.ExtendActivation(param);
             return res;
         }
     }

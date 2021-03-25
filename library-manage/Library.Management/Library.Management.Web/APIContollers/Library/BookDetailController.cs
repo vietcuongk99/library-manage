@@ -171,18 +171,18 @@ namespace Library.Management.Web
                     }
                 }
             }
-            
+
             res.Data = lstBookUriConvertBase64;
             return res;
         }
 
-            /// <summary>
-            /// Lưu file mượn sách của thư viện
-            /// </summary>
-            /// <param name="param"></param>
-            /// <returns></returns>
-            /// CreatedBy: VDDUNG1 23/03/2021
-            [HttpPost("SaveFileBookInfo")]
+        /// <summary>
+        /// Lưu file mượn sách của thư viện
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 23/03/2021
+        [HttpPost("SaveFileBookInfo")]
         public async Task<ActionServiceResult> SaveFileBookInfo(BookDetailDownloadInfo param)
         {
             var res = new ActionServiceResult();

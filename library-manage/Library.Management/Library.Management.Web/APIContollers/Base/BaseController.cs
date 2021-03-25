@@ -115,60 +115,63 @@ namespace Library.Management.Web
             return res;
         }
 
-        /// <summary>
-        /// Thêm mới dữ liệu
-        /// </summary>
-        /// <param name="param">Param đầu vào</param>
-        /// <returns></returns>
-        /// CreatedBy: VDDUNG1 17/03/2021
-        [HttpPost]
-        public virtual async Task<ActionServiceResult> Post([FromBody] T entity)
-        {
-            var response = new ActionServiceResult();
-            // Validate dữ liệu theo các Attribure Property
-            if (!ModelState.IsValid)
-            {
-                response.Success = false;
-                response.Message = GlobalResource.ValidateEntity;
-                response.LibraryCode = LibraryCode.ValidateEntity;
-                response.Data = ModelState;
-            }
-            else
-            {
-                var result = await _baseBL.Insert(entity);
-                if (result.Success == false)
-                {
-                    response.Success = false;
-                    response.LibraryCode = LibraryCode.ErrorAddEntity;
-                    response.Message = GlobalResource.ErrorAddEntity;
-                }
-            }
-            return response;
+        
+        //Comment 2 API Post và Put trên Base lại vì không dùng đến 
 
-        }
+        ///// <summary>
+        ///// Thêm mới dữ liệu
+        ///// </summary>
+        ///// <param name="param">Param đầu vào</param>
+        ///// <returns></returns>
+        ///// CreatedBy: VDDUNG1 17/03/2021
+        //[HttpPost]
+        //public virtual async Task<ActionServiceResult> Post([FromBody] T entity)
+        //{
+        //    var response = new ActionServiceResult();
+        //    // Validate dữ liệu theo các Attribure Property
+        //    if (!ModelState.IsValid)
+        //    {
+        //        response.Success = false;
+        //        response.Message = GlobalResource.ValidateEntity;
+        //        response.LibraryCode = LibraryCode.ValidateEntity;
+        //        response.Data = ModelState;
+        //    }
+        //    else
+        //    {
+        //        var result = await _baseBL.Insert(entity);
+        //        if (result.Success == false)
+        //        {
+        //            response.Success = false;
+        //            response.LibraryCode = LibraryCode.ErrorAddEntity;
+        //            response.Message = GlobalResource.ErrorAddEntity;
+        //        }
+        //    }
+        //    return response;
 
-        /// <summary>
-        /// Cập nhật dữ liệu
-        /// </summary>
-        /// <param name="param">Param truyền vào</param>
-        /// <returns></returns>
-        /// CreatedBy: VDDUNG1 17/03/2021
-        [HttpPut]
-        public virtual async Task<ActionServiceResult> Put([FromBody] T entity)
-        {
-            var response = new ActionServiceResult();
-            if (entity == null)
-            {
-                response.Success = false;
-                response.LibraryCode = LibraryCode.NotFound;
-                response.Message = GlobalResource.NotFound;
-            }
-            else
-            {
-                response = await _baseBL.Update(entity);
-            }
-            return response;
-        }
+        //}
+
+        ///// <summary>
+        ///// Cập nhật dữ liệu
+        ///// </summary>
+        ///// <param name="param">Param truyền vào</param>
+        ///// <returns></returns>
+        ///// CreatedBy: VDDUNG1 17/03/2021
+        //[HttpPut]
+        //public virtual async Task<ActionServiceResult> Put([FromBody] T entity)
+        //{
+        //    var response = new ActionServiceResult();
+        //    if (entity == null)
+        //    {
+        //        response.Success = false;
+        //        response.LibraryCode = LibraryCode.NotFound;
+        //        response.Message = GlobalResource.NotFound;
+        //    }
+        //    else
+        //    {
+        //        response = await _baseBL.Update(entity);
+        //    }
+        //    return response;
+        //}
 
         /// <summary>
         /// Xóa nhiều bản ghi

@@ -69,6 +69,8 @@ namespace Library.Management.Web
 
             services.AddScoped<IUploadBL, UploadBL>();
 
+            services.AddScoped<IUserCommentBL, UserCommentBL>();
+
             services.AddScoped<IUserAccountBL, UserAccountBL>();
             services.AddScoped<IUserAccountDL, UserAccountDL>();
 

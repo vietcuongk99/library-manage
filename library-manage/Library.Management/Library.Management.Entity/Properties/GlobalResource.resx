@@ -147,6 +147,9 @@
   <data name="ErrorBookExist" xml:space="preserve">
     <value>Mã sách không hợp lệ hoặc đã tồn tại, vui lòng thử lại.</value>
   </data>
+  <data name="ErrorCommentUser" xml:space="preserve">
+    <value>Bình luận không tồn tại, vui lòng thử lại.</value>
+  </data>
   <data name="ErrorConfirmOTPPassWord" xml:space="preserve">
     <value>Không thể đổi mật khẩu, vui lòng thử lại.</value>
   </data>
