@@ -28,11 +28,11 @@ namespace Library.Management.Web
         /// <param name="param"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 24/03/2021
-        [HttpPost("InsertBookBorrow")]
-        public async Task<ActionServiceResult> InsertBookBorrow(ParameterInsertBookBorrow param)
+        [HttpPost("BorrowActivation")]
+        public async Task<ActionServiceResult> BorrowActivation(ParameterInsertBookBorrow param)
         {
             var res = new ActionServiceResult();
-            res = await _bookBorrowBL.InsertBookBorrow(param);
+            res = await _bookBorrowBL.BorrowActivation(param);
             return res;
         }
 
@@ -42,11 +42,11 @@ namespace Library.Management.Web
         /// <param name="param"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 24/03/2021
-        [HttpPost("UpdateBookBorrow")]
-        public async Task<ActionServiceResult> UpdateBookBorrow(ParameterUpdateBookBorrow param)
+        [HttpPost("RestoreActivation")]
+        public async Task<ActionServiceResult> RestoreActivation(ParameterUpdateBookBorrow param)
         {
             var res = new ActionServiceResult();
-            res = await _bookBorrowBL.UpdateBookBorrow(param);
+            res = await _bookBorrowBL.RestoreActivation(param);
             return res;
         }
 
@@ -56,11 +56,11 @@ namespace Library.Management.Web
         /// <param name="param"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 24/03/2021
-        [HttpPost("ExtendBookBorrow")]
-        public async Task<ActionServiceResult> ExtendBookBorrow(ParameterExtendBookBorrow param)
+        [HttpPost("ExtendActivation")]
+        public async Task<ActionServiceResult> ExtendActivation(ParameterExtendBookBorrow param)
         {
             var res = new ActionServiceResult();
-            res = await _bookBorrowBL.ExtendBookBorrow(param);
+            res = await _bookBorrowBL.ExtendActivation(param);
             return res;
         }
     }

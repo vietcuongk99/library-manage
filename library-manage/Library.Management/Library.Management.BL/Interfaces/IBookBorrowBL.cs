@@ -13,19 +13,19 @@ namespace Library.Management.BL
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        Task<ActionServiceResult> InsertBookBorrow(ParameterInsertBookBorrow param);
+        Task<ActionServiceResult> BorrowActivation(ParameterInsertBookBorrow param);
         /// <summary>
         /// Cập nhật thông tin trả sách
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        Task<ActionServiceResult> UpdateBookBorrow(ParameterUpdateBookBorrow param);
+        Task<ActionServiceResult> RestoreActivation(ParameterUpdateBookBorrow param);
         /// <summary>
         /// Cập nhật thông tin gia hạn sách
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        Task<ActionServiceResult> ExtendBookBorrow(ParameterExtendBookBorrow param);
+        Task<ActionServiceResult> ExtendActivation(ParameterExtendBookBorrow param);
         
     }
 }

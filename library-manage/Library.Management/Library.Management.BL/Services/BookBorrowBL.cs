@@ -26,7 +26,7 @@ namespace Library.Management.BL
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        public async Task<ActionServiceResult> InsertBookBorrow(ParameterInsertBookBorrow param)
+        public async Task<ActionServiceResult> BorrowActivation(ParameterInsertBookBorrow param)
         {
             var res = new ActionServiceResult();
             var bookBorrow = new BookBorrow();
@@ -63,7 +63,7 @@ namespace Library.Management.BL
         /// <param name="param"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 24/03/2021
-        public async Task<ActionServiceResult> UpdateBookBorrow(ParameterUpdateBookBorrow param)
+        public async Task<ActionServiceResult> RestoreActivation(ParameterUpdateBookBorrow param)
         {
             var res = new ActionServiceResult();
             var bookborrow = new BookBorrow();
@@ -101,7 +101,7 @@ namespace Library.Management.BL
         /// <param name="param"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 24/03/2021
-        public async Task<ActionServiceResult> ExtendBookBorrow(ParameterExtendBookBorrow param)
+        public async Task<ActionServiceResult> ExtendActivation(ParameterExtendBookBorrow param)
         {
             var res = new ActionServiceResult();
             var bookborrow = new BookBorrow();
