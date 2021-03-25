@@ -25,7 +25,7 @@ var commonJS = {
             <div class="card h-100">
                     <a href="../page/book-detail.html" class="mx-auto"><img class="card-img-top" src="` + book.bookImageUri + `" alt="" style="width: 150px; height: 200px"></a>
                     <div class="card-body">
-                        <p class="card-title font-weight-bold text-truncate text-uppercase">` + book.bookName + `</p>
+                        <p class="card-title text-truncate text-uppercase">` + book.bookName + `</b>
                         <p class="text-truncate">` + book.bookAuthor + `</p>
                     </div>
                 </div>`)

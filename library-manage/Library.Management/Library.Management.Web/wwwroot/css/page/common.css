@@ -1,11 +1,6 @@
-/*!
- * Start Bootstrap - Modern Business (https://startbootstrap.com/template/modern-business)
- * Copyright 2013-2020 Start Bootstrap
- * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-logomodern-business-nav/blob/master/LICENSE)
- */
-
 body {
     padding-top: 56px;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
 }
 
 .carousel-item {
@@ -22,12 +17,18 @@ body {
     margin-bottom: 30px;
 }
 
+
+/* xử lý ảnh khung tìm kiếm trang index */
+
 header {
     padding: 156px 0 100px;
-    background-image: url('../content/img/landing-bg.png');
+    background-image: url('/content/img/landing-bg.png');
     background-position: center;
     background-size: cover;
 }
+
+
+/* xử lý ảnh trên top nav bar */
 
 .main-icon {
     width: 40px;
@@ -41,6 +42,26 @@ header {
     height: 30px;
     border-radius: 50px;
     align-items: center;
+}
+
+
+/* xử lý font và thẻ text */
+
+p {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+b {
+    font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: 400;
 }
 
 

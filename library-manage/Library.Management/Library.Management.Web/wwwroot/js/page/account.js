@@ -44,7 +44,11 @@ class AccountJS extends BaseJS {
                     ((userData.district) ? userData.district + ", " : "") +
                     ((userData.province) ? userData.province + ", " : "") +
                     ((userData.country) ? userData.country : "")
-                if (userAddressTxt.trim().length == 0) { userAddressTxt = "chưa xác định" }
+
+                userAddressTxt = userAddressTxt.trim()
+                if (userAddressTxt.length == 0) { userAddressTxt = "chưa xác định" }
+                debugger
+                if (userAddressTxt.charAt(userAddressTxt.length - 1) == ",") { userAddressTxt = userAddressTxt.slice(0, -1) }
                 //email của người dùng
                 var userEmailTxt = (userData.email || userData.email.length > 0) ? userData.email : "chưa có"
                 var userAge = (userData.age || userData.age > 0) ? userData.age : "chưa có"
