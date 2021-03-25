@@ -119,6 +119,10 @@ namespace Library.Management.Entity
         /// </summary>
         ErrorCommentUser = 614,
         /// <summary>
+        /// Mật khẩu không chính xác
+        /// </summary>
+        ErrorUserPassWord = 615,
+        /// <summary>
         /// Thất bại
         /// </summary>
         Failed = 1000
@@ -180,6 +184,10 @@ namespace Library.Management.Entity
         /// Cập nhật tài khoản
         /// </summary>
         UpdateAccount,
+        /// <summary>
+        /// Cập nhật mật khẩu
+        /// </summary>
+        UpdateUserPassWord,
         /// <summary>
         /// Cập nhật ảnh đại diện người dùng
         /// </summary>

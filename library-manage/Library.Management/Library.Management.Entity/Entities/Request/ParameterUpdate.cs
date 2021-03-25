@@ -69,4 +69,10 @@ namespace Library.Management.Entity
         public Guid CommentId { get; set; }
         public string Comment { get; set; }
     }
+    public class ParameterUpdateUserPassWord
+    {
+        public Guid UserId { get; set; }
+        public string PassWordOld { get; set; }
+        public string PassWordNew { get; set; }
+    }
 }

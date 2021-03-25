@@ -104,6 +104,20 @@ namespace Library.Management.Web
         }
 
         /// <summary>
+        /// Thay đổi mật khẩu
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// VDDUNG1 25/03/2021
+        [HttpPut("UpdateUserPassWord")]
+        public async Task<ActionServiceResult> UpdateUserPassWord(ParameterUpdateUserPassWord param)
+        {
+            var res = await _userAccountBL.UpdateUserPassWord(param);
+            return res;
+        }
+
+
+        /// <summary>
         /// Lấy ra ảnh từ đường dẫn
         /// </summary>
         /// <param name="userId"></param>

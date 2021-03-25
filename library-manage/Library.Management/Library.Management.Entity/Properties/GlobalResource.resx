@@ -174,6 +174,9 @@
   <data name="ErrorUserAccountValidate" xml:space="preserve">
     <value>Tài khoản hoặc mật khẩu không chính xác</value>
   </data>
+  <data name="ErrorUserPassWord" xml:space="preserve">
+    <value>Mật khẩu không chính xác, vui lòng thử lại.</value>
+  </data>
   <data name="Exception" xml:space="preserve">
     <value>Lỗi Exception</value>
   </data>

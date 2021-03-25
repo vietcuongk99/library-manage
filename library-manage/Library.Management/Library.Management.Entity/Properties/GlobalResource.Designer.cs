@@ -232,6 +232,15 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu không chính xác, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorUserPassWord {
+            get {
+                return ResourceManager.GetString("ErrorUserPassWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lỗi Exception.
         /// </summary>
         public static string Exception {

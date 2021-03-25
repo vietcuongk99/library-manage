@@ -186,6 +186,43 @@ namespace Library.Management.BL
         }
 
         /// <summary>
+        /// Đổi mật khẩu
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 25/03/2021
+        public async Task<ActionServiceResult> UpdateUserPassWord(ParameterUpdateUserPassWord param)
+        {
+            var res = new ActionServiceResult();
+            if (param.UserId != null)
+            {
+                var userAccount = await _baseDL.GetEntityById(param.UserId.ToString());
+                if(userAccount.Password != param.PassWordOld)
+                {
+                    res.Success = false;
+                    res.Message = GlobalResource.ErrorUserPassWord;
+                    res.LibraryCode = LibraryCode.ErrorUserPassWord;
+                }
+                else
+                {
+                    var pWParam = new
+                    {
+                        UserId = param.UserId,
+                        PassWordNew = param.PassWordNew
+                    };
+                    await _baseDL.UpdateAsync(pWParam, ProcdureTypeName.UpdateUserPassWord);
+                }
+            }
+            else
+            {
+                res.Success = false;
+                res.Message = GlobalResource.Failed;
+                res.LibraryCode = LibraryCode.Failed;
+            }
+            return res;
+        }
+
+        /// <summary>
         /// Đăng nhập
         /// </summary>
         /// <param name="param"></param>

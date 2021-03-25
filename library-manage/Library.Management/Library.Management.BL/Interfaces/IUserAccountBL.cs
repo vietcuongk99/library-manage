@@ -40,6 +40,14 @@ namespace Library.Management.BL
         Task<ActionServiceResult> UpdateUserInfo(ParameterUpdateUser param);
 
         /// <summary>
+        /// Thay đổi mật khẩu
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 25/03/2021
+        Task<ActionServiceResult> UpdateUserPassWord(ParameterUpdateUserPassWord param);
+
+        /// <summary>
         /// Đăng nhập
         /// </summary>
         /// <param name="param"></param>
