@@ -29,7 +29,9 @@ class BookDetailJS extends BaseJS {
                 var data = res.data
 
                 $('#bookTitle').text(data.bookName)
-                $('#imageBook').attr('src', data.bookImageUri)
+                if (data.bookImageUri) {
+                    $('#imageBook').attr('src', data.bookImageUri)
+                }
                 $('#bookName').text(data.bookName)
                 $('#bookAuthor').text(data.bookAuthor)
                 $('#bookAmountPage').text(data.amountPage)

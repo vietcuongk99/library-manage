@@ -32,9 +32,11 @@ header {
 
 .main-icon {
     width: 40px;
-    height: auto;
+    height: 40px;
     margin-right: 10px;
     border-radius: 50px;
+    content: url("/content/img/logo-app.jpg");
+    aspect-ratio: auto 40 / 40;
 }
 
 .avatar-icon {
@@ -45,7 +47,7 @@ header {
 }
 
 
-/* xử lý font và thẻ text */
+/* xử lý font, thẻ link và thẻ text */
 
 p {
     font-weight: 400;
@@ -54,6 +56,17 @@ p {
 
 b {
     font-size: 16px;
+    font-weight: 600;
+}
+
+a:-webkit-any-link {
+    color: #212529;
+    cursor: pointer;
+}
+
+a:hover {
+    color: black;
+    text-decoration: underline;
 }
 
 h1,
@@ -62,6 +75,19 @@ h3,
 h4,
 h5 {
     font-weight: 400;
+}
+
+
+/* custom dropdown từ boostrap */
+
+.dropdown-item:hover {
+    color: black
+}
+
+.dropdown-item:active {
+    color: #fff;
+    background-color: #343a40;
+    border-color: white;
 }
 
 

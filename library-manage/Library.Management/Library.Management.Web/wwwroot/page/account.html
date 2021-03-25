@@ -29,7 +29,7 @@
     <!-- Navigation -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html"><img src="../content/img/icon.jpg" class="main-icon">Hệ thống quản lý thư viện</a>
+            <a class="navbar-brand" href="index.html"><img class="main-icon">Hệ thống quản lý thư viện</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -53,7 +53,6 @@
         <h2 class="mt-4 mb-3 font-weight-light">
             Tài khoản cá nhân
         </h2>
-
         <ol id="breadCrumbBar" class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="index.html">Trang chủ</a>
@@ -75,27 +74,46 @@
                 <div class="tab-content" id="nav-tabContent">
                     <!-- tài khoản -->
                     <div class="tab-pane fade show active" id="list-account-content" role="tabpanel" aria-labelledby="list-account-list">
-                        <div class="form-inline">
-                            <h3>Thông tin cá nhân</h3>
-                            <button id="changeInforBtn" type="button" class="btn btn-success ml-4" data-target="#modalUpdateInfor" data-toggle="modal">Cập nhật</button>
+                        <!-- Ảnh đại diện -->
+                        <div id="avatarUserDiv" class="container bg-dark text-center rounded mb-4">
+                            <div id="updateImg" class="p-2">
+                                <label>
+                                    <img id="userAvatar" src="../content/img/avatar-sample.png" class="img-thumbnail rounded-circle" alt="avatar">
+                                    <input id="chooseImg" type="file" hidden>
+                                </label>
+                            </div>
                         </div>
+                        <!-- Thông tin cá nhân -->
+                        <h3>Thông tin cá nhân</h3>
                         <hr>
                         <div class="row">
                             <!-- Trường dữ liệu -->
-                            <div class="col-8">
+                            <!-- tên, email -->
+                            <div class="col">
                                 <div class="row">
                                     <div class="col-3">
                                         <p>Họ tên:</p>
                                     </div>
-                                    <div class="col-5">
+                                    <div class="col-8">
                                         <p id="userFullName"></p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
+                                        <p>Email:</p>
+                                    </div>
+                                    <div class="col-8">
+                                        <p id="userEmail"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- tuổi, địa chỉ -->
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-3">
                                         <p>Tuổi:</p>
                                     </div>
-                                    <div class="col-5">
+                                    <div class="col-8">
                                         <p id="userAge"></p>
                                     </div>
                                 </div>
@@ -103,27 +121,15 @@
                                     <div class="col-3">
                                         <p>Địa chỉ:</p>
                                     </div>
-                                    <div class="col-5">
+                                    <div class="col-8">
                                         <p id="userAddress"></p>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-3">
-                                        <p>Địa chỉ email:</p>
-                                    </div>
-                                    <div class="col-5">
-                                        <p id="userEmail"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Ảnh đại diện -->
-                            <div class="col-4 text-center">
-                                <img id="userAvatar" src="../content/img/avatar-sample.png" class="img-thumbnail rounded-circle mb-2" alt="avatar" style="width: 200px; height: 200px">
-                                <label id="updateImg" class="btn btn-success" data-toggle="#" data-target="#">Cập nhật<input id="chooseImg" type="file" hidden></label>
                             </div>
                         </div>
+                        <button id="changeInforBtn" type="button" class="btn btn-success mt-2" data-target="#modalUpdateInfor" data-toggle="modal">Cập nhật</button>
                         <!-- bảo mật -->
-                        <h3 class="mt-2">Thông tin tài khoản</h3>
+                        <h3 class="mt-5">Thông tin tài khoản</h3>
                         <hr>
                         <div class="row">
                             <div class="col-8">
@@ -141,11 +147,9 @@
                                     <div class="col-3">
                                         <p>Mật khẩu:</p>
                                     </div>
-                                    <div class="col-5">
+                                    <div class="col-9 form-inline">
                                         <input readonly id="userPassword" type="password" class="form-control" placeholder="..." value="">
-                                    </div>
-                                    <div class="col-4 text-center">
-                                        <button id="changePassword" class="btn btn-success">Cập nhật</button>
+                                        <button id="changePassword" class="btn btn-success ml-2">Cập nhật</button>
                                     </div>
                                 </div>
                             </div>

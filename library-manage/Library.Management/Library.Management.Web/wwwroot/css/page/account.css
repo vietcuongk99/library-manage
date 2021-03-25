@@ -10,4 +10,20 @@
     background-position: center;
     width: 200px;
     height: 200px;
+    aspect-ratio: auto 200 / 200;
+}
+
+#avatarUserDiv {
+    background-image: url('/content/img/landing-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+/* custom list-group từ bootstrap */
+
+.list-group-item.active {
+    color: #fff;
+    background-color: #343a40;
+    border-color: black;
 }
