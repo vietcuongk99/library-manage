@@ -149,7 +149,7 @@
                                     </div>
                                     <div class="col-9 form-inline">
                                         <input readonly id="userPassword" type="password" class="form-control" placeholder="..." value="">
-                                        <button id="changePassword" class="btn btn-success ml-2">Cập nhật</button>
+                                        <button id="changePasswordBtn" class="btn btn-success ml-2" data-target="#modalUpdatePassword" data-toggle="modal">Cập nhật</button>
                                     </div>
                                 </div>
                             </div>
@@ -338,7 +338,7 @@
                         <div id="emailDiv">
                             <div class="row mb-1">
                                 <label for="emailInput" class="col-4">Địa chỉ email (<span class="label-required">*</span>)</label>
-                                <input id="emailInput" type="text" class="form-control col-6" placeholder="abc@gmail.com">
+                                <input id="emailInput" type="email" class="form-control col-6" placeholder="abc@gmail.com">
                             </div>
                         </div>
                         <div id="ageDiv">
@@ -373,8 +373,45 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="dismissModal" type="button" class="btn btn-outline-secondary">Hủy</button>
+                        <button id="dismissUpdateInfor" type="button" class="btn btn-outline-secondary">Hủy</button>
                         <button id="updateInforBtn" class="btn btn-success">Xác nhận</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- sự kiện khi click nút Cập nhật (mật khẩu)-->
+        <!-- Modal -->
+        <div class="modal fade" id="modalUpdatePassword" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content p-2">
+                    <div class="modal-header">
+                        <h5 class="modal-title font-weight-bold">Cập nhật mật khẩu</h5>
+                    </div>
+                    <div class="modal-body">
+                        <!-- form điền thông tin -->
+                        <div id="passwordDiv">
+                            <div class="row mb-1">
+                                <label for="passwordInput" class="col-4">Mật khẩu cũ (<span class="label-required">*</span>)</label>
+                                <input id="passwordInput" type="password" class="form-control col-6" placeholder="...">
+                            </div>
+                        </div>
+                        <div id="newPasswordDiv">
+                            <div class="row mb-1">
+                                <label for="newPasswordInput" class="col-4">Mật khẩu mới (<span class="label-required">*</span>)</label>
+                                <input id="newPasswordInput" type="password" class="form-control col-6" placeholder="...">
+                            </div>
+                        </div>
+                        <div id="reNewPasswordDiv">
+                            <div class="row mb-1">
+                                <label for="reNewPasswordInput" class="col-4">Nhập lại mật khẩu mới (<span class="label-required">*</span>)</label>
+                                <input id="reNewPasswordInput" type="password" class="form-control col-6" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="dismissUpdatePass" type="button" class="btn btn-outline-secondary">Hủy</button>
+                        <button id="updatePasswordBtn" class="btn btn-success">Xác nhận</button>
                     </div>
                 </div>
             </div>

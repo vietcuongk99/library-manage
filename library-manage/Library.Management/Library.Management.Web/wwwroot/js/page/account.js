@@ -70,6 +70,7 @@ class AccountJS extends BaseJS {
                 $('#provinceInput').val(userData.province);
                 $('#countryInput').val(userData.country);
                 $('#emailInput').val(userData.email);
+                $('#passwordInput').val(userData.password)
 
 
             } else {
@@ -121,15 +122,12 @@ class AccountJS extends BaseJS {
         this.showImgPreviewModal();
         //sự kiện khi click nút Lưu ảnh trong modal avatar
         $('#confirmImg').on('click', this.setUserAvatar);
-        //sự kiện khi click nút Cập nhật mật khẩu
-        $('#changePassword').on('click', function() {
-            debugger
-            window.open("change-pass.html", "_self")
-        });
-        //sự kiện khi click nút Xác nhận trong modal infor
+        //sự kiện khi click nút Xác nhận trong modal cập nhật thông tin
         $('#updateInforBtn').on('click', this.updateUserInfor.bind(this));
-        //sự kiện khi click nút Hủy bỏ trong modal
-        $('#modalUpdateInfor #dismissModal').on('click', function() {
+        // sự kiện khi click nút Xác nhận trong modal cập nhật mật khẩu
+        $('#updatePasswordBtn').on('click', this.updateUserPassword.bind(this));
+        //sự kiện khi click nút Hủy bỏ trong modal cập nhật thông tin
+        $('#modalUpdateInfor #dismissMUpdateInfor').on('click', function() {
             //đóng modal
             $('#modalUpdateInfor').modal('hide')
 
@@ -153,6 +151,29 @@ class AccountJS extends BaseJS {
             $('#provinceInput').val(userData.province);
             $('#countryInput').val(userData.country);
             $('#emailInput').val(userData.email);
+        })
+
+        // sự kiện khi click nút Hủy bỏ trong modal cập nhật mật khẩu
+        $('#modalUpdatePassword #dismissUpdatePass').on('click', function() {
+            //đóng modal
+            $('#modalUpdatePassword').modal('hide')
+
+            //xóa alert validate nếu có
+            if ($('#newPasswordAlert')) {
+                $('#newPasswordAlert').remove()
+            }
+            if ($('#reNewPassAlert')) {
+                $('#reNewPassAlert').remove()
+            }
+            if ($('#passwordAlert')) {
+                $('#passwordAlert').remove()
+            }
+            //lấy dữ liệu từ input #userPassword
+            //gán giá trị cho các trường input trong modal
+            var userPassword = $('#userPassword').val()
+            $('#passwordInput').val(userPassword);
+            $('#newPasswordInput').val("");
+            $('#reNewPasswordInput').val("");
         })
 
     }
@@ -234,8 +255,8 @@ class AccountJS extends BaseJS {
         })
     }
 
-    //validate email nhập vào từ người dùng (modal cập nhật thông tin)
-    validateUserInput() {
+    //validate dữ liệu nhập vào từ người dùng (modal cập nhật thông tin)
+    validateUserInforInput() {
 
         //khai báo kết quả trả về
         var result = true;
@@ -320,7 +341,104 @@ class AccountJS extends BaseJS {
 
     }
 
-    //xử lý sự kiện khi click nút Lưu thông tin (modal)
+    //validate dữ liệu nhập vào từ người dùng (modal cập nhật mật khẩu)
+    validatePasswordInput() {
+
+        //khai báo kết quả trả về
+        var result = true;
+        var alertDiv;
+
+        //lấy email input của người dùng
+        var passwordInput = $('#passwordInput').val().trim();
+        var newPasswordInput = $('#newPasswordInput').val().trim();
+        var reNewPasswordInput = $('#reNewPasswordInput').val().trim();
+
+        //password chứa tối thiểu 5 kí tự và không có khoảng trắng
+        var passwordValid = (function validatePassword(password) {
+            if (password.includes(" ")) {
+                return false
+            } else {
+                return password.length >= 5
+            }
+        })(passwordInput)
+
+        //password chứa tối thiểu 5 kí tự và không có khoảng trắng
+        var newPasswordValid = (function validateNewPassword(password) {
+            if (password.includes(" ")) {
+                return false
+            } else {
+                return password.length >= 5
+            }
+        })(newPasswordInput)
+
+        //password và repassword phải trùng khớp
+        if (newPasswordInput) {
+            var reNewPasswordValid = (function validateRePassWord(rePassword, password) {
+                return rePassword == password
+            })(reNewPasswordInput, newPasswordInput)
+        }
+
+        //nếu email, tên họ, tên đệm chưa được validate
+        //thêm thành phần html
+        if (!passwordValid) {
+            //khai báo thành phần alert
+            alertDiv = $(`<div id="passwordAlert" class="row mb-1">
+                <label class="col-4"></label>
+                <small class="form-text text-danger col-6">Không được để trống trường này.</small>
+            </div>`)
+            if ($('#passwordAlert')) {
+                $('#passwordAlert').remove()
+            }
+            $('#passwordDiv').append(alertDiv)
+            result = false;
+        } else {
+            if ($('#passwordAlert')) {
+                $('#passwordAlert').remove()
+            }
+        }
+
+        if (!newPasswordValid) {
+
+            if ($('#newPasswordAlert')) {
+                $('#newPasswordAlert').remove()
+            }
+            //khai báo thành phần alert
+            alertDiv = $(`<div id="newPasswordAlert" class="row mb-1">
+                <label class="col-4"></label>
+                <small class="form-text text-danger col-6">
+                Mật khẩu chứa tối thiểu 5 kí tự và không có khoảng trắng.</small>
+            </div>`)
+            $('#newPasswordDiv').append(alertDiv)
+            result = false;
+        } else {
+            if ($('#newPasswordAlert')) {
+                $('#newPasswordAlert').remove()
+            }
+        }
+
+        if (!reNewPasswordValid && newPasswordValid) {
+            //khai báo thành phần alert
+            alertDiv = $(`<div id="reNewPassAlert" class="row mb-1">
+                <label class="col-4"></label>
+                <small class="form-text text-danger col-6">Nhập lại mật khẩu mới chưa đúng.</small>
+            </div>`)
+            if ($('#reNewPassAlert')) {
+                $('#reNewPassAlert').remove()
+            }
+            $('#reNewPasswordDiv').append(alertDiv)
+            result = false;
+        } else {
+            if ($('#reNewPassAlert')) {
+                $('#reNewPassAlert').remove()
+            }
+        }
+
+        //trả về kết quả validate
+        return result;
+
+    }
+
+    //xử lý sự kiện khi click nút Xác nhận (modal cập nhật thông tin)
     updateUserInfor() {
         // lấy userId từ localStorage
         var userObject = JSON.parse(localStorage.getItem("user"))
@@ -364,6 +482,55 @@ class AccountJS extends BaseJS {
                 if (res.success) {
                     //đóng modal
                     $('#modalUpdateInfor').modal('hide');
+                    //show alert
+                    commonBaseJS.showToastMsgSuccess("Cập nhật thành công.");
+                    //gọi loadUserData() để cập nhật dữ liệu mới nhất
+                    accountJS.loadUserData()
+                } else {
+                    commonBaseJS.showToastMsgFailed(res.message);
+                }
+            }).fail(function(res) {
+                commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
+            })
+
+
+        } else {
+            commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng ký không thành công.");
+        }
+    }
+
+    //xử lý sự kiện khi click nút Xác nhận thông tin (modal cập nhật mật khẩu)
+    updateUserPassword() {
+        // lấy userId từ localStorage
+        var userObject = JSON.parse(localStorage.getItem("user"))
+        var userID = userObject.userID
+
+        //khai báo validate email input
+        var validateUserInput = accountJS.validatePasswordInput()
+
+        //nếu email được validate
+        if (validateUserInput) {
+            //lấy input từ người dùng
+            var userPassword = $('#passwordInput').val().trim();
+            var userNewPassword = $('#newPasswordInput').val().trim();
+
+            //tạo data và gán trường dữ liệu
+            var data = {
+                userId: userID,
+                passWordOld: userPassword,
+                passWordNew: userNewPassword
+            };
+
+            //call api
+            $.ajax({
+                method: "PUT",
+                url: host + "api/UserAccount/UpdateUserPassWord",
+                data: JSON.stringify(data),
+                contentType: "application/json"
+            }).done(function(res) {
+                if (res.success) {
+                    //đóng modal
+                    $('#modalUpdatePassword').modal('hide');
                     //show alert
                     commonBaseJS.showToastMsgSuccess("Cập nhật thành công.");
                     //gọi loadUserData() để cập nhật dữ liệu mới nhất
