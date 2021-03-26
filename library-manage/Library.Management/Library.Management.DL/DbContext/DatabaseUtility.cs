@@ -49,6 +49,9 @@ namespace Library.Management.DL.DbContext
                 case ProcdureTypeName.GetByBookDetail:
                     storeName = $"Proc_Get{tableName}ByBookDetail";
                     break;
+                case ProcdureTypeName.GetPagingParam:
+                    storeName = $"Proc_Get{tableName}PagingData";
+                    break;
                 case ProcdureTypeName.Insert:
                     storeName = $"Proc_Insert{tableName}";
                     break;
@@ -96,8 +99,11 @@ namespace Library.Management.DL.DbContext
             switch (resProcedure)
             {
                 case "ResponseProcedureUserComment":
-                   var entities = _db.Query<ResponseProcedureUserComment>(storeName, entity, commandType: CommandType.StoredProcedure);
-                    return entities;
+                    var proc_UserComment = _db.Query<ResponseProcedureUserComment>(storeName, entity, commandType: CommandType.StoredProcedure);
+                    return proc_UserComment;
+                case "ResponseProcedureBookDetail":
+                    var proc_BookDetail = _db.Query<ResponseProcedureBookDetail>(storeName, entity, commandType: CommandType.StoredProcedure);
+                    return proc_BookDetail;
                 default:
                     break;
             }

@@ -6,6 +6,8 @@ namespace Library.Management.Entity
 {
     public class ParamFilterBookDetail
     {
-        public string ParamBookName { get; set; }
+        public string paramBookName { get; set; }
+        public int pageNumber { get; set; }
+        public int pageSize { get; set; }
     }
 }

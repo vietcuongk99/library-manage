@@ -17,4 +17,12 @@ namespace Library.Management.Entity
         public string ModifiedBy { get; set; }
         public ulong? Status { get; set; }
     }
+
+    public class ResponseProcedureBookDetail
+    {
+        public Guid BookID { get; set; }
+        public string BookName { get; set; }
+        public string BookImageUri { get; set; }
+        public string BookAuthor { get; set; }
+    }
 }

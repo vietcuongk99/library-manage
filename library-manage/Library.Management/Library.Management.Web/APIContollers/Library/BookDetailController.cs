@@ -133,11 +133,22 @@ namespace Library.Management.Web
             return res;
         }
 
-        //[HttpGet("GetPagingData")]
-        //public async Task<ActionServiceResult> GetPagingData(ParamFilterBookDetail param)
-        //{
-        //    var res = _bookDetailBL.GetPagingData(param);
-        //}
+        /// <summary>
+        /// Lọc dữ liệu phân trang danh sách sách
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 26/03/2021
+        [HttpGet("GetPagingData")]
+        public async Task<ActionServiceResult> GetPagingData([FromQuery]ParamFilterBookDetail param)
+        {
+            var res = await _bookDetailBL.GetPagingData(param);
+            if (res.Data != null)
+            {
+                res.Data = ShowListBookImageConvertBase64String((List<ResponseProcedureBookDetail>)res.Data);
+            };
+            return res;
+        }
 
         /// <summary>
         /// Convert list ảnh sách về dạng base64 để hiển thị lên giao diện
@@ -145,17 +156,19 @@ namespace Library.Management.Web
         /// <param name="lstBookImageUri"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 24/03/2021
-        [HttpPost("ShowListBookImageConvertBase64String")]
-        public ActionServiceResult ShowListBookImageConvertBase64String(List<BookImageUri> lstBookImageUri)
+        //[HttpPost("ShowListBookImageConvertBase64String")]
+        private List<ResponseBookDetailDownloadInfo> ShowListBookImageConvertBase64String(List<ResponseProcedureBookDetail> lstBookImageUri)
         {
             var res = new ActionServiceResult();
-            var lstBookUriConvertBase64 = new List<BookDetailDownloadInfo>();
-            var bookUriConvertBase64 = new BookDetailDownloadInfo();
+            var lstBookUriConvertBase64 = new List<ResponseBookDetailDownloadInfo>();
+            var bookUriConvertBase64 = new ResponseBookDetailDownloadInfo();
             string imagePath;
             // Vòng for trả về list Book chứa các đường dẫn Base64 được convert từ link ảnh
-            foreach (BookImageUri bookImageUri in lstBookImageUri)
+            foreach (ResponseProcedureBookDetail bookImageUri in lstBookImageUri)
             {
                 bookUriConvertBase64.BookID = bookImageUri.BookID;
+                bookUriConvertBase64.BookName = bookImageUri.BookName;
+                bookUriConvertBase64.BookAuthor = bookImageUri.BookAuthor;
                 if (bookImageUri != null)
                 {
                     imagePath = Directory.GetCurrentDirectory() + bookImageUri;
@@ -171,15 +184,26 @@ namespace Library.Management.Web
                     {
                         if (img != null)
                         {
-                            bookUriConvertBase64.BookDetailBase64String = _baseBL.ImageToBase64(img, ImageFormat.Jpeg);
+                            bookUriConvertBase64.BookImageUriBase64String = _baseBL.ImageToBase64(img, ImageFormat.Jpeg);
                             lstBookUriConvertBase64.Add(bookUriConvertBase64);
                         }
                     }
                 }
-            }
-
-            res.Data = lstBookUriConvertBase64;
-            return res;
+                else
+                {
+                    // Nếu link ảnh có nhưng không chính xác thì bắn về ảnh mặc định
+                    imagePath = Directory.GetCurrentDirectory() + GlobalResource.DirectoryBookImageUri + GlobalResource.AvatarBookDefault;
+                    using (Image img = Image.FromFile(imagePath))
+                    {
+                        if (img != null)
+                        {
+                            bookUriConvertBase64.BookImageUriBase64String = _baseBL.ImageToBase64(img, ImageFormat.Jpeg);
+                            lstBookUriConvertBase64.Add(bookUriConvertBase64);
+                        }
+                    }
+                }
+            } 
+            return lstBookUriConvertBase64;
         }
 
         /// <summary>

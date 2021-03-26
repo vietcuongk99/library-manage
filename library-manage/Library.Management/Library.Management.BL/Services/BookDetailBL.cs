@@ -22,6 +22,23 @@ namespace Library.Management.BL
         }
 
         /// <summary>
+        /// Lọc dữ liệu phân trang
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 26/03/2021
+        public async Task<ActionServiceResult> GetPagingData(ParamFilterBookDetail param)
+        {
+            var res = new ActionServiceResult();
+            if (param.paramBookName == null) param.paramBookName = "";
+            if (param.pageNumber <= 0) param.pageNumber = 1;
+            if (param.pageSize <= 0) param.pageSize = 30;
+
+            res.Data = await _baseDL.GetEntityByMultipleTable<ResponseProcedureBookDetail>(param, ProcdureTypeName.GetPagingParam);
+            return res;
+        }
+
+        /// <summary>
         /// Thêm 1 bản ghi thông tin cuốn sách
         /// </summary>
         /// <param name="param">param truyền vào</param>
