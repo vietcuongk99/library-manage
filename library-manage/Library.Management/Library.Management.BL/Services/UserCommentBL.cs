@@ -40,7 +40,11 @@ namespace Library.Management.BL
         public async Task<ActionServiceResult> GetCommentByUser(string UserId)
         {
             var res = new ActionServiceResult();
-            res.Data = await _baseDL.GetEntityByProperty(UserId, ProcdureTypeName.GetByUser);
+            var param = new
+            {
+                UserID = UserId
+            };
+            res.Data = await _baseDL.GetEntityByProperty(param, ProcdureTypeName.GetByUser);
             return res;
         }
 
@@ -53,7 +57,11 @@ namespace Library.Management.BL
         public async Task<ActionServiceResult> GetCommentByBookDetail(string BookId)
         {
             var res = new ActionServiceResult();
-            res.Data = await _baseDL.GetEntityByProperty(BookId, ProcdureTypeName.GetByBookDetail);
+            var param = new
+            {
+                BookID = BookId
+            };
+            res.Data = await _baseDL.GetEntityByProperty(param, ProcdureTypeName.GetByBookDetail);
             return res;
         }
 
