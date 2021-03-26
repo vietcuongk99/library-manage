@@ -13,12 +13,15 @@ var commonJS = {
 
 
     //append dữ liệu vào thẻ card
-    //sử dụng trong trang index, search-result
+    //sử dụng trong trang index, search-result, account
     appendBookDataToCard(data, selector) {
 
-        var row = $(`<div class="row"></div>`)
+        var row = $(`<div class="row mt-2"></div>`)
         data.forEach(book => {
 
+            if (book.bookImageUri.includes("~Temp") || book.bookImageUri.trim().length == 0) {
+                book.bookImageUri = "../content/img/avatar-book-default.jpg"
+            }
             var card = $(`<div class="col-md-6 col-lg-3 col-sm-6 portfolio-item">
                             </div>`)
             var bookHTML = $(`
@@ -35,6 +38,7 @@ var commonJS = {
             row.append(card)
         })
 
+        debugger
         $(selector).html(row)
     },
 

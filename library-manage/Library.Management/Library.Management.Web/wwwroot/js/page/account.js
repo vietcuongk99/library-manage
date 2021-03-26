@@ -14,6 +14,7 @@ class AccountJS extends BaseJS {
         super();
         this.loadUserData();
         this.loadUserAvatar();
+        this.loadBookBorrowList();
         this.initEvent();
 
     }
@@ -117,6 +118,16 @@ class AccountJS extends BaseJS {
 
     }
 
+    //load danh sách mượn
+    loadBookBorrowList() {
+
+        //lấy ra danh sách mượn của user trong localStorage
+        var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
+        debugger
+        commonJS.appendBookDataToCard(borrowList, "#borrowListContent");
+
+    }
+
     //gán sự kiện trong trang
     initEvent() {
         this.showImgPreviewModal();
@@ -175,6 +186,9 @@ class AccountJS extends BaseJS {
             $('#newPasswordInput').val("");
             $('#reNewPasswordInput').val("");
         })
+
+        //gán xử lý sự kiện khi click vào 1 card sách
+        $('#borrowListContent').children('div').on('click', 'div.card.h-100', this.cardOnClick)
 
     }
 
@@ -547,5 +561,18 @@ class AccountJS extends BaseJS {
             commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng ký không thành công.");
         }
     }
+
+    //chi tiết xử lý sự kiện khi click vào 1 card sách
+    cardOnClick() {
+
+        let bookId = $(this).data('bookId')
+        console.log(bookId)
+        console.log(this)
+
+        localStorage.setItem("bookId", bookId)
+        window.open("book-detail.html", "_self")
+    }
+
+
 
 }

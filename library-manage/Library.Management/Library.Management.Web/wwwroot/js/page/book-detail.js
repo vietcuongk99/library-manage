@@ -10,6 +10,7 @@ $(document).ready(function() {
 class BookDetailJS extends BaseJS {
     constructor() {
         super();
+        this.loadBookActionButton();
         this.loadBookData();
         this.loadBookComment();
         this.initEvent();
@@ -91,7 +92,19 @@ class BookDetailJS extends BaseJS {
 
     initEvent() {
 
-        $('#submitCommentBtn').on('click', this.sendComment.bind(this))
+        //gán sự kiện cho nút Gửi bình luận
+        $('#submitCommentBtn').on('click', this.sendComment.bind(this));
+
+        if ($('#confirmBorrowBtn')) {
+            //gán sự kiện cho nút Xác nhận (modal mượn sách)
+            $('#confirmBorrowBtn').on('click', this.borrowBookEvent.bind(this))
+        }
+
+        if ($('#confirmReturnBtn')) {
+            //gán sự kiện cho nút Xác nhận (modal mượn sách)
+            $('#confirmReturnBtn').on('click', this.returnBookEvent.bind(this))
+        }
+
     }
 
     //load ảnh bìa sách
@@ -230,6 +243,8 @@ class BookDetailJS extends BaseJS {
                     data: JSON.stringify(data)
                 }).done(function(res) {
                     if (res.success) {
+                        //reset nội dung comment
+                        $('#commentInput').val("");
                         //show alert
                         commonBaseJS.showToastMsgSuccess(res.message);
                         //gọi hàm loadBookComment cập nhật nội dung mới nhất
@@ -248,13 +263,12 @@ class BookDetailJS extends BaseJS {
 
     //thay đổi giao diện ui nút mượn, trả, gia hạn, tải tài liệu với sách
     loadBookActionButton() {
-        //lấy thông tin user hiện tại
-        var userObject = JSON.parse(localStorage.getItem("user"));
+
         //lấy ra userId và bookId trong localStorage
         var bookId = localStorage.getItem("bookId");
 
-        //lấy ra danh sách mượn của user
-        var borrowList = userObject.borrowList;
+        //lấy ra danh sách mượn của user trong localStorage
+        var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
 
         //khai báo các thành phần html cho từng action với sách
         //mượn sách, trả sách, gia hạn thời gian mượn, mở tài liệu
@@ -263,17 +277,113 @@ class BookDetailJS extends BaseJS {
         var extendBtnHTML = $(`<button id="btnExtendDate" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalExtendDate">Gia hạn</button>`)
         var showFileBtnHTML = $(`<button id="btnShowFile" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#">Mở tài liệu</button>`)
 
-
         //lấy ra số lượng sách đang mượn
         var borrowListSize = borrowList.length;
-        //nếu số sách đang mượn không vượt quá MAX = 6
-        if (borrowListSize < 6) {
+        //nếu số sách đang mượn không vượt quá MAX_BORROW_NUMBERX = 6
+        if (borrowListSize < MAX_BORROW_NUMBER) {
+            //kiểm tra sách được mượn hay chưa
+            //khai báo biến đếm
+            let count = 0;
             for (let index = 0; index < borrowListSize; index++) {
+                //nếu sách này đã mượn
+                if (bookId == borrowList[index].bookId) {
 
+                    //thêm nút trả, gia hạn và mở tài liệu
+                    $('#groupBookAction').children().remove();
+                    $('#groupBookAction').append(returnBtnHTML, extendBtnHTML, showFileBtnHTML);
+                    // $('#groupBookAction').append(extendBtnHTML);
+                    // $('#groupBookAction').append(showFileBtnHTML);
+
+                    //thoát vòng lặp
+                    break
+                } else {
+                    //tiếp tục tăng biến đếm
+                    count++;
+                }
             }
+
+            //nếu sách này chưa được mượn
+            //thêm nút mượn sách
+            if (count == borrowListSize) {
+                $('#groupBookAction').children().remove();
+                $('#groupBookAction').append(borrowBtnHTML);
+            }
+
+        } else {
+            $('#groupBookAction').children().remove();
         }
 
     }
 
+    //sự kiện khi click nút Xác nhận (modal mượn sách)
+    borrowBookEvent() {
+        debugger
+        //lấy danh sách mượn của người dùng
+        var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
+
+        //tạo object lưu thông tin sách vừa mượn
+        var newBorrowBook = {
+            bookId: localStorage.getItem("bookId"),
+            returnDate: "30/3/2021",
+            borrowDate: "1/3/2021",
+            borrowStatus: 1,
+            bookName: $('#bookName').value.trim(),
+            bookAuthor: $('#bookAuthor').value.trim(),
+            bookImageUri: "../content/img/avatar-book-default.jpg"
+        }
+
+
+        //thêm dữ liệu vào danh sách mượn
+        //fake data
+        borrowList.push(newBorrowBook);
+
+        //lưu danh sách mượn mới nhất vào local storage
+        localStorage.setItem("borrowList", JSON.stringify(borrowList));
+
+        //gọi hàm loadBookActionButton để cập nhật ui
+        bookDetailJS.loadBookActionButton();
+
+        //đóng modal
+        $('#modalBorrowBook').modal('hide');
+
+        //show alert
+        commonBaseJS.showToastMsgSuccess("Mượn sách thành công")
+    }
+
+
+    //sự kiện khi click nút Xác nhận (modal trả sách)
+    returnBookEvent() {
+        debugger
+        //lấy danh sách mượn của người dùng
+        var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
+
+        //lấy id sách muốn trả
+        //id sách hiện tại trong local storage
+        var bookId = localStorage.getItem("bookId");
+
+        //xóa sách muốn trả khỏi list mượn hiện tại
+        for (let index = 0; index < borrowList.length; index++) {
+            if (borrowList[index].bookId == bookId) {
+                //sử dụng hàm splice()
+                //xóa 1 phần tử bắt đầu từ vị trí index
+                borrowList.splice(index, 1)
+
+                //thoát vòng lặp
+                break
+            }
+        }
+
+        //lưu danh sách mượn mới nhất vào local storage
+        localStorage.setItem("borrowList", JSON.stringify(borrowList));
+
+        //gọi hàm loadBookActionButton để cập nhật ui
+        bookDetailJS.loadBookActionButton();
+
+        //đóng modal
+        $('#modalReturnBook').modal('hide');
+
+        //show alert
+        commonBaseJS.showToastMsgSuccess("Trả sách thành công")
+    }
 
 }

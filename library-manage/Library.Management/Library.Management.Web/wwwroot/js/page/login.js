@@ -60,12 +60,12 @@ class LoginJS {
                     commonBaseJS.showToastMsgSuccess("Đăng nhập thành công.");
                     //lưu thông tin đăng nhập vào localStorage
                     var user = res.data;
-
-                    //khai báo list sách đang mượn của user
-                    //fake data đợi api
-                    user.borrowList = borrowList;
-
                     localStorage.setItem("user", JSON.stringify(user));
+
+                    //lưu list sách đang mượn của user
+                    //fake data đợi api
+                    localStorage.setItem("borrowList", JSON.stringify(borrowList));
+
                     //chuyển sang trang index
                     setTimeout(function() {
                         window.open("index.html", "_self")
@@ -131,24 +131,36 @@ var borrowList = [{
         bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
         returnDate: "30/4/2021",
         borrowDate: "26/1/2021",
-        borrowStatus: 1
-    },
-    {
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee49",
-        returnDate: "28/3/2021",
-        borrowDate: "28/2/2021",
-        borrowStatus: 1
+        borrowStatus: 1,
+        bookName: "Clean Code: A Handbook Of Agile Software Craftmanship",
+        bookAuthor: "Robert C.Martin",
+        bookImageUri: "../content/img/avatar-book-default.jpg"
     },
     {
         bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee47",
-        returnDate: "30/3/2021",
-        borrowDate: "26/2/2021",
-        borrowStatus: 1
+        returnDate: "28/3/2021",
+        borrowDate: "28/2/2021",
+        borrowStatus: 1,
+        bookName: "Design Patterns",
+        bookAuthor: "Erich Gamma, John Vlissides, Richard Helm, Ralph Johnson",
+        bookImageUri: "../content/img/avatar-book-default.jpg"
     },
     {
-        bookId: "5cef5b7b-0e86-43c6-89c4-868efa0a0aad",
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee48",
+        returnDate: "30/3/2021",
+        borrowDate: "26/2/2021",
+        borrowStatus: 1,
+        bookName: "Java Design Patterns: A Hands-On Experience with Real-World Examples",
+        bookAuthor: "Vaskaran Sarcar",
+        bookImageUri: "../content/img/avatar-book-default.jpg"
+    },
+    {
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee49",
         returnDate: "30/3/2021",
         borrowDate: "1/3/2021",
-        borrowStatus: 1
+        borrowStatus: 1,
+        bookName: "Code Dạo Kí Sự - Lập Trình Viên Đâu Phải Chỉ Biết Code",
+        bookAuthor: "Phạm Huy Hoàng",
+        bookImageUri: "../content/img/avatar-book-default.jpg"
     }
 ]

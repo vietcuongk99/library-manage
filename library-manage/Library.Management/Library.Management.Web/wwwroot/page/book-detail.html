@@ -57,13 +57,10 @@
         <!-- Portfolio Item Row -->
         <div class="row">
 
+            <!-- mượn, trả, gia hạn, tải tài liệu -->
             <div class="col-md-4">
                 <img id="imageBook" class="img-fluid mb-2" alt="Ảnh bìa sách" style="width: 300px; height: 400px;" src="#">
-                <ul class="list-group" style="width: 300px;">
-                    <button id="btnBorrowBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Mượn sách</button>
-                    <button id="btnReturnBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalReturnBook">Trả sách</button>
-                    <button id="btnExtendDate" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalExtendDate">Gia hạn</button>
-                    <button id="btnDownloadFile" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#">Tải tài liệu</button>
+                <ul id="groupBookAction" class="list-group" style="width: 300px;">
                 </ul>
             </div>
 
@@ -123,7 +120,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Mượn sách</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="hiddenDiv()">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -154,7 +151,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận trả sách</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="hiddenDiv()">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -196,14 +193,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Gia hạn thời gian mượn sách</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="hiddenDiv()">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div id="modalConfirm3" class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
+                        <!-- <div id="modalConfirm3" class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
                             Gia hạn thành công
-                        </div>
+                        </div> -->
                         <form>
                             <div class="row">
                                 <div class="col-4">
@@ -372,23 +369,23 @@
     <script src="../js/helper/base.js"></script>
     <script src="../js/page/book-detail.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#confirmBorrowBtn').click(function() {
-                $('#modalConfirm1').show()
-            })
-            $('#confirmExtendBtn').click(function() {
-                $('#modalConfirm3').show()
-            })
-            $('#confirmReturnBtn').click(function() {
-                $('#modalConfirm2').show()
-            })
+        // $(document).ready(function() {
+        //     $('#confirmBorrowBtn').click(function() {
+        //         $('#modalConfirm1').show()
+        //     })
+        //     $('#confirmExtendBtn').click(function() {
+        //         $('#modalConfirm3').show()
+        //     })
+        //     $('#confirmReturnBtn').click(function() {
+        //         $('#modalConfirm2').show()
+        //     })
 
-        });
+        // });
 
-        function hiddenDiv() {
+        // function hiddenDiv() {
 
-            $('.alert').hide()
-        }
+        //     $('.alert').hide()
+        // }
     </script>
 
 </body>
