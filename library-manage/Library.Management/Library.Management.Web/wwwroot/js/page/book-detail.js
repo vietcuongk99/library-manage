@@ -37,14 +37,24 @@ class BookDetailJS extends BaseJS {
                 $('#bookDescription').text(data.description)
 
                 //load ảnh bìa sách
+                //kiểm tra nếu đường dẫn ảnh tồn tại và không phải ""
                 if (data.bookImageUri && (data.bookImageUri).trim().length > 0) {
                     debugger
+                    //nếu đường dẫn ảnh nằm trong thư mục Temp của project
+                    //gọi loadBookImg() của bookDetailJS object lấy ra base64 string
                     if (data.bookImageUri.includes("~Temp")) {
                         bookDetailJS.loadBookImg(data.bookImageUri)
                         debugger
-                    } else {
+                    }
+                    //nếu đường dẫn ảnh là link online
+                    else {
                         $('#imageBook').attr('src', data.bookImageUri)
                     }
+                }
+                // nếu đường dẫn ảnh không tồn tại hoặc là ""
+                //đặt ảnh mặc định
+                else {
+                    $('#imageBook').attr('src', '../content/img/avatar-book-default.jpg')
                 }
 
                 //call api lấy thông tin thể loại sách
@@ -93,12 +103,20 @@ class BookDetailJS extends BaseJS {
         }).done(function(res) {
             if (res.success) {
 
+                //lấy giá trị base64 string trả về
                 var data = res.data;
                 var bookImgBase64String = data.bookDetailImageUri;
 
+                //kiểm tra string tồn tại
+                //nếu string tồn tại
                 if (bookImgBase64String) {
                     debugger
                     $('#imageBook').attr('src', "data:image/jpg;base64," + bookImgBase64String)
+                }
+                //nếu string không tồn tại
+                //đặt ảnh mặc định 
+                else {
+                    $('#imageBook').attr('src', '../content/img/avatar-book-default.jpg')
                 }
 
             } else {
