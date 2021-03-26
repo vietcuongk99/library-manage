@@ -1,4 +1,5 @@
-const host = "https://localhost:44328/"
+//hằng số lưu đường dẫn host mặc định
+const HOST_URL = "https://localhost:44328/"
 $(document).ready(function() {
     // xóa bỏ dữ liệu cũ trong localStorage và sessionStorage
     // localStorage.clear()
@@ -39,7 +40,7 @@ class ChangePassJS {
             //call api
             $.ajax({
                 method: "POST",
-                url: host + "api/UserAccount/ChangeConfirmPassWordStepOne",
+                url: HOST_URL + "api/UserAccount/ChangeConfirmPassWordStepOne",
                 contentType: "application/json",
                 data: JSON.stringify(data)
             }).done(function(res) {
@@ -50,10 +51,10 @@ class ChangePassJS {
                     //show alert
                     commonBaseJS.showToastMsgSuccess("Gửi mail chứa mã OTP thành công, vui lòng kiểm tra email.");
                     //mở trang confirm-otp
-                    setTimeout(function () {
+                    setTimeout(function() {
                         window.open("confirm-otp.html", "_self")
                     }, 2000);
-                    
+
 
                 } else {
                     //show alert

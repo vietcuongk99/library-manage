@@ -60,7 +60,7 @@ class SearchResultJS extends BaseJS {
             //lấy ra tất cả đầu sách trong csdl
             $.ajax({
                 method: "GET",
-                url: host + "api/BookDetail/",
+                url: HOST_URL + "api/BookDetail/",
                 async: true,
                 contentType: "application/json",
                 beforeSend: function() {

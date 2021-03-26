@@ -1,3 +1,6 @@
+//khai báo hằng số lưu số lượng sách được mượn tối đa
+const MAX_BORROW_NUMBER = 6;
+
 $(document).ready(function() {
     bookDetailJS = new BookDetailJS()
 })
@@ -8,6 +11,7 @@ class BookDetailJS extends BaseJS {
     constructor() {
         super();
         this.loadBookData();
+        this.loadBookComment();
         this.initEvent();
 
     }
@@ -20,7 +24,7 @@ class BookDetailJS extends BaseJS {
         //call api lấy thông tin sách
         $.ajax({
             method: "GET",
-            url: host + "api/BookDetail/" + bookId,
+            url: HOST_URL + "api/BookDetail/" + bookId,
             async: true,
             contentType: "application/json"
         }).done(function(res) {
@@ -58,7 +62,7 @@ class BookDetailJS extends BaseJS {
                 //call api lấy thông tin thể loại sách
                 $.ajax({
                     method: "GET",
-                    url: host + "api/BookCategory/" + data.bookCategoryId,
+                    url: HOST_URL + "api/BookCategory/" + data.bookCategoryId,
                     async: true,
                     contentType: "application/json"
                 }).done(function(res) {
@@ -96,7 +100,7 @@ class BookDetailJS extends BaseJS {
         //call api lấy ảnh bìa sách (base64 string)
         $.ajax({
             method: "GET",
-            url: host + "api/BookDetail/GetImageFromUrl",
+            url: HOST_URL + "api/BookDetail/GetImageFromUrl",
             async: true,
             contentType: "application/json"
         }).done(function(res) {
@@ -127,8 +131,32 @@ class BookDetailJS extends BaseJS {
     }
 
     //load nội dung bình luận
+    //chưa có api
     loadBookComment() {
 
+        //lấy ra id book hiện tại từ local storage
+        var bookId = localStorage.getItem("bookId");
+        if (bookId) {
+            //call api
+            $.ajax({
+                method: "GET",
+                url: HOST_URL + "api/UserComment/GetCommentByBookDetail" + "?BookId=" + bookId,
+                contentType: "application/json"
+            }).done(function(res) {
+
+                //lấy res từ api
+                if (res.success) {
+                    var data = res.data;
+                    //gọi hàm loadBookComment của commonJS object
+                    commonJS.appendCommentData(data);
+
+                } else {
+                    commonBaseJS.showToastMsgFailed(res.message);
+                }
+            }).fail(function(res) {
+                commonBaseJS.showToastMsgFailed("Lấy dữ liệu bình luận không thành công.");
+            })
+        }
     }
 
     //validate nội dung comment của người dùng
@@ -169,7 +197,6 @@ class BookDetailJS extends BaseJS {
 
         //lấy thông tin user hiện tại
         var userObject = JSON.parse(localStorage.getItem("user"));
-        debugger
 
         //nếu user là khách (user = null)
         if (!userObject) {
@@ -197,7 +224,7 @@ class BookDetailJS extends BaseJS {
                 //call api
                 $.ajax({
                     method: "POST",
-                    url: host + "api/UserComment/CommentBookDetailActivation",
+                    url: HOST_URL + "api/UserComment/CommentBookDetailActivation",
                     async: true,
                     contentType: "application/json",
                     data: JSON.stringify(data)
@@ -206,7 +233,7 @@ class BookDetailJS extends BaseJS {
                         //show alert
                         commonBaseJS.showToastMsgSuccess(res.message);
                         //gọi hàm loadBookComment cập nhật nội dung mới nhất
-                        bookDetailJS.loadBookComment()
+                        bookDetailJS.loadBookComment();
                     } else {
                         commonBaseJS.showToastMsgFailed(res.message);
                     }
@@ -215,6 +242,35 @@ class BookDetailJS extends BaseJS {
                 })
             }
 
+        }
+
+    }
+
+    //thay đổi giao diện ui nút mượn, trả, gia hạn, tải tài liệu với sách
+    loadBookActionButton() {
+        //lấy thông tin user hiện tại
+        var userObject = JSON.parse(localStorage.getItem("user"));
+        //lấy ra userId và bookId trong localStorage
+        var bookId = localStorage.getItem("bookId");
+
+        //lấy ra danh sách mượn của user
+        var borrowList = userObject.borrowList;
+
+        //khai báo các thành phần html cho từng action với sách
+        //mượn sách, trả sách, gia hạn thời gian mượn, mở tài liệu
+        var borrowBtnHTML = $(`<button id="btnBorrowBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Mượn sách</button>`);
+        var returnBtnHTML = $(`<button id="btnReturnBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalReturnBook">Trả sách</button>`);
+        var extendBtnHTML = $(`<button id="btnExtendDate" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalExtendDate">Gia hạn</button>`)
+        var showFileBtnHTML = $(`<button id="btnShowFile" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#">Mở tài liệu</button>`)
+
+
+        //lấy ra số lượng sách đang mượn
+        var borrowListSize = borrowList.length;
+        //nếu số sách đang mượn không vượt quá MAX = 6
+        if (borrowListSize < 6) {
+            for (let index = 0; index < borrowListSize; index++) {
+
+            }
         }
 
     }
