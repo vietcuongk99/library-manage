@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Library.Management.DL.DbContext;
 using Library.Management.Entity;
+using Library.Management.Entity.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
@@ -72,6 +73,24 @@ namespace Library.Management.DL
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
             var storeName = DatabaseUtility.GeneateStoreName<T>(procdureTypeName);
             var entities = _db.QueryFirstOrDefault<T>(storeName, entity, commandType: CommandType.StoredProcedure);
+            return await Task.FromResult(entities);
+        }
+
+        /// <summary>
+        /// Lấy dữ liệu từ nhiều bảng khác nhau
+        /// </summary>
+        /// <typeparam name="Y"></typeparam>
+        /// <param name="entity"></param>
+        /// <param name="procdureTypeName"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 26/03/2021
+        public async Task<object> GetEntityByMultipleTable<Y>(object entity, ProcdureTypeName procdureTypeName)
+        {
+            var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
+            var responseProcedure = (Activator.CreateInstance<Y>()).GetType().Name;
+            var storeName = DatabaseUtility.GeneateStoreName<T>(procdureTypeName);
+            //Gọi vào hàm swith case lấy ra dữ liệu
+            var entities = DatabaseUtility.ResponseProcedure(_db ,responseProcedure, entity, storeName);
             return await Task.FromResult(entities);
         }
 

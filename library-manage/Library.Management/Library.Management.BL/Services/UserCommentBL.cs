@@ -61,7 +61,8 @@ namespace Library.Management.BL
             {
                 BookID = BookId
             };
-            res.Data = await _baseDL.GetEntityByProperty(param, ProcdureTypeName.GetByBookDetail);
+            //Gọi lên hàm base truyền vào 1 response trả về sẵn dùng cho TH dữ liệu join từ nhiều bảng
+            res.Data = await _baseDL.GetEntityByMultipleTable<ResponseProcedureUserComment>(param, ProcdureTypeName.GetByBookDetail);
             return res;
         }
 

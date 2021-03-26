@@ -31,7 +31,22 @@ namespace Library.Management.DL
         /// CreatedBy: VDDUNG1 17/03/2021
         Task<T> GetEntityByCode(string code, ProcdureTypeName procdureTypeName);
 
+        /// <summary>
+        /// Lấy dữ liệu theo 1 số entity truyền vào
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="procdureTypeName"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 26/03/2021
         Task<T> GetEntityByProperty(object entity, ProcdureTypeName procdureTypeName);
+        /// <summary>
+        /// Multiple Table 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="procdureTypeName"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 26/03/2021
+        Task<object> GetEntityByMultipleTable<Y>(object entity, ProcdureTypeName procdureTypeName);
 
         /// <summary>
         /// Thêm mới dữ liệu

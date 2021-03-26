@@ -1,7 +1,9 @@
-﻿using Library.Management.Entity;
+﻿
+using Dapper;
+using Library.Management.Entity;
+using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Data;
 
 namespace Library.Management.DL.DbContext
 {
@@ -78,6 +80,28 @@ namespace Library.Management.DL.DbContext
                     break;
             }
             return storeName;
+        }
+
+        /// <summary>
+        /// Lấy ra dữ liệu dùng cho TH join nhiều bảng với nhau
+        /// </summary>
+        /// <param name="_db"></param>
+        /// <param name="resProcedure"></param>
+        /// <param name="entity"></param>
+        /// <param name="storeName"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 26/03/2021
+        public static object ResponseProcedure(MySqlConnection _db, string resProcedure, object entity, string storeName)
+        {
+            switch (resProcedure)
+            {
+                case "ResponseProcedureUserComment":
+                   var entities = _db.Query<ResponseProcedureUserComment>(storeName, entity, commandType: CommandType.StoredProcedure);
+                    return entities;
+                default:
+                    break;
+            }
+            return null;
         }
     }
 }

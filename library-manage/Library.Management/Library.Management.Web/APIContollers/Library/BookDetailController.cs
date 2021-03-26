@@ -133,6 +133,12 @@ namespace Library.Management.Web
             return res;
         }
 
+        //[HttpGet("GetPagingData")]
+        //public async Task<ActionServiceResult> GetPagingData(ParamFilterBookDetail param)
+        //{
+        //    var res = _bookDetailBL.GetPagingData(param);
+        //}
+
         /// <summary>
         /// Convert list ảnh sách về dạng base64 để hiển thị lên giao diện
         /// </summary>
