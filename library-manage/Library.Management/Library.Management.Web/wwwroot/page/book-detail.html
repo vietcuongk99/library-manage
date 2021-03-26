@@ -16,6 +16,7 @@
     <!-- Custom styles for this template -->
     <link href="../css/page/common.css" rel="stylesheet">
     <link href="../css/base/common.css" rel="stylesheet" />
+    <link href="../css/page/book-detail.css" rel="stylesheet" />
 
 </head>
 
@@ -227,10 +228,9 @@
             </div>
         </div>
 
-        <!-- Related Projects Row -->
+        <!-- Sách cùng thể loại -->
         <h3 class="mt-5 d-inline-flex align-middle">Sách cùng thể loại</h3>
         <button type="button" class="btn btn-outline-success btn-sm d-inline ml-1 mt-5 align-middle" onclick="window.location.href='search-result.html'">Xem thêm</button>
-
         <div class="row mt-4">
 
             <div class="col-md-4 col-sm-6 mb-4">
@@ -282,39 +282,42 @@
             </div>
 
         </div>
+
         <!-- /.row -->
-        <!-- Comments Form -->
+        <!-- Form nhập bình luận -->
         <div class="card my-4">
             <h5 class="card-header">Bình luận</h5>
             <div class="card-body">
                 <form>
                     <div class="form-group">
-                        <textarea id="comment-content" class="form-control" rows="3"></textarea>
+                        <textarea id="commentInput" class="form-control" rows="3"></textarea>
                     </div>
-                    <button id="submit-btn" type="submit" class="btn btn-primary">Gửi bình luận</button>
+                    <div id="submitDiv" class="form-inline">
+                        <button id="submitCommentBtn" type="button" class="btn btn-success">Gửi bình luận</button>
+                    </div>
                 </form>
             </div>
         </div>
 
-        <!-- Single Comment -->
-        <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-                <h5 class="mt-0">Vũ Dũng</h5>
-                Sách thật sự hay và bổ ích. Đọc nhé
+        <div id="commentContentDiv" class="container-fluid">
+            <!-- Single Comment -->
+            <div class="media mb-4">
+                <img class="d-flex mr-3 rounded-circle avatar-comment" src="../content/img/avatar-sample.png" alt="">
+                <div class="media-body">
+                    <h5 class="mt-0">Vũ Dũng</h5>
+                    Sách thật sự hay và bổ ích. Đọc nhé
+                </div>
+            </div>
+
+            <!-- Single Comment -->
+            <div class="media mb-4">
+                <img class="d-flex mr-3 rounded-circle avatar-comment" src="../content/img/avatar-sample.png" alt="">
+                <div class="media-body">
+                    <h5 class="mt-0">Bui Van Bao</h5>
+                    Sách này thật sự hay và bổ ích
+                </div>
             </div>
         </div>
-
-        <!-- Single Comment -->
-        <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-                <h5 class="mt-0">Bui Van Bao</h5>
-                Sách này thật sự hay và bổ ích
-            </div>
-        </div>
-
-
 
         <!-- Pagination -->
         <ul class="pagination justify-content-center">

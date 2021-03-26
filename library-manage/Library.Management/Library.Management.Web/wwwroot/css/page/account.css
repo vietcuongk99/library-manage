@@ -27,3 +27,13 @@
     background-color: #343a40;
     border-color: black;
 }
+
+a:-webkit-any-link {
+    color: #2a5c92;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #0d3663;
+    text-decoration: underline;
+}

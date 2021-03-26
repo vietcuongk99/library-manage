@@ -39,12 +39,10 @@ class BookDetailJS extends BaseJS {
                 //load ảnh bìa sách
                 //kiểm tra nếu đường dẫn ảnh tồn tại và không phải ""
                 if (data.bookImageUri && (data.bookImageUri).trim().length > 0) {
-                    debugger
                     //nếu đường dẫn ảnh nằm trong thư mục Temp của project
                     //gọi loadBookImg() của bookDetailJS object lấy ra base64 string
                     if (data.bookImageUri.includes("~Temp")) {
                         bookDetailJS.loadBookImg(data.bookImageUri)
-                        debugger
                     }
                     //nếu đường dẫn ảnh là link online
                     else {
@@ -89,6 +87,7 @@ class BookDetailJS extends BaseJS {
 
     initEvent() {
 
+        $('#submitCommentBtn').on('click', this.sendComment.bind(this))
     }
 
     //load ảnh bìa sách
@@ -125,6 +124,99 @@ class BookDetailJS extends BaseJS {
         }).fail(function(res) {
             commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
         })
+    }
+
+    //load nội dung bình luận
+    loadBookComment() {
+
+    }
+
+    //validate nội dung comment của người dùng
+    validateCommentInput() {
+        //khai báo kết quả trả về
+        var result = true;
+        //lấy nội dung comment của người dùng
+        var commentContent = $('#commentInput').val().trim();
+
+        //giá trị validate của comment
+        //comment chứa ít nhất 1 kí tự
+        var commentValidate = function(comment) {
+            return comment.length > 0;
+        }(commentContent)
+
+        //nếu comment chưa validate
+        if (!commentValidate) {
+            //khai báo thành phần html
+            var alertDiv = $(`<p class="text-danger my-auto ml-4">Bạn cần nhập nội dung bình luận.</p>`)
+            if ($('#submitCommentBtn').next()) {
+                $('#submitCommentBtn').next().remove()
+            }
+            $('#submitDiv').append(alertDiv);
+            //gán result = false
+            result = false
+        } else {
+            if ($('#submitCommentBtn').next()) {
+                $('#submitCommentBtn').next().remove()
+            }
+        }
+
+        return result;
+    }
+
+    //thêm nội dung bình luận
+    sendComment() {
+
+
+        //lấy thông tin user hiện tại
+        var userObject = JSON.parse(localStorage.getItem("user"));
+        debugger
+
+        //nếu user là khách (user = null)
+        if (!userObject) {
+            commonBaseJS.showToastMsgFailed("Bạn cần đăng nhập để có thể gửi bình luận.");
+
+        } else {
+            //lấy ra userId và bookId trong localStorage
+            var bookId = localStorage.getItem("bookId");
+            var userID = userObject.userID;
+
+            //lấy giá trị validate comment
+            var validateCommentRes = bookDetailJS.validateCommentInput();
+            //nếu nội dung comment được validate
+            if (validateCommentRes) {
+
+                //lấy ra comment của người dùng
+                var commentContent = $('#commentInput').val().trim();
+
+                //khai báo data
+                var data = {
+                    userId: userID,
+                    bookId: bookId,
+                    comment: commentContent
+                };
+                //call api
+                $.ajax({
+                    method: "POST",
+                    url: host + "api/UserComment/CommentBookDetailActivation",
+                    async: true,
+                    contentType: "application/json",
+                    data: JSON.stringify(data)
+                }).done(function(res) {
+                    if (res.success) {
+                        //show alert
+                        commonBaseJS.showToastMsgSuccess(res.message);
+                        //gọi hàm loadBookComment cập nhật nội dung mới nhất
+                        bookDetailJS.loadBookComment()
+                    } else {
+                        commonBaseJS.showToastMsgFailed(res.message);
+                    }
+                }).fail(function(res) {
+                    commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
+                })
+            }
+
+        }
+
     }
 
 

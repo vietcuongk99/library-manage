@@ -12,14 +12,14 @@ var commonJS = {
     },
 
 
-    //append dữ liệu vào thẻ html
+    //append dữ liệu vào thẻ card
     //sử dụng trong trang index, search-result
-    appendDataToHTML(data, selector) {
+    appendBookDataToCard(data, selector) {
 
         var row = $(`<div class="row"></div>`)
         data.forEach(book => {
 
-            var card = $(`<div class="col-lg-3 col-sm-6 portfolio-item">
+            var card = $(`<div class="col-md-6 col-lg-3 col-sm-6 portfolio-item">
                             </div>`)
             var bookHTML = $(`
             <div class="card h-100">
@@ -37,6 +37,24 @@ var commonJS = {
 
         $(selector).html(row)
     },
+
+    //append dữ liệu comment
+    //sử dụng trong trang book-detail
+    appendCommentData(data) {
+        data.forEach(comment => {
+
+            var commentHTML = $(`<div class="media mb-4">
+                        <div class="media-body">
+                            <h5 class="mt-0">` + comment.userName + `</h5>
+                            ` + comment.commentContent + `
+                        </div>
+                    </div>`);
+
+            commentHTML.data('commentId', comment.commentId)
+            $('#commentContentDiv').append(commentHTML)
+        })
+    },
+
 
     //gán sự kiện khi ấn nút enter
     addEnterEvent(action) {

@@ -38,7 +38,7 @@ class SearchResultJS extends BaseJS {
             //load dữ liệu
             var fieldHTML = $(`<li class="breadcrumb-item">Sách HOT</li>`)
             $('#breadcrumbDiv').append(fieldHTML)
-            commonJS.appendDataToHTML(fakeData, "#searchResultDiv")
+            commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
             paginationHTML.insertBefore('footer')
 
 
@@ -50,7 +50,7 @@ class SearchResultJS extends BaseJS {
             //load dữ liệu
             var fieldHTML = $(`<li class="breadcrumb-item">Sách Mới</li>`)
             $('#breadcrumbDiv').append(fieldHTML)
-            commonJS.appendDataToHTML(fakeData, "#searchResultDiv")
+            commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
             paginationHTML.insertBefore('footer')
         }
 
@@ -76,7 +76,7 @@ class SearchResultJS extends BaseJS {
                     //thay đổi giao diện
                     $('footer').removeClass("fixed-bottom")
                     var data = res.data.lstData
-                    commonJS.appendDataToHTML(data, "#searchResultDiv")
+                    commonJS.appendBookDataToCard(data, "#searchResultDiv")
                     paginationHTML.insertBefore('footer')
 
                 } else {

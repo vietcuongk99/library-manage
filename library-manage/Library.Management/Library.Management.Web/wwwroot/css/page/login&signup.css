@@ -16,3 +16,13 @@ body {
     content: url("/content/img/logo-app.jpg");
     border-radius: 10px;
 }
+
+a:-webkit-any-link {
+    color: #2a5c92;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #0d3663;
+    text-decoration: underline;
+}

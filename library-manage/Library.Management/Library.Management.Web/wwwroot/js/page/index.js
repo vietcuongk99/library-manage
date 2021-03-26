@@ -26,10 +26,10 @@ class IndexJS extends BaseJS {
     loadBookData() {
 
         //load dữ liệu Sách Mới
-        commonJS.appendDataToHTML(fakeData, "#newBookRow")
+        commonJS.appendBookDataToCard(fakeData, "#newBookRow")
 
         //load dữ liệu Sách HOT
-        commonJS.appendDataToHTML(fakeData, "#hotBookRow")
+        commonJS.appendBookDataToCard(fakeData, "#hotBookRow")
     }
 
 

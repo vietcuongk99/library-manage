@@ -59,16 +59,6 @@ b {
     font-weight: 600;
 }
 
-a:-webkit-any-link {
-    color: #212529;
-    cursor: pointer;
-}
-
-a:hover {
-    color: black;
-    text-decoration: underline;
-}
-
 h1,
 h2,
 h3,
