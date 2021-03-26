@@ -127,7 +127,7 @@ class AccountJS extends BaseJS {
         // sự kiện khi click nút Xác nhận trong modal cập nhật mật khẩu
         $('#updatePasswordBtn').on('click', this.updateUserPassword.bind(this));
         //sự kiện khi click nút Hủy bỏ trong modal cập nhật thông tin
-        $('#modalUpdateInfor #dismissMUpdateInfor').on('click', function() {
+        $('#modalUpdateInfor #dismissUpdateInfor').on('click', function() {
             //đóng modal
             $('#modalUpdateInfor').modal('hide')
 
@@ -445,7 +445,7 @@ class AccountJS extends BaseJS {
         var userID = userObject.userID
 
         //khai báo validate email input
-        var validateUserInput = accountJS.validateUserInput()
+        var validateUserInput = accountJS.validateUserInforInput()
 
         //nếu email được validate
         if (validateUserInput) {
