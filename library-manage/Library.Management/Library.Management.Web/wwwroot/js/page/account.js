@@ -29,7 +29,7 @@ class AccountJS extends BaseJS {
         //call api
         $.ajax({
             method: "GET",
-            url: host + "api/UserAccount/" + userID,
+            url: HOST_URL + "api/UserAccount/" + userID,
             contentType: "application/json"
         }).done(function(res) {
             if (res.success) {
@@ -95,7 +95,7 @@ class AccountJS extends BaseJS {
         //call api
         $.ajax({
             method: "GET",
-            url: host + "api/UserAccount/GetImageFromUrl" + "?userID=" + userID + "&avatarUrl=" + userAvatarURL,
+            url: HOST_URL + "api/UserAccount/GetImageFromUrl" + "?userID=" + userID + "&avatarUrl=" + userAvatarURL,
             contentType: "application/json"
         }).done(function(res) {
             if (res.success) {
@@ -224,7 +224,7 @@ class AccountJS extends BaseJS {
         //call api
         $.ajax({
             method: "POST",
-            url: host + "api/UserAccount/SaveImageToUrl",
+            url: HOST_URL + "api/UserAccount/SaveImageToUrl",
             contentType: "application/json",
             data: JSON.stringify(data)
         }).done(function(res) {
@@ -475,7 +475,7 @@ class AccountJS extends BaseJS {
             //call api
             $.ajax({
                 method: "PUT",
-                url: host + "api/UserAccount/UpdateUserInfo",
+                url: HOST_URL + "api/UserAccount/UpdateUserInfo",
                 data: JSON.stringify(data),
                 contentType: "application/json"
             }).done(function(res) {
@@ -524,7 +524,7 @@ class AccountJS extends BaseJS {
             //call api
             $.ajax({
                 method: "PUT",
-                url: host + "api/UserAccount/UpdateUserPassWord",
+                url: HOST_URL + "api/UserAccount/UpdateUserPassWord",
                 data: JSON.stringify(data),
                 contentType: "application/json"
             }).done(function(res) {

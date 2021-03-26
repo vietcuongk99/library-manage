@@ -1,4 +1,5 @@
-const host = "https://localhost:44328/"
+// khai báo đường dẫn host mặc định
+const HOST_URL = "https://localhost:44328/"
 $(document).ready(function() {
     //xóa dữ liệu user cũ trong localStorage và sessionStorage
     localStorage.clear()
@@ -48,7 +49,7 @@ class LoginJS {
             //call api
             $.ajax({
                 method: "POST",
-                url: host + "api/UserAccount/LoginUserAccount",
+                url: HOST_URL + "api/UserAccount/LoginUserAccount",
                 data: JSON.stringify(userInput),
                 contentType: "application/json"
 
@@ -58,7 +59,12 @@ class LoginJS {
                     //show alert
                     commonBaseJS.showToastMsgSuccess("Đăng nhập thành công.");
                     //lưu thông tin đăng nhập vào localStorage
-                    var user = res.data
+                    var user = res.data;
+
+                    //khai báo list sách đang mượn của user
+                    //fake data đợi api
+                    user.borrowList = borrowList;
+
                     localStorage.setItem("user", JSON.stringify(user));
                     //chuyển sang trang index
                     setTimeout(function() {
@@ -117,3 +123,32 @@ class LoginJS {
     }
 
 }
+
+
+//fake data
+
+var borrowList = [{
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
+        returnDate: "30/4/2021",
+        borrowDate: "26/1/2021",
+        borrowStatus: 1
+    },
+    {
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee49",
+        returnDate: "28/3/2021",
+        borrowDate: "28/2/2021",
+        borrowStatus: 1
+    },
+    {
+        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee47",
+        returnDate: "30/3/2021",
+        borrowDate: "26/2/2021",
+        borrowStatus: 1
+    },
+    {
+        bookId: "5cef5b7b-0e86-43c6-89c4-868efa0a0aad",
+        returnDate: "30/3/2021",
+        borrowDate: "1/3/2021",
+        borrowStatus: 1
+    }
+]

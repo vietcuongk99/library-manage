@@ -41,18 +41,20 @@ var commonJS = {
     //append dữ liệu comment
     //sử dụng trong trang book-detail
     appendCommentData(data) {
+        var commentGroupDiv = $(`<div></div>`);
         data.forEach(comment => {
-
             var commentHTML = $(`<div class="media mb-4">
-                        <div class="media-body">
-                            <h5 class="mt-0">` + comment.userName + `</h5>
-                            ` + comment.commentContent + `
-                        </div>
-                    </div>`);
+                                    <img class="d-flex mr-3 rounded-circle avatar-comment" src="../content/img/avatar-sample.png" alt="">
+                                    <div class="media-body">
+                                        <h5 class="mt-0">` + comment.userName + `</h5>
+                                        ` + comment.comment + `
+                                    </div>
+                                </div>`);
 
             commentHTML.data('commentId', comment.commentId)
-            $('#commentContentDiv').append(commentHTML)
+            commentGroupDiv.append(commentHTML);
         })
+        $('#commentContentDiv').html(commentGroupDiv);
     },
 
 
