@@ -264,54 +264,64 @@ class BookDetailJS extends BaseJS {
     //thay đổi giao diện ui nút mượn, trả, gia hạn, tải tài liệu với sách
     loadBookActionButton() {
 
-        //lấy ra userId và bookId trong localStorage
-        var bookId = localStorage.getItem("bookId");
-
-        //lấy ra danh sách mượn của user trong localStorage
-        var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
-
-        //khai báo các thành phần html cho từng action với sách
-        //mượn sách, trả sách, gia hạn thời gian mượn, mở tài liệu
-        var borrowBtnHTML = $(`<button id="btnBorrowBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Mượn sách</button>`);
-        var returnBtnHTML = $(`<button id="btnReturnBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalReturnBook">Trả sách</button>`);
-        var extendBtnHTML = $(`<button id="btnExtendDate" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalExtendDate">Gia hạn</button>`)
-        var showFileBtnHTML = $(`<button id="btnShowFile" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#">Mở tài liệu</button>`)
-
-        //lấy ra số lượng sách đang mượn
-        var borrowListSize = borrowList.length;
-        //nếu số sách đang mượn không vượt quá MAX_BORROW_NUMBERX = 6
-        if (borrowListSize < MAX_BORROW_NUMBER) {
-            //kiểm tra sách được mượn hay chưa
-            //khai báo biến đếm
-            let count = 0;
-            for (let index = 0; index < borrowListSize; index++) {
-                //nếu sách này đã mượn
-                if (bookId == borrowList[index].bookId) {
-
-                    //thêm nút trả, gia hạn và mở tài liệu
-                    $('#groupBookAction').children().remove();
-                    $('#groupBookAction').append(returnBtnHTML, extendBtnHTML, showFileBtnHTML);
-                    // $('#groupBookAction').append(extendBtnHTML);
-                    // $('#groupBookAction').append(showFileBtnHTML);
-
-                    //thoát vòng lặp
-                    break
-                } else {
-                    //tiếp tục tăng biến đếm
-                    count++;
-                }
-            }
-
-            //nếu sách này chưa được mượn
-            //thêm nút mượn sách
-            if (count == borrowListSize) {
-                $('#groupBookAction').children().remove();
-                $('#groupBookAction').append(borrowBtnHTML);
-            }
-
-        } else {
+        var userData = JSON.parse(localStorage.getItem("user"));
+        //nếu user là khách
+        //không hiển thị button mượn, trả, gia hạn, tải tài liệu
+        if (!userData) {
             $('#groupBookAction').children().remove();
         }
+        //nếu user có đăng nhập 
+        else {
+            //lấy ra userId và bookId trong localStorage
+            var bookId = localStorage.getItem("bookId");
+
+            //lấy ra danh sách mượn của user trong localStorage
+            var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
+
+            //khai báo các thành phần html cho từng action với sách
+            //mượn sách, trả sách, gia hạn thời gian mượn, mở tài liệu
+            var borrowBtnHTML = $(`<button id="btnBorrowBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Mượn sách</button>`);
+            var returnBtnHTML = $(`<button id="btnReturnBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalReturnBook">Trả sách</button>`);
+            var extendBtnHTML = $(`<button id="btnExtendDate" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalExtendDate">Gia hạn</button>`)
+            var showFileBtnHTML = $(`<button id="btnShowFile" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#">Mở tài liệu</button>`)
+
+            //lấy ra số lượng sách đang mượn
+            var borrowListSize = borrowList.length;
+            //nếu số sách đang mượn không vượt quá MAX_BORROW_NUMBERX = 6
+            if (borrowListSize < MAX_BORROW_NUMBER) {
+                //kiểm tra sách được mượn hay chưa
+                //khai báo biến đếm
+                let count = 0;
+                for (let index = 0; index < borrowListSize; index++) {
+                    //nếu sách này đã mượn
+                    if (bookId == borrowList[index].bookId) {
+
+                        //thêm nút trả, gia hạn và mở tài liệu
+                        $('#groupBookAction').children().remove();
+                        $('#groupBookAction').append(returnBtnHTML, extendBtnHTML, showFileBtnHTML);
+                        // $('#groupBookAction').append(extendBtnHTML);
+                        // $('#groupBookAction').append(showFileBtnHTML);
+
+                        //thoát vòng lặp
+                        break
+                    } else {
+                        //tiếp tục tăng biến đếm
+                        count++;
+                    }
+                }
+
+                //nếu sách này chưa được mượn
+                //thêm nút mượn sách
+                if (count == borrowListSize) {
+                    $('#groupBookAction').children().remove();
+                    $('#groupBookAction').append(borrowBtnHTML);
+                }
+
+            } else {
+                $('#groupBookAction').children().remove();
+            }
+        }
+
 
     }
 
@@ -327,8 +337,8 @@ class BookDetailJS extends BaseJS {
             returnDate: "30/3/2021",
             borrowDate: "1/3/2021",
             borrowStatus: 1,
-            bookName: $('#bookName').value.trim(),
-            bookAuthor: $('#bookAuthor').value.trim(),
+            bookName: $('#bookName').value,
+            bookAuthor: $('#bookAuthor').value,
             bookImageUri: "../content/img/avatar-book-default.jpg"
         }
 
