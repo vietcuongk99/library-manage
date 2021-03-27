@@ -48,7 +48,6 @@ class AccountJS extends BaseJS {
 
                 userAddressTxt = userAddressTxt.trim()
                 if (userAddressTxt.length == 0) { userAddressTxt = "chưa xác định" }
-                debugger
                 if (userAddressTxt.charAt(userAddressTxt.length - 1) == ",") { userAddressTxt = userAddressTxt.slice(0, -1) }
                 //email của người dùng
                 var userEmailTxt = (userData.email || userData.email.length > 0) ? userData.email : "chưa có"
@@ -123,7 +122,6 @@ class AccountJS extends BaseJS {
 
         //lấy ra danh sách mượn của user trong localStorage
         var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
-        debugger
         commonJS.appendBookDataToCard(borrowList, "#borrowListContent");
 
     }
@@ -234,7 +232,7 @@ class AccountJS extends BaseJS {
             userId: userID,
             userAvatarBase64String: $("#previewImg").attr("src").split(",")[1]
         };
-
+        commonBaseJS.showLoadingData(1);
         //call api
         $.ajax({
             method: "POST",
@@ -246,6 +244,7 @@ class AccountJS extends BaseJS {
                 //show alert
                 // alert("Thay đổi avatar thành công.");
                 //ẩn modal thay đổi avatar
+                commonBaseJS.showLoadingData(0);
                 $('#modalUpdateAvatar').modal('hide');
                 commonBaseJS.showToastMsgSuccess("Cập nhật thành công.");
 
@@ -260,10 +259,12 @@ class AccountJS extends BaseJS {
                 accountJS.loadUserAvatar();
 
             } else {
+                commonBaseJS.showLoadingData(0);
                 //show alert
                 commonBaseJS.showToastMsgFailed(res.message);
             }
-        }).fail(function(res) {
+        }).fail(function (res) {
+            commonBaseJS.showLoadingData(0);
             //show alert
             commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
         })
@@ -485,7 +486,7 @@ class AccountJS extends BaseJS {
                 province: userProvince,
                 country: userCountry
             };
-
+            commonBaseJS.showLoadingData(1);
             //call api
             $.ajax({
                 method: "PUT",
@@ -496,14 +497,17 @@ class AccountJS extends BaseJS {
                 if (res.success) {
                     //đóng modal
                     $('#modalUpdateInfor').modal('hide');
+                    commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgSuccess("Cập nhật thành công.");
                     //gọi loadUserData() để cập nhật dữ liệu mới nhất
                     accountJS.loadUserData()
                 } else {
+                    commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
-            }).fail(function(res) {
+            }).fail(function (res) {
+                commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
             })
 
@@ -534,7 +538,7 @@ class AccountJS extends BaseJS {
                 passWordOld: userPassword,
                 passWordNew: userNewPassword
             };
-
+            commonBaseJS.showLoadingData(1);
             //call api
             $.ajax({
                 method: "PUT",
@@ -545,14 +549,17 @@ class AccountJS extends BaseJS {
                 if (res.success) {
                     //đóng modal
                     $('#modalUpdatePassword').modal('hide');
+                    commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgSuccess("Cập nhật thành công.");
                     //gọi loadUserData() để cập nhật dữ liệu mới nhất
                     accountJS.loadUserData()
                 } else {
+                    commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
-            }).fail(function(res) {
+            }).fail(function (res) {
+                commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
             })
 

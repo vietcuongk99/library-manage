@@ -19,6 +19,12 @@
         </tr> -->
     </table>
 
+    <!--Loading-->
+    <div class="loader">
+        <span class="animation icon"></span>
+        <div class="text-loading">Loading...</div>
+    </div>
+
     <div class="toastMsg">
         <span class="toastMsg-img-success"></span> Thành công
         <div class="toastMsg-text"></div>
@@ -56,7 +62,6 @@
                         pageSize: 6,
 
                         callback: function (res, pagination) {
-                            //debugger
 
                             var table = $(`<table></table>`)
 

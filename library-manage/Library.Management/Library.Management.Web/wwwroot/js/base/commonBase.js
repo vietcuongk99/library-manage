@@ -13,4 +13,12 @@
             $('.toastMsgFailed').hide();
         }, 3000);
     },
+    showLoadingData: function (isLoading) {
+        if (isLoading == 1) {
+            $(".loader").show();
+        }
+        else {
+            $(".loader").hide();
+        }
+    }
 }

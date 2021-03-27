@@ -39,6 +39,7 @@ class SignUpJS {
                 "email": $('#emailInput').val().trim(),
                 "password": $('#passwordInput').val().trim()
             };
+            commonBaseJS.showLoadingData(1);
             //gọi api
             $.ajax({
                 method: "POST",
@@ -47,6 +48,7 @@ class SignUpJS {
                 data: JSON.stringify(data)
             }).done(function(res) {
                 if (res.success) {
+                    commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgSuccess("Đăng ký tài khoản thành công.");
                     //mở trang login
@@ -54,10 +56,12 @@ class SignUpJS {
                         window.open("login.html", "_self")
                     }, 2000);
                 } else {
+                    commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
-            }).fail(function(res) {
+            }).fail(function (res) {
+                commonBaseJS.showLoadingData(0);
                 //show alert
                 commonBaseJS.showToastMsgFailed("Đăng ký không thành công.");
             })

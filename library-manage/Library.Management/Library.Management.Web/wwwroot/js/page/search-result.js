@@ -57,6 +57,7 @@ class SearchResultJS extends BaseJS {
         //nếu user ấn nút tìm kiếm trên trang index
         //chưa có dữ liệu tìm kiếm
         if (showAllBook) {
+            commonBaseJS.showLoadingData(1);
             //lấy ra tất cả đầu sách trong csdl
             $.ajax({
                 method: "GET",
@@ -69,7 +70,7 @@ class SearchResultJS extends BaseJS {
                 }
             }).done(function(res) {
                 if (res.success) {
-
+                    commonBaseJS.showLoadingData(0);
                     //load kết quả tìm kiếm
                     $(`<div class="loader mx-auto my-auto"></div>`).remove()
 
@@ -80,10 +81,11 @@ class SearchResultJS extends BaseJS {
                     paginationHTML.insertBefore('footer')
 
                 } else {
-
+                    commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
-            }).fail(function(res) {
+            }).fail(function (res) {
+                commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
             })
         }

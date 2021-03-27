@@ -41,11 +41,11 @@ class LoginJS {
         var validateCheck = loginJS.validateInput()
         var usernameInput = $('#usernameInput').val().trim()
         var passwordInput = $('#passwordInput').val().trim()
-
         //nếu validate thành công
         if (validateCheck) {
             //khởi tạo data trước khi call api
             var userInput = { "userName": usernameInput, "passWord": passwordInput };
+            commonBaseJS.showLoadingData(1);
             //call api
             $.ajax({
                 method: "POST",
@@ -57,6 +57,7 @@ class LoginJS {
                 //nếu response trả về success (response.success: true)
                 if (res.success) {
                     //show alert
+                    commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgSuccess("Đăng nhập thành công.");
                     //lưu thông tin đăng nhập vào localStorage
                     var user = res.data;
@@ -69,16 +70,17 @@ class LoginJS {
                     //chuyển sang trang index
                     setTimeout(function() {
                         window.open("index.html", "_self")
-                    }, 3000);
+                    }, 2000);
 
                 } else {
                     //gọi phương thức thêm alert div của loginJS object
-
+                    commonBaseJS.showLoadingData(0);
                     //show alert cảnh báo
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
             }).fail(function(res) {
                 //show alert cảnh báo
+                commonBaseJS.showLoadingData(0);
                 //lỗi bên server
                 commonBaseJS.showToastMsgFailed("Đăng nhập không thành công.");
             })

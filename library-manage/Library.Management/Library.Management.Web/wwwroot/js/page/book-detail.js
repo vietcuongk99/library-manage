@@ -126,7 +126,6 @@ class BookDetailJS extends BaseJS {
                 //kiểm tra string tồn tại
                 //nếu string tồn tại
                 if (bookImgBase64String) {
-                    debugger
                     $('#imageBook').attr('src', "data:image/jpg;base64," + bookImgBase64String)
                 }
                 //nếu string không tồn tại
@@ -329,7 +328,6 @@ class BookDetailJS extends BaseJS {
 
     //sự kiện khi click nút Xác nhận (modal mượn sách)
     borrowBookEvent() {
-        debugger
         //lấy danh sách mượn của người dùng
         var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
 
@@ -365,7 +363,6 @@ class BookDetailJS extends BaseJS {
 
     //sự kiện khi click nút Xác nhận (modal trả sách)
     returnBookEvent() {
-        debugger
         //lấy danh sách mượn của người dùng
         var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
 

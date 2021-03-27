@@ -37,8 +37,6 @@ var commonJS = {
             $(card).append(bookHTML)
             row.append(card)
         })
-
-        debugger
         $(selector).html(row)
     },
 
