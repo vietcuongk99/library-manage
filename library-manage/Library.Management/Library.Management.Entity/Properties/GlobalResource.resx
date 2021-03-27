@@ -180,6 +180,9 @@
   <data name="Exception" xml:space="preserve">
     <value>Lỗi Exception</value>
   </data>
+  <data name="ExpiryTimeOTP" xml:space="preserve">
+    <value>Mã OTP đã hết hiệu lực, vui lòng thử lại.</value>
+  </data>
   <data name="Failed" xml:space="preserve">
     <value>Thất bại</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="Success" xml:space="preserve">
     <value>Thành công</value>
+  </data>
+  <data name="TimeSpanExpiryOTPCode" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="ValidateEntity" xml:space="preserve">
     <value>Lỗi validate dữ liệu không hợp lệ</value>

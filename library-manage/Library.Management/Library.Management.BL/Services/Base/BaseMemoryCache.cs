@@ -36,5 +36,14 @@ namespace Library.Management.BL
                 return data;
             });
         }
+        /// <summary>
+        /// Xóa key cache
+        /// </summary>
+        /// <param name="key"></param>
+        /// CreatedBy: VDDUNG1 27/03/2021
+        public void RemoveCache(string key)
+        {
+            _memoryCache.Remove(key);
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace Library.Management.Web
         }
 
         /// <summary>
-        /// Đổi mật khẩu bước 1, Validate gửi mail nhận OTP cho dự án
+        /// Quên mật khẩu bước 1, Validate gửi mail nhận OTP cho dự án
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
@@ -65,7 +65,7 @@ namespace Library.Management.Web
         }
 
         /// <summary>
-        /// Đổi mật khẩu bước 2, confirm mã OTP
+        /// Quên mật khẩu bước 2, confirm mã OTP
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>

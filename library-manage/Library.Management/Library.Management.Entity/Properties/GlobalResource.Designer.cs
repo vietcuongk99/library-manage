@@ -250,6 +250,15 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mã OTP đã hết hiệu lực, vui lòng thử lại..
+        /// </summary>
+        public static string ExpiryTimeOTP {
+            get {
+                return ResourceManager.GetString("ExpiryTimeOTP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thất bại.
         /// </summary>
         public static string Failed {
@@ -318,6 +327,15 @@ namespace Library.Management.Entity.Properties {
         public static string Success {
             get {
                 return ResourceManager.GetString("Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2.
+        /// </summary>
+        public static string TimeSpanExpiryOTPCode {
+            get {
+                return ResourceManager.GetString("TimeSpanExpiryOTPCode", resourceCulture);
             }
         }
         

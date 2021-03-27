@@ -38,6 +38,7 @@ namespace Library.Management.Entity
         public string Email { get; set; }
         public string PassWord { get; set; }
         public int OTP { get; set; }
+        public DateTime ExpiryTime { get; set; }
     }
 
     public class ParameterUpdateUser

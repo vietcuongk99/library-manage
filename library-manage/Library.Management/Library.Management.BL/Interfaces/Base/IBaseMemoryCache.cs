@@ -21,5 +21,12 @@ namespace Library.Management.BL
         /// <param name="data">Dữ liệu muốn cache</param>
         /// CreatedBy: VDDUNG(14/11/2020)
         public void SetCache(string key, object data);
+
+        /// <summary>
+        /// Xóa cache khỏi memory
+        /// </summary>
+        /// <param name="key"></param>
+        /// CreatedBy: VDDUNG1 27/03/2021
+        public void RemoveCache(string key);
     }
 }

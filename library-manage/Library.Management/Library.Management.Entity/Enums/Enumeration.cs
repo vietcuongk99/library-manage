@@ -123,6 +123,10 @@ namespace Library.Management.Entity
         /// </summary>
         ErrorUserPassWord = 615,
         /// <summary>
+        /// Mã OTP đã hết hiệu lực
+        /// </summary>
+        ExpiryTimeOTP = 616,
+        /// <summary>
         /// Thất bại
         /// </summary>
         Failed = 1000
