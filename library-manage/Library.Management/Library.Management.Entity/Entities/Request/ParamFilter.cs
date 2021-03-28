@@ -11,4 +11,11 @@ namespace Library.Management.Entity
         public int pageSize { get; set; }
         public string paramBookCategoryID { get; set; }
     }
+    public class ParamFilterUserAccount
+    {
+        public string paramUserName { get; set; }
+        public int pageNumber { get; set; }
+        public int pageSize { get; set; }
+        public int paramConditionAccount { get; set; }
+    }
 }

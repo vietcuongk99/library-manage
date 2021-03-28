@@ -49,7 +49,10 @@ namespace Library.Management.DL.DbContext
                 case ProcdureTypeName.GetByBookDetail:
                     storeName = $"Proc_Get{tableName}ByBookDetail";
                     break;
-                case ProcdureTypeName.GetPagingParam:
+                case ProcdureTypeName.GetPagingParamBookDetail:
+                    storeName = $"Proc_Get{tableName}PagingData";
+                    break;
+                case ProcdureTypeName.GetPagingParamUserAccount:
                     storeName = $"Proc_Get{tableName}PagingData";
                     break;
                 case ProcdureTypeName.Insert:

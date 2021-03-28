@@ -68,5 +68,13 @@ namespace Library.Management.BL
         /// <param name="param"></param>
         /// <returns></returns>
         Task<ActionServiceResult> SaveImageToUrl(object param);
+
+        /// <summary>
+        /// Lọc dữ liệu phân trang cho tài khoản
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 29/03/2021
+        Task<ActionServiceResult> GetPagingData(ParamFilterUserAccount param);
     }
 }

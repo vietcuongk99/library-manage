@@ -176,9 +176,13 @@ namespace Library.Management.Entity
         /// </summary>
         GetByBookDetail,
         /// <summary>
-        /// Lọc dữ liệu phân trang
+        /// Lọc dữ liệu phân trang sách
         /// </summary>
-        GetPagingParam,
+        GetPagingParamBookDetail,
+        /// <summary>
+        /// Lọc dữ liệu phân trang tài khoản
+        /// </summary>
+        GetPagingParamUserAccount,
         /// <summary>
         /// Thêm mới
         /// </summary>

@@ -293,5 +293,23 @@ namespace Library.Management.BL
             entity.Data = await _userAccountDL.ChangeUserAdmin(param.UserID, param.ConditionAccount);
             return entity;
         }
+
+        /// <summary>
+        /// Lọc dữ liệu phân trang cho tài khoản
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 29/03/2021
+        public async Task<ActionServiceResult> GetPagingData(ParamFilterUserAccount param)
+        {
+            var entity = new ActionServiceResult();
+            //Gán mặc định 1 số giá trị đầu vào nếu bên client truyền lên không hợp lý
+            if (param.paramUserName == null) param.paramUserName = "";
+            if (param.pageNumber <= 0) param.pageNumber = 1;
+            if (param.pageSize <= 0) param.pageSize = 30;
+            if (param.paramConditionAccount == 0) param.paramConditionAccount = (int)ConditionAccount.User; //Nếu không truyền gì thì gán giá trị mặc định là User
+            entity.Data = await _baseDL.GetEntityByMultipleTable<User>(param, ProcdureTypeName.GetPagingParamUserAccount);
+            return entity;
+        }
     }
 }

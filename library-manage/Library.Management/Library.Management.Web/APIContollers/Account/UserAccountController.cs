@@ -116,7 +116,6 @@ namespace Library.Management.Web
             return res;
         }
 
-
         /// <summary>
         /// Lấy ra ảnh từ đường dẫn
         /// </summary>
@@ -202,6 +201,19 @@ namespace Library.Management.Web
         public async Task<ActionServiceResult> ChangeUserAdmin(ParamChangeUserAdmin param)
         {
             var res = await _userAccountBL.ChangeUserAdmin(param);
+            return res;
+        }
+
+        /// <summary>
+        /// Lọc dữ liệu phân trang cho tài khoản
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 29/03/2021
+        [HttpGet("GetPagingData")]
+        public async Task<ActionServiceResult> GetPagingData([FromQuery]ParamFilterUserAccount param)
+        {
+            var res = await _userAccountBL.GetPagingData(param);
             return res;
         }
     }

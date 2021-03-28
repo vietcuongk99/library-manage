@@ -35,7 +35,7 @@ namespace Library.Management.BL
             if (param.pageSize <= 0) param.pageSize = 30;
             if (param.paramBookCategoryID == null) param.paramBookCategoryID = "";
 
-            res.Data = await _baseDL.GetEntityByMultipleTable<ResponseProcedureBookDetail>(param, ProcdureTypeName.GetPagingParam);
+            res.Data = await _baseDL.GetEntityByMultipleTable<ResponseProcedureBookDetail>(param, ProcdureTypeName.GetPagingParamBookDetail);
             return res;
         }
 
