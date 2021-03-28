@@ -193,6 +193,11 @@ namespace Library.Management.Web
             return res;
         }
         
+        /// <summary>
+        /// Xét phần quyền cho tài khoản
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
         [HttpPost("ChangeUserAdmin")]
         public async Task<ActionServiceResult> ChangeUserAdmin(ParamChangeUserAdmin param)
         {

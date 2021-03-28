@@ -55,6 +55,11 @@ namespace Library.Management.BL
         /// CreateBy: VDDUNG1 21/03/2021
         Task<ActionServiceResult> LoginUserAccount(ParameterLoginAccount param);
         
+        /// <summary>
+        /// Xét phân quyền cho tài khoản
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
         Task<ActionServiceResult> ChangeUserAdmin(ParamChangeUserAdmin param);
 
         /// <summary>

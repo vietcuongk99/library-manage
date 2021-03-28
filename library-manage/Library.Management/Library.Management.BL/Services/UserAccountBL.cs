@@ -158,7 +158,7 @@ namespace Library.Management.BL
             userAcount.UserName = param.UserName;
             userAcount.Email = param.Email;
             userAcount.Password = param.Password;
-            userAcount.IsAdmin = 0; //0 - user, 1 - admin
+            userAcount.ConditionAccount = (int)ConditionAccount.User; //0 - user, 1 - admin
             userAcount.Status = (int)Status.Active;
         }
 
@@ -263,7 +263,7 @@ namespace Library.Management.BL
                     UserID = userAccount.UserId,
                     UserName = userAccount.UserName,
                     AvatarUrl = userAccount.AvatarUrl,
-                    IsAdmin = userAccount.IsAdmin
+                    ConditionAccount = userAccount.ConditionAccount
                 };
             }
             return res;
@@ -282,10 +282,15 @@ namespace Library.Management.BL
             return res;
         }
 
+        /// <summary>
+        /// Xét phân quyền cho tài khoản 
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
         public async Task<ActionServiceResult> ChangeUserAdmin(ParamChangeUserAdmin param)
         {
             var entity = new ActionServiceResult();
-            entity.Data = await _userAccountDL.ChangeUserAdmin(param.UserID, param.IsAdmin);
+            entity.Data = await _userAccountDL.ChangeUserAdmin(param.UserID, param.ConditionAccount);
             return entity;
         }
     }

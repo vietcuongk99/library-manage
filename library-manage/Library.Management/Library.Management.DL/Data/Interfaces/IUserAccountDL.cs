@@ -7,6 +7,6 @@ namespace Library.Management.DL
 {
     public interface IUserAccountDL
     {
-        Task<object> ChangeUserAdmin(Guid userID, bool isAdmin);
+        Task<object> ChangeUserAdmin(Guid userID, int conditionAccount);
     }
 }

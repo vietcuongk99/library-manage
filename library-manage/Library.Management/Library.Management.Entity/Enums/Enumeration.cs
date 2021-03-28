@@ -230,4 +230,22 @@ namespace Library.Management.Entity
         /// </summary>
         DeActive = 0
     }
+    /// <summary>
+    /// Phân quyền tài khoản
+    /// </summary>
+    public enum ConditionAccount
+    {
+        /// <summary>
+        /// Người dùng
+        /// </summary>
+        User = 1,
+        /// <summary>
+        /// Quản trị viên
+        /// </summary>
+        Admin = 2,
+        /// <summary>
+        /// Quản lý
+        /// </summary>
+        Manage = 3
+    }
 }

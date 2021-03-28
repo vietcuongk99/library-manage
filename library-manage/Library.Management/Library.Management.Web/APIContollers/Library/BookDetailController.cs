@@ -156,7 +156,6 @@ namespace Library.Management.Web
         /// <param name="lstBookImageUri"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 24/03/2021
-        //[HttpPost("ShowListBookImageConvertBase64String")]
         private List<ResponseBookDetailDownloadInfo> ShowListBookImageConvertBase64String(List<ResponseProcedureBookDetail> lstBookImageUri)
         {
             var res = new ActionServiceResult();
