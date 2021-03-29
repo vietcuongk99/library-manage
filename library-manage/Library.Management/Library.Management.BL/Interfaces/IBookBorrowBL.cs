@@ -9,6 +9,14 @@ namespace Library.Management.BL
     public interface IBookBorrowBL
     {
         /// <summary>
+        /// Lấy sách đã mượn của người dùng
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 29/03/2021
+        Task<ActionServiceResult> GetPagingData(ParamFilterBookBorrow param);
+
+        /// <summary>
         /// Thêm mới giao dịch mượn sách
         /// </summary>
         /// <param name="param"></param>

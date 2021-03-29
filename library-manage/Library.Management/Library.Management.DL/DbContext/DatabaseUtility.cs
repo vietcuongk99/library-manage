@@ -55,6 +55,9 @@ namespace Library.Management.DL.DbContext
                 case ProcdureTypeName.GetPagingParamUserAccount:
                     storeName = $"Proc_Get{tableName}PagingData";
                     break;
+                case ProcdureTypeName.GetPagingParamBookBorrow:
+                    storeName = $"Proc_Get{tableName}PagingData";
+                    break;
                 case ProcdureTypeName.Insert:
                     storeName = $"Proc_Insert{tableName}";
                     break;
@@ -107,6 +110,9 @@ namespace Library.Management.DL.DbContext
                 case "ResponseProcedureBookDetail":
                     var proc_BookDetail = _db.Query<ResponseProcedureBookDetail>(storeName, entity, commandType: CommandType.StoredProcedure);
                     return proc_BookDetail;
+                case "ResponseProcedureBookBorrow":
+                    var proc_BookBorrow = _db.Query<ResponseProcedureBookBorrow>(storeName, entity, commandType: CommandType.StoredProcedure);
+                    return proc_BookBorrow;
                 default:
                     break;
             }

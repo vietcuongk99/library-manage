@@ -184,6 +184,10 @@ namespace Library.Management.Entity
         /// </summary>
         GetPagingParamUserAccount,
         /// <summary>
+        /// Lấy danh sách sách đã mượn của người dùng
+        /// </summary>
+        GetPagingParamBookBorrow,
+        /// <summary>
         /// Thêm mới
         /// </summary>
         Insert,

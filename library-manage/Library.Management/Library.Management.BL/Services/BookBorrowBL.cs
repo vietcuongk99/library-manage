@@ -15,6 +15,19 @@ namespace Library.Management.BL
         private readonly IBookBorrowDL _bookBorrowDL;
         private readonly IBaseDL<BookBorrow> _baseDL;
 
+        /// <summary>
+        /// Lấy danh sách sách đã mượn của người dùng
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 29/03/2021
+        public async Task<ActionServiceResult> GetPagingData(ParamFilterBookBorrow param)
+        {
+            var res = new ActionServiceResult();
+            res.Data = await _baseDL.GetEntityByMultipleTable<ResponseProcedureBookBorrow>(param, ProcdureTypeName.GetPagingParamUserAccount);
+            return res;
+        }
+
         public BookBorrowBL(IBaseDL<BookBorrow> baseDL, IBookBorrowDL bookBorrowDL)
         {
             _baseDL = baseDL;
@@ -31,7 +44,8 @@ namespace Library.Management.BL
             var res = new ActionServiceResult();
             var bookBorrow = new BookBorrow();
             InsertParamBookBorrowBeforeSetEntity(param, bookBorrow);
-            res.Data = await _baseDL.AddAsync(bookBorrow, ProcdureTypeName.Insert);
+            await _baseDL.AddAsync(bookBorrow, ProcdureTypeName.Insert);
+            res.Data = bookBorrow;
             return res;
         }
 
@@ -128,10 +142,19 @@ namespace Library.Management.BL
                         //Có mượn sách
                         //Tiến hành gia hạn
                         bookborrow.BookBorrowId = param.BookBorrowId;
+                        bookborrow.BookId = bookBorrowByID.BookId;
+                        bookborrow.UserId = bookBorrowByID.UserId;
+                        bookborrow.BorrowDate = bookBorrowByID.BorrowDate;
                         bookborrow.ReturnDate = param.ReturnDate;
+                        bookborrow.BorrowStatus = bookBorrowByID.BorrowStatus;
+                        bookborrow.ReturnStatus = bookBorrowByID.ReturnStatus;
+                        bookborrow.CreatedDate = bookBorrowByID.CreatedDate;
+                        bookborrow.CreatedBy = bookBorrowByID.CreatedBy;
                         bookborrow.ModifiedBy = GlobalResource.CreatedBy;
                         bookborrow.ModifiedDate = DateTime.Now;
-                        res.Data = await _baseDL.UpdateAsync(bookborrow, ProcdureTypeName.ExtendBookBorrow);
+                        bookborrow.Status = bookBorrowByID.Status;
+                        await _baseDL.UpdateAsync(bookborrow, ProcdureTypeName.ExtendBookBorrow);
+                        res.Data = bookborrow;
                     }
                 }
             }

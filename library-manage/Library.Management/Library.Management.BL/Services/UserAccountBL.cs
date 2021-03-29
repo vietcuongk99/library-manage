@@ -160,6 +160,8 @@ namespace Library.Management.BL
             userAcount.Password = param.Password;
             userAcount.ConditionAccount = (int)ConditionAccount.User; //0 - user, 1 - admin
             userAcount.Status = (int)Status.Active;
+            userAcount.CreatedDate = DateTime.Now;
+            userAcount.CreatedBy = GlobalResource.CreatedBy;
         }
 
         /// <summary>

@@ -18,4 +18,8 @@ namespace Library.Management.Entity
         public int pageSize { get; set; }
         public int paramConditionAccount { get; set; }
     }
+    public class ParamFilterBookBorrow
+    {
+        public Guid userId { get; set; }
+    }
 }

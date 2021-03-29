@@ -13,8 +13,8 @@ namespace Library.Management.Entity.Models
         public ulong? BorrowStatus { get; set; }
         public ulong? ReturnStatus { get; set; }
         public DateTime? CreatedDate { get; set; }
-        public DateTime? ModifiedDate { get; set; }
         public string CreatedBy { get; set; }
+        public DateTime? ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
         public ulong? Status { get; set; }
     }

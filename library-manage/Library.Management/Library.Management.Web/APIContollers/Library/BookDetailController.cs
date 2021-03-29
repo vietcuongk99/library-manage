@@ -170,7 +170,7 @@ namespace Library.Management.Web
                 bookUriConvertBase64.BookAuthor = bookImageUri.BookAuthor;
                 if (bookImageUri != null)
                 {
-                    imagePath = Directory.GetCurrentDirectory() + bookImageUri;
+                    imagePath = Directory.GetCurrentDirectory() + bookImageUri.BookImageUri;
                 }
                 else
                 {

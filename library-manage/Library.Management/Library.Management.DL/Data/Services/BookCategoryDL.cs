@@ -23,8 +23,10 @@ namespace Library.Management.DL
         public async Task<BookCategory> GetBookCategoryByName(string categoryName)
         {
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
+            _db.Open();
             var storeName = "Proc_GetBookCategoryByName";
             var entities = _db.QueryFirstOrDefault<BookCategory>(storeName, new { categoryName }, commandType: CommandType.StoredProcedure);
+            _db.Close();
             return await Task.FromResult(entities);
         }
     }

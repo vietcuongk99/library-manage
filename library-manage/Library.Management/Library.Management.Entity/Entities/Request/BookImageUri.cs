@@ -23,4 +23,15 @@ namespace Library.Management.Entity
         public string BookImageUriBase64String { get; set; }
         public string BookAuthor { get; set; }
     }
+    public class ResponseBookBorrowDownloadInfo
+    {
+        public Guid BookBorrowID { get; set; }
+        public Guid BookID { get; set; }
+        public string BookName { get; set; }
+        public string BookImageUriBase64String { get; set; }
+        public string BookAuthor { get; set; }
+        public DateTime BorrowDate { get; set; }
+        public ulong? BorrowStatus { get; set; }
+        public DateTime ReturnDate { get; set; }
+    }
 }

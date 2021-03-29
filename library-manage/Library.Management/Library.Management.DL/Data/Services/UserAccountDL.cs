@@ -20,8 +20,10 @@ namespace Library.Management.DL
         public async Task<object> ChangeUserAdmin(Guid userID, int conditionAccount)
         {
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
+            _db.Open();
             var storeName = "Proc_UpdateAdminUser";
             var entities = _db.QueryFirstOrDefault<User>(storeName, new { userID, conditionAccount }, commandType: CommandType.StoredProcedure);
+            _db.Close();
             return await Task.FromResult(entities);
         }
     }
