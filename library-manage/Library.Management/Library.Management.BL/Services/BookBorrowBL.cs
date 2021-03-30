@@ -93,11 +93,19 @@ namespace Library.Management.BL
                 else
                 {
                     bookborrow.BookBorrowId = param.BookBorrowId;
+                    bookborrow.BookId = bookBorrowByID.BookId;
+                    bookborrow.UserId = bookBorrowByID.UserId;
+                    bookborrow.BorrowDate = bookBorrowByID.BorrowDate;
+                    bookborrow.ReturnDate = DateTime.Now;
                     bookborrow.BorrowStatus = (int)Status.DeActive;
                     bookborrow.ReturnStatus = (int)Status.Active;
+                    bookborrow.CreatedDate = bookBorrowByID.CreatedDate;
+                    bookborrow.CreatedBy = bookBorrowByID.CreatedBy;
                     bookborrow.ModifiedBy = GlobalResource.CreatedBy;
                     bookborrow.ModifiedDate = DateTime.Now;
-                    res.Data = await _baseDL.UpdateAsync(bookborrow, ProcdureTypeName.Update);
+                    bookborrow.Status = bookBorrowByID.Status;
+                    await _baseDL.UpdateAsync(bookborrow, ProcdureTypeName.Update);
+                    res.Data = bookborrow;
                 }
             }
             else

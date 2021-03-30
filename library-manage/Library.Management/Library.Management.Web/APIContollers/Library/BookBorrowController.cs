@@ -32,7 +32,7 @@ namespace Library.Management.Web
         /// <param name="param"></param>
         /// <returns></returns>
         [HttpGet("GetPagingData")]
-        public async Task<ActionServiceResult> GetPagingData(ParamFilterBookBorrow param)
+        public async Task<ActionServiceResult> GetPagingData([FromQuery]ParamFilterBookBorrow param)
         {
             var res = await _bookBorrowBL.GetPagingData(param);
             if (res.Data != null)
