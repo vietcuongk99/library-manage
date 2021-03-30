@@ -100,9 +100,11 @@ class SearchResultJS extends BaseJS {
     //chi tiết xử lý sự kiện khi click vào 1 card sách
     cardOnClick() {
 
-        let bookId = $(this).data('bookId')
-        console.log(bookId)
-        console.log(this)
+        //lấy ra id book được click
+        let bookId = $(this).data('bookId');
+
+        //lưu id vào local storage
+        //mở trang book-detail
         localStorage.setItem("bookId", bookId)
         window.open("book-detail.html", "_self")
     }
@@ -135,64 +137,3 @@ var paginationHTML = $(`<ul class="pagination justify-content-center">
         `)
 
 //fake data
-var fakeData = [{
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
-        bookImageUri: "../content/img/clean-code.jpg",
-        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    },
-    {
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
-        bookImageUri: "../content/img/clean-code.jpg",
-        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    },
-    {
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
-        bookImageUri: "../content/img/clean-code.jpg",
-        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    },
-    {
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
-        bookImageUri: "../content/img/clean-code.jpg",
-        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    },
-    {
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
-        bookImageUri: "../content/img/clean-code.jpg",
-        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    },
-    {
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
-        bookImageUri: "../content/img/clean-code.jpg",
-        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    },
-    {
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
-        bookImageUri: "../content/img/clean-code.jpg",
-        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    },
-    {
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
-        bookImageUri: "../content/img/clean-code.jpg",
-        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    },
-    {
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
-        bookImageUri: "../content/img/clean-code.jpg",
-        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    },
-    {
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
-        bookImageUri: "../content/img/clean-code.jpg",
-        bookName: "CLEAN CODE: A HANDBOOK OF AGILE SOFTWARE CRAFTSMANSHIP",
-        bookAuthor: "Robert C.Martin"
-    }
-]

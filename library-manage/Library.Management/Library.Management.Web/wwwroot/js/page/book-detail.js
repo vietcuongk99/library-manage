@@ -1,5 +1,6 @@
 //khai báo hằng số lưu số lượng sách được mượn tối đa
-const MAX_BORROW_NUMBER = 6;
+//user được mượn tối đa 4 tài liệu
+const MAX_BORROW_NUMBER = 4;
 
 $(document).ready(function() {
     bookDetailJS = new BookDetailJS()
@@ -329,7 +330,7 @@ class BookDetailJS extends BaseJS {
             for (let index = 0; index < borrowListSize; index++) {
 
                 //nếu id sách hiện tại trùng với id sách có trong danh sách mượn
-                if (bookId == borrowList[index].bookId) {
+                if (bookId == borrowList[index].bookID) {
 
                     //thêm nút trả, gia hạn và mở tài liệu
                     $('#groupBookAction').children().remove();
@@ -453,18 +454,18 @@ class BookDetailJS extends BaseJS {
             }).done(function(res) {
                 //nếu server xử lý thành công
                 if (res.success) {
+
+                    var data = res.data;
                     //lấy danh sách mượn của người dùng
                     var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
 
                     //tạo object lưu thông tin sách vừa mượn
                     var newBorrowBook = {
-                        bookId: localStorage.getItem("bookId"),
-                        returnDate: commonJS.getDateString(new Date(returnDateVal), Enum.ConvertOption.YEAR_FIRST),
-                        borrowDate: commonJS.getDateString(new Date(dateNow), Enum.ConvertOption.YEAR_FIRST),
-                        borrowStatus: 1,
-                        bookName: $('#bookName').html(),
-                        bookAuthor: $('#bookAuthor').html(),
-                        bookImageUri: $('#imageBook').data('bookImageUri')
+                        bookBorrowID: data.bookBorrowId,
+                        bookID: data.bookId,
+                        returnDate: commonJS.getDateString(new Date(data.returnDate), Enum.ConvertOption.YEAR_FIRST),
+                        borrowDate: commonJS.getDateString(new Date(data.borrowDate), Enum.ConvertOption.YEAR_FIRST),
+
                     }
 
                     //thêm dữ liệu vào danh sách mượn
@@ -534,7 +535,7 @@ class BookDetailJS extends BaseJS {
             if (res.success) {
                 //xóa sách muốn trả khỏi list mượn hiện tại
                 for (let index = 0; index < borrowList.length; index++) {
-                    if (borrowList[index].bookId == bookId) {
+                    if (borrowList[index].bookID == bookId) {
                         //sử dụng hàm splice()
                         //xóa 1 phần tử bắt đầu từ vị trí index
                         borrowList.splice(index, 1);
@@ -616,7 +617,7 @@ class BookDetailJS extends BaseJS {
                     var bookId = localStorage.getItem("bookId");
                     //cập nhật thời gian trả
                     for (let index = 0; index < borrowList.length; index++) {
-                        if (borrowList[index].bookId == bookId) {
+                        if (borrowList[index].bookID == bookId) {
                             //cập nhật thời gian trả mới nhất
                             borrowList[index].returnDate = commonJS.getDateString(new Date(newDateVal), Enum.ConvertOption.YEAR_FIRST);
                             //thoát vòng lặp

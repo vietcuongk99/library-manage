@@ -36,7 +36,6 @@ var commonJS = {
     getDateTimeString(date) {
         //convert datetime
         var timeComment = new Date(date);
-        debugger
         var timeMinutes = ("0" + timeComment.getMinutes()).slice(-2);
         var timeCommentConvert = timeComment.getUTCDate() + "/" +
             (timeComment.getMonth() + 1) + "/" +
@@ -48,7 +47,7 @@ var commonJS = {
 
 
     //append dữ liệu vào thẻ card
-    //sử dụng trong trang index, search-result, account
+    //sử dụng trong trang index, search-result
     appendBookDataToCard(data, selector) {
 
         var row = $(`<div class="row mt-2"></div>`)
@@ -61,7 +60,7 @@ var commonJS = {
                             </div>`)
             var bookHTML = $(`
             <div class="card h-100">
-                    <a href="../page/book-detail.html" class="mx-auto"><img class="card-img-top" src="` + book.bookImageUri + `" alt="" style="width: 150px; height: 200px"></a>
+                    <img class="card-img-top mx-auto" src="` + book.bookImageUri + `" alt="" style="width: 150px; height: 200px">
                     <div class="card-body">
                         <p class="card-title text-truncate text-uppercase">` + book.bookName + `</b>
                         <p class="text-truncate">` + book.bookAuthor + `</p>
@@ -69,6 +68,32 @@ var commonJS = {
                 </div>`)
 
             bookHTML.data('bookId', book.bookId)
+            $(card).append(bookHTML)
+            row.append(card)
+        })
+        $(selector).html(row)
+    },
+
+    //append dữ liệu sách đang mượn vào thẻ card
+    //sử dụng trong trang account
+    appendBorrowDataToCard(data, selector) {
+
+        var row = $(`<div class="row mt-2"></div>`)
+        data.forEach(book => {
+
+            var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
+            var card = $(`<div class="col-md-6 col-lg-3 col-sm-6 portfolio-item">
+                            </div>`)
+            var bookHTML = $(`
+            <div class="card h-100">
+                    <img class="card-img-top mx-auto" src="` + bookImgBase64String + `" alt="" style="width: 150px; height: 200px">
+                    <div class="card-body">
+                        <p class="card-title text-truncate text-uppercase">` + book.bookName + `</b>
+                        <p class="text-truncate">` + book.bookAuthor + `</p>
+                    </div>
+                </div>`)
+
+            bookHTML.data('bookId', book.bookID)
             $(card).append(bookHTML)
             row.append(card)
         })

@@ -16,7 +16,6 @@ class AccountJS extends BaseJS {
         this.loadUserAvatar();
         this.loadBookBorrowList();
         this.initEvent();
-
     }
 
 
@@ -120,9 +119,32 @@ class AccountJS extends BaseJS {
     //load danh sách mượn
     loadBookBorrowList() {
 
-        //lấy ra danh sách mượn của user trong localStorage
-        var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
-        commonJS.appendBookDataToCard(borrowList, "#borrowListContent");
+        // lấy userId từ localStorage
+        var userObject = JSON.parse(localStorage.getItem("user"));
+        var userID = userObject.userID;
+
+        //call api
+        $.ajax({
+            method: "GET",
+            url: HOST_URL + "api/BookBorrow/GetPagingData?userId=" + userID,
+            contentType: "application/json"
+
+        }).done(function(res) {
+            //nếu server xử lý thành công
+            if (res.success) {
+                //gán data
+                var borrowList = res.data;
+                //gọi hàm render html lên ui
+                //commonJS
+                commonJS.appendBorrowDataToCard(borrowList, "#borrowListContent");
+            } else {
+                commonBaseJS.showToastMsgFailed(res.message);
+            }
+        }).fail(function(res) {
+            commonBaseJS.showToastMsgFailed("Lấy thông tin sách đang mượn thất bại.");
+        })
+
+
 
     }
 
@@ -186,7 +208,7 @@ class AccountJS extends BaseJS {
         })
 
         //gán xử lý sự kiện khi click vào 1 card sách
-        $('#borrowListContent').children('div').on('click', 'div.card.h-100', this.cardOnClick)
+        $('#borrowListContent').on('click', '.card.h-100', this.cardOnClick)
 
     }
 
@@ -263,7 +285,7 @@ class AccountJS extends BaseJS {
                 //show alert
                 commonBaseJS.showToastMsgFailed(res.message);
             }
-        }).fail(function (res) {
+        }).fail(function(res) {
             commonBaseJS.showLoadingData(0);
             //show alert
             commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
@@ -506,7 +528,7 @@ class AccountJS extends BaseJS {
                     commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
-            }).fail(function (res) {
+            }).fail(function(res) {
                 commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
             })
@@ -558,7 +580,7 @@ class AccountJS extends BaseJS {
                     commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
-            }).fail(function (res) {
+            }).fail(function(res) {
                 commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
             })
@@ -572,10 +594,11 @@ class AccountJS extends BaseJS {
     //chi tiết xử lý sự kiện khi click vào 1 card sách
     cardOnClick() {
 
-        let bookId = $(this).data('bookId')
-        console.log(bookId)
-        console.log(this)
+        //lấy ra id book được click
+        let bookId = $(this).data('bookId');
 
+        //lưu id vào local storage
+        //mở trang book-detail
         localStorage.setItem("bookId", bookId)
         window.open("book-detail.html", "_self")
     }
