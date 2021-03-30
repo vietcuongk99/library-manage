@@ -4,7 +4,30 @@
 
 class BookManager {
     constructor() {
+        this.loadData();
         this.initEvents();
+    }
+
+    loadData() {
+        var self = this;
+        $.ajax({
+            method: "GET",
+            url: host + "api/BookDetail/",
+            async: true,
+            contentType: "application/json",
+        }).done(function (res) {
+            if (res.success) {
+
+                var data = res.data.lstData
+                self.appendDataToHTML(data, "#searchResultDiv")
+
+            } else {
+
+                commonBaseJS.showToastMsgFailed(res.message);
+            }
+        }).fail(function (res) {
+            commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
+        })
     }
 
     initEvents() {
@@ -36,6 +59,7 @@ class BookManager {
     }
 
     uploadFileImport() {
+        var self = this;
         var fileNew = $('#fileNewupload').val();
         
         if (this.checkFile(fileNew)) {
@@ -63,6 +87,9 @@ class BookManager {
                         $(".check-file-upload").val('');
                         $(".check-file-upload").next().text("Chọn file nhập khẩu");
                         $('.close').click();
+                        $('.fade').hide();
+                        $('#searchResultDiv').empty();
+                        self.loadData();
                     }
                     else {
                         $('#loader').hide();
@@ -98,5 +125,29 @@ class BookManager {
             }
         }
         return true;
+    }
+
+    appendDataToHTML(data, selector) {
+
+        var row = $(`<div class="row"></div>`)
+        data.forEach(book => {
+
+            var card = $(`<div class="col-lg-3 col-sm-6 portfolio-item">
+                            </div>`)
+            var bookHTML = $(`
+            <div class="card h-100">
+                <img class="card-img-top mx-auto" src="` + book.bookImageUri + `" alt="" style="width: 150px; height: 200px">
+                <div class="card-body">
+                    <p class="card-title font-weight-bold text-truncate text-uppercase">` + book.bookName + `</p>
+                    <p class="text-truncate">` + book.bookAuthor + `</p>
+                </div>
+            </div>`)
+
+            bookHTML.data('bookId', book.bookId)
+            $(card).append(bookHTML)
+            row.append(card)
+        })
+
+        $(selector).html(row)
     }
 }
