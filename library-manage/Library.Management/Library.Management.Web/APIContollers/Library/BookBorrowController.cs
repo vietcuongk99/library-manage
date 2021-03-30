@@ -52,11 +52,11 @@ namespace Library.Management.Web
         {
             var res = new ActionServiceResult();
             var lstBookUriConvertBase64 = new List<ResponseBookBorrowDownloadInfo>();
-            var bookUriConvertBase64 = new ResponseBookBorrowDownloadInfo();
             string imagePath;
             // Vòng for trả về list Book chứa các đường dẫn Base64 được convert từ link ảnh
             foreach (ResponseProcedureBookBorrow bookImageUri in lstBookImageUri)
             {
+                var bookUriConvertBase64 = new ResponseBookBorrowDownloadInfo();
                 bookUriConvertBase64.BookBorrowID = bookImageUri.BookBorrowID;
                 bookUriConvertBase64.BookID = bookImageUri.BookID;
                 bookUriConvertBase64.BookName = bookImageUri.BookName;

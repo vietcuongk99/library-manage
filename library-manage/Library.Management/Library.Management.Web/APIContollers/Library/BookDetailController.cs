@@ -160,11 +160,11 @@ namespace Library.Management.Web
         {
             var res = new ActionServiceResult();
             var lstBookUriConvertBase64 = new List<ResponseBookDetailDownloadInfo>();
-            var bookUriConvertBase64 = new ResponseBookDetailDownloadInfo();
             string imagePath;
             // Vòng for trả về list Book chứa các đường dẫn Base64 được convert từ link ảnh
             foreach (ResponseProcedureBookDetail bookImageUri in lstBookImageUri)
             {
+                var bookUriConvertBase64 = new ResponseBookDetailDownloadInfo();
                 bookUriConvertBase64.BookID = bookImageUri.BookID;
                 bookUriConvertBase64.BookName = bookImageUri.BookName;
                 bookUriConvertBase64.BookAuthor = bookImageUri.BookAuthor;
