@@ -151,6 +151,15 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bình luận không tồn tại, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorCommentUser {
+            get {
+                return ResourceManager.GetString("ErrorCommentUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không thể đổi mật khẩu, vui lòng thử lại..
         /// </summary>
         public static string ErrorConfirmOTPPassWord {
@@ -165,6 +174,15 @@ namespace Library.Management.Entity.Properties {
         public static string ErrorDeleteEntity {
             get {
                 return ResourceManager.GetString("ErrorDeleteEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bạn đang không mượn cuốn sách này, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorExtendBookBorrow {
+            get {
+                return ResourceManager.GetString("ErrorExtendBookBorrow", resourceCulture);
             }
         }
         
@@ -214,11 +232,29 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu không chính xác, vui lòng thử lại..
+        /// </summary>
+        public static string ErrorUserPassWord {
+            get {
+                return ResourceManager.GetString("ErrorUserPassWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lỗi Exception.
         /// </summary>
         public static string Exception {
             get {
                 return ResourceManager.GetString("Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã OTP đã hết hiệu lực, vui lòng thử lại..
+        /// </summary>
+        public static string ExpiryTimeOTP {
+            get {
+                return ResourceManager.GetString("ExpiryTimeOTP", resourceCulture);
             }
         }
         
@@ -291,6 +327,15 @@ namespace Library.Management.Entity.Properties {
         public static string Success {
             get {
                 return ResourceManager.GetString("Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2.
+        /// </summary>
+        public static string TimeSpanExpiryOTPCode {
+            get {
+                return ResourceManager.GetString("TimeSpanExpiryOTPCode", resourceCulture);
             }
         }
         

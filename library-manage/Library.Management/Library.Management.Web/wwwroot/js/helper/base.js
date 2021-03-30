@@ -1,4 +1,5 @@
-const host = "https://localhost:44328/"
+//hằng số lưu đường dẫn host mặc định
+const HOST_URL = "https://localhost:44328/"
 
 $(document).ready(function() {
 
@@ -25,7 +26,7 @@ class BaseJS {
 
             //khai báo biến lưu giá trị từ userObject
             var userName = userObject.userName;
-            var adminUrl = host + "admin"
+            var adminUrl = HOST_URL + "admin"
 
             //khai báo các thành phần html
             var manageSystemBtn = `<li class="nav-item"><a class="nav-link" href="` + adminUrl + `">Quản lý hệ thống</a></li>`
@@ -39,14 +40,14 @@ class BaseJS {
             </div>
             </li>`
 
-            //nếu user là admin
+            //nếu user không có quyền manage/admin
             //thêm đường dẫn tới trang admin.html
-            if (userObject.isAdmin == 1) {
-                $('#navItemList').append(manageSystemBtn)
+            if (userObject.conditionAccount == 1) {
                 $('#navItemList').append(dropDownAction)
             }
-            //nếu user không phải admin
+            //nếu user không có quyền manage/admin
             else {
+                $('#navItemList').append(manageSystemBtn)
                 $('#navItemList').append(dropDownAction)
             }
         } else {
@@ -65,7 +66,7 @@ class BaseJS {
         if (userObject) {
             $.ajax({
                 method: "GET",
-                url: host + "api/UserAccount/GetImageFromUrl" + "?userID=" + userObject.userID + "&avatarUrl=" + userObject.avatarUrl,
+                url: HOST_URL + "api/UserAccount/GetImageFromUrl" + "?userID=" + userObject.userID + "&avatarUrl=" + userObject.avatarUrl,
                 contentType: "application/json"
             }).done(function(res) {
                 if (res.success) {

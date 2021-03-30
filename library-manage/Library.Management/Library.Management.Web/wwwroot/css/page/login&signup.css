@@ -1,0 +1,28 @@
+html {
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background-image: url('/content/img/landing-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    content: url("/content/img/logo-app.jpg");
+    border-radius: 10px;
+}
+
+a:-webkit-any-link {
+    color: #2a5c92;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #0d3663;
+    text-decoration: underline;
+}

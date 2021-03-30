@@ -147,11 +147,17 @@
   <data name="ErrorBookExist" xml:space="preserve">
     <value>Mã sách không hợp lệ hoặc đã tồn tại, vui lòng thử lại.</value>
   </data>
+  <data name="ErrorCommentUser" xml:space="preserve">
+    <value>Bình luận không tồn tại, vui lòng thử lại.</value>
+  </data>
   <data name="ErrorConfirmOTPPassWord" xml:space="preserve">
     <value>Không thể đổi mật khẩu, vui lòng thử lại.</value>
   </data>
   <data name="ErrorDeleteEntity" xml:space="preserve">
     <value>Xóa dữ liệu không thành công</value>
+  </data>
+  <data name="ErrorExtendBookBorrow" xml:space="preserve">
+    <value>Bạn đang không mượn cuốn sách này, vui lòng thử lại.</value>
   </data>
   <data name="ErrorNotIDEntity" xml:space="preserve">
     <value>Không tìm thấy dữ liệu, vui lòng thử lại.</value>
@@ -168,8 +174,14 @@
   <data name="ErrorUserAccountValidate" xml:space="preserve">
     <value>Tài khoản hoặc mật khẩu không chính xác</value>
   </data>
+  <data name="ErrorUserPassWord" xml:space="preserve">
+    <value>Mật khẩu không chính xác, vui lòng thử lại.</value>
+  </data>
   <data name="Exception" xml:space="preserve">
     <value>Lỗi Exception</value>
+  </data>
+  <data name="ExpiryTimeOTP" xml:space="preserve">
+    <value>Mã OTP đã hết hiệu lực, vui lòng thử lại.</value>
   </data>
   <data name="Failed" xml:space="preserve">
     <value>Thất bại</value>
@@ -194,6 +206,9 @@
   </data>
   <data name="Success" xml:space="preserve">
     <value>Thành công</value>
+  </data>
+  <data name="TimeSpanExpiryOTPCode" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="ValidateEntity" xml:space="preserve">
     <value>Lỗi validate dữ liệu không hợp lệ</value>

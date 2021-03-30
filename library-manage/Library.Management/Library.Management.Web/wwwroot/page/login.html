@@ -15,16 +15,22 @@
     <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="../css/login&signup.css" rel="stylesheet">
+    <link href="../css/page/login&signup.css" rel="stylesheet">
+    <link href="../css/page/common.css" rel="stylesheet">
     <link href="../css/base/common.css" rel="stylesheet" />
 </head>
 
 <body class="d-flex border align-items-center justify-content-center">
+    <!--Loading-->
+    <div class="loader">
+        <span class="animation icon"></span>
+        <div class="text-loading">Loading...</div>
+    </div>
     <div class="row">
         <div class="col-1"></div>
         <div class="col-10 border mx-3 px-5 py-5 bg-light">
             <div class="text-center mb-5">
-                <img src="../content/img/icon.jpg" class="main-icon">
+                <img class="logo">
                 <h4>Hệ thống quản lý thư viện</h4>
             </div>
             <form>
@@ -47,7 +53,7 @@
                 </div>
             </form>
             <div class="text-center">
-                <button id="loginBtn" type="button" class="btn btn-primary">Đăng nhập</button>
+                <button id="loginBtn" type="button" class="btn btn-success">Đăng nhập</button>
             </div>
 
 

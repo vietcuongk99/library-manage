@@ -38,9 +38,8 @@ class SearchResultJS extends BaseJS {
             //load dữ liệu
             var fieldHTML = $(`<li class="breadcrumb-item">Sách HOT</li>`)
             $('#breadcrumbDiv').append(fieldHTML)
-            commonJS.appendDataToHTML(fakeData, "#searchResultDiv")
+            commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
             paginationHTML.insertBefore('footer')
-
 
         }
 
@@ -50,17 +49,18 @@ class SearchResultJS extends BaseJS {
             //load dữ liệu
             var fieldHTML = $(`<li class="breadcrumb-item">Sách Mới</li>`)
             $('#breadcrumbDiv').append(fieldHTML)
-            commonJS.appendDataToHTML(fakeData, "#searchResultDiv")
+            commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
             paginationHTML.insertBefore('footer')
         }
 
         //nếu user ấn nút tìm kiếm trên trang index
         //chưa có dữ liệu tìm kiếm
         if (showAllBook) {
+            commonBaseJS.showLoadingData(1);
             //lấy ra tất cả đầu sách trong csdl
             $.ajax({
                 method: "GET",
-                url: host + "api/BookDetail/",
+                url: HOST_URL + "api/BookDetail/",
                 async: true,
                 contentType: "application/json",
                 beforeSend: function() {
@@ -69,21 +69,19 @@ class SearchResultJS extends BaseJS {
                 }
             }).done(function(res) {
                 if (res.success) {
-
-                    //load kết quả tìm kiếm
-                    $(`<div class="loader mx-auto my-auto"></div>`).remove()
-
+                    commonBaseJS.showLoadingData(0);
                     //thay đổi giao diện
                     $('footer').removeClass("fixed-bottom")
                     var data = res.data.lstData
-                    commonJS.appendDataToHTML(data, "#searchResultDiv")
+                    commonJS.appendBookDataToCard(data, "#searchResultDiv")
                     paginationHTML.insertBefore('footer')
 
                 } else {
-
+                    commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
             }).fail(function(res) {
+                commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
             })
         }

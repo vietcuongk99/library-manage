@@ -64,7 +64,12 @@ namespace Library.Management.Web
             services.AddScoped<IBookCategoryBL, BookCategoryBL>();
             services.AddScoped<IBookCategoryDL, BookCategoryDL>();
 
+            services.AddScoped<IBookBorrowBL, BookBorrowBL>();
+            services.AddScoped<IBookBorrowDL, BookBorrowDL>();
+
             services.AddScoped<IUploadBL, UploadBL>();
+
+            services.AddScoped<IUserCommentBL, UserCommentBL>();
 
             services.AddScoped<IUserAccountBL, UserAccountBL>();
             services.AddScoped<IUserAccountDL, UserAccountDL>();

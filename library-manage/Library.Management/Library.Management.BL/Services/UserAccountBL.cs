@@ -49,14 +49,21 @@ namespace Library.Management.BL
                 var subjectMailBody = string.Format(GlobalResource.SubjectSendMail, userAcountName.UserName, OTPNew, "Đổi mật khẩu", param.Password);
                 entity.Data = await _baseBL.SendMailGoogleSmtp(GlobalResource.MailSendAccount, param.Email, "[Library] Mã lấy lại mật khẩu tài khoản hệ thống",
                     subjectMailBody, GlobalResource.MailSendAccount, GlobalResource.MailSendPassWord);
-                
+
                 //Set Cache mã OTP trước khi chuyển sang bước 2
-                if(entity.Data != null && (bool)entity.Data == true)
+                if (entity.Data != null && (bool)entity.Data == true)
                 {
-                    _baseMemoryCache.SetCache(param.Email, new { 
+                    //Kiểm tra xem có cache hay chưa, do khi thêm mới nó không ghi đè lên nên phải xóa cache cũ đi
+                    if (_baseMemoryCache.CacheGet(param.Email) != null)
+                    {
+                        _baseMemoryCache.RemoveCache(param.Email);
+                    }
+                    _baseMemoryCache.SetCache(param.Email, new
+                    {
                         Email = param.Email,
                         PassWord = param.Password,
-                        OTP = OTPNew
+                        OTP = OTPNew,
+                        ExpiryTime = DateTime.Now.AddMinutes(double.Parse(GlobalResource.TimeSpanExpiryOTPCode))
                     });
                 }
             }
@@ -80,10 +87,20 @@ namespace Library.Management.BL
                 //Check mã OTP, nếu mã chính xác thì cho phép đổi mật khẩu
                 if (param.OTP == cachevalueOTP.OTP)
                 {
-                    var paramConfirmPassWord = new ParameterChangeConfirmPassWord();
-                    paramConfirmPassWord.Email = param.Email;
-                    paramConfirmPassWord.Password = param.PassWord;
-                    entity.Data = await _baseDL.UpdateAsync(paramConfirmPassWord, ProcdureTypeName.UpdateAccount);
+                    var timeNow = DateTime.Now;
+                    if (timeNow > cachevalueOTP.ExpiryTime)
+                    {
+                        entity.Success = false;
+                        entity.Message = GlobalResource.ExpiryTimeOTP;
+                        entity.LibraryCode = LibraryCode.ExpiryTimeOTP;
+                    }
+                    else
+                    {
+                        var paramConfirmPassWord = new ParameterChangeConfirmPassWord();
+                        paramConfirmPassWord.Email = param.Email;
+                        paramConfirmPassWord.Password = param.PassWord;
+                        entity.Data = await _baseDL.UpdateAsync(paramConfirmPassWord, ProcdureTypeName.UpdateAccount);
+                    }
                 }
                 //Báo lỗi OTP
                 else
@@ -112,7 +129,7 @@ namespace Library.Management.BL
         public async Task<ActionServiceResult> RegisterUserAccount(ParameterRegisterAccount param)
         {
             var entity = new ActionServiceResult();
-            var checkAccount = await _baseDL.GetEntityByProperty(new { param.UserName, param.Email}, ProcdureTypeName.GetByUserName);
+            var checkAccount = await _baseDL.GetEntityByProperty(new { param.UserName, param.Email }, ProcdureTypeName.GetByUserName);
             //check xem tên tài khoản hoặc mail đã được sử dụng hay chưa
             if (checkAccount != null)
             {
@@ -141,8 +158,10 @@ namespace Library.Management.BL
             userAcount.UserName = param.UserName;
             userAcount.Email = param.Email;
             userAcount.Password = param.Password;
-            userAcount.IsAdmin = 0; //0 - user, 1 - admin
+            userAcount.ConditionAccount = (int)ConditionAccount.User; //0 - user, 1 - admin
             userAcount.Status = (int)Status.Active;
+            userAcount.CreatedDate = DateTime.Now;
+            userAcount.CreatedBy = GlobalResource.CreatedBy;
         }
 
         /// <summary>
@@ -159,7 +178,7 @@ namespace Library.Management.BL
             {
                 var checkUserAccount = await _baseDL.GetEntityById(param.UserId.ToString());
                 var checkUserAccountByEmail = await _baseDL.GetEntityByProperty(new { param.Email }, ProcdureTypeName.GetByEmail);
-                if(checkUserAccount == null)
+                if (checkUserAccount == null)
                 {
                     entity.Success = false;
                     entity.Message = GlobalResource.ErrorUserAccount;
@@ -180,9 +199,46 @@ namespace Library.Management.BL
                         entity.Data = await _baseDL.UpdateAsync(param, ProcdureTypeName.Update);
                     }
                 }
-                
+
             }
             return entity;
+        }
+
+        /// <summary>
+        /// Đổi mật khẩu
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 25/03/2021
+        public async Task<ActionServiceResult> UpdateUserPassWord(ParameterUpdateUserPassWord param)
+        {
+            var res = new ActionServiceResult();
+            if (param.UserId != null)
+            {
+                var userAccount = await _baseDL.GetEntityById(param.UserId.ToString());
+                if (userAccount.Password != param.PassWordOld)
+                {
+                    res.Success = false;
+                    res.Message = GlobalResource.ErrorUserPassWord;
+                    res.LibraryCode = LibraryCode.ErrorUserPassWord;
+                }
+                else
+                {
+                    var pWParam = new
+                    {
+                        UserId = param.UserId,
+                        PassWordNew = param.PassWordNew
+                    };
+                    await _baseDL.UpdateAsync(pWParam, ProcdureTypeName.UpdateUserPassWord);
+                }
+            }
+            else
+            {
+                res.Success = false;
+                res.Message = GlobalResource.Failed;
+                res.LibraryCode = LibraryCode.Failed;
+            }
+            return res;
         }
 
         /// <summary>
@@ -195,7 +251,7 @@ namespace Library.Management.BL
         {
             var res = new ActionServiceResult();
             var userAccount = await _baseDL.GetEntityByProperty(param, ProcdureTypeName.GetByUserAndPassWord);
-            if(userAccount == null)
+            if (userAccount == null)
             {
                 res.Success = false;
                 res.Message = GlobalResource.ErrorUserAccountValidate;
@@ -209,7 +265,7 @@ namespace Library.Management.BL
                     UserID = userAccount.UserId,
                     UserName = userAccount.UserName,
                     AvatarUrl = userAccount.AvatarUrl,
-                    IsAdmin = userAccount.IsAdmin
+                    ConditionAccount = userAccount.ConditionAccount
                 };
             }
             return res;
@@ -228,10 +284,33 @@ namespace Library.Management.BL
             return res;
         }
 
+        /// <summary>
+        /// Xét phân quyền cho tài khoản 
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
         public async Task<ActionServiceResult> ChangeUserAdmin(ParamChangeUserAdmin param)
         {
             var entity = new ActionServiceResult();
-            entity.Data = await _userAccountDL.ChangeUserAdmin(param.UserID, param.IsAdmin);
+            entity.Data = await _userAccountDL.ChangeUserAdmin(param.UserID, param.ConditionAccount);
+            return entity;
+        }
+
+        /// <summary>
+        /// Lọc dữ liệu phân trang cho tài khoản
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 29/03/2021
+        public async Task<ActionServiceResult> GetPagingData(ParamFilterUserAccount param)
+        {
+            var entity = new ActionServiceResult();
+            //Gán mặc định 1 số giá trị đầu vào nếu bên client truyền lên không hợp lý
+            if (param.paramUserName == null) param.paramUserName = "";
+            if (param.pageNumber <= 0) param.pageNumber = 1;
+            if (param.pageSize <= 0) param.pageSize = 30;
+            if (param.paramConditionAccount == 0) param.paramConditionAccount = (int)ConditionAccount.User; //Nếu không truyền gì thì gán giá trị mặc định là User
+            entity.Data = await _baseDL.GetEntityByMultipleTable<User>(param, ProcdureTypeName.GetPagingParamUserAccount);
             return entity;
         }
     }

@@ -40,6 +40,21 @@ namespace Library.Management.Entity
     public class ParamChangeUserAdmin
     {
         public Guid UserID { get; set; }
-        public bool IsAdmin { get; set; }
+        public int ConditionAccount { get; set; }
+    }
+
+    public class ParameterInsertBookBorrow
+    {
+        public Guid BookId { get; set; }
+        public Guid UserId { get; set; }
+        public DateTime ReturnDate { get; set; }
+        public DateTime BorrowDate { get; set; }
+    }
+
+    public class ParameterCommentBookDetail
+    {
+        public Guid UserId { get; set; }
+        public Guid BookId { get; set; }
+        public string Comment { get; set; }
     }
 }

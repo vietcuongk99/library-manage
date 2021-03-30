@@ -1,4 +1,5 @@
-const host = "https://localhost:44328/"
+// khai báo đường dẫn host mặc định
+const HOST_URL = "https://localhost:44328/"
 $(document).ready(function() {
     //xóa dữ liệu user cũ trong localStorage và sessionStorage
     localStorage.clear()
@@ -40,15 +41,15 @@ class LoginJS {
         var validateCheck = loginJS.validateInput()
         var usernameInput = $('#usernameInput').val().trim()
         var passwordInput = $('#passwordInput').val().trim()
-
-        //nếu validate thành công
+            //nếu validate thành công
         if (validateCheck) {
             //khởi tạo data trước khi call api
             var userInput = { "userName": usernameInput, "passWord": passwordInput };
+            commonBaseJS.showLoadingData(1);
             //call api
             $.ajax({
                 method: "POST",
-                url: host + "api/UserAccount/LoginUserAccount",
+                url: HOST_URL + "api/UserAccount/LoginUserAccount",
                 data: JSON.stringify(userInput),
                 contentType: "application/json"
 
@@ -56,23 +57,30 @@ class LoginJS {
                 //nếu response trả về success (response.success: true)
                 if (res.success) {
                     //show alert
+                    commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgSuccess("Đăng nhập thành công.");
                     //lưu thông tin đăng nhập vào localStorage
-                    var user = res.data
+                    var user = res.data;
                     localStorage.setItem("user", JSON.stringify(user));
+
+                    //lưu list sách đang mượn của user
+                    //fake data đợi api
+                    localStorage.setItem("borrowList", JSON.stringify(borrowList));
+
                     //chuyển sang trang index
                     setTimeout(function() {
                         window.open("index.html", "_self")
-                    }, 3000);
+                    }, 2000);
 
                 } else {
                     //gọi phương thức thêm alert div của loginJS object
-
+                    commonBaseJS.showLoadingData(0);
                     //show alert cảnh báo
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
             }).fail(function(res) {
                 //show alert cảnh báo
+                commonBaseJS.showLoadingData(0);
                 //lỗi bên server
                 commonBaseJS.showToastMsgFailed("Đăng nhập không thành công.");
             })
@@ -117,3 +125,17 @@ class LoginJS {
     }
 
 }
+
+
+//fake data
+
+var borrowList = [{
+    bookBorrowID: "4d70f6bd-70a7-44e8-9c82-0d370ed2ccdb",
+    bookAuthor: "Hiroshi Fujimoto",
+    bookId: "00000000-0000-0000-0000-000000000000",
+    bookImageUri: "../content/img/avatar-book-default.jpg",
+    bookName: "Truyện tranh Doraemon",
+    borrowDate: "2021-03-30",
+    borrowStatus: 1,
+    returnDate: "2021-04-22",
+}]

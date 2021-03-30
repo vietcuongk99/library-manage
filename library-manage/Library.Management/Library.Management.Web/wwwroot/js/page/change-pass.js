@@ -1,4 +1,5 @@
-const host = "https://localhost:44328/"
+//hằng số lưu đường dẫn host mặc định
+const HOST_URL = "https://localhost:44328/"
 $(document).ready(function() {
     // xóa bỏ dữ liệu cũ trong localStorage và sessionStorage
     // localStorage.clear()
@@ -36,30 +37,34 @@ class ChangePassJS {
                 "email": $('#emailInput').val().trim(),
                 "password": $('#passwordInput').val().trim()
             };
+            commonBaseJS.showLoadingData(1);
             //call api
             $.ajax({
                 method: "POST",
-                url: host + "api/UserAccount/ChangeConfirmPassWordStepOne",
+                url: HOST_URL + "api/UserAccount/ChangeConfirmPassWordStepOne",
                 contentType: "application/json",
                 data: JSON.stringify(data)
             }).done(function(res) {
                 if (res.success) {
+                    commonBaseJS.showLoadingData(0);
                     //lưu thông tin email và pass mới vào sessionStorage
                     sessionStorage.setItem("email", $('#emailInput').val().trim());
                     sessionStorage.setItem("password", $('#passwordInput').val().trim());
                     //show alert
                     commonBaseJS.showToastMsgSuccess("Gửi mail chứa mã OTP thành công, vui lòng kiểm tra email.");
                     //mở trang confirm-otp
-                    setTimeout(function () {
+                    setTimeout(function() {
                         window.open("confirm-otp.html", "_self")
                     }, 2000);
-                    
+
 
                 } else {
+                    commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
-            }).fail(function(res) {
+            }).fail(function (res) {
+                commonBaseJS.showLoadingData(0);
                 //show alert
                 commonBaseJS.showToastMsgFailed("Gửi mã OTP không thành công.");
             })

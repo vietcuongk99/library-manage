@@ -1,4 +1,5 @@
-const host = "https://localhost:44328/"
+//khai báo đường dẫn host mặc định
+const HOST_URL = "https://localhost:44328/"
 $(document).ready(function() {
     // xóa bỏ dữ liệu cũ trong localStorage và sessionStorage
     localStorage.clear()
@@ -38,14 +39,16 @@ class SignUpJS {
                 "email": $('#emailInput').val().trim(),
                 "password": $('#passwordInput').val().trim()
             };
+            commonBaseJS.showLoadingData(1);
             //gọi api
             $.ajax({
                 method: "POST",
-                url: host + "api/UserAccount/RegisterUserAccount",
+                url: HOST_URL + "api/UserAccount/RegisterUserAccount",
                 contentType: "application/json",
                 data: JSON.stringify(data)
             }).done(function(res) {
                 if (res.success) {
+                    commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgSuccess("Đăng ký tài khoản thành công.");
                     //mở trang login
@@ -53,10 +56,12 @@ class SignUpJS {
                         window.open("login.html", "_self")
                     }, 2000);
                 } else {
+                    commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
-            }).fail(function(res) {
+            }).fail(function (res) {
+                commonBaseJS.showLoadingData(0);
                 //show alert
                 commonBaseJS.showToastMsgFailed("Đăng ký không thành công.");
             })

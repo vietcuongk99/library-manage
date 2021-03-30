@@ -111,6 +111,22 @@ namespace Library.Management.Entity
         /// </summary>
         ErrorConfirmOTPPassWord = 612,
         /// <summary>
+        /// Chưa mượn cuốn sách này
+        /// </summary>
+        ErrorExtendBookBorrow = 613,
+        /// <summary>
+        /// Bình luận không tồn tại
+        /// </summary>
+        ErrorCommentUser = 614,
+        /// <summary>
+        /// Mật khẩu không chính xác
+        /// </summary>
+        ErrorUserPassWord = 615,
+        /// <summary>
+        /// Mã OTP đã hết hiệu lực
+        /// </summary>
+        ExpiryTimeOTP = 616,
+        /// <summary>
         /// Thất bại
         /// </summary>
         Failed = 1000
@@ -148,6 +164,30 @@ namespace Library.Management.Entity
         /// </summary>
         GetByUserAndPassWord,
         /// <summary>
+        /// Lấy ra bình luận của 1 người dùng trên 1 cuốn sách
+        /// </summary>
+        GetByUserAndBookDetail,
+        /// <summary>
+        /// Lấy ra các bình luận của 1 người dùng
+        /// </summary>
+        GetByUser,
+        /// <summary>
+        /// Lấy ra các bình luận của 1 cuốn sách
+        /// </summary>
+        GetByBookDetail,
+        /// <summary>
+        /// Lọc dữ liệu phân trang sách
+        /// </summary>
+        GetPagingParamBookDetail,
+        /// <summary>
+        /// Lọc dữ liệu phân trang tài khoản
+        /// </summary>
+        GetPagingParamUserAccount,
+        /// <summary>
+        /// Lấy danh sách sách đã mượn của người dùng
+        /// </summary>
+        GetPagingParamBookBorrow,
+        /// <summary>
         /// Thêm mới
         /// </summary>
         Insert,
@@ -161,6 +201,10 @@ namespace Library.Management.Entity
         /// </summary>
         UpdateAccount,
         /// <summary>
+        /// Cập nhật mật khẩu
+        /// </summary>
+        UpdateUserPassWord,
+        /// <summary>
         /// Cập nhật ảnh đại diện người dùng
         /// </summary>
         UpdateAvatarUrl,
@@ -168,8 +212,14 @@ namespace Library.Management.Entity
         /// Cập nhật ảnh đại diện sách
         /// </summary>
         UpdateBookImageUri,
-
+        /// <summary>
+        /// Cập nhật link xem chi tiết sách
+        /// </summary>
         UpdateBookDownloadUri,
+        /// <summary>
+        /// Gia hạn sách
+        /// </summary>
+        ExtendBookBorrow,
 
         /// <summary>
         /// Xóa dữ liệu
@@ -180,12 +230,30 @@ namespace Library.Management.Entity
     public enum Status
     {
         /// <summary>
-        /// Còn sử dụng
+        /// Còn sử dụng, đã mượn sách, đã trả sách
         /// </summary>
         Active = 1,
         /// <summary>
-        /// Không sử dụng
+        /// Không sử dụng, chưa mượn sách, chưa trả sách
         /// </summary>
         DeActive = 0
+    }
+    /// <summary>
+    /// Phân quyền tài khoản
+    /// </summary>
+    public enum ConditionAccount
+    {
+        /// <summary>
+        /// Người dùng
+        /// </summary>
+        User = 1,
+        /// <summary>
+        /// Quản trị viên
+        /// </summary>
+        Admin = 2,
+        /// <summary>
+        /// Quản lý
+        /// </summary>
+        Manage = 3
     }
 }

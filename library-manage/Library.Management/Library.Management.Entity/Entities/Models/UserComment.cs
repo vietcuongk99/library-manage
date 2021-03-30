@@ -5,8 +5,9 @@ namespace Library.Management.Entity.Models
 {
     public partial class UserComment
     {
-        public string CommentId { get; set; }
-        public string UserId { get; set; }
+        public Guid CommentId { get; set; }
+        public Guid UserId { get; set; }
+        public Guid BookId { get; set; }
         public string Comment { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string CreatedBy { get; set; }

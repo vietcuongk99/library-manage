@@ -9,6 +9,13 @@ namespace Library.Management.BL
 {
     public interface IBookDetailBL
     {
+        /// <summary>
+        /// Lọc dữ liệu phân trang
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 26/03/2021
+        Task<ActionServiceResult> GetPagingData(ParamFilterBookDetail param);
 
         /// <summary>
         /// Thêm 1 bản ghi thông tin cuốn sách

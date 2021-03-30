@@ -1,0 +1,39 @@
+.nav .nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+    border: 0;
+}
+
+#userAvatar {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    width: 200px;
+    height: 200px;
+    aspect-ratio: auto 200 / 200;
+}
+
+#avatarUserDiv {
+    background-image: url('/content/img/landing-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+/* custom list-group từ bootstrap */
+
+.list-group-item.active {
+    color: #fff;
+    background-color: #343a40;
+    border-color: black;
+}
+
+a:-webkit-any-link {
+    color: #2a5c92;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #0d3663;
+    text-decoration: underline;
+}

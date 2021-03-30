@@ -17,11 +17,13 @@ namespace Library.Management.DL
         {
             _config = config;
         }
-        public async Task<object> ChangeUserAdmin(Guid userID, bool isAdmin)
+        public async Task<object> ChangeUserAdmin(Guid userID, int conditionAccount)
         {
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
+            _db.Open();
             var storeName = "Proc_UpdateAdminUser";
-            var entities = _db.QueryFirstOrDefault<User>(storeName, new { userID, isAdmin }, commandType: CommandType.StoredProcedure);
+            var entities = _db.QueryFirstOrDefault<User>(storeName, new { userID, conditionAccount }, commandType: CommandType.StoredProcedure);
+            _db.Close();
             return await Task.FromResult(entities);
         }
     }

@@ -17,7 +17,6 @@ namespace Library.Management.BL
     {
         private readonly IBookCategoryDL _bookCategoryDL;
         private readonly IBaseDL<BookCategory> _baseDLMaster;
-        private readonly IConfiguration _config;
         public BookCategoryBL(IBaseDL<BookCategory> baseDLMaster, IBookCategoryDL bookCategoryDL, IConfiguration config)
         {
             _baseDLMaster = baseDLMaster;

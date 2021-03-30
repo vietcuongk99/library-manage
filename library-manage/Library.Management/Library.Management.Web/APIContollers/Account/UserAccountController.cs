@@ -46,7 +46,7 @@ namespace Library.Management.Web
         }
 
         /// <summary>
-        /// Đổi mật khẩu bước 1, Validate gửi mail nhận OTP cho dự án
+        /// Quên mật khẩu bước 1, Validate gửi mail nhận OTP cho dự án
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
@@ -65,7 +65,7 @@ namespace Library.Management.Web
         }
 
         /// <summary>
-        /// Đổi mật khẩu bước 2, confirm mã OTP
+        /// Quên mật khẩu bước 2, confirm mã OTP
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
@@ -100,6 +100,19 @@ namespace Library.Management.Web
         public async Task<ActionServiceResult> UpdateUserInfo(ParameterUpdateUser param)
         {
             var res = await _userAccountBL.UpdateUserInfo(param);
+            return res;
+        }
+
+        /// <summary>
+        /// Thay đổi mật khẩu
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// VDDUNG1 25/03/2021
+        [HttpPut("UpdateUserPassWord")]
+        public async Task<ActionServiceResult> UpdateUserPassWord(ParameterUpdateUserPassWord param)
+        {
+            var res = await _userAccountBL.UpdateUserPassWord(param);
             return res;
         }
 
@@ -179,10 +192,28 @@ namespace Library.Management.Web
             return res;
         }
         
+        /// <summary>
+        /// Xét phần quyền cho tài khoản
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
         [HttpPost("ChangeUserAdmin")]
         public async Task<ActionServiceResult> ChangeUserAdmin(ParamChangeUserAdmin param)
         {
             var res = await _userAccountBL.ChangeUserAdmin(param);
+            return res;
+        }
+
+        /// <summary>
+        /// Lọc dữ liệu phân trang cho tài khoản
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 29/03/2021
+        [HttpGet("GetPagingData")]
+        public async Task<ActionServiceResult> GetPagingData([FromQuery]ParamFilterUserAccount param)
+        {
+            var res = await _userAccountBL.GetPagingData(param);
             return res;
         }
     }

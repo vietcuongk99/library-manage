@@ -1,4 +1,4 @@
-const host = "https://localhost:44328/"
+const HOST_URL = "https://localhost:44328/"
 $(document).ready(function() {
     confirmOTPCodeJS = new ConfirmOTPCodeJS()
 })
@@ -36,14 +36,16 @@ class ConfirmOTPCodeJS {
                 "passWord": passwordValue,
                 "otp": parseInt(codeInput)
             };
+            commonBaseJS.showLoadingData(1);
             //call api
             $.ajax({
                 method: "POST",
-                url: host + "api/UserAccount/ChangeConfirmPassWordStepTwo",
+                url: HOST_URL + "api/UserAccount/ChangeConfirmPassWordStepTwo",
                 contentType: "application/json",
                 data: JSON.stringify(data)
             }).done(function(res) {
                 if (res.success) {
+                    commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgSuccess("Thay đổi mật khẩu thành công.");
                     //chuyển sang trang login
@@ -53,10 +55,12 @@ class ConfirmOTPCodeJS {
 
 
                 } else {
+                    commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
-            }).fail(function(res) {
+            }).fail(function (res) {
+                commonBaseJS.showLoadingData(0);
                 //show alert
                 commonBaseJS.showToastMsgFailed("Đổi mật khẩu không thành công.");
             })

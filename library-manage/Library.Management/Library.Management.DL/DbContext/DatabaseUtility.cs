@@ -1,7 +1,9 @@
-﻿using Library.Management.Entity;
+﻿
+using Dapper;
+using Library.Management.Entity;
+using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Data;
 
 namespace Library.Management.DL.DbContext
 {
@@ -38,6 +40,24 @@ namespace Library.Management.DL.DbContext
                 case ProcdureTypeName.GetByUserAndPassWord:
                     storeName = $"Proc_Get{tableName}ByUserNameAndPassWord";
                     break;
+                case ProcdureTypeName.GetByUserAndBookDetail:
+                    storeName = $"Proc_Get{tableName}ByUserAndBookDetail";
+                    break;
+                case ProcdureTypeName.GetByUser:
+                    storeName = $"Proc_Get{tableName}ByUser";
+                    break;
+                case ProcdureTypeName.GetByBookDetail:
+                    storeName = $"Proc_Get{tableName}ByBookDetail";
+                    break;
+                case ProcdureTypeName.GetPagingParamBookDetail:
+                    storeName = $"Proc_Get{tableName}PagingData";
+                    break;
+                case ProcdureTypeName.GetPagingParamUserAccount:
+                    storeName = $"Proc_Get{tableName}PagingData";
+                    break;
+                case ProcdureTypeName.GetPagingParamBookBorrow:
+                    storeName = $"Proc_Get{tableName}PagingData";
+                    break;
                 case ProcdureTypeName.Insert:
                     storeName = $"Proc_Insert{tableName}";
                     break;
@@ -56,6 +76,12 @@ namespace Library.Management.DL.DbContext
                 case ProcdureTypeName.UpdateAccount:
                     storeName = $"Proc_Update{tableName}Account";
                     break;
+                case ProcdureTypeName.UpdateUserPassWord:
+                    storeName = $"Proc_Update{tableName}PassWord";
+                    break;
+                case ProcdureTypeName.ExtendBookBorrow:
+                    storeName = $"Proc_Update{tableName}Extend";
+                    break;
                 case ProcdureTypeName.Delete:
                     storeName = $"Proc_Delete{tableName}";
                     break;
@@ -63,6 +89,34 @@ namespace Library.Management.DL.DbContext
                     break;
             }
             return storeName;
+        }
+
+        /// <summary>
+        /// Lấy ra dữ liệu dùng cho TH join nhiều bảng với nhau
+        /// </summary>
+        /// <param name="_db"></param>
+        /// <param name="resProcedure"></param>
+        /// <param name="entity"></param>
+        /// <param name="storeName"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 26/03/2021
+        public static object ResponseProcedure(MySqlConnection _db, string resProcedure, object entity, string storeName)
+        {
+            switch (resProcedure)
+            {
+                case "ResponseProcedureUserComment":
+                    var proc_UserComment = _db.Query<ResponseProcedureUserComment>(storeName, entity, commandType: CommandType.StoredProcedure);
+                    return proc_UserComment;
+                case "ResponseProcedureBookDetail":
+                    var proc_BookDetail = _db.Query<ResponseProcedureBookDetail>(storeName, entity, commandType: CommandType.StoredProcedure);
+                    return proc_BookDetail;
+                case "ResponseProcedureBookBorrow":
+                    var proc_BookBorrow = _db.Query<ResponseProcedureBookBorrow>(storeName, entity, commandType: CommandType.StoredProcedure);
+                    return proc_BookBorrow;
+                default:
+                    break;
+            }
+            return null;
         }
     }
 }

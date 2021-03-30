@@ -38,6 +38,7 @@ namespace Library.Management.Entity
         public string Email { get; set; }
         public string PassWord { get; set; }
         public int OTP { get; set; }
+        public DateTime ExpiryTime { get; set; }
     }
 
     public class ParameterUpdateUser
@@ -52,5 +53,27 @@ namespace Library.Management.Entity
         public string Province { get; set; }
         public string Country { get; set; }
         public DateTime? ModifiedDate { get; set; }
+    }
+
+    public class ParameterUpdateBookBorrow
+    {
+        public Guid BookBorrowId { get; set; }
+    }
+    
+    public class ParameterExtendBookBorrow
+    {
+        public Guid BookBorrowId { get; set; }
+        public DateTime ReturnDate { get; set; }
+    }
+    public class ParameterModifyComment
+    {
+        public Guid CommentId { get; set; }
+        public string Comment { get; set; }
+    }
+    public class ParameterUpdateUserPassWord
+    {
+        public Guid UserId { get; set; }
+        public string PassWordOld { get; set; }
+        public string PassWordNew { get; set; }
     }
 }
