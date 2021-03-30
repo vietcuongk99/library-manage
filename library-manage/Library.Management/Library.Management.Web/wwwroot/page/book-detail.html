@@ -123,23 +123,21 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Mượn sách</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h5 class="modal-title">Mượn sách</h5>
                     </div>
                     <div class="modal-body">
                         <div id="modalConfirm1" class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
                             Mượn thành công
                         </div>
-                        <form>
+                        <div id="returnDateDiv">
                             <div class="form-group">
                                 <label for="returnDate">Ngày trả</label>
                                 <input type="date" class="form-control" id="returnDate">
                             </div>
 
-                        </form>
-                        <button id="confirmBorrowBtn" class="btn btn-primary">Xác nhận</button>
+                        </div>
+                        <button id="confirmBorrowBtn" class="btn btn-success">Xác nhận</button>
+                        <button id="dismissBorrowBtn" class="btn btn-secondary">Hủy</button>
                     </div>
                     <div class="modal-footer">
                         ...
@@ -154,15 +152,9 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận trả sách</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h5 class="modal-title">Xác nhận trả sách</h5>
                     </div>
                     <div class="modal-body">
-                        <div id="modalConfirm2" class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
-                            Trả thành công
-                        </div>
                         <div class="row">
                             <div class="col-5">
                                 <p>Ngày trả ban đầu:</p>
@@ -173,15 +165,16 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-5">
+                            <!-- <div class="col-5">
                                 <p>Thời gian mượn còn lại:</p>
-                            </div>
+                            </div> -->
                             <div class="col-7">
                                 <p id="timeBorrowLeft"></p>
                             </div>
 
                         </div>
-                        <button id="confirmReturnBtn" class="btn btn-primary">Xác nhận</button>
+                        <button id="confirmReturnBtn" class="btn btn-success">Xác nhận</button>
+                        <button id="dismissReturnBtn" class="btn btn-secondary">Hủy</button>
                     </div>
                     <div class="modal-footer">
 
@@ -196,31 +189,26 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Gia hạn thời gian mượn sách</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h5 class="modal-title">Gia hạn thời gian mượn sách</h5>
                     </div>
                     <div class="modal-body">
-                        <!-- <div id="modalConfirm3" class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
-                            Gia hạn thành công
-                        </div> -->
-                        <form>
-                            <div class="row">
+                        <div class="form-group">
+                            <div id="oldReturnDateDiv" class="row">
                                 <div class="col-4">
                                     <p>Ngày trả cũ:</p>
                                 </div>
                                 <div class="col-8">
-                                    <p id="oldReturnDate">22/12/2020</p>
+                                    <p id="oldReturnDate"></p>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="returnDate">Ngày trả mới</label>
-                                <input type="date" class="form-control" id="returnDate">
+                            <div id="newReturnDateDiv" class="form-group">
+                                <label for="newReturnDate">Ngày trả mới</label>
+                                <input type="date" class="form-control" id="newReturnDate">
                             </div>
 
-                        </form>
-                        <button id="confirmExtendBtn" class="btn btn-primary">Xác nhận</button>
+                        </div>
+                        <button id="confirmExtendBtn" class="btn btn-success">Xác nhận</button>
+                        <button id="dismissExtendBtn" class="btn btn-secondary">Hủy bỏ</button>
                     </div>
                     <div class="modal-footer">
                         ...
@@ -302,22 +290,7 @@
 
         <!-- nội dung bình luận -->
         <div id="commentContentDiv" class="container-fluid">
-            <!-- <div class="media mb-4">
-                <img class="d-flex mr-3 rounded-circle avatar-comment" src="../content/img/avatar-sample.png" alt="">
-                <div class="media-body">
-                    <h5 class="mt-0">Vũ Dũng</h5>
-                    Sách thật sự hay và bổ ích. Đọc nhé
-                </div>
-            </div>
 
-
-            <div class="media mb-4">
-                <img class="d-flex mr-3 rounded-circle avatar-comment" src="../content/img/avatar-sample.png" alt="">
-                <div class="media-body">
-                    <h5 class="mt-0">Bui Van Bao</h5>
-                    Sách này thật sự hay và bổ ích
-                </div>
-            </div> -->
         </div>
 
         <!-- Pagination -->
@@ -369,29 +342,10 @@
     <script src="../js/lib/jquery/jquery.min.js"></script>
     <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="../js/base/commonBase.js"></script>
+    <script src="../js/helper/enum.js"></script>
     <script src="../js/helper/common.js"></script>
     <script src="../js/helper/base.js"></script>
     <script src="../js/page/book-detail.js"></script>
-    <script>
-            // $(document).ready(function() {
-            //     $('#confirmBorrowBtn').click(function() {
-            //         $('#modalConfirm1').show()
-            //     })
-            //     $('#confirmExtendBtn').click(function() {
-            //         $('#modalConfirm3').show()
-            //     })
-            //     $('#confirmReturnBtn').click(function() {
-            //         $('#modalConfirm2').show()
-            //     })
-
-            // });
-
-            // function hiddenDiv() {
-
-            //     $('.alert').hide()
-            // }
-    </script>
-
 </body>
 
 </html>

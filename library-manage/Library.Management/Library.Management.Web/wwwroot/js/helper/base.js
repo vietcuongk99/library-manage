@@ -40,14 +40,14 @@ class BaseJS {
             </div>
             </li>`
 
-            //nếu user là admin
+            //nếu user không có quyền manage/admin
             //thêm đường dẫn tới trang admin.html
-            if (userObject.isAdmin == 1) {
-                $('#navItemList').append(manageSystemBtn)
+            if (userObject.conditionAccount == 1) {
                 $('#navItemList').append(dropDownAction)
             }
-            //nếu user không phải admin
+            //nếu user không có quyền manage/admin
             else {
+                $('#navItemList').append(manageSystemBtn)
                 $('#navItemList').append(dropDownAction)
             }
         } else {

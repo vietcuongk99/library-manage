@@ -41,7 +41,7 @@ class LoginJS {
         var validateCheck = loginJS.validateInput()
         var usernameInput = $('#usernameInput').val().trim()
         var passwordInput = $('#passwordInput').val().trim()
-        //nếu validate thành công
+            //nếu validate thành công
         if (validateCheck) {
             //khởi tạo data trước khi call api
             var userInput = { "userName": usernameInput, "passWord": passwordInput };
@@ -130,39 +130,12 @@ class LoginJS {
 //fake data
 
 var borrowList = [{
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee46",
-        returnDate: "30/4/2021",
-        borrowDate: "26/1/2021",
-        borrowStatus: 1,
-        bookName: "Clean Code: A Handbook Of Agile Software Craftmanship",
-        bookAuthor: "Robert C.Martin",
-        bookImageUri: "../content/img/avatar-book-default.jpg"
-    },
-    {
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee47",
-        returnDate: "28/3/2021",
-        borrowDate: "28/2/2021",
-        borrowStatus: 1,
-        bookName: "Design Patterns",
-        bookAuthor: "Erich Gamma, John Vlissides, Richard Helm, Ralph Johnson",
-        bookImageUri: "../content/img/avatar-book-default.jpg"
-    },
-    {
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee48",
-        returnDate: "30/3/2021",
-        borrowDate: "26/2/2021",
-        borrowStatus: 1,
-        bookName: "Java Design Patterns: A Hands-On Experience with Real-World Examples",
-        bookAuthor: "Vaskaran Sarcar",
-        bookImageUri: "../content/img/avatar-book-default.jpg"
-    },
-    {
-        bookId: "4b7e5d02-1646-4b65-9a3e-92bfbb0bee49",
-        returnDate: "30/3/2021",
-        borrowDate: "1/3/2021",
-        borrowStatus: 1,
-        bookName: "Code Dạo Kí Sự - Lập Trình Viên Đâu Phải Chỉ Biết Code",
-        bookAuthor: "Phạm Huy Hoàng",
-        bookImageUri: "../content/img/avatar-book-default.jpg"
-    }
-]
+    bookBorrowID: "4d70f6bd-70a7-44e8-9c82-0d370ed2ccdb",
+    bookAuthor: "Hiroshi Fujimoto",
+    bookId: "00000000-0000-0000-0000-000000000000",
+    bookImageUri: "../content/img/avatar-book-default.jpg",
+    bookName: "Truyện tranh Doraemon",
+    borrowDate: "2021-03-30",
+    borrowStatus: 1,
+    returnDate: "2021-04-22",
+}]

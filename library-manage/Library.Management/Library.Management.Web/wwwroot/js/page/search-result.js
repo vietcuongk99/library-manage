@@ -41,7 +41,6 @@ class SearchResultJS extends BaseJS {
             commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
             paginationHTML.insertBefore('footer')
 
-
         }
 
         //nếu user ấn button 'xem thêm' sách mới trên trang index
@@ -71,9 +70,6 @@ class SearchResultJS extends BaseJS {
             }).done(function(res) {
                 if (res.success) {
                     commonBaseJS.showLoadingData(0);
-                    //load kết quả tìm kiếm
-                    $(`<div class="loader mx-auto my-auto"></div>`).remove()
-
                     //thay đổi giao diện
                     $('footer').removeClass("fixed-bottom")
                     var data = res.data.lstData
@@ -84,7 +80,7 @@ class SearchResultJS extends BaseJS {
                     commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
-            }).fail(function (res) {
+            }).fail(function(res) {
                 commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
             })
