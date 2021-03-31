@@ -192,7 +192,7 @@ namespace Library.Management.BL
             bookDetail.BookImageUri = param.BookImageUri;
             bookDetail.BookDownloadUri = param.BookDownloadUri;
             bookDetail.BorrowTotal = param.BorrowTotal;
-            bookDetail.Status = param.Status;
+            bookDetail.Status = (int)Status.Active;
             bookDetail.BookAuthor = param.BookAuthor;
             bookDetail.AmountPage = param.AmountPage;
             bookDetail.YearOfPublication = param.YearOfPublication;

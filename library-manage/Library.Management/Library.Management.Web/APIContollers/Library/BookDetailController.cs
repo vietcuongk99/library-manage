@@ -50,6 +50,7 @@ namespace Library.Management.Web
         [HttpPut("UpdateBookDetail")]
         public async Task<ActionServiceResult> UpdateBookDetail(ParameterUpdateBook param)
         {
+            param.BookImageUri = GlobalResource.DirectoryBookImageUri + param.BookId + ".jpg";
             var res = await _bookDetailBL.UpdateBookDetail(param);
             return res;
         }

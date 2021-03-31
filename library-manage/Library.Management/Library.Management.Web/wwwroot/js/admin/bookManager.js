@@ -3,6 +3,8 @@
 });
 
 class BookManager {
+    static editMode = 1;
+
     constructor() {
         this.loadData();
         this.initEvents();
@@ -10,9 +12,10 @@ class BookManager {
 
     loadData() {
         var self = this;
+        
         $.ajax({
             method: "GET",
-            url: host + "api/BookDetail/",
+            url: "/api/BookDetail/",
             async: true,
             contentType: "application/json",
         }).done(function (res) {
@@ -33,6 +36,8 @@ class BookManager {
     initEvents() {
         $(".downloadTemplateFile").on('click', this.downloadTemplateFile.bind(this));
         $("#btn-import").on('click', this.uploadFileImport.bind(this));
+        $(".btnDelete").on('click', this.onClickDelete.bind(this));
+        $(".btnAdd").on('click', this.onShowModal.bind(this));
         $(".check-file-upload").on("change", function () {
             let filename = $(this).val().split("\\").pop();
             if (filename == '') {
@@ -43,6 +48,7 @@ class BookManager {
             }
             $(this).blur();
         });
+        $('#searchResultDiv').on('dblclick', '.card.h-100', this.handleDbClickBook.bind(this))
     }
 
     downloadTemplateFile(event) {
@@ -134,20 +140,91 @@ class BookManager {
 
             var card = $(`<div class="col-lg-3 col-sm-6 portfolio-item">
                             </div>`)
-            var bookHTML = $(`
-            <div class="card h-100">
-                <img class="card-img-top mx-auto" src="` + book.bookImageUri + `" alt="" style="width: 150px; height: 200px">
+            var bookHTML = `
+            <div class="card h-100" bookId="${book.bookId}">
+                <input type="checkbox" class="cbxBookDetail" />
+                <img class="card-img-top mx-auto" src="${book.bookImageUri}" alt="" style="width: 150px; height: 200px">
                 <div class="card-body">
-                    <p class="card-title font-weight-bold text-truncate text-uppercase">` + book.bookName + `</p>
-                    <p class="text-truncate">` + book.bookAuthor + `</p>
+                    <p class="card-title font-weight-bold text-truncate text-uppercase">${book.bookName}</p>
+                    <p class="text-truncate">${book.bookAuthor}</p>
                 </div>
-            </div>`)
-
-            bookHTML.data('bookId', book.bookId)
-            $(card).append(bookHTML)
-            row.append(card)
+            </div>`;
+            
+            $(bookHTML).data('bookId', book.bookId);
+            card.append($(bookHTML));
+            row.append(card);
         })
 
         $(selector).html(row)
+    }
+
+    onClickDelete() {
+        var self = this,
+            listID = BookManager.getRecordSelected();
+
+        if (listID.length > 0) {
+            var conf = confirm("Bạn có thực sự muốn những cuốn sách này không?");
+            if (conf == true) {
+
+                $.ajax({
+                    method: "DELETE",
+                    url: "/api/BookDetail/GroupID",
+                    data: JSON.stringify(listID),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    async: false,
+                }).done(function (res) {
+                    if (res.success) {
+                        $('#searchResultDiv').empty();
+                        self.loadData();
+                        commonBaseJS.showToastMsgSuccess("Bạn đã xóa sách thành công.");
+                    } else {
+                        commonBaseJS.showToastMsgFailed("Xóa sách không thành công")
+                    }
+                }).fail(function (res) {
+                    commonBaseJS.showToastMsgFailed("Xóa sách không thành công")
+                })
+            }
+        }
+        else {
+            alert("Vui lòng chọn sách cần xóa");
+        }
+    }
+
+    static getRecordSelected() {
+        var lstBookId = [],
+            lstChecked = $('.cbxBookDetail:checkbox:checked');
+
+        if (lstChecked.length > 0) {
+            for (var i = 0; i < lstChecked.length; i++) {
+                var a = $(lstChecked[i]).parent(),
+                    bookId = a.get(0).getAttribute('bookId');
+
+                lstBookId.push(bookId);
+            }
+        }
+
+        return lstBookId;
+    }
+
+    onShowModal(event) {
+        BookManager.editMode = 1;
+        $('#modalAddBook').modal('show'); 
+    }
+
+    handleDbClickBook(event) {
+        var thisCard = event.target.closest('.portfolio-item'),
+            lstChecked = $('.cbxBookDetail:checkbox:checked');
+
+        if (lstChecked.length > 0) {
+            for (var i = 0; i < lstChecked.length; i++) {
+                lstChecked[i].checked = false;
+            }
+        }
+
+        thisCard.querySelector('.cbxBookDetail').checked = true;
+        
+        BookManager.editMode = 2;
+        $('#modalAddBook').modal('show'); 
     }
 }

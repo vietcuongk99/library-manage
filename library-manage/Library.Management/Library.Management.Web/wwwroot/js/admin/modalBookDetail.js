@@ -6,6 +6,7 @@ $(document).ready(function () {
 
 class BookDetailJS {
     constructor() {
+        $('#modalAddBook').on('shown.bs.modal', this.onloadDataEdit.bind(this))
         this.loadBookData();
         this.initEvent();
     }
@@ -36,6 +37,57 @@ class BookDetailJS {
         })
     }
 
+    onloadDataEdit() {
+        if (BookManager.editMode == 2) {
+            var thisBookId = BookManager.getRecordSelected()[0];
+
+            if (thisBookId) {
+                $.ajax({
+                    method: "GET",
+                    url: `/api/BookDetail/${thisBookId}`,
+                    async: true,
+                    contentType: "application/json"
+                }).done(function (res) {
+                    if (res.success) {
+                        var data = res.data;
+
+                        $('#bookCode').val(data.bookCode);
+                        $('#bookName').val(data.bookName);
+                        $('#bookCategory').val(data.bookCategoryId);
+                        $('#bookDownLink').val(data.bookDownloadUri);
+                        $('#bookAuthor').val(data.bookAuthor);
+                        $('#bookPage').val(data.amountPage);
+                        $('#bookYear').val(data.yearOfPublication);
+                        $('#bookDescription').val(data.description);
+
+                        $.ajax({
+                            method: "GET",
+                            url: "/api/BookDetail/GetImageFromUrl" + "?bookID=" + data.bookId + "&bookImageUri=" + data.bookImageUri,
+                            contentType: "application/json"
+                        }).done(function (res) {
+                            if (res.success) {
+                                var imgData = res.data;
+                                if (imgData.BookDetailImageUri != null) {
+                                    $('#blah').attr('src', "data:image/jpg;base64," + imgData.BookDetailImageUri)
+                                }
+
+                            } else {
+                                commonBaseJS.showToastMsgFailed(res.message);
+                            }
+                        }).fail(function (res) {
+                            commonBaseJS.showToastMsgFailed("Không tải được ảnh bìa sách.");
+                        })
+
+                    } else {
+                        commonBaseJS.showToastMsgFailed("Không lấy được thông tin sách")
+                    }
+                }).fail(function (res) {
+                    commonBaseJS.showToastMsgFailed("Không lấy được thông tin sách")
+                })
+            }
+        }
+    }
+
     initEvent() {
         newGuid = this.createGuid();
 
@@ -60,6 +112,10 @@ class BookDetailJS {
                     BookID: newGuid,
                     BookDetailImageUri: $("#blah").attr("src").split(",")[1]
                 };
+
+                if (BookManager.editMode == 2) {
+                    data.BookID = BookManager.getRecordSelected()[0];
+                }
 
                 //call api
                 $.ajax({
@@ -98,24 +154,51 @@ class BookDetailJS {
                 Description: $('#bookDescription').val(),
             }
 
-            $.ajax({
-                method: "POST",
-                url: "/api/BookDetail/InsertBookDetail",
-                async: true,
-                data: JSON.stringify(objectData),
-                contentType: "application/json"
-            }).done(function (res) {
-                if (res.success) {
-                    commonBaseJS.showToastMsgSuccess("Thêm mới sách thành công.")
-                    $('.btn-discard').click();
-                    $('.fade').hide();
+            if (BookManager.editMode == 1) {
+                $.ajax({
+                    method: "POST",
+                    url: "/api/BookDetail/InsertBookDetail",
+                    async: true,
+                    data: JSON.stringify(objectData),
+                    contentType: "application/json"
+                }).done(function (res) {
+                    if (res.success) {
+                        commonBaseJS.showToastMsgSuccess("Thêm mới sách thành công.")
+                        $('.btn-discard').click();
+                        $('.fade').hide();
 
-                } else {
+                    } else {
+                        commonBaseJS.showToastMsgFailed("Thêm sách thất bại")
+                    }
+                }).fail(function (res) {
                     commonBaseJS.showToastMsgFailed("Thêm sách thất bại")
-                }
-            }).fail(function (res) {
-                commonBaseJS.showToastMsgFailed("Thêm sách thất bại")
-            })
+                })
+            }
+            else {
+                var thisBookId = BookManager.getRecordSelected()[0];
+
+                objectData.BookId = thisBookId;
+                objectData.BorrowTotal = 0;
+
+                $.ajax({
+                    method: "PUT",
+                    url: "/api/BookDetail/UpdateBookDetail",
+                    async: true,
+                    data: JSON.stringify(objectData),
+                    contentType: "application/json"
+                }).done(function (res) {
+                    if (res.success) {
+                        commonBaseJS.showToastMsgSuccess("Cập nhật thông tin sách thành công.")
+                        $('.btn-discard').click();
+                        $('.fade').hide();
+
+                    } else {
+                        commonBaseJS.showToastMsgFailed("Cập nhật thông tin sách thất bại")
+                    }
+                }).fail(function (res) {
+                    commonBaseJS.showToastMsgFailed("Cập nhật thông tin sách thất bại")
+                })
+            }
         }
     }
 
@@ -159,7 +242,13 @@ class BookDetailJS {
         let me = $(event.target),
             $error = me.next();
 
-        let validateObj = Validation.validateBookDetail('BookCode', me.val(), null, null);
+        let validateObj = true;
+
+        if (BookManager.editMode == 1) {
+            validateObj = Validation.validateBookDetail('BookCode', me.val(), null, null);
+        } else {
+            validateObj = Validation.validateBookDetail('', me.val(), null, null);
+        }
         if (!validateObj.idIsValid) {
             $error.show().text(validateObj.msg);
         }
