@@ -1,12 +1,9 @@
 $(document).ready(function() {
     //xóa thông tin tìm kiếm cũ trong localStorage
-    localStorage.removeItem("fieldValue")
-    localStorage.removeItem("fieldText")
-    localStorage.removeItem("searchValue")
-    localStorage.removeItem("showHotBook")
-    localStorage.removeItem("showNewBook")
-    localStorage.removeItem("showAllBook")
-    localStorage.removeItem("bookId")
+    //localStorage.removeItem("searchValue")
+    //localStorage.removeItem("showHotBook");
+    //localStorage.removeItem("showNewBook");
+    // localStorage.removeItem("bookId")
 
     indexJS = new IndexJS()
 })
@@ -26,10 +23,10 @@ class IndexJS extends BaseJS {
     loadBookData() {
 
         //load dữ liệu Sách Mới
-        commonJS.appendBookDataToCard(fakeData, "#newBookRow")
+        //commonJS.appendBookDataToCard(fakeData, "#newBookRow")
 
         //load dữ liệu Sách HOT
-        commonJS.appendBookDataToCard(fakeData, "#hotBookRow")
+        //commonJS.appendBookDataToCard(fakeData, "#hotBookRow")
     }
 
 
@@ -39,12 +36,12 @@ class IndexJS extends BaseJS {
         //gán xử lý sự kiện khi click nút Tìm kiếm
         $('#searchBtn').on('click', this.searchEvent.bind(this));
         //gán xử lý sự kiện khi click nút Xem thêm Sách HOT
-        $('#showHotBookBtn').on('click', this.getAllHotBookEvent.bind(this));
+        //$('#showHotBookBtn').on('click', this.getAllHotBookEvent.bind(this));
         //gán xử lý sự kiện khi click nút Xem thêm Sách Mới
-        $('#showNewBookBtn').on('click', this.getAllNewBookEvent.bind(this));
+        // $('#showNewBookBtn').on('click', this.getAllNewBookEvent.bind(this));
         //gán xử lý sự kiện khi click vào 1 card sách
-        $('#newBookRow').children('div').on('click', 'div.card.h-100', this.cardOnClick)
-        $('#hotBookRow').children('div').on('click', 'div.card.h-100', this.cardOnClick)
+        //$('#newBookRow').children('div').on('click', 'div.card.h-100', this.cardOnClick)
+        //$('#hotBookRow').children('div').on('click', 'div.card.h-100', this.cardOnClick)
 
     }
 
@@ -79,18 +76,10 @@ class IndexJS extends BaseJS {
     searchEvent() {
 
         //lấy thông tin tìm kiếm hiện tại
-        var fieldValue = $('#searchSelectGroup').val()
-        var fieldText = $('#searchSelectGroup option:selected').text()
         var searchValue = $('#searchInput').val().trim()
 
         //lưu thông tin tìm kiếm vào localStorage
-        if (searchValue.length > 0) {
-            localStorage.setItem("fieldText", fieldText)
-            localStorage.setItem("fieldValue", fieldValue)
-            localStorage.setItem("searchValue", searchValue)
-        } else {
-            localStorage.setItem("showAllBook", true)
-        }
+        localStorage.setItem("searchValue", searchValue);
 
         window.open("search-result.html", "_self")
 

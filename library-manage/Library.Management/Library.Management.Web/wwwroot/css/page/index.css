@@ -1,0 +1,5 @@
+/* custom bootstrap */
+
+.form-inline .form-control {
+    width: 450px;
+}

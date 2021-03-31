@@ -16,6 +16,7 @@
     <!-- Custom styles for this template -->
     <link href="../css/page/common.css" rel="stylesheet">
     <link href="../css/base/common.css" rel="stylesheet" />
+    <link href="../css/page/index.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
 </head>
@@ -51,18 +52,19 @@
             <h1>Hệ thống quản lý thư viện</h1>
         </div>
 
-        <form class="form-inline">
+        <div class="form-inline">
             <div class="form-group mx-auto mb-3">
-                <select id="searchSelectGroup" class="custom-select custom-select-sm ml-1">
+                <!-- <select id="searchSelectGroup" class="custom-select custom-select-sm ml-1">
                     <option value="0" selected>Mọi trường</option>
                     <option value="1">Tên sách</option>
                     <option value="2">Loại sách</option>
                     <option value="3">Năm xuất bản</option>
-                </select>
-                <input id="searchInput" class="form-control form-control-sm ml-1" type="text" placeholder="...">
-                <button id="searchBtn" type="button" class="btn btn-outline-light btn-sm ml-1">Tìm kiếm</button>
+                </select> -->
+                <label><input id="searchInput" class="form-control text-center" type="text" placeholder="Nhập tên cuốn sách bạn cần tìm">
+                    <button id="searchBtn" type="button" class="btn btn-outline-light ml-1 col-xs-4">Tìm kiếm</button></label>
+
             </div>
-        </form>
+        </div>
     </header>
 
     <!-- Page Content -->
@@ -139,9 +141,7 @@
                     </li>
                     <li>Đăng ký mượn, trả sách</li>
                     <li>Gia hạn thời gian mượn, trả sách</li>
-                    <li>...</li>
                 </ul>
-                <p>Hệ thống quản lý thư viện.</p>
             </div>
             <div class="col-lg-6">
                 <img class="img-fluid rounded" src="../content/img/landing-bg.png" alt="">

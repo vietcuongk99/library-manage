@@ -47,36 +47,8 @@ var commonJS = {
 
 
     //append dữ liệu vào thẻ card
-    //sử dụng trong trang index, search-result
+    //sử dụng trong trang search-result
     appendBookDataToCard(data, selector) {
-
-        var row = $(`<div class="row mt-2"></div>`)
-        data.forEach(book => {
-
-            if (book.bookImageUri.includes("~Temp") || book.bookImageUri.trim().length == 0) {
-                book.bookImageUri = "../content/img/avatar-book-default.jpg"
-            }
-            var card = $(`<div class="col-md-6 col-lg-3 col-sm-6 portfolio-item">
-                            </div>`)
-            var bookHTML = $(`
-            <div class="card h-100">
-                    <img class="card-img-top mx-auto" src="` + book.bookImageUri + `" alt="" style="width: 150px; height: 200px">
-                    <div class="card-body">
-                        <p class="card-title text-truncate text-uppercase">` + book.bookName + `</b>
-                        <p class="text-truncate">` + book.bookAuthor + `</p>
-                    </div>
-                </div>`)
-
-            bookHTML.data('bookId', book.bookId)
-            $(card).append(bookHTML)
-            row.append(card)
-        })
-        $(selector).html(row)
-    },
-
-    //append dữ liệu sách đang mượn vào thẻ card
-    //sử dụng trong trang account
-    appendBorrowDataToCard(data, selector) {
 
         var row = $(`<div class="row mt-2"></div>`)
         data.forEach(book => {
@@ -90,6 +62,36 @@ var commonJS = {
                     <div class="card-body">
                         <p class="card-title text-truncate text-uppercase">` + book.bookName + `</b>
                         <p class="text-truncate">` + book.bookAuthor + `</p>
+                    </div>
+                </div>`)
+
+            bookHTML.data('bookId', book.bookID)
+            $(card).append(bookHTML)
+            row.append(card)
+        })
+        $(selector).html(row)
+    },
+
+    //append dữ liệu sách đang mượn vào thẻ card
+    //sử dụng trong trang account
+    appendBorrowDataToCard(data, selector) {
+        //lấy ra ngày hiện tại
+        var dateNow = commonJS.getDateString(new Date(), Enum.ConvertOption.YEAR_FIRST);
+        var row = $(`<div class="row mt-2"></div>`)
+        data.forEach(book => {
+
+            var checkDateHTML = (book.returnDate > dateNow) ?
+                `<div class="text-success text-center">Còn hạn</div>` :
+                `<div class="text-danger text-center">Quá hạn</div>`
+            var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
+            var card = $(`<div class="col-md-6 col-lg-3 col-sm-6 portfolio-item">
+                            </div>`)
+            var bookHTML = $(`
+            <div class="card h-100">
+                    <img class="card-img-top mx-auto" src="` + bookImgBase64String + `" alt="" style="width: 150px; height: 200px">
+                    <div class="card-body">
+                        <p class="card-title text-truncate text-uppercase">` + book.bookName + `</b>
+                        <p class="text-truncate">` + book.bookAuthor + `</p>` + checkDateHTML + `
                     </div>
                 </div>`)
 

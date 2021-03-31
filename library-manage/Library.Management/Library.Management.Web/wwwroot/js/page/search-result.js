@@ -1,3 +1,13 @@
+//số lượng bản ghi sách hiển thị trên một trang
+const RECORD_PER_PAGE = 8;
+//khai báo trang hiển thị mặc định
+const PAGE_DEFAULT = 1;
+//khai báo số trang hiển thị mặc định
+const VISIBLE_PAGE_DEFAULT = 1;
+//khai báo biến toàn cục lưu tổng số bản ghi sách sau tìm kiếm và số trang hiển thị
+var totalRecord;
+var totalPages;
+
 $(document).ready(function() {
     searchResultJS = new SearchResultJS()
 })
@@ -23,12 +33,11 @@ class SearchResultJS extends BaseJS {
     loadData() {
 
         //khai báo và gán giá trị trong localStorage
-        var fieldValue = localStorage.getItem("fieldValue")
-        var fieldText = localStorage.getItem("fieldText")
+        // var fieldValue = localStorage.getItem("fieldValue")
+        // var fieldText = localStorage.getItem("fieldText")
         var searchValue = localStorage.getItem("searchValue");
         var showNewBook = localStorage.getItem("showNewBook")
         var showHotBook = localStorage.getItem("showHotBook");
-        var showAllBook = localStorage.getItem("showAllBook");
 
         //load dữ liệu các thành phần HTML
         //dữ liệu thay đổi phụ thuộc event trên trang index
@@ -37,9 +46,13 @@ class SearchResultJS extends BaseJS {
 
             //load dữ liệu
             var fieldHTML = $(`<li class="breadcrumb-item">Sách HOT</li>`)
-            $('#breadcrumbDiv').append(fieldHTML)
+            $('#breadcrumbDiv').append(fieldHTML);
+            //gán dữ liệu lên ui
+            //đợi api
             commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
-            paginationHTML.insertBefore('footer')
+
+            //thay đổi giao diện footer
+            $('footer').removeClass("fixed-bottom")
 
         }
 
@@ -48,52 +61,57 @@ class SearchResultJS extends BaseJS {
 
             //load dữ liệu
             var fieldHTML = $(`<li class="breadcrumb-item">Sách Mới</li>`)
-            $('#breadcrumbDiv').append(fieldHTML)
+            $('#breadcrumbDiv').append(fieldHTML);
+            //gán dữ liệu lên ui
+            //đợi api
             commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
-            paginationHTML.insertBefore('footer')
+
+            //thay đổi giao diện footer
+            $('footer').removeClass("fixed-bottom")
         }
 
         //nếu user ấn nút tìm kiếm trên trang index
-        //chưa có dữ liệu tìm kiếm
-        if (showAllBook) {
-            commonBaseJS.showLoadingData(1);
-            //lấy ra tất cả đầu sách trong csdl
+        if (searchValue || searchValue == "") {
+
+            if (searchValue.trim().length > 0) {
+                //thay đổi giao diện breadcrumb
+                var fieldHTML = $(`<li class="breadcrumb-item">Tên sách</li><li class="breadcrumb-item">` + searchValue.trim() + `</li>`)
+                $('#breadcrumbDiv').append(fieldHTML)
+            }
+            //lấy ra đầu sách phù hợp trong csdl
             $.ajax({
                 method: "GET",
-                url: HOST_URL + "api/BookDetail/",
+                url: HOST_URL + "api/BookDetail/GetPagingData?paramBookName=" + searchValue.trim() + "&pageNumber=" + PAGE_DEFAULT + "&pageSize=" + RECORD_PER_PAGE,
                 async: true,
                 contentType: "application/json",
                 beforeSend: function() {
-                    $('#searchResultDiv').html(`<div class="loader mx-auto mb-5"></div>`);
-                    $('footer').addClass("fixed-bottom")
+                    //show loading
+                    commonBaseJS.showLoadingData(1);
                 }
             }).done(function(res) {
-                if (res.success) {
-                    commonBaseJS.showLoadingData(0);
-                    //thay đổi giao diện
-                    $('footer').removeClass("fixed-bottom")
-                    var data = res.data.lstData
-                    commonJS.appendBookDataToCard(data, "#searchResultDiv")
-                    paginationHTML.insertBefore('footer')
+                if (res.success && res.data) {
+                    //gán tổng số bản ghi cho biến toàn cục
+                    totalRecord = res.data.totalRecord;
 
+                    //tính toán số trang hiển thị và gán cho biến toàn cục
+                    totalPages = Math.ceil(totalRecord / RECORD_PER_PAGE);
+
+                    //gọi hàm loadPaginationSearchResult
+                    //phân trang dữ liệu
+                    searchResultJS.loadPaginationSearchResult(totalPages, searchValue)
                 } else {
+                    //ẩn loading
                     commonBaseJS.showLoadingData(0);
-                    commonBaseJS.showToastMsgFailed(res.message);
+                    //show alert
+                    commonBaseJS.showToastMsgFailed("Không tìm thấy sách phù hợp.");
                 }
             }).fail(function(res) {
+                //ẩn loading
                 commonBaseJS.showLoadingData(0);
+                //show alert
                 commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
             })
         }
-
-        //nếu user ấn nút tìm kiếm trên trang index
-        //đã có dữ liệu tìm kiếm
-        if (searchValue && fieldValue) {
-
-            var fieldHTML = $(`<li class="breadcrumb-item">` + fieldText + `</li><li class="breadcrumb-item">` + searchValue.trim() + `</li>`)
-            $('#breadcrumbDiv').append(fieldHTML)
-        }
-
 
     }
 
@@ -109,31 +127,48 @@ class SearchResultJS extends BaseJS {
         window.open("book-detail.html", "_self")
     }
 
+
+    //phân trang và hiển thị kết quả tìm kiếm
+    loadPaginationSearchResult(totalPages, searchValue) {
+
+        //gọi hàm twbsPagination từ twbs-pagination plugin
+        $('#pagingDiv').twbsPagination({
+            totalPages: totalPages,
+            visiblePages: VISIBLE_PAGE_DEFAULT,
+            onPageClick: function(event, page) {
+                //call api
+                $.ajax({
+                    method: "GET",
+                    url: HOST_URL + "api/BookDetail/GetPagingData?paramBookName=" + searchValue.trim() + "&pageNumber=" + page + "&pageSize=" + RECORD_PER_PAGE,
+                    async: true,
+                    contentType: "application/json",
+                    beforeSend: function() {
+                        //show loading
+                        commonBaseJS.showLoadingData(1);
+                    }
+                }).done(function(res) {
+                    if (res.success && res.data) {
+
+                        //gán dữ liệu lên ui
+                        commonJS.appendBookDataToCard(res.data.dataItems, "#searchResultDiv");
+                        //ẩn loading
+                        commonBaseJS.showLoadingData(0);
+
+
+                    } else {
+                        //ẩn loading
+                        commonBaseJS.showLoadingData(0);
+                        //show alert
+                        commonBaseJS.showToastMsgFailed(res.message);
+                    }
+                }).fail(function(res) {
+                    //ẩn loading
+                    commonBaseJS.showLoadingData(0);
+                    //show alert
+                    commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
+                })
+            }
+        })
+    }
+
 }
-
-var paginationHTML = $(`<ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
-        `)
-
-//fake data

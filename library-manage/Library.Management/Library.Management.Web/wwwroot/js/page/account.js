@@ -4,6 +4,8 @@ const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/jpg'];
 var userData = {}
 
 $(document).ready(function() {
+    //reload ngay khi truy cập trang account
+
     accountJS = new AccountJS()
 })
 
@@ -26,6 +28,8 @@ class AccountJS extends BaseJS {
         var userObject = JSON.parse(localStorage.getItem("user"))
         var userID = userObject.userID
 
+        //hiện loading
+        commonBaseJS.showLoadingData(1);
         //call api
         $.ajax({
             method: "GET",
@@ -70,6 +74,9 @@ class AccountJS extends BaseJS {
                 $('#countryInput').val(userData.country);
                 $('#emailInput').val(userData.email);
                 $('#passwordInput').val(userData.password)
+
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
 
 
             } else {
@@ -123,24 +130,51 @@ class AccountJS extends BaseJS {
         var userObject = JSON.parse(localStorage.getItem("user"));
         var userID = userObject.userID;
 
+        //hiện loading
+        commonBaseJS.showLoadingData(1);
         //call api
+        //cache: false - gọi lại ajax khi ấn back button trên browser
         $.ajax({
             method: "GET",
             url: HOST_URL + "api/BookBorrow/GetPagingData?userId=" + userID,
-            contentType: "application/json"
-
+            contentType: "application/json",
+            cache: false
         }).done(function(res) {
             //nếu server xử lý thành công
             if (res.success) {
+
                 //gán data
-                var borrowList = res.data;
+                var list = res.data;
                 //gọi hàm render html lên ui
                 //commonJS
-                commonJS.appendBorrowDataToCard(borrowList, "#borrowListContent");
+                commonJS.appendBorrowDataToCard(list, "#borrowListContent");
+
+                //khởi tạo borrowList array mới nhất
+                var borrowList = []
+
+                //gán giá trị cho borrowItem và lưu vào borrowList
+                list.forEach(item => {
+                    var borrowItem = {};
+                    borrowItem.bookBorrowID = item.bookBorrowID;
+                    borrowItem.bookID = item.bookID;
+                    borrowItem.borrowDate = commonJS.getDateString(new Date(item.borrowDate), Enum.ConvertOption.YEAR_FIRST);
+                    borrowItem.returnDate = commonJS.getDateString(new Date(item.returnDate), Enum.ConvertOption.YEAR_FIRST);
+                    borrowList.push(borrowItem)
+                });
+
+                //lưu borrowList mới nhất vào local storage
+                localStorage.setItem("borrowList", JSON.stringify(borrowList));
+
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
             } else {
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgFailed(res.message);
             }
         }).fail(function(res) {
+            //ẩn loading
+            commonBaseJS.showLoadingData(0);
             commonBaseJS.showToastMsgFailed("Lấy thông tin sách đang mượn thất bại.");
         })
 
