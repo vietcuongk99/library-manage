@@ -150,12 +150,46 @@ var commonJS = {
         var sURLVariables = sPageURL.split('&');
         for (var i = 0; i < sURLVariables.length; i++) {
             var sParameterName = sURLVariables[i].split('=');
-            debugger
             if (sParameterName[0] == sParam) {
-                debugger
                 //decodeUriComponent giúp giải mã chuỗi có kí tự đặc biệt, ví dụ "%20" -> " "
                 return decodeURIComponent(sParameterName[1]);
             }
         }
+    },
+
+    //lấy số sách đang mượn hiện tại của người dùng
+    getBorrowListSize() {
+        //lấy ra danh sách mượn của user trong localStorage
+        var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
+        //lấy ra số lượng sách đang mượn
+        return borrowList.length;
+    },
+
+    //kiểm tra sách hiện tại có đang mượn hay không
+    checkValidBookBorrow(bookId) {
+
+        //khai báo kết quả trả về
+        var result = true;
+        //lấy ra danh sách mượn của user trong localStorage
+        var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
+
+        if (borrowList.length > 0) {
+            //kiểm tra id sách hiện tại trong danh sách mượn
+            for (let index = 0; index < borrowList.length; index++) {
+                if (bookId == borrowList[index].bookID) {
+                    result = true;
+                    break
+                } else {
+                    result = false;
+                }
+            }
+        } else {
+            result = false;
+        }
+
+
+
+        return result;
+
     }
 }
