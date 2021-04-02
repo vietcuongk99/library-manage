@@ -1,11 +1,14 @@
 //số lượng bản ghi sách hiển thị trên một trang
-const RECORD_PER_PAGE = 8;
+//20 sách
+const RECORD_PER_PAGE = 20;
 //khai báo trang hiển thị mặc định
+//trang đầu tiên
 const PAGE_DEFAULT = 1;
-//khai báo số trang hiển thị mặc định
+//khai báo số trang hiển thị mặc định trên thanh pagination
+//1 trang
 const VISIBLE_PAGE_DEFAULT = 1;
 //khai báo biến toàn cục lưu tổng số bản ghi sách sau tìm kiếm và số trang hiển thị
-var totalRecord;
+var totalBookRecord;
 var totalPages;
 
 $(document).ready(function() {
@@ -52,7 +55,7 @@ class SearchResultJS extends BaseJS {
             commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
 
             //thay đổi giao diện footer
-            $('footer').removeClass("fixed-bottom")
+            // $('footer').removeClass("fixed-bottom")
 
         }
 
@@ -67,7 +70,7 @@ class SearchResultJS extends BaseJS {
             commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
 
             //thay đổi giao diện footer
-            $('footer').removeClass("fixed-bottom")
+            //$('footer').removeClass("fixed-bottom")
         }
 
         //nếu user ấn nút tìm kiếm trên trang index
@@ -90,11 +93,12 @@ class SearchResultJS extends BaseJS {
                 }
             }).done(function(res) {
                 if (res.success && res.data) {
+                    debugger
                     //gán tổng số bản ghi cho biến toàn cục
-                    totalRecord = res.data.totalRecord;
+                    totalBookRecord = res.data.totalRecord;
 
                     //tính toán số trang hiển thị và gán cho biến toàn cục
-                    totalPages = Math.ceil(totalRecord / RECORD_PER_PAGE);
+                    totalPages = Math.ceil(totalBookRecord / RECORD_PER_PAGE);
 
                     //gọi hàm loadPaginationSearchResult
                     //phân trang dữ liệu

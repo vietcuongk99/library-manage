@@ -80,7 +80,7 @@ var commonJS = {
         var row = $(`<div class="row mt-2"></div>`)
         data.forEach(book => {
 
-            var checkDateHTML = (book.returnDate > dateNow) ?
+            var checkDateHTML = (book.returnDate >= dateNow) ?
                 `<div class="text-success text-center">Còn hạn</div>` :
                 `<div class="text-danger text-center">Quá hạn</div>`
             var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;

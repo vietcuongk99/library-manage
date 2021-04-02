@@ -1,5 +1,5 @@
-/* custom bootstrap */
+/* custom bootstrap input-group */
 
-.form-inline .form-control {
-    width: 450px;
+.input-group .input-group-lg {
+    width: 50%!important;
 }

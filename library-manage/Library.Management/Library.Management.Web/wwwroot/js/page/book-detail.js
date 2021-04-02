@@ -334,10 +334,10 @@ class BookDetailJS extends BaseJS {
 
             //khai báo các thành phần html cho từng action với sách
             //button mượn sách, trả sách, gia hạn thời gian mượn, mở tài liệu
-            var borrowBtnHTML = $(`<button id="btnBorrowBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Mượn sách</button>`);
-            var returnBtnHTML = $(`<button id="btnReturnBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalReturnBook">Trả sách</button>`);
-            var extendBtnHTML = $(`<button id="btnExtendDate" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalExtendDate">Gia hạn</button>`)
-            var showFileBtnHTML = $(`<button id="btnShowFile" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#">Mở tài liệu</button>`)
+            var borrowBtnHTML = $(`<button id="btnBorrowBook" class="btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#modalBorrowBook">Mượn sách</button>`);
+            var returnBtnHTML = $(`<button id="btnReturnBook" class="btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#modalReturnBook">Trả sách</button>`);
+            var extendBtnHTML = $(`<button id="btnExtendDate" class="btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#modalExtendDate">Gia hạn</button>`)
+            var showFileBtnHTML = $(`<button id="btnShowFile" class="btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#">Mở tài liệu</button>`)
 
             //kiểm tra sách được mượn hay chưa
             //khai báo biến đếm
@@ -360,8 +360,10 @@ class BookDetailJS extends BaseJS {
                     $('#returnDateValue').html(returnDateValue);
                     $('#oldReturnDate').html(returnDateValue);
 
+                    debugger
                     //nếu sách vẫn còn hạn mượn
-                    if (borrowList[index].returnDate > dateNow) {
+                    if (borrowList[index].returnDate >= dateNow) {
+                        debugger
                         //thêm nút mở tài liệu
                         showFileBtnHTML.insertAfter($('#btnExtendDate'))
                     } else {
@@ -405,7 +407,7 @@ class BookDetailJS extends BaseJS {
         //self - invoke
         //kiểm tra input date đầy đủ thông tin ngày, tháng, năm
         var validateDate = function(dateInput) {
-            return dateInput.length > 0 && dateInput > dateCompare
+            return dateInput.length > 0 && dateInput >= dateCompare
         }(date)
 
         //nếu input được validate

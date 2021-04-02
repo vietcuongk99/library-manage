@@ -17,7 +17,7 @@
     <link href="../css/page/common.css" rel="stylesheet">
     <link href="../css/base/common.css" rel="stylesheet" />
     <link href="../css/page/index.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
 </head>
 
@@ -49,34 +49,25 @@
 
     <header>
         <div class="container text-center">
-            <h1>Hệ thống quản lý thư viện</h1>
+            <h2>Hệ thống quản lý thư viện</h2>
         </div>
-
-        <div class="form-inline">
-            <div class="form-group mx-auto mb-3">
-                <!-- <select id="searchSelectGroup" class="custom-select custom-select-sm ml-1">
-                    <option value="0" selected>Mọi trường</option>
-                    <option value="1">Tên sách</option>
-                    <option value="2">Loại sách</option>
-                    <option value="3">Năm xuất bản</option>
-                </select> -->
-                <label><input id="searchInput" class="form-control text-center" type="text" placeholder="Nhập tên cuốn sách bạn cần tìm">
-                    <button id="searchBtn" type="button" class="btn btn-outline-light ml-1 col-xs-4">Tìm kiếm</button></label>
-
+        <div class="input-group input-group-lg mx-auto mb-3 w-50 h-auto">
+            <input id="searchInput" class="input-group-prepend form-control text-center" type="text" placeholder="Tìm kiếm">
+            <div class="input-group-append">
+                <button id="searchBtn" type="button" class="fas fa-search btn btn-success"></button>
             </div>
         </div>
     </header>
 
     <!-- Page Content -->
     <div class="container">
-
-        <h3 class="mt-4 text-uppercase d-inline-flex align-middle">Tính năng</h3>
+        <h4 class="mt-4 text-uppercase d-inline-flex align-middle">Tính năng</h4>
         <button type="button" class="btn btn-outline-success btn-sm d-inline ml-1 mt-4 align-middle" onclick="window.location.href='services.html'">Xem thêm</button>
         <!-- TÍNH NĂNG -->
         <div class="row mt-2">
             <div class="col-lg-4 mb-4">
                 <div class="card h-100">
-                    <h4 class="card-header">Đăng ký</h4>
+                    <h5 class="card-header">Đăng ký</h5>
                     <div class="card-body">
                         <p class="card-text">Đăng ký tài khoản giúp bạn sử dụng các chức năng mà hệ thống cung cấp một cách trọn vẹn nhất.</p>
                     </div>
@@ -87,7 +78,7 @@
             </div>
             <div class="col-lg-4 mb-4">
                 <div class="card h-100">
-                    <h4 class="card-header">Mượn trả sách</h4>
+                    <h5 class="card-header">Mượn trả sách</h5>
                     <div class="card-body">
                         <p class="card-text">
                             Quản lý danh sách mượn, trả sách và gia hạn thời gian mượn, trả sách của bạn.
@@ -100,7 +91,7 @@
             </div>
             <div class="col-lg-4 mb-4">
                 <div class="card h-100">
-                    <h4 class="card-header">Tài khoản</h4>
+                    <h5 class="card-header">Tài khoản</h5>
                     <div class="card-body">
                         <p class="card-text">Tùy chỉnh thông tin tài khoản nhằm tối ưu thông tin của chính bạn khi sử dụng hệ thống.</p>
                     </div>
@@ -113,7 +104,7 @@
         <hr />
         <!-- /.row -->
         <!-- SÁCH MỚI -->
-        <h3 class="text-uppercase d-inline-flex align-middle">Sách mới</h3>
+        <h4 class="text-uppercase d-inline-flex align-middle">Sách mới</h4>
         <button id="showNewBookBtn" type="button" class="btn btn-outline-success btn-sm d-inline ml-1 align-mid">Xem thêm</button>
 
         <div id="newBookRow" class="mt-2">
@@ -122,7 +113,7 @@
         <hr />
         <!-- /.row -->
         <!-- SÁCH HOT -->
-        <h3 class="text-uppercase d-inline-flex align-middle">Sách hot</h3>
+        <h4 class="text-uppercase d-inline-flex align-middle">Sách hot</h4>
         <button id="showHotBookBtn" type="button" class="btn btn-outline-success btn-sm d-inline ml-1 align-middle">Xem thêm</button>
 
         <div id="hotBookRow" class="mt-2">
