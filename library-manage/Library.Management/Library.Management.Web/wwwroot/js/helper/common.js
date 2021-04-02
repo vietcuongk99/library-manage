@@ -54,14 +54,14 @@ var commonJS = {
         data.forEach(book => {
 
             var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
-            var card = $(`<div class="col-md-6 col-lg-3 col-sm-6 portfolio-item">
+            var card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
                             </div>`)
             var bookHTML = $(`
             <div class="card h-100">
-                    <img class="card-img-top mx-auto" src="` + bookImgBase64String + `" alt="" style="width: 150px; height: 200px">
+            <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 23rem;">
                     <div class="card-body">
-                        <p class="card-title text-truncate text-uppercase">` + book.bookName + `</b>
-                        <p class="text-truncate">` + book.bookAuthor + `</p>
+                        <p class="card-title text-truncate text-uppercase text-center">` + book.bookName + `</b>
+                        <p class="text-truncate text-center">` + book.bookAuthor + `</p>
                     </div>
                 </div>`)
 
@@ -84,14 +84,14 @@ var commonJS = {
                 `<div class="text-success text-center">Còn hạn</div>` :
                 `<div class="text-danger text-center">Quá hạn</div>`
             var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
-            var card = $(`<div class="col-md-6 col-lg-3 col-sm-6 portfolio-item">
+            var card = $(`<div class="col-6 col-md-3 col-sm-4 portfolio-item">
                             </div>`)
             var bookHTML = $(`
             <div class="card h-100">
-                    <img class="card-img-top mx-auto" src="` + bookImgBase64String + `" alt="" style="width: 150px; height: 200px">
+                    <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 17rem">
                     <div class="card-body">
-                        <p class="card-title text-truncate text-uppercase">` + book.bookName + `</b>
-                        <p class="text-truncate">` + book.bookAuthor + `</p>` + checkDateHTML + `
+                        <p class="card-title text-truncate text-uppercase text-center">` + book.bookName + `</b>
+                        <p class="text-truncate text-center">` + book.bookAuthor + `</p>` + checkDateHTML + `
                     </div>
                 </div>`)
 
