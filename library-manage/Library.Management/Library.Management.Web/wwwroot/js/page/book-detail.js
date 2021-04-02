@@ -2,11 +2,10 @@
 //user được mượn tối đa 4 tài liệu
 const MAX_BORROW_NUMBER = 4;
 
+//lấy ra id đầu sách từ url
+var bookId = commonJS.getURLParameter('id');
+
 $(document).ready(function() {
-    // $(window).on('popstate', function() {
-    //     debugger
-    //     location.reload();
-    // });
     bookDetailJS = new BookDetailJS()
 })
 
@@ -28,7 +27,7 @@ class BookDetailJS extends BaseJS {
         //hiện loading
         commonBaseJS.showLoadingData(1);
         //lấy ra bookId trong localStorage
-        var bookId = localStorage.getItem("bookId");
+        //var bookId = localStorage.getItem("bookId");
         //call api lấy thông tin sách
         $.ajax({
             method: "GET",
@@ -200,7 +199,7 @@ class BookDetailJS extends BaseJS {
     loadBookComment() {
 
         //lấy ra id book hiện tại từ local storage
-        var bookId = localStorage.getItem("bookId");
+        //var bookId = localStorage.getItem("bookId");
         if (bookId) {
             //call api
             $.ajax({
@@ -267,7 +266,7 @@ class BookDetailJS extends BaseJS {
 
         } else {
             //lấy ra userId và bookId trong localStorage
-            var bookId = localStorage.getItem("bookId");
+            //var bookId = localStorage.getItem("bookId");
             var userID = userObject.userID;
 
             //lấy giá trị validate comment
@@ -325,7 +324,7 @@ class BookDetailJS extends BaseJS {
             //lấy ra ngày hiện tại
             var dateNow = commonJS.getDateString(new Date(), Enum.ConvertOption.YEAR_FIRST);
             //lấy ra userId và bookId trong localStorage
-            var bookId = localStorage.getItem("bookId");
+            //var bookId = localStorage.getItem("bookId");
 
             //lấy ra danh sách mượn của user trong localStorage
             var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
@@ -458,7 +457,7 @@ class BookDetailJS extends BaseJS {
             //lấy thông tin user hiện tại
             var userObject = JSON.parse(localStorage.getItem("user"));
             //lấy ra userId và bookId trong localStorage
-            var bookId = localStorage.getItem("bookId");
+            //var bookId = localStorage.getItem("bookId");
             var userID = userObject.userID;
             //khai báo thời gian mượn và trả sách
             var dateNow = commonJS.fromDateToString(new Date())
@@ -548,7 +547,7 @@ class BookDetailJS extends BaseJS {
 
         //lấy id sách muốn trả
         //id sách hiện tại trong local storage
-        var bookId = localStorage.getItem("bookId");
+        //var bookId = localStorage.getItem("bookId");
 
         //lấy id mượn sách hiện tại
         //hàm loadBookActionButton()
@@ -661,7 +660,7 @@ class BookDetailJS extends BaseJS {
                     var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
                     //lấy id sách muốn gia hạn
                     //id sách hiện tại trong local storage
-                    var bookId = localStorage.getItem("bookId");
+                    // var bookId = localStorage.getItem("bookId");
                     //cập nhật thời gian trả
                     for (let index = 0; index < borrowList.length; index++) {
                         if (borrowList[index].bookID == bookId) {

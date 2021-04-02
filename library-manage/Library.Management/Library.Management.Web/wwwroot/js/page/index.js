@@ -45,9 +45,6 @@ class IndexJS extends BaseJS {
 
     }
 
-
-
-
     //chi tiết xử lý sự kiện khi click vào 1 card sách
     cardOnClick() {
 
@@ -55,7 +52,9 @@ class IndexJS extends BaseJS {
         console.log(bookId)
         console.log(this)
 
-        localStorage.setItem("bookId", bookId)
+
+        //localStorage.setItem("bookId", bookId)
+
         window.open("book-detail.html", "_self")
     }
 
@@ -79,9 +78,13 @@ class IndexJS extends BaseJS {
         var searchValue = $('#searchInput').val().trim()
 
         //lưu thông tin tìm kiếm vào localStorage
-        localStorage.setItem("searchValue", searchValue);
+        //localStorage.setItem("searchValue", searchValue);
 
-        window.open("search-result.html", "_self")
+        debugger
+        //tạo url với param chứa giá trị cần tìm kiếm
+        var searchPageStr = "search-result.html?searchValue=" + searchValue;
+        //mở trang search-result.html
+        window.open(searchPageStr, "_self")
 
     }
 

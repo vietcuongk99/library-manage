@@ -632,9 +632,12 @@ class AccountJS extends BaseJS {
         let bookId = $(this).data('bookId');
 
         //lưu id vào local storage
+        //localStorage.setItem("bookId", bookId)
+
+        //tạo url với param chứa id đầu sách vừa được click
+        var bookDetailStr = "book-detail.html?id=" + bookId;
         //mở trang book-detail
-        localStorage.setItem("bookId", bookId)
-        window.open("book-detail.html", "_self")
+        window.open(bookDetailStr, "_self")
     }
 
 

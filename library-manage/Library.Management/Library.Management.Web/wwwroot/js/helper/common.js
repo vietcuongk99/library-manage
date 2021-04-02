@@ -140,5 +140,22 @@ var commonJS = {
             }
 
         });
+    },
+
+    //lấy giá trị param trên url
+    getURLParameter(sParam) {
+
+        var sPageURL = window.location.search.substring(1);
+
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            debugger
+            if (sParameterName[0] == sParam) {
+                debugger
+                //decodeUriComponent giúp giải mã chuỗi có kí tự đặc biệt, ví dụ "%20" -> " "
+                return decodeURIComponent(sParameterName[1]);
+            }
+        }
     }
 }

@@ -11,6 +11,10 @@ const VISIBLE_PAGE_DEFAULT = 1;
 var totalBookRecord;
 var totalPages;
 
+//lấy ra giá trị tìm kiếm từ url
+var searchValue = commonJS.getURLParameter('searchValue')
+debugger
+
 $(document).ready(function() {
     searchResultJS = new SearchResultJS()
 })
@@ -38,7 +42,7 @@ class SearchResultJS extends BaseJS {
         //khai báo và gán giá trị trong localStorage
         // var fieldValue = localStorage.getItem("fieldValue")
         // var fieldText = localStorage.getItem("fieldText")
-        var searchValue = localStorage.getItem("searchValue");
+        //var searchValue = localStorage.getItem("searchValue");
         var showNewBook = localStorage.getItem("showNewBook")
         var showHotBook = localStorage.getItem("showHotBook");
 
@@ -127,8 +131,12 @@ class SearchResultJS extends BaseJS {
 
         //lưu id vào local storage
         //mở trang book-detail
-        localStorage.setItem("bookId", bookId)
-        window.open("book-detail.html", "_self")
+        //localStorage.setItem("bookId", bookId)
+
+        //tạo url với param chứa id đầu sách vừa được click
+        var bookDetailStr = "book-detail.html?id=" + bookId;
+        //mở trang book-detail
+        window.open(bookDetailStr, "_self")
     }
 
 
