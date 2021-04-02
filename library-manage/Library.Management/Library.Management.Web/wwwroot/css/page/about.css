@@ -1,0 +1,7 @@
+/* custom list-group từ bootstrap */
+
+.list-group-item.active {
+    color: #fff;
+    background-color: #343a40;
+    border-color: black;
+}

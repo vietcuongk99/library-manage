@@ -1,5 +1,9 @@
 //khai báo hằng số lưu số lượng sách được mượn tối đa
-const MAX_BORROW_NUMBER = 6;
+//user được mượn tối đa 4 tài liệu
+const MAX_BORROW_NUMBER = 4;
+
+//lấy ra id đầu sách từ url
+var bookId = commonJS.getURLParameter('id');
 
 $(document).ready(function() {
     bookDetailJS = new BookDetailJS()
@@ -20,8 +24,10 @@ class BookDetailJS extends BaseJS {
     ///load thông tin sách
     loadBookData() {
 
+        //hiện loading
+        commonBaseJS.showLoadingData(1);
         //lấy ra bookId trong localStorage
-        var bookId = localStorage.getItem("bookId");
+        //var bookId = localStorage.getItem("bookId");
         //call api lấy thông tin sách
         $.ajax({
             method: "GET",
@@ -30,7 +36,6 @@ class BookDetailJS extends BaseJS {
             contentType: "application/json"
         }).done(function(res) {
             if (res.success) {
-
                 var data = res.data;
 
                 //gán thông tin sách
@@ -47,15 +52,15 @@ class BookDetailJS extends BaseJS {
                     //nếu đường dẫn ảnh nằm trong thư mục Temp của project
                     //gọi loadBookImg() của bookDetailJS object lấy ra base64 string
                     if (data.bookImageUri.includes("~Temp")) {
-                        bookDetailJS.loadBookImg(data.bookImageUri)
+                        bookDetailJS.loadBookImg(bookId, data.bookImageUri)
                     }
                     //nếu đường dẫn ảnh là link online
                     else {
-                        $('#imageBook').attr('src', data.bookImageUri)
+                        $('#imageBook').attr('src', data.bookImageUri);
                     }
 
                     //gán data cho $('#imageBook')
-                    $('#imageBook').data('bookImageUri', data.bookImageUri)
+                    $('#imageBook').data('bookImageUri', data.bookImageUri);
                 }
                 // nếu đường dẫn ảnh không tồn tại hoặc là ""
                 //đặt ảnh mặc định
@@ -76,19 +81,29 @@ class BookDetailJS extends BaseJS {
                         var data = res.data;
                         //gán giá trị
                         $('#bookCategoryName').text(data.bookCategoryName);
+                        //ẩn loading
+                        commonBaseJS.showLoadingData(0);
                     } else {
                         $('#bookCategoryName').text("Chưa có");
                         commonBaseJS.showToastMsgFailed(res.message);
+                        //ẩn loading
+                        commonBaseJS.showLoadingData(0);
                     }
                 }).fail(function(res) {
-                    $('#bookCategoryName').text(data.bookCategoryName);
+                    $('#bookCategoryName').text("Chưa có");
                     commonBaseJS.showToastMsgFailed("Lấy dữ liệu loại sách không thành công.");
+                    //ẩn loading
+                    commonBaseJS.showLoadingData(0);
                 })
 
             } else {
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgFailed(res.message);
             }
         }).fail(function(res) {
+            //ẩn loading
+            commonBaseJS.showLoadingData(0);
             commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
         })
 
@@ -146,12 +161,11 @@ class BookDetailJS extends BaseJS {
     }
 
     //load ảnh bìa sách
-    loadBookImg(bookImgUrl) {
-
+    loadBookImg(bookID, bookImgUrl) {
         //call api lấy ảnh bìa sách (base64 string)
         $.ajax({
             method: "GET",
-            url: HOST_URL + "api/BookDetail/GetImageFromUrl",
+            url: HOST_URL + "api/BookDetail/GetImageFromUrl?bookID=" + bookID + "&bookImageUri=" + bookImgUrl,
             async: true,
             contentType: "application/json"
         }).done(function(res) {
@@ -185,7 +199,7 @@ class BookDetailJS extends BaseJS {
     loadBookComment() {
 
         //lấy ra id book hiện tại từ local storage
-        var bookId = localStorage.getItem("bookId");
+        //var bookId = localStorage.getItem("bookId");
         if (bookId) {
             //call api
             $.ajax({
@@ -252,7 +266,7 @@ class BookDetailJS extends BaseJS {
 
         } else {
             //lấy ra userId và bookId trong localStorage
-            var bookId = localStorage.getItem("bookId");
+            //var bookId = localStorage.getItem("bookId");
             var userID = userObject.userID;
 
             //lấy giá trị validate comment
@@ -307,8 +321,10 @@ class BookDetailJS extends BaseJS {
         }
         //nếu user có tài khoản
         else {
+            //lấy ra ngày hiện tại
+            var dateNow = commonJS.getDateString(new Date(), Enum.ConvertOption.YEAR_FIRST);
             //lấy ra userId và bookId trong localStorage
-            var bookId = localStorage.getItem("bookId");
+            //var bookId = localStorage.getItem("bookId");
 
             //lấy ra danh sách mượn của user trong localStorage
             var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
@@ -317,10 +333,10 @@ class BookDetailJS extends BaseJS {
 
             //khai báo các thành phần html cho từng action với sách
             //button mượn sách, trả sách, gia hạn thời gian mượn, mở tài liệu
-            var borrowBtnHTML = $(`<button id="btnBorrowBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalBorrowBook">Mượn sách</button>`);
-            var returnBtnHTML = $(`<button id="btnReturnBook" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalReturnBook">Trả sách</button>`);
-            var extendBtnHTML = $(`<button id="btnExtendDate" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#modalExtendDate">Gia hạn</button>`)
-            var showFileBtnHTML = $(`<button id="btnShowFile" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#">Mở tài liệu</button>`)
+            var borrowBtnHTML = $(`<button id="btnBorrowBook" class="btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#modalBorrowBook">Mượn sách</button>`);
+            var returnBtnHTML = $(`<button id="btnReturnBook" class="btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#modalReturnBook">Trả sách</button>`);
+            var extendBtnHTML = $(`<button id="btnExtendDate" class="btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#modalExtendDate">Gia hạn</button>`)
+            var showFileBtnHTML = $(`<button id="btnShowFile" class="btn btn-sm btn-success mb-2" data-toggle="modal" data-target="#">Mở tài liệu</button>`)
 
             //kiểm tra sách được mượn hay chưa
             //khai báo biến đếm
@@ -329,11 +345,11 @@ class BookDetailJS extends BaseJS {
             for (let index = 0; index < borrowListSize; index++) {
 
                 //nếu id sách hiện tại trùng với id sách có trong danh sách mượn
-                if (bookId == borrowList[index].bookId) {
+                if (bookId == borrowList[index].bookID) {
 
                     //thêm nút trả, gia hạn và mở tài liệu
                     $('#groupBookAction').children().remove();
-                    $('#groupBookAction').append(returnBtnHTML, extendBtnHTML, showFileBtnHTML);
+                    $('#groupBookAction').append(returnBtnHTML, extendBtnHTML);
                     //gán data chứa id và ngày trả của bản ghi mượn hiện tại
                     //dùng cho hàm returnBookEvent() và extendBookEvent()
                     $('#groupBookAction').data('bookBorrowID', borrowList[index].bookBorrowID);
@@ -342,6 +358,17 @@ class BookDetailJS extends BaseJS {
                     var returnDateValue = commonJS.getDateString(new Date(borrowList[index].returnDate), Enum.ConvertOption.DAY_FIRST)
                     $('#returnDateValue').html(returnDateValue);
                     $('#oldReturnDate').html(returnDateValue);
+
+                    debugger
+                    //nếu sách vẫn còn hạn mượn
+                    if (borrowList[index].returnDate >= dateNow) {
+                        debugger
+                        //thêm nút mở tài liệu
+                        showFileBtnHTML.insertAfter($('#btnExtendDate'))
+                    } else {
+                        showFileBtnHTML.remove()
+                    }
+
                     //thoát vòng lặp
                     break
                 }
@@ -379,7 +406,7 @@ class BookDetailJS extends BaseJS {
         //self - invoke
         //kiểm tra input date đầy đủ thông tin ngày, tháng, năm
         var validateDate = function(dateInput) {
-            return dateInput.length > 0 && dateInput > dateCompare
+            return dateInput.length > 0 && dateInput >= dateCompare
         }(date)
 
         //nếu input được validate
@@ -430,7 +457,7 @@ class BookDetailJS extends BaseJS {
             //lấy thông tin user hiện tại
             var userObject = JSON.parse(localStorage.getItem("user"));
             //lấy ra userId và bookId trong localStorage
-            var bookId = localStorage.getItem("bookId");
+            //var bookId = localStorage.getItem("bookId");
             var userID = userObject.userID;
             //khai báo thời gian mượn và trả sách
             var dateNow = commonJS.fromDateToString(new Date())
@@ -444,6 +471,8 @@ class BookDetailJS extends BaseJS {
                 borrowDate: dateNow
             };
 
+            //hiện loading
+            commonBaseJS.showLoadingData(1);
             //call api
             $.ajax({
                 url: HOST_URL + "api/BookBorrow/BorrowActivation",
@@ -453,18 +482,18 @@ class BookDetailJS extends BaseJS {
             }).done(function(res) {
                 //nếu server xử lý thành công
                 if (res.success) {
+
+                    var data = res.data;
                     //lấy danh sách mượn của người dùng
                     var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
 
                     //tạo object lưu thông tin sách vừa mượn
                     var newBorrowBook = {
-                        bookId: localStorage.getItem("bookId"),
-                        returnDate: commonJS.getDateString(new Date(returnDateVal), Enum.ConvertOption.YEAR_FIRST),
-                        borrowDate: commonJS.getDateString(new Date(dateNow), Enum.ConvertOption.YEAR_FIRST),
-                        borrowStatus: 1,
-                        bookName: $('#bookName').html(),
-                        bookAuthor: $('#bookAuthor').html(),
-                        bookImageUri: $('#imageBook').data('bookImageUri')
+                        bookBorrowID: data.bookBorrowId,
+                        bookID: data.bookId,
+                        returnDate: commonJS.getDateString(new Date(data.returnDate), Enum.ConvertOption.YEAR_FIRST),
+                        borrowDate: commonJS.getDateString(new Date(data.borrowDate), Enum.ConvertOption.YEAR_FIRST),
+
                     }
 
                     //thêm dữ liệu vào danh sách mượn
@@ -480,15 +509,22 @@ class BookDetailJS extends BaseJS {
                     //đóng modal
                     $('#modalBorrowBook').modal('hide');
 
+                    //ẩn loading
+                    commonBaseJS.showLoadingData(0);
+
                     //show alert
                     commonBaseJS.showToastMsgSuccess("Mượn sách thành công")
                 } else {
+                    //ẩn loading
+                    commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgFailed(res.message)
                 }
 
 
             }).fail(function(res) {
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
                 //show alert
                 commonBaseJS.showToastMsgFailed("Không thể thực hiện thao tác mượn sách.")
             })
@@ -511,7 +547,7 @@ class BookDetailJS extends BaseJS {
 
         //lấy id sách muốn trả
         //id sách hiện tại trong local storage
-        var bookId = localStorage.getItem("bookId");
+        //var bookId = localStorage.getItem("bookId");
 
         //lấy id mượn sách hiện tại
         //hàm loadBookActionButton()
@@ -522,19 +558,21 @@ class BookDetailJS extends BaseJS {
             bookBorrowId: bookBorrowID
         }
 
+        //hiện loading
+        commonBaseJS.showLoadingData(1);
         //call api
         $.ajax({
             url: HOST_URL + "api/BookBorrow/RestoreActivation",
             data: JSON.stringify(data),
             method: "PUT",
-            contentType: "application/json"
+            contentType: "application/json",
         }).done(function(res) {
 
             //nếu server xử lý thành công
             if (res.success) {
                 //xóa sách muốn trả khỏi list mượn hiện tại
                 for (let index = 0; index < borrowList.length; index++) {
-                    if (borrowList[index].bookId == bookId) {
+                    if (borrowList[index].bookID == bookId) {
                         //sử dụng hàm splice()
                         //xóa 1 phần tử bắt đầu từ vị trí index
                         borrowList.splice(index, 1);
@@ -554,15 +592,22 @@ class BookDetailJS extends BaseJS {
                 //đóng modal
                 $('#modalReturnBook').modal('hide');
 
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
+
                 //show alert
                 commonBaseJS.showToastMsgSuccess("Trả sách thành công")
             } else {
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
                 //show alert
                 commonBaseJS.showToastMsgFailed(res.message)
             }
 
 
         }).fail(function(res) {
+            //ẩn loading
+            commonBaseJS.showLoadingData(0);
             //show alert
             commonBaseJS.showToastMsgFailed("Không thể thực hiện thao tác trả sách.")
         })
@@ -599,6 +644,8 @@ class BookDetailJS extends BaseJS {
                 returnDate: newDateVal
             };
 
+            //hiện loading
+            commonBaseJS.showLoadingData(1);
             //call api
             $.ajax({
                 url: HOST_URL + "api/BookBorrow/ExtendActivation",
@@ -613,10 +660,10 @@ class BookDetailJS extends BaseJS {
                     var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
                     //lấy id sách muốn gia hạn
                     //id sách hiện tại trong local storage
-                    var bookId = localStorage.getItem("bookId");
+                    // var bookId = localStorage.getItem("bookId");
                     //cập nhật thời gian trả
                     for (let index = 0; index < borrowList.length; index++) {
-                        if (borrowList[index].bookId == bookId) {
+                        if (borrowList[index].bookID == bookId) {
                             //cập nhật thời gian trả mới nhất
                             borrowList[index].returnDate = commonJS.getDateString(new Date(newDateVal), Enum.ConvertOption.YEAR_FIRST);
                             //thoát vòng lặp
@@ -633,20 +680,24 @@ class BookDetailJS extends BaseJS {
                     //đóng modal
                     $('#modalExtendDate').modal('hide');
 
+                    //ẩn loading
+                    commonBaseJS.showLoadingData(0);
+
                     //show alert
                     commonBaseJS.showToastMsgSuccess("Gia hạn thời gian mượn sách thành công")
                 } else {
+                    //ẩn loading
+                    commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgFailed(res.message)
                 }
 
             }).fail(function(res) {
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
                 //show alert
                 commonBaseJS.showToastMsgFailed("Không thể thực hiện thao tác gia hạn thời gian mượn sách.")
             })
-
-
-
         }
         //nếu input chưa được validate
         else {

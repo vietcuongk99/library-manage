@@ -59,7 +59,14 @@
             </li>
             <li class="breadcrumb-item active">Kết quả tìm kiếm</li>
         </ol>
+        <ol class="breadcrumb">
+            <!-- thanh phân trang -->
+            <div id="pagingDiv" class="pagination-sm ml-auto">
+            </div>
+        </ol>
 
+
+        <!-- kết quả tìm kiếm -->
         <div id="searchResultDiv">
 
         </div>
@@ -93,12 +100,12 @@
     </div>
     <!-- /.container -->
     <!-- Footer -->
-    <footer class="bg-dark">
+    <!-- <footer class="bg-dark fixed-bottom">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
         </div>
-        <!-- /.container -->
-    </footer>
+        
+    </footer> -->
 
     <div class="toastMsg">
         <span class="toastMsg-img-success"></span> Thành công
@@ -110,13 +117,19 @@
         <div class="toastMsgFailed-text"></div>
     </div>
 
-    <!-- Bootstrap core JavaScript -->
+    <!-- Jquery Library -->
     <script src="../js/lib/jquery/jquery.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
     <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <!-- Pagination Jquery Plugin -->
+    <script src="../js/lib/twbs-pagination-1.4.1/jquery.twbsPagination.min.js"></script>
+    <!-- xử lý loading, alert, scrollbar -->
     <script src="../js/base/commonBase.js"></script>
-    <script src="../js/lib/pagination.min.js"></script>
+    <!-- xử lý nội dung thanh top navigation -->
     <script src="../js/helper/base.js"></script>
+    <!-- xử lý hàm dùng chung -->
     <script src="../js/helper/common.js"></script>
+    <!-- xử lý nội dung trang hiện tại -->
     <script src="../js/page/search-result.js"></script>
 
 </body>

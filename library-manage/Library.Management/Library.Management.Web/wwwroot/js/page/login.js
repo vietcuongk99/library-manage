@@ -56,21 +56,15 @@ class LoginJS {
             }).done(function(res) {
                 //nếu response trả về success (response.success: true)
                 if (res.success) {
-                    //show alert
-                    commonBaseJS.showLoadingData(0);
-                    commonBaseJS.showToastMsgSuccess("Đăng nhập thành công.");
+
+                    //khai báo biến và lấy giá trị userID
                     //lưu thông tin đăng nhập vào localStorage
                     var user = res.data;
+                    var userID = user.userID;
                     localStorage.setItem("user", JSON.stringify(user));
 
-                    //lưu list sách đang mượn của user
-                    //fake data đợi api
-                    localStorage.setItem("borrowList", JSON.stringify(borrowList));
-
-                    //chuyển sang trang index
-                    setTimeout(function() {
-                        window.open("index.html", "_self")
-                    }, 2000);
+                    //gọi hàm getBorrowList()
+                    loginJS.getBorrowList(userID);
 
                 } else {
                     //gọi phương thức thêm alert div của loginJS object
@@ -124,18 +118,53 @@ class LoginJS {
         }
     }
 
+
+    //gọi api lấy ra danh sách mượn sách của người dùng
+    getBorrowList(userID) {
+
+        //khai báo array chứa danh sách mượn cửa người dùng
+        //lưu vào storage
+        var borrowList = [];
+
+        //call api
+        $.ajax({
+            method: "GET",
+            url: HOST_URL + "api/BookBorrow/GetPagingData?userId=" + userID,
+            contentType: "application/json"
+
+        }).done(function(res) {
+            //nếu server xử lý thành công
+            if (res.success) {
+
+                var list = res.data;
+                //gán giá trị cho borrowItem và lưu vào borrowList
+                list.forEach(item => {
+                    var borrowItem = {};
+                    borrowItem.bookBorrowID = item.bookBorrowID;
+                    borrowItem.bookID = item.bookID;
+                    borrowItem.borrowDate = commonJS.getDateString(new Date(item.borrowDate), Enum.ConvertOption.YEAR_FIRST);
+                    borrowItem.returnDate = commonJS.getDateString(new Date(item.returnDate), Enum.ConvertOption.YEAR_FIRST);
+                    borrowList.push(borrowItem)
+
+                });
+
+                //lưu borrowList vào local storage
+                localStorage.setItem("borrowList", JSON.stringify(borrowList));
+
+                commonBaseJS.showLoadingData(0);
+                commonBaseJS.showToastMsgSuccess("Đăng nhập thành công.");
+
+                //chuyển sang trang index
+                setTimeout(function() {
+                    window.open("index.html", "_self")
+                }, 1500);
+            } else {
+                commonBaseJS.showToastMsgFailed(res.message);
+            }
+        }).fail(function(res) {
+            commonBaseJS.showToastMsgFailed("Lấy thông tin sách đang mượn thất bại.");
+        })
+
+    }
+
 }
-
-
-//fake data
-
-var borrowList = [{
-    bookBorrowID: "4d70f6bd-70a7-44e8-9c82-0d370ed2ccdb",
-    bookAuthor: "Hiroshi Fujimoto",
-    bookId: "00000000-0000-0000-0000-000000000000",
-    bookImageUri: "../content/img/avatar-book-default.jpg",
-    bookName: "Truyện tranh Doraemon",
-    borrowDate: "2021-03-30",
-    borrowStatus: 1,
-    returnDate: "2021-04-22",
-}]

@@ -1,3 +1,5 @@
+/* default */
+
 body {
     padding-top: 56px;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
@@ -47,7 +49,7 @@ header {
 }
 
 
-/* xử lý font, thẻ link và thẻ text */
+/* xử lý thẻ a và các thẻ cho text */
 
 p {
     font-weight: 400;
@@ -64,7 +66,24 @@ h2,
 h3,
 h4,
 h5 {
-    font-weight: 400;
+    font-weight: 500;
+}
+
+a:-webkit-any-link {
+    color: #2a5c92;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #0d3663;
+    text-decoration: none;
+}
+
+
+/* xử lý thẻ input */
+
+input {
+    cursor: pointer;
 }
 
 
@@ -80,3 +99,17 @@ h5 {
     border-color: white;
 }
 
+
+/* custom pagination từ bootstrap */
+
+.page-item.active .page-link {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+
+/* custom card bootstrap */
+
+.card {
+    cursor: pointer;
+}

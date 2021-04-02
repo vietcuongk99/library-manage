@@ -3,3 +3,10 @@
     aspect-ratio: auto 50/ 50;
     height: 50px;
 }
+
+
+/* custom bootstrap modal */
+
+.modal-dialog {
+    max-width: 375px !important;
+}

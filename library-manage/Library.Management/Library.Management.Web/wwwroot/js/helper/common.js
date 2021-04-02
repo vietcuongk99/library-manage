@@ -36,7 +36,6 @@ var commonJS = {
     getDateTimeString(date) {
         //convert datetime
         var timeComment = new Date(date);
-        debugger
         var timeMinutes = ("0" + timeComment.getMinutes()).slice(-2);
         var timeCommentConvert = timeComment.getUTCDate() + "/" +
             (timeComment.getMonth() + 1) + "/" +
@@ -48,27 +47,55 @@ var commonJS = {
 
 
     //append dữ liệu vào thẻ card
-    //sử dụng trong trang index, search-result, account
+    //sử dụng trong trang search-result
     appendBookDataToCard(data, selector) {
 
         var row = $(`<div class="row mt-2"></div>`)
         data.forEach(book => {
 
-            if (book.bookImageUri.includes("~Temp") || book.bookImageUri.trim().length == 0) {
-                book.bookImageUri = "../content/img/avatar-book-default.jpg"
-            }
-            var card = $(`<div class="col-md-6 col-lg-3 col-sm-6 portfolio-item">
+            var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
+            var card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
                             </div>`)
             var bookHTML = $(`
             <div class="card h-100">
-                    <a href="../page/book-detail.html" class="mx-auto"><img class="card-img-top" src="` + book.bookImageUri + `" alt="" style="width: 150px; height: 200px"></a>
+            <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 23rem;">
                     <div class="card-body">
-                        <p class="card-title text-truncate text-uppercase">` + book.bookName + `</b>
-                        <p class="text-truncate">` + book.bookAuthor + `</p>
+                        <p class="card-title text-truncate text-uppercase text-center">` + book.bookName + `</b>
+                        <p class="text-truncate text-center">` + book.bookAuthor + `</p>
                     </div>
                 </div>`)
 
-            bookHTML.data('bookId', book.bookId)
+            bookHTML.data('bookId', book.bookID)
+            $(card).append(bookHTML)
+            row.append(card)
+        })
+        $(selector).html(row)
+    },
+
+    //append dữ liệu sách đang mượn vào thẻ card
+    //sử dụng trong trang account
+    appendBorrowDataToCard(data, selector) {
+        //lấy ra ngày hiện tại
+        var dateNow = commonJS.getDateString(new Date(), Enum.ConvertOption.YEAR_FIRST);
+        var row = $(`<div class="row mt-2"></div>`)
+        data.forEach(book => {
+
+            var checkDateHTML = (book.returnDate >= dateNow) ?
+                `<div class="text-success text-center">Còn hạn</div>` :
+                `<div class="text-danger text-center">Quá hạn</div>`
+            var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
+            var card = $(`<div class="col-6 col-md-3 col-sm-4 portfolio-item">
+                            </div>`)
+            var bookHTML = $(`
+            <div class="card h-100">
+                    <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 17rem">
+                    <div class="card-body">
+                        <p class="card-title text-truncate text-uppercase text-center">` + book.bookName + `</b>
+                        <p class="text-truncate text-center">` + book.bookAuthor + `</p>` + checkDateHTML + `
+                    </div>
+                </div>`)
+
+            bookHTML.data('bookId', book.bookID)
             $(card).append(bookHTML)
             row.append(card)
         })
@@ -113,5 +140,22 @@ var commonJS = {
             }
 
         });
+    },
+
+    //lấy giá trị param trên url
+    getURLParameter(sParam) {
+
+        var sPageURL = window.location.search.substring(1);
+
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            debugger
+            if (sParameterName[0] == sParam) {
+                debugger
+                //decodeUriComponent giúp giải mã chuỗi có kí tự đặc biệt, ví dụ "%20" -> " "
+                return decodeURIComponent(sParameterName[1]);
+            }
+        }
     }
 }

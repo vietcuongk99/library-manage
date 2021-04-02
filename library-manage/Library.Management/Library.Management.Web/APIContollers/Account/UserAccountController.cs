@@ -214,6 +214,24 @@ namespace Library.Management.Web
         public async Task<ActionServiceResult> GetPagingData([FromQuery]ParamFilterUserAccount param)
         {
             var res = await _userAccountBL.GetPagingData(param);
+            if (res.Data != null)
+            {
+                // Lọc dữ liệu phân trang
+                var offset = (param.pageNumber - 1) * param.pageSize;
+                var dataLimit = (res.Data as List<User>).Skip(offset).Take(param.pageSize);
+                if (dataLimit.Count() > 0)
+                {
+                    res.Data = new
+                    {
+                        TotalRecord = (res.Data as List<User>).Count,
+                        DataItems = dataLimit.ToList()
+                    };
+                }
+                else
+                {
+                    res.Data = null;
+                }
+            };
             return res;
         }
     }

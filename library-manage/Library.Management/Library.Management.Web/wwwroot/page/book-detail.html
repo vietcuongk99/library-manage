@@ -63,17 +63,17 @@
 
             <!-- mượn, trả, gia hạn, tải tài liệu -->
             <div class="col-md-4">
-                <img id="imageBook" class="img-fluid mb-2" alt="Ảnh bìa sách" style="width: 300px; height: 400px;" src="#">
+                <img id="imageBook" class="img-thumbnail mb-2" alt="Ảnh bìa sách" style="width: 300px; height: 400px;" src="../content/img/avatar-book-default.jpg">
                 <ul id="groupBookAction" class="list-group" style="width: 300px;">
                 </ul>
             </div>
 
             <!-- thông tin sách -->
             <div class="col-md-8">
-                <h4 id="bookName" class="my-3 text-uppercase"></h4>
-                <h4 class="my-3">Thông tin sách</h4>
+                <h3 id="bookName" class="my-3 text-uppercase"></h3>
+                <h5 class="my-3">Thông tin sách</h5>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-3">
                         <b>Tác giả:</b>
                     </div>
                     <div class="col-8">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-3">
                         <b>Số trang:</b>
                     </div>
                     <div class="col-8">
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-3">
                         <b>Danh mục:</b>
                     </div>
                     <div class="col-8">
@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-3">
                         <b>Năm xuất bản:</b>
                     </div>
                     <div class="col-8">
@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-3">
                         <b>Mô tả chung:</b>
                     </div>
                     <div class="col-8">
@@ -119,7 +119,7 @@
         <!-- /.row -->
         <!-- sự kiện khi click nút Mượn sách -->
         <!-- Modal -->
-        <div class="modal fade" id="modalBorrowBook" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="modalBorrowBook" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -130,17 +130,15 @@
                             Mượn thành công
                         </div>
                         <div id="returnDateDiv">
-                            <div class="form-group">
-                                <label for="returnDate">Ngày trả</label>
-                                <input type="date" class="form-control" id="returnDate">
+                            <div class="row">
+                                <label for="returnDate" class="col-4">Ngày trả:</label>
+                                <input type="date" class="form-control col-7" id="returnDate">
                             </div>
-
                         </div>
-                        <button id="confirmBorrowBtn" class="btn btn-success">Xác nhận</button>
-                        <button id="dismissBorrowBtn" class="btn btn-secondary">Hủy</button>
                     </div>
                     <div class="modal-footer">
-                        ...
+                        <button id="dismissBorrowBtn" class="btn btn-outline-secondary">Hủy</button>
+                        <button id="confirmBorrowBtn" class="btn btn-success">Xác nhận</button>
                     </div>
                 </div>
             </div>
@@ -149,35 +147,33 @@
         <!-- sự kiện khi click nút Trả sách -->
         <!-- Modal -->
         <div class="modal fade" id="modalReturnBook" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Xác nhận trả sách</h5>
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-5">
-                                <p>Ngày trả ban đầu:</p>
+                            <div class="col-4">
+                                <p>Ngày trả:</p>
                             </div>
                             <div class="col-7">
                                 <p id="returnDateValue">22/12/2020</p>
                             </div>
 
                         </div>
-                        <div class="row">
-                            <!-- <div class="col-5">
+                        <!-- <div class="row">
+                            <div class="col-5">
                                 <p>Thời gian mượn còn lại:</p>
-                            </div> -->
-                            <div class="col-7">
-                                <p id="timeBorrowLeft"></p>
                             </div>
-
+                        <div class="col-7">
+                            <p id="timeBorrowLeft"></p>
                         </div>
-                        <button id="confirmReturnBtn" class="btn btn-success">Xác nhận</button>
-                        <button id="dismissReturnBtn" class="btn btn-secondary">Hủy</button>
+                    </div> -->
                     </div>
                     <div class="modal-footer">
-
+                        <button id="dismissReturnBtn" class="btn btn-outline-secondary">Hủy</button>
+                        <button id="confirmReturnBtn" class="btn btn-success">Xác nhận</button>
                     </div>
                 </div>
             </div>
@@ -194,24 +190,23 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <div id="oldReturnDateDiv" class="row">
-                                <div class="col-4">
+                                <div class="col-5">
                                     <p>Ngày trả cũ:</p>
                                 </div>
-                                <div class="col-8">
+                                <div class="col-6">
                                     <p id="oldReturnDate"></p>
                                 </div>
                             </div>
-                            <div id="newReturnDateDiv" class="form-group">
-                                <label for="newReturnDate">Ngày trả mới</label>
-                                <input type="date" class="form-control" id="newReturnDate">
+                            <div id="newReturnDateDiv" class="row mt-1">
+                                <label for="newReturnDate" class="col-5">Ngày trả mới:</label>
+                                <input type="date" class="form-control col-6" id="newReturnDate">
                             </div>
 
                         </div>
-                        <button id="confirmExtendBtn" class="btn btn-success">Xác nhận</button>
-                        <button id="dismissExtendBtn" class="btn btn-secondary">Hủy bỏ</button>
                     </div>
                     <div class="modal-footer">
-                        ...
+                        <button id="dismissExtendBtn" class="btn btn-outline-secondary">Hủy bỏ</button>
+                        <button id="confirmExtendBtn" class="btn btn-success">Xác nhận</button>
                     </div>
                 </div>
             </div>
@@ -225,7 +220,7 @@
             <div class="col-md-4 col-sm-6 mb-4">
                 <div class="row no-gutters border">
                     <div class="col-6">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x500" alt=""></a>
+                        <a href="#"><img class="card-img-top" src="../content/img/avatar-book-default.jpg" alt=""></a>
                     </div>
                     <div class="col-6">
                         <div class="card-body">
@@ -241,7 +236,7 @@
             <div class="col-md-4 col-sm-6 mb-4">
                 <div class="row no-gutters border">
                     <div class="col-6">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x500" alt=""></a>
+                        <a href="#"><img class="card-img-top" src="../content/img/avatar-book-default.jpg" alt=""></a>
                     </div>
                     <div class="col-6">
                         <div class="card-body">
@@ -257,7 +252,7 @@
             <div class="col-md-4 col-sm-6 mb-4">
                 <div class="row no-gutters border">
                     <div class="col-6">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/400x500" alt=""></a>
+                        <a href="#"><img class="card-img-top" src="../content/img/avatar-book-default.jpg" alt=""></a>
                     </div>
                     <div class="col-6">
                         <div class="card-body">
@@ -321,12 +316,11 @@
     </div>
     <!-- /.container -->
     <!-- Footer -->
-    <footer class="bg-dark">
+    <!-- <footer class="bg-dark fixed-bottom">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
         </div>
-        <!-- /.container -->
-    </footer>
+    </footer> -->
 
     <div class="toastMsg">
         <span class="toastMsg-img-success"></span> Thành công

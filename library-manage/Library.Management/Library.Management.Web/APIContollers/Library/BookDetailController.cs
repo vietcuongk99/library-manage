@@ -146,7 +146,22 @@ namespace Library.Management.Web
             var res = await _bookDetailBL.GetPagingData(param);
             if (res.Data != null)
             {
-                res.Data = ShowListBookImageConvertBase64String((List<ResponseProcedureBookDetail>)res.Data);
+                // Lọc dữ liệu phân trang
+                var offset = (param.pageNumber - 1) * param.pageSize;
+                var dataLimit = (res.Data as List<ResponseProcedureBookDetail>).Skip(offset).Take(param.pageSize);
+                if (dataLimit.Count() > 0)
+                {
+                    var data = ShowListBookImageConvertBase64String((List<ResponseProcedureBookDetail>)dataLimit.ToList());
+                    res.Data = new
+                    {
+                        TotalRecord = (res.Data as List<ResponseProcedureBookDetail>).Count,
+                        DataItems = data
+                    };
+                }
+                else
+                {
+                    res.Data = null;
+                }
             };
             return res;
         }

@@ -1,5 +1,7 @@
 //hằng số lưu đường dẫn host mặc định
-const HOST_URL = "https://localhost:44328/"
+const HOST_URL = "https://localhost:44328/";
+//biến global lưu danh sách mượn hiện tại của user
+var userBorrowList = {}
 
 $(document).ready(function() {
 
