@@ -59,5 +59,23 @@ namespace Library.Management.Entity.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xác nhận.
+        /// </summary>
+        public static string StatusActivateConfirm {
+            get {
+                return ResourceManager.GetString("StatusActivateConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loại bỏ.
+        /// </summary>
+        public static string StatusActivateRemove {
+            get {
+                return ResourceManager.GetString("StatusActivateRemove", resourceCulture);
+            }
+        }
     }
 }

@@ -13,7 +13,9 @@ namespace Library.Management.DL
         /// Lấy toàn bộ dữ liệu trong bảng
         /// </summary>
         /// <returns></returns>
-        Task<IReadOnlyList<T>> GetListAsync();
+        Task<IReadOnlyList<T>> GetListAsync(ProcdureTypeName procdureTypeName);
+
+        Task<IReadOnlyList<T>> GetListAsyncByEntity(object entity, ProcdureTypeName procdureTypeName);
 
         /// <summary>
         /// Lấy ra thông tin bản ghi theo khóa chính

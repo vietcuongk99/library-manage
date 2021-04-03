@@ -28,7 +28,7 @@ namespace Library.Management.BL
         /// CreateBy: VDDUNG(19/03/2021)
         public async virtual Task<IReadOnlyList<T>> GetEntities()
         {
-            var entities = await _baseDL.GetListAsync();
+            var entities = await _baseDL.GetListAsync(ProcdureTypeName.Get);
             return entities;
         }
 

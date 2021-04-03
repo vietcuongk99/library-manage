@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Library.Management.Web
@@ -140,7 +141,7 @@ namespace Library.Management.Web
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 26/03/2021
         [HttpGet("GetPagingData")]
-        public async Task<ActionServiceResult> GetPagingData([FromQuery]ParamFilterBookDetail param)
+        public async Task<ActionServiceResult> GetPagingData([FromQuery] ParamFilterBookDetail param)
         {
             var res = await _bookDetailBL.GetPagingData(param);
             if (res.Data != null)
@@ -216,7 +217,7 @@ namespace Library.Management.Web
                         }
                     }
                 }
-            } 
+            }
             return lstBookUriConvertBase64;
         }
 
@@ -247,6 +248,29 @@ namespace Library.Management.Web
                 res.LibraryCode = LibraryCode.Failed;
             }
             return res;
+        }
+
+        [HttpPost("OpenFileBookInfo")]
+        public async Task<IActionResult> OpenFileBookInfo(string BookID)
+        {
+            var bookInfo = await _baseBL.GetEntityById(BookID);
+                string FilePath = Directory.GetCurrentDirectory() + bookInfo.BookDownloadUri;
+            // Nếu tồn tại đường dẫn chứa ảnh thì gọi đến, không thì gọi về ảnh mặc định
+            var stream = new FileStream(FilePath, FileMode.Open);
+            return File(stream, "application/pdf", "FileDownloadName.pdf");
+                    //WebClient User = new WebClient();
+                    //Byte[] FileBuffer = User.DownloadData(FilePath);
+                    //if (FileBuffer != null)
+                    //{
+
+                    //    Response.ContentType = "application/pdf";
+                    //    Response.Headers.Add("content-length", FileBuffer.Length.ToString());
+                    //    using (Stream writer = System.IO.File.Create("C:/Users/Dell.DESKTOP-722I0QM/Downloads/File_PDF/MyPDF.pdf"))
+                    //    {
+                    //        writer.Write(FileBuffer, 0, FileBuffer.Length);
+                    //        writer.Flush();
+                    //    }
+                    //}
         }
     }
 }

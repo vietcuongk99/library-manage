@@ -126,6 +126,9 @@ namespace Library.Management.Entity
         /// Mã OTP đã hết hiệu lực
         /// </summary>
         ExpiryTimeOTP = 616,
+
+        OverCountBookBorrow = 617,
+        OverMaxReturnDate = 618,
         /// <summary>
         /// Thất bại
         /// </summary>
@@ -187,6 +190,9 @@ namespace Library.Management.Entity
         /// Lấy danh sách sách đã mượn của người dùng
         /// </summary>
         GetPagingParamBookBorrow,
+
+        GetBookBorrowByUser,
+        GetListRequestActivation,
         /// <summary>
         /// Thêm mới
         /// </summary>
@@ -216,6 +222,10 @@ namespace Library.Management.Entity
         /// Cập nhật link xem chi tiết sách
         /// </summary>
         UpdateBookDownloadUri,
+        /// <summary>
+        /// Xác nhận mượn sách
+        /// </summary>
+        ConfirmBorrowActivation,
         /// <summary>
         /// Gia hạn sách
         /// </summary>
@@ -255,5 +265,18 @@ namespace Library.Management.Entity
         /// Quản lý
         /// </summary>
         Manage = 3
+    }
+    /// <summary>
+    /// Trạng thái xác nhận
+    /// </summary>
+    public enum StatusActivate { 
+        /// <summary>
+        /// Loại bỏ
+        /// </summary>
+        Remove = 0,
+        /// <summary>
+        /// Xác nhận
+        /// </summary>
+        Confirm = 1
     }
 }

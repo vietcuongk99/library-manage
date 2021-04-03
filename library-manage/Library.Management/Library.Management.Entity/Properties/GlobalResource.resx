@@ -123,6 +123,9 @@
   <data name="AvatarUserDefault" xml:space="preserve">
     <value>avatar-sample.jpg</value>
   </data>
+  <data name="ConfirmMessageBorrowBookDetail" xml:space="preserve">
+    <value>{0} thành công {1} lượt mượn sách</value>
+  </data>
   <data name="CreatedBy" xml:space="preserve">
     <value>Admin</value>
   </data>
@@ -201,6 +204,12 @@
   <data name="NotFound" xml:space="preserve">
     <value>Lỗi không tìm thấy dữ liệu</value>
   </data>
+  <data name="OverCountBookBorrow" xml:space="preserve">
+    <value>Bạn đã hết lượt mượn sách, vui lòng hủy các yêu cầu mượn khác và thử lại.</value>
+  </data>
+  <data name="OverMaxReturnDate" xml:space="preserve">
+    <value>Chỉ được gia hạn thêm tối đa {0} ngày, vui lòng thử lại</value>
+  </data>
   <data name="SubjectSendMail" xml:space="preserve">
     <value>&lt;b&gt;Library Management&lt;/b&gt;: Mã xác thực OTP của tài khoản &lt;b&gt;{0}&lt;/b&gt; là &lt;b&gt;{1}&lt;/b&gt;. Bạn đang thực hiện &lt;b&gt;{2}&lt;/b&gt; trên hệ thống Library, mật khẩu mới là &lt;b&gt;{3}&lt;/b&gt;.</value>
   </data>
@@ -209,6 +218,19 @@
   </data>
   <data name="TimeSpanExpiryOTPCode" xml:space="preserve">
     <value>2</value>
+    <comment>Thời gian mã OPT</comment>
+  </data>
+  <data name="TotalCountBookBorrowMax" xml:space="preserve">
+    <value>6</value>
+    <comment>Tổng số sách mượn tối đa cho 1 người dùng</comment>
+  </data>
+  <data name="TotalMaxReturnDate" xml:space="preserve">
+    <value>14</value>
+    <comment>Tổng số ngày mượn sách</comment>
+  </data>
+  <data name="TotalMaxReturnDateExtend" xml:space="preserve">
+    <value>7</value>
+    <comment>Số ngày tối đa để gia hạn sách</comment>
   </data>
   <data name="ValidateEntity" xml:space="preserve">
     <value>Lỗi validate dữ liệu không hợp lệ</value>

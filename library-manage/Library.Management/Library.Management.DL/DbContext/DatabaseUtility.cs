@@ -58,6 +58,12 @@ namespace Library.Management.DL.DbContext
                 case ProcdureTypeName.GetPagingParamBookBorrow:
                     storeName = $"Proc_Get{tableName}PagingData";
                     break;
+                case ProcdureTypeName.GetBookBorrowByUser:
+                    storeName = $"Proc_Get{tableName}ByUser";
+                    break;
+                case ProcdureTypeName.GetListRequestActivation:
+                    storeName = $"Proc_GetList{tableName}RequestActivation";
+                    break;
                 case ProcdureTypeName.Insert:
                     storeName = $"Proc_Insert{tableName}";
                     break;
@@ -81,6 +87,9 @@ namespace Library.Management.DL.DbContext
                     break;
                 case ProcdureTypeName.ExtendBookBorrow:
                     storeName = $"Proc_Update{tableName}Extend";
+                    break;
+                case ProcdureTypeName.ConfirmBorrowActivation:
+                    storeName = $"Proc_Confirm{tableName}Activation";
                     break;
                 case ProcdureTypeName.Delete:
                     storeName = $"Proc_Delete{tableName}";

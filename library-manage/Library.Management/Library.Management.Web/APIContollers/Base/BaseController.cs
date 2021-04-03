@@ -183,7 +183,7 @@ namespace Library.Management.Web
         public virtual async Task<ActionServiceResult> Delete([FromBody] List<string> listID)
         {
             var response = new ActionServiceResult();
-            var totalVoucherGroupDeleted = 0;
+            var totalRecordGroupDeleted = 0;
 
             if (listID.Count == 0 || listID == null)
             {
@@ -197,9 +197,9 @@ namespace Library.Management.Web
                 foreach (var id in listID)
                 {
                     var result = await _baseBL.Delete(id);
-                    totalVoucherGroupDeleted += result;
+                    totalRecordGroupDeleted += result;
                 }
-                if (totalVoucherGroupDeleted == 0)
+                if (totalRecordGroupDeleted == 0)
                 {
                     response.Success = false;
                     response.Message = GlobalResource.ErrorDeleteEntity;
@@ -212,7 +212,7 @@ namespace Library.Management.Web
                     response.LibraryCode = LibraryCode.Success;
                     response.Data = new
                     {
-                        TotalCountDelete = totalVoucherGroupDeleted
+                        TotalCountDelete = totalRecordGroupDeleted
                     };
                 }
             }

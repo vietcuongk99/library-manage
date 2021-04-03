@@ -15,6 +15,12 @@ namespace Library.Management.BL
         private readonly IBookBorrowDL _bookBorrowDL;
         private readonly IBaseDL<BookBorrow> _baseDL;
 
+        public BookBorrowBL(IBaseDL<BookBorrow> baseDL, IBookBorrowDL bookBorrowDL)
+        {
+            _baseDL = baseDL;
+            _bookBorrowDL = bookBorrowDL;
+        }
+
         /// <summary>
         /// Lấy danh sách sách đã mượn của người dùng
         /// </summary>
@@ -28,10 +34,16 @@ namespace Library.Management.BL
             return res;
         }
 
-        public BookBorrowBL(IBaseDL<BookBorrow> baseDL, IBookBorrowDL bookBorrowDL)
+        /// <summary>
+        /// Gửi danh sách các yêu cầu mượn sách
+        /// </summary>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 04/04/2021
+        public async Task<ActionServiceResult> GetListRequestActivation()
         {
-            _baseDL = baseDL;
-            _bookBorrowDL = bookBorrowDL;
+            var res = new ActionServiceResult();
+            res.Data = await _baseDL.GetListAsync(ProcdureTypeName.GetListRequestActivation);
+            return res;
         }
 
         /// <summary>
@@ -43,9 +55,21 @@ namespace Library.Management.BL
         {
             var res = new ActionServiceResult();
             var bookBorrow = new BookBorrow();
-            InsertParamBookBorrowBeforeSetEntity(param, bookBorrow);
-            await _baseDL.AddAsync(bookBorrow, ProcdureTypeName.Insert);
-            res.Data = bookBorrow;
+            //Lấy ra sách đã mượn của 1 tài khoản (không tính sách đã trả lại)
+            var bookborrowbyuser = await _baseDL.GetListAsyncByEntity(new { param.UserId }, ProcdureTypeName.GetBookBorrowByUser);
+            //Nếu số lượng đang mượn và đang gửi yêu cầu vượt quá maxtotal thì thông báo
+            if (bookborrowbyuser.Count > int.Parse(GlobalResource.TotalCountBookBorrowMax))
+            {
+                res.Success = false;
+                res.Message = GlobalResource.OverCountBookBorrow;
+                res.LibraryCode = LibraryCode.OverCountBookBorrow;
+            }
+            else
+            {
+                InsertParamBookBorrowBeforeSetEntity(param, bookBorrow);
+                await _baseDL.AddAsync(bookBorrow, ProcdureTypeName.Insert);
+                res.Data = bookBorrow;
+            }
             return res;
         }
 
@@ -60,15 +84,43 @@ namespace Library.Management.BL
             bookBorrow.BookBorrowId = Guid.NewGuid();
             bookBorrow.BookId = param.BookId;
             bookBorrow.UserId = param.UserId;
-            bookBorrow.ReturnDate = param.ReturnDate;
-            bookBorrow.BorrowDate = param.BorrowDate;
             //Đã mượn sách
             bookBorrow.BorrowStatus = (int)Status.Active;
             //Chưa trả sách
             bookBorrow.ReturnStatus = (int)Status.DeActive;
             bookBorrow.CreatedBy = GlobalResource.CreatedBy;
             bookBorrow.CreatedDate = DateTime.Now;
-            bookBorrow.Status = (int)Status.Active;
+            bookBorrow.Status = (int)Status.DeActive; //vddung1 sửa trạng thái thành chưa active để bên admin confirm
+        }
+
+        /// <summary>
+        /// Xác nhận các yêu cầu mượn sách Admin
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="statusActivate"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 04/04/2021
+        public async Task<ActionServiceResult> ConfirmBorrowActivation(string id, int statusActivate)
+        {
+            var res = new ActionServiceResult();
+            if(statusActivate == (int)StatusActivate.Remove)
+            {
+                 await _baseDL.Delete(id);
+                res.Data = 1; // thành công
+            }
+            else if(statusActivate == (int)StatusActivate.Confirm)
+            {
+                var param = new
+                {
+                    BookBorrowID = id,
+                    BorrowDate = DateTime.Now,
+                    ReturnDate = DateTime.Now.AddDays(int.Parse(GlobalResource.TotalMaxReturnDate)),
+                    Status = (int)Status.Active
+                };
+                await _baseDL.UpdateAsync(param, ProcdureTypeName.ConfirmBorrowActivation);
+                res.Data = 1; // thành công
+            }
+            return res;
         }
 
         /// <summary>
@@ -84,7 +136,7 @@ namespace Library.Management.BL
             if (param.BookBorrowId != null)
             {
                 var bookBorrowByID = await _baseDL.GetEntityById(param.BookBorrowId.ToString());
-                if(bookBorrowByID == null)
+                if (bookBorrowByID == null)
                 {
                     res.Success = false;
                     res.Message = GlobalResource.Failed;
@@ -103,7 +155,7 @@ namespace Library.Management.BL
                     bookborrow.CreatedBy = bookBorrowByID.CreatedBy;
                     bookborrow.ModifiedBy = GlobalResource.CreatedBy;
                     bookborrow.ModifiedDate = DateTime.Now;
-                    bookborrow.Status = bookBorrowByID.Status;
+                    bookborrow.Status = (int)Status.DeActive; //vddung sửa lại thành trả sách thì trạng thái chuyển thành DeActive
                     await _baseDL.UpdateAsync(bookborrow, ProcdureTypeName.Update);
                     res.Data = bookborrow;
                 }
@@ -138,12 +190,29 @@ namespace Library.Management.BL
                 }
                 else
                 {
-                    if(bookBorrowByID.BorrowStatus == (int)Status.DeActive)
+                    if (bookBorrowByID.BorrowStatus == (int)Status.DeActive)
                     {
                         //Không mượn sách
                         res.Success = false;
                         res.Message = GlobalResource.ErrorExtendBookBorrow;
                         res.LibraryCode = LibraryCode.ErrorExtendBookBorrow;
+                    }
+                    //Nếu chưa hết hạn và ngày gia hạn mới lớn hơn ngày hết hạn cũ + maxExtend ngày
+                    else if(DateTime.Now < bookBorrowByID.ReturnDate
+                        && param.ReturnDate > bookBorrowByID.ReturnDate.AddDays(int.Parse(GlobalResource.TotalMaxReturnDateExtend)))
+                    {
+                        res.Success = false;
+                        res.Message = string.Format(GlobalResource.OverMaxReturnDate, GlobalResource.TotalMaxReturnDateExtend);
+                        res.LibraryCode = LibraryCode.OverMaxReturnDate;
+                    }
+
+                    //Nếu đã hết hạn và ngày gia hạn mới lớn hơn ngày hôm nay + maxExtend ngày
+                    else if(DateTime.Now > bookBorrowByID.ReturnDate 
+                        && param.ReturnDate > DateTime.Now.AddDays(int.Parse(GlobalResource.TotalMaxReturnDateExtend)))
+                    {
+                        res.Success = false;
+                        res.Message = string.Format(GlobalResource.OverMaxReturnDate, GlobalResource.TotalMaxReturnDateExtend);
+                        res.LibraryCode = LibraryCode.OverMaxReturnDate;
                     }
                     else
                     {
