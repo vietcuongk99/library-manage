@@ -1,5 +1,6 @@
 ﻿
 /*Alert*/
+/*Thành công*/
 .toastMsg {
     display: none;
     background-color: #fff;
@@ -35,6 +36,7 @@
     margin-left: 28px;
 }
 
+/*Thất bại*/
 .toastMsgFailed {
     display: none;
     background-color: #fff;
@@ -63,6 +65,79 @@
 }
 
 .toastMsgFailed-text {
+    font-size: 13px;
+    color: #000;
+    font-weight: 400 !important;
+    margin-top: 4px;
+    margin-left: 28px;
+}
+
+/*Cảnh báo*/
+.toastMsgWarning {
+    display: none;
+    background-color: #fff;
+    border-color: #ffc400;
+    border: 1px solid #ffc400;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #ffc400;
+    font-weight: bold;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    width: 250px;
+    z-index: 9999;
+}
+
+.toastMsgWarning-img {
+    background-image: url('/content/img/warningv2.png');
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-top: 3px;
+    margin-right: 8px;
+    background-size: contain;
+}
+
+.toastMsgWarning-text {
+    font-size: 13px;
+    color: #000;
+    font-weight: 400 !important;
+    margin-top: 4px;
+    margin-left: 28px;
+}
+
+/*Thông báo*/
+.toastMsgInfomation {
+    display: none;
+    background-color: #fff;
+    border-color: #004cb0;
+    border: 1px solid #004cb0;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #004cb0;
+    font-weight: bold;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    width: 250px;
+    z-index: 9999;
+}
+
+.toastMsgInfomation-img {
+    background-image: url('/content/img/infomationv1.jpg');
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 5px;
+    margin-right: 8px;
+    background-size: contain;
+    border-radius: 50%;
+}
+
+.toastMsgInfomation-text {
     font-size: 13px;
     color: #000;
     font-weight: 400 !important;
@@ -110,9 +185,9 @@ html {
     -webkit-box-shadow: inset 0 0 6px #9aa4bb;
 }
 
- ::-webkit-scrollbar-thumb:window-inactive {
-    background: #9aa4bb;
-}
+    ::-webkit-scrollbar-thumb:window-inactive {
+        background: #9aa4bb;
+    }
 
 /* Loading Circle */
 * {

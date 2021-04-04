@@ -79,6 +79,15 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} thành công {1} lượt mượn sách.
+        /// </summary>
+        public static string ConfirmMessageBorrowBookDetail {
+            get {
+                return ResourceManager.GetString("ConfirmMessageBorrowBookDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string CreatedBy {
@@ -313,6 +322,24 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bạn đã hết lượt mượn sách, vui lòng hủy các yêu cầu mượn khác và thử lại..
+        /// </summary>
+        public static string OverCountBookBorrow {
+            get {
+                return ResourceManager.GetString("OverCountBookBorrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chỉ được gia hạn thêm tối đa {0} ngày, vui lòng thử lại.
+        /// </summary>
+        public static string OverMaxReturnDate {
+            get {
+                return ResourceManager.GetString("OverMaxReturnDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;b&gt;Library Management&lt;/b&gt;: Mã xác thực OTP của tài khoản &lt;b&gt;{0}&lt;/b&gt; là &lt;b&gt;{1}&lt;/b&gt;. Bạn đang thực hiện &lt;b&gt;{2}&lt;/b&gt; trên hệ thống Library, mật khẩu mới là &lt;b&gt;{3}&lt;/b&gt;..
         /// </summary>
         public static string SubjectSendMail {
@@ -336,6 +363,33 @@ namespace Library.Management.Entity.Properties {
         public static string TimeSpanExpiryOTPCode {
             get {
                 return ResourceManager.GetString("TimeSpanExpiryOTPCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 6.
+        /// </summary>
+        public static string TotalCountBookBorrowMax {
+            get {
+                return ResourceManager.GetString("TotalCountBookBorrowMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 14.
+        /// </summary>
+        public static string TotalMaxReturnDate {
+            get {
+                return ResourceManager.GetString("TotalMaxReturnDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 7.
+        /// </summary>
+        public static string TotalMaxReturnDateExtend {
+            get {
+                return ResourceManager.GetString("TotalMaxReturnDateExtend", resourceCulture);
             }
         }
         

@@ -101,6 +101,17 @@ namespace Library.Management.Web
             return lstBookUriConvertBase64;
         }
 
+        /// <summary>
+        /// Lấy ra danh sách yêu cầu mượn sách gửi lên
+        /// </summary>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 04/04/2021
+        [HttpGet("GetListRequestActivation")]
+        public async Task<ActionServiceResult> GetListRequestActivation()
+        {
+            var res = await _bookBorrowBL.GetListRequestActivation();
+            return res;
+        }
 
         /// <summary>
         /// Tạo mới giao dịch mượn sách
@@ -113,6 +124,54 @@ namespace Library.Management.Web
         {
             var res = await _bookBorrowBL.BorrowActivation(param);
             return res;
+        }
+
+        /// <summary>
+        /// Xác nhận yêu cầu mượn sách từ phía Admin
+        /// </summary>
+        /// <param name="listBorrowID"></param>
+        /// <param name="statusActivate"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 04/04/2021
+        [HttpPost("ConfirmBorrowActivation")]
+        public async Task<ActionServiceResult> ConfirmBorrowActivation([FromBody] List<string> listBorrowID, int statusActivate)
+        {
+            var response = new ActionServiceResult();
+            var totalRecordConfirm = 0;
+
+            if (listBorrowID.Count == 0 || listBorrowID == null)
+            {
+                response.Success = false;
+                response.LibraryCode = LibraryCode.ValidateEntity;
+                response.Message = GlobalResource.ValidateEntity;
+            }
+            else
+            {
+                // Đặt vòng lặp chạy từng bản ghi một
+                foreach (var id in listBorrowID)
+                {
+                    await _bookBorrowBL.ConfirmBorrowActivation(id, statusActivate);
+                    totalRecordConfirm += 1;
+                }
+                if (totalRecordConfirm == 0)
+                {
+                    response.Success = false;
+                    response.Message = GlobalResource.ErrorDeleteEntity;
+                    response.LibraryCode = LibraryCode.ErrorDeleteEntity;
+                }
+                else
+                {
+                    if (statusActivate == (int)StatusActivate.Remove)
+                    {
+                        response.Data = string.Format(GlobalResource.ConfirmMessageBorrowBookDetail, EnumResource.StatusActivateRemove , totalRecordConfirm);
+                    }
+                    else
+                    {
+                        response.Data = string.Format(GlobalResource.ConfirmMessageBorrowBookDetail, EnumResource.StatusActivateConfirm, totalRecordConfirm);
+                    }
+                }
+            }
+            return response;
         }
 
         /// <summary>
