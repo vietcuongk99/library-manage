@@ -1,4 +1,15 @@
-﻿$(document).ready(function () {
+﻿const RECORD_PER_PAGE = 20;
+//khai báo trang hiển thị mặc định
+//trang đầu tiên
+const PAGE_DEFAULT = 1;
+//khai báo số trang hiển thị mặc định trên thanh pagination
+//1 trang
+const VISIBLE_PAGE_DEFAULT = 1;
+//khai báo biến toàn cục lưu tổng số bản ghi sách sau tìm kiếm và số trang hiển thị
+var totalBookRecord;
+var totalPages;
+
+$(document).ready(function () {
     var setting = new BookManager();
 });
 
@@ -6,23 +17,39 @@ class BookManager {
     static editMode = 1;
 
     constructor() {
-        this.loadData();
+        BookManager.loadData();
         this.initEvents();
     }
 
-    loadData() {
-        var self = this;
-        
+    static loadData() {
+        var self = this,
+            searchValue = $('.searchInp').val();
+
+        $('#searchResultDiv').empty();
+
         $.ajax({
             method: "GET",
-            url: "/api/BookDetail/",
+            url: "/api/BookDetail/GetPagingData?paramBookName=" + searchValue.trim() + "&pageNumber=" + PAGE_DEFAULT + "&pageSize=" + RECORD_PER_PAGE,
             async: true,
             contentType: "application/json",
         }).done(function (res) {
             if (res.success) {
+                if (res.data) {
+                    BookManager.appendDataToHTML(res.data.dataItems, "#searchResultDiv");
 
-                var data = res.data.lstData
-                self.appendDataToHTML(data, "#searchResultDiv")
+                    totalBookRecord = res.data.totalRecord;
+
+                    //tính toán số trang hiển thị và gán cho biến toàn cục
+                    totalPages = Math.ceil(totalBookRecord / RECORD_PER_PAGE);
+
+                    //gọi hàm loadPaginationSearchResult
+                    //phân trang dữ liệu
+                    BookManager.loadPaginationSearchResult(totalPages, searchValue);
+                }
+                else {
+                    var row = $(`<div class="row mt-2"><h2>Không tìm thấy dữ liệu</h2></div>`);
+                    $("#searchResultDiv").html(row)
+                }
 
             } else {
 
@@ -38,6 +65,7 @@ class BookManager {
         $("#btn-import").on('click', this.uploadFileImport.bind(this));
         $(".btnDelete").on('click', this.onClickDelete.bind(this));
         $(".btnAdd").on('click', this.onShowModal.bind(this));
+        $(".fa-search").on('click', this.onclickSearch.bind(this));
         $(".check-file-upload").on("change", function () {
             let filename = $(this).val().split("\\").pop();
             if (filename == '') {
@@ -95,7 +123,7 @@ class BookManager {
                         $('.close').click();
                         $('.fade').hide();
                         $('#searchResultDiv').empty();
-                        self.loadData();
+                        BookManager.loadData();
                     }
                     else {
                         $('#loader').hide();
@@ -133,29 +161,33 @@ class BookManager {
         return true;
     }
 
-    appendDataToHTML(data, selector) {
+    static appendDataToHTML(data, selector) {
 
-        var row = $(`<div class="row"></div>`)
+        var row = $(`<div class="row mt-2"></div>`)
         data.forEach(book => {
 
-            var card = $(`<div class="col-lg-3 col-sm-6 portfolio-item">
+            var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
+            var card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
                             </div>`)
-            var bookHTML = `
-            <div class="card h-100" bookId="${book.bookId}">
+            var bookHTML = $(`
+            <div class="card h-100" bookId="${book.bookID}">
                 <input type="checkbox" class="cbxBookDetail" />
-                <img class="card-img-top mx-auto" src="${book.bookImageUri}" alt="" style="width: 150px; height: 200px">
-                <div class="card-body">
-                    <p class="card-title font-weight-bold text-truncate text-uppercase">${book.bookName}</p>
-                    <p class="text-truncate">${book.bookAuthor}</p>
-                </div>
-            </div>`;
-            
-            $(bookHTML).data('bookId', book.bookId);
-            card.append($(bookHTML));
-            row.append(card);
-        })
+                <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 23rem;">
+                    <div class="card-body">
+                        <p class="card-title text-truncate text-uppercase text-center">` + book.bookName + `</b>
+                        <p class="text-truncate text-center">` + book.bookAuthor + `</p>
+                    </div>
+                </div>`)
 
+            bookHTML.data('bookId', book.bookID)
+            $(card).append(bookHTML)
+            row.append(card)
+        })
         $(selector).html(row)
+    }
+
+    onclickSearch() {
+        BookManager.loadData();
     }
 
     onClickDelete() {
@@ -176,7 +208,7 @@ class BookManager {
                 }).done(function (res) {
                     if (res.success) {
                         $('#searchResultDiv').empty();
-                        self.loadData();
+                        BookManager.loadData();
                         commonBaseJS.showToastMsgSuccess("Bạn đã xóa sách thành công.");
                     } else {
                         commonBaseJS.showToastMsgFailed("Xóa sách không thành công")
@@ -226,5 +258,47 @@ class BookManager {
         
         BookManager.editMode = 2;
         $('#modalAddBook').modal('show'); 
+    }
+
+    static loadPaginationSearchResult(totalPages, searchValue) {
+
+        //gọi hàm twbsPagination từ twbs-pagination plugin
+        $('#pagingDiv').twbsPagination({
+            totalPages: totalPages,
+            visiblePages: VISIBLE_PAGE_DEFAULT,
+            onPageClick: function (event, page) {
+                //call api
+                $.ajax({
+                    method: "GET",
+                    url: HOST_URL + "api/BookDetail/GetPagingData?paramBookName=" + searchValue.trim() + "&pageNumber=" + page + "&pageSize=" + RECORD_PER_PAGE,
+                    async: true,
+                    contentType: "application/json",
+                    beforeSend: function () {
+                        //show loading
+                        commonBaseJS.showLoadingData(1);
+                    }
+                }).done(function (res) {
+                    if (res.success && res.data) {
+                        $('#searchResultDiv').empty();
+                        //gán dữ liệu lên ui
+                        BookManager.appendDataToHTML(res.data.dataItems, "#searchResultDiv");
+                        //ẩn loading
+                        commonBaseJS.showLoadingData(0);
+
+
+                    } else {
+                        //ẩn loading
+                        commonBaseJS.showLoadingData(0);
+                        //show alert
+                        commonBaseJS.showToastMsgFailed(res.message);
+                    }
+                }).fail(function (res) {
+                    //ẩn loading
+                    commonBaseJS.showLoadingData(0);
+                    //show alert
+                    commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
+                })
+            }
+        })
     }
 }

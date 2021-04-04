@@ -309,7 +309,6 @@ namespace Library.Management.BL
             if (param.paramUserName == null) param.paramUserName = "";
             if (param.pageNumber <= 0) param.pageNumber = 1;
             if (param.pageSize <= 0) param.pageSize = 30;
-            if (param.paramConditionAccount == 0) param.paramConditionAccount = (int)ConditionAccount.User; //Nếu không truyền gì thì gán giá trị mặc định là User
             entity.Data = await _baseDL.GetEntityByMultipleTable<User>(param, ProcdureTypeName.GetPagingParamUserAccount);
             return entity;
         }

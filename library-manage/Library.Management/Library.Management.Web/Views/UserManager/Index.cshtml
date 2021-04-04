@@ -3,17 +3,32 @@
     ViewData["Title"] = "Quản lý người dùng";
 }
 
+@section css{
+    <link href="~/css/admin/page/userManager.css" rel="stylesheet" />
+}
+
 @section scripts
 {
+    <script src="~/js/base/commonBase.js" asp-append-version="true"></script>
+    <!-- Pagination Jquery Plugin -->
+    <script src="~/js/lib/twbs-pagination-1.4.1/jquery.twbsPagination.min.js" asp-append-version="true"></script>
     <script src="~/js/admin/userManager.js" asp-append-version="true"></script>
 }
 
 <div class="row">
     <div class="col-lg-12">
-        <h2>Danh sách người dùng</h2>
+        <div class="row ctnHeaderToolbar">
+            <h2 style=" margin: 0px;">Danh sách người dùng</h2>
+            <div class="input-group mb-3 ctnInputSearch">
+                <input type="text" class="form-control searchInp" placeholder="Tìm kiếm...">
+                <div class="input-group-append searchInp">
+                    <button class="btn btn-outline-secondary fa fa-search"></button>
+                </div>
+            </div>
+        </div>
 
-        <div class="card">
-            <div class="card-body" style="height: calc(100vh - 125px); overflow: auto;">
+        <div class="card" style="height: calc(100vh - 125px); overflow: auto;">
+            <div class="card-body" style="height: calc(100vh - 175px); overflow: auto;">
                 <div class="table-responsive scrollable-table">
                     <table id="tbl-filechanges" class="table table-hover table-bordered dataTables-example">
                         <thead>
@@ -33,6 +48,11 @@
                     <span id="noUsers">Không có bản ghi nào</span>
                 </div>
             </div>
+            <ol class="breadcrumb" style="align-self: center;">
+                <!-- thanh phân trang -->
+                <div id="pagingDiv" class="pagination-sm ml-auto">
+                </div>
+            </ol>
         </div>
     </div>
 </div>

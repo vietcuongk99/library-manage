@@ -113,7 +113,11 @@ namespace Library.Management.DL.DbContext
                 case "ResponseProcedureBookBorrow":
                     var proc_BookBorrow = _db.Query<ResponseProcedureBookBorrow>(storeName, entity, commandType: CommandType.StoredProcedure);
                     return proc_BookBorrow;
+                case "User":
+                    var proc_User = _db.Query<ResponseProcedureUser>(storeName, entity, commandType: CommandType.StoredProcedure);
+                    return proc_User;
                 default:
+                    //return _db.Query<ResponseProcedureUser>(storeName, entity, commandType: CommandType.StoredProcedure);
                     break;
             }
             return null;

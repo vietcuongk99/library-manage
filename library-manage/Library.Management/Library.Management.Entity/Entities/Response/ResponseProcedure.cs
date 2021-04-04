@@ -37,4 +37,20 @@ namespace Library.Management.Entity
         public ulong? BorrowStatus { get; set; }
         public DateTime ReturnDate { get; set; }
     }
+
+    public partial class ResponseProcedureUser
+    {
+        public Guid UserId { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public int? Age { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Ward { get; set; }
+        public string District { get; set; }
+        public string Province { get; set; }
+        public string Country { get; set; }
+        public int ConditionAccount { get; set; }
+        public ulong? Status { get; set; }
+    }
 }

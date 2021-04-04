@@ -1,16 +1,19 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Quản lý sách";
 }
 
 @section css{
-    <link href="~/css/admin/page/bookManager.css" rel="stylesheet" />
+<link href="~/css/admin/page/bookManager.css" rel="stylesheet" />
 }
 @section scripts
 {
-    <script src="~/js/admin/bookManager.js" asp-append-version="true"></script>
-    <script src="~/js/admin/validate.js" asp-append-version="true"></script>
-    <script src="~/js/admin/modalBookDetail.js" asp-append-version="true"></script>
+<script src="~/js/admin/bookManager.js" asp-append-version="true"></script>
+<script src="~/js/admin/validate.js" asp-append-version="true"></script>
+<script src="~/js/admin/modalBookDetail.js" asp-append-version="true"></script>
+<script src="~/js/page/book-detail.js" asp-append-version="true"></script>
+<script src="~/js/base/commonBase.js" asp-append-version="true"></script>
+<!-- Pagination Jquery Plugin -->
+<script src="~/js/lib/twbs-pagination-1.4.1/jquery.twbsPagination.min.js"  asp-append-version="true"></script>
 }
 
 <div id="loader" style="display:none"></div>
@@ -21,10 +24,7 @@
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <select id="searchSelectGroup" class="custom-select custom-select-sm ml-1">
-                        <option value="0" selected>Mọi trường</option>
-                        <option value="1">Tên sách</option>
-                        <option value="2">Loại sách</option>
-                        <option value="3">Năm xuất bản</option>
+                        <option value="0" selected>Tất cả</option>
                     </select>
                 </div>
                 <input type="text" class="form-control searchInp" placeholder="Tìm kiếm...">
@@ -47,6 +47,14 @@
         </div>
     </div>
 
+    <ol class="breadcrumb" style="background: center;">
+        <!-- thanh phân trang -->
+        <div id="pagingDiv" class="pagination-sm ml-auto">
+        </div>
+    </ol>
+
+
+    <!-- kết quả tìm kiếm -->
     <div id="searchResultDiv">
 
     </div>

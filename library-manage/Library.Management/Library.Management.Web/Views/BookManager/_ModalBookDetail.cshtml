@@ -12,29 +12,29 @@
                     <div class="col-md-3">
                         <h3>Ảnh bìa sách</h3>
                         <div class="book-manager-container">
-                            <div class="book-image">
-                                <img id="blah" class="img-fluid mb-4" alt="Ảnh bìa sách">
-                            </div>
-                            <div>
-                                <input type='file' id="imgInp" accept=".png,.jpg" />
-                            </div>
+                            <label class="book-image">
+                                <div class="book-image">
+                                    <img id="blah" class="img-fluid mb-4" alt="Chọn ảnh bìa sách">
+                                </div>
+                                <input type='file' id="imgInp" accept=".png,.jpg" hidden />
+                            </label>
                         </div>
                     </div>
                     <div class="col-md-9">
                         <h3>Thông tin:</h3>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-5 inpPadding">
                                     <label for="bookCode">Mã sách:<span class="requirelabel">*</span></label>
                                     <input type="text" class="form-control checkBookCode" id="bookCode" required>
                                     <span class="input-error"></span>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 inpPadding">
                                     <label for="bookCategory">Loại sách:<span class="requirelabel">*</span></label>
                                     <select class="custom-select" id="bookCategory" required>
                                     </select>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 inpPadding">
                                     <label for="bookYear">Năm xuất bản:<span class="requirelabel">*</span></label>
                                     <input type="number" class="form-control checkNumInput" id="bookYear" min="1900" max="2021" required>
                                     <span class="input-error"></span>
@@ -44,14 +44,19 @@
 
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-7">
+                                <div class="col-md-6 inpPadding">
                                     <label for="bookName">Tên sách:<span class="requirelabel">*</span></label>
                                     <input type="text" class="form-control checkRequire" id="bookName" required>
                                     <span class="input-error"></span>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-4 inpPadding">
                                     <label for="bookAuthor">Tên tác giả:<span class="requirelabel">*</span></label>
                                     <input type="text" class="form-control checkRequire" id="bookAuthor" required>
+                                    <span class="input-error"></span>
+                                </div>
+                                <div class="col-md-2 inpPadding">
+                                    <label for="bookName">Số trang:<span class="requirelabel">*</span></label>
+                                    <input type="number" class="form-control checkNumInput" id="bookPage" min="10" max="1000" required>
                                     <span class="input-error"></span>
                                 </div>
                             </div>
@@ -59,22 +64,30 @@
 
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <label for="bookName">Số trang:<span class="requirelabel">*</span></label>
-                                    <input type="number" class="form-control checkNumInput" id="bookPage" min="10" max="1000" required>
+                                <div class="col-md-12 inpPadding">
+                                    <label for="description">Mô tả:<span class="requirelabel">*</span></label>
+                                    <textarea class="form-control checkRequire" rows="2" id="bookDescription" required></textarea>
                                     <span class="input-error"></span>
-                                </div>
-                                <div class="col-md-9">
-                                    <label for="bookAuthor">Link tải tài liệu:</label>
-                                    <input type="text" class="form-control" id="bookDownLink">
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="description">Mô tả:<span class="requirelabel">*</span></label>
-                            <textarea class="form-control checkRequire" rows="3" id="bookDescription" required></textarea>
-                            <span class="input-error"></span>
+                            <div class="row">
+                                <div class="col-md-12 inpPadding">
+                                    <label for="bookInfo">Tải tài liệu lên:</label>
+                                    @*<form method="post" action="/api/BookDetail/SaveFileBookInfo" class="dropzone" id="dropzoneForm">
+                                        <div class="fallback">
+                                            <input type='file' id="bookPdf" accept=".pdf" />
+                                        </div>
+                                    </form>*@
+                                    <form method="post" action="#" id="#">
+                                        <div class="form-group files">
+                                            <input type="file" class="form-control" multiple="" id="bookPdf" accept=".pdf">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

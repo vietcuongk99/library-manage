@@ -37,6 +37,7 @@ namespace Library.Management.Web
         {
             //Khai báo lại ID vì bên client không cần truyền lên ID, ID tự sinh
             param.BookImageUri = GlobalResource.DirectoryBookImageUri + param.BookId + ".jpg";
+            param.BookDownloadUri = GlobalResource.DirectoryBookInfo + param.BookId + ".pdf";
             var res = await _bookDetailBL.InsertBookDetail(param);
             return res;
         }
@@ -51,6 +52,7 @@ namespace Library.Management.Web
         public async Task<ActionServiceResult> UpdateBookDetail(ParameterUpdateBook param)
         {
             param.BookImageUri = GlobalResource.DirectoryBookImageUri + param.BookId + ".jpg";
+            param.BookDownloadUri = GlobalResource.DirectoryBookInfo + param.BookId + ".pdf";
             var res = await _bookDetailBL.UpdateBookDetail(param);
             return res;
         }

@@ -26,6 +26,7 @@ class BookDetailJS {
                         var userHTML = `<option value="${category.bookCategoryId}">${category.bookCategoryName}</option>`
 
                         $('#bookCategory').append($(userHTML))
+                        $('#searchSelectGroup').append($(userHTML))
                     });
                 }
 
@@ -54,30 +55,60 @@ class BookDetailJS {
                         $('#bookCode').val(data.bookCode);
                         $('#bookName').val(data.bookName);
                         $('#bookCategory').val(data.bookCategoryId);
-                        $('#bookDownLink').val(data.bookDownloadUri);
                         $('#bookAuthor').val(data.bookAuthor);
                         $('#bookPage').val(data.amountPage);
                         $('#bookYear').val(data.yearOfPublication);
                         $('#bookDescription').val(data.description);
 
-                        $.ajax({
-                            method: "GET",
-                            url: "/api/BookDetail/GetImageFromUrl" + "?bookID=" + data.bookId + "&bookImageUri=" + data.bookImageUri,
-                            contentType: "application/json"
-                        }).done(function (res) {
-                            if (res.success) {
-                                var imgData = res.data;
-                                if (imgData.BookDetailImageUri != null) {
-                                    $('#blah').attr('src', "data:image/jpg;base64," + imgData.BookDetailImageUri)
-                                }
+                        if (data.bookImageUri && (data.bookImageUri).trim().length > 0) {
+                            //nếu đường dẫn ảnh nằm trong thư mục Temp của project
+                            //gọi loadBookImg() của bookDetailJS object lấy ra base64 string
+                            if (data.bookImageUri.includes("~Temp")) {
+                                $.ajax({
+                                    method: "GET",
+                                    url: HOST_URL + "api/BookDetail/GetImageFromUrl?bookID=" + thisBookId + "&bookImageUri=" + data.bookImageUri,
+                                    async: true,
+                                    contentType: "application/json"
+                                }).done(function (res) {
+                                    if (res.success) {
 
-                            } else {
-                                commonBaseJS.showToastMsgFailed(res.message);
+                                        //lấy giá trị base64 string trả về
+                                        var data = res.data;
+                                        var bookImgBase64String = data.bookDetailImageUri;
+
+                                        //kiểm tra string tồn tại
+                                        //nếu string tồn tại
+                                        if (bookImgBase64String) {
+                                            $('#blah').attr('src', "data:image/jpg;base64," + bookImgBase64String)
+                                        }
+                                        //nếu string không tồn tại
+                                        //đặt ảnh mặc định 
+                                        else {
+                                            $('#blah').attr('src', '../content/img/avatar-book-default.jpg')
+                                        }
+
+                                    } else {
+                                        commonBaseJS.showToastMsgFailed(res.message);
+                                    }
+                                }).fail(function (res) {
+                                    commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
+                                })
                             }
-                        }).fail(function (res) {
-                            commonBaseJS.showToastMsgFailed("Không tải được ảnh bìa sách.");
-                        })
+                            //nếu đường dẫn ảnh là link online
+                            else {
+                                $('#blah').attr('src', data.bookImageUri);
+                            }
 
+                            //gán data cho $('#imageBook')
+                            $('#blah').data('bookImageUri', data.bookImageUri);
+                        }
+                        // nếu đường dẫn ảnh không tồn tại hoặc là ""
+                        //đặt ảnh mặc định
+                        else {
+                            $('#blah').attr('src', '../content/img/avatar-book-default.jpg');
+                            //gán data cho $('#imageBook')
+                            $('#blah').data('bookImageUri', '../content/img/avatar-book-default.jpg')
+                        }
                     } else {
                         commonBaseJS.showToastMsgFailed("Không lấy được thông tin sách")
                     }
@@ -94,9 +125,49 @@ class BookDetailJS {
         $('.btn-discard').on('click', this.clearAll.bind(this));
         $('.saveDataBook').on('click', this.saveBookData.bind(this));
         $("#imgInp").on('change', this.readURL.bind(this));
+        $("#bookPdf").on('change', this.readBase64Pdf.bind(this));
         $('.checkBookCode').on('blur', this.onblurBookCode.bind(this));
         $('.checkNumInput').on('blur', this.onblurNumberInput.bind(this));
         $('.checkRequire').on('blur', this.onblurCheckRequire.bind(this));
+    }
+
+    readBase64Pdf(event) {
+        var input = event.currentTarget;
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var data = {
+                    BookID: newGuid,
+                    BookDetailBase64String: e.target.result.split(",")[1]
+                };
+
+                if (BookManager.editMode == 2) {
+                    data.BookID = BookManager.getRecordSelected()[0];
+                }
+
+                //call api
+                $.ajax({
+                    method: "POST",
+                    url: "/api/BookDetail/SaveFileBookInfo",
+                    contentType: "application/json",
+                    data: JSON.stringify(data)
+                }).done(function (res) {
+                    if (res.success) {
+                        commonBaseJS.showToastMsgSuccess("Tải tài liệu lên thành công")
+                    } else {
+                        //show alert
+                        commonBaseJS.showToastMsgFailed("Tải tài liệu lên thất bại")
+                    }
+                }).fail(function (res) {
+                    //show alert
+                    commonBaseJS.showToastMsgFailed("Tải tài liệu lên thất bại")
+                })
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
     }
 
     readURL(event) {
@@ -147,7 +218,6 @@ class BookDetailJS {
                 BookCode: $('#bookCode').val(),
                 BookName: $('#bookName').val(),
                 BookCategoryId: $('#bookCategory').val(),
-                BookDownloadUri: $('#bookDownLink').val(),
                 BookAuthor: $('#bookAuthor').val(),
                 AmountPage: parseInt($('#bookPage').val()),
                 YearOfPublication: parseInt($('#bookYear').val()),
@@ -166,6 +236,7 @@ class BookDetailJS {
                         commonBaseJS.showToastMsgSuccess("Thêm mới sách thành công.")
                         $('.btn-discard').click();
                         $('.fade').hide();
+                        BookManager.loadData();
 
                     } else {
                         commonBaseJS.showToastMsgFailed("Thêm sách thất bại")
@@ -191,6 +262,7 @@ class BookDetailJS {
                         commonBaseJS.showToastMsgSuccess("Cập nhật thông tin sách thành công.")
                         $('.btn-discard').click();
                         $('.fade').hide();
+                        BookManager.loadData();
 
                     } else {
                         commonBaseJS.showToastMsgFailed("Cập nhật thông tin sách thất bại")
@@ -222,7 +294,6 @@ class BookDetailJS {
         $('#bookCode').val('');
         $('#bookName').val('');
         $('#bookCategory').val('');
-        $('#bookDownLink').val('');
         $('#bookAuthor').val('');
         $("#blah").removeAttr("src");
         $('#bookPage').val('');

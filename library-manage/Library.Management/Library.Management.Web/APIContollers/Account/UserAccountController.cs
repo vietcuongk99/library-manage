@@ -218,12 +218,12 @@ namespace Library.Management.Web
             {
                 // Lọc dữ liệu phân trang
                 var offset = (param.pageNumber - 1) * param.pageSize;
-                var dataLimit = (res.Data as List<User>).Skip(offset).Take(param.pageSize);
+                var dataLimit = (res.Data as List<ResponseProcedureUser>).Skip(offset).Take(param.pageSize);
                 if (dataLimit.Count() > 0)
                 {
                     res.Data = new
                     {
-                        TotalRecord = (res.Data as List<User>).Count,
+                        TotalRecord = (res.Data as List<ResponseProcedureUser>).Count,
                         DataItems = dataLimit.ToList()
                     };
                 }

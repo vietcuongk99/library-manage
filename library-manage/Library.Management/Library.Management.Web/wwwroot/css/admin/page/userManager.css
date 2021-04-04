@@ -1,0 +1,13 @@
+﻿.ctnHeaderToolbar{
+    margin: 0px 12px;
+}
+
+.ctnInputSearch {
+    width: 250px;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.searchInp {
+    height: 35px !important;
+}

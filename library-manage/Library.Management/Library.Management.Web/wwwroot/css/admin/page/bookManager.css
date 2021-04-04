@@ -5,7 +5,11 @@
     border: 1px solid;
 }
 
-.book-manager-container .book-image img{
+.modalBookDetail {
+    padding: 20px 30px 0px 30px !important;
+}
+
+.book-manager-container .book-image img {
     height: 100%;
     width: 100%;
 }
@@ -15,6 +19,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.inpPadding{
+    padding: 0px 7px !important;
 }
 
 .downloadTemplateFile {
@@ -138,4 +146,64 @@
 .requirelabel {
     color: #ff0000;
     font-size: 11px;
+}
+
+.files input {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding: 60px 0px 85px 35%;
+    text-align: center !important;
+    margin: 0;
+    width: 100% !important;
+}
+
+    .files input:focus {
+        outline: 2px dashed #92b0b3;
+        outline-offset: -10px;
+        -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+        transition: outline-offset .15s ease-in-out, background-color .15s linear;
+        border: 1px solid #92b0b3;
+    }
+
+.files {
+    position: relative
+}
+
+    .files:after {
+        pointer-events: none;
+        position: absolute;
+        top: 20px;
+        left: 0;
+        width: 30px;
+        right: 0;
+        height: 32px;
+        content: "";
+        background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+        display: block;
+        margin: 0 auto;
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+
+.color input {
+    background-color: #f1f1f1;
+}
+
+.files:before {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    right: 0;
+    height: 37px;
+    content: " Kéo thả file vào đây. ";
+    display: block;
+    margin: 0 auto;
+    color: #2ea591;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
 }

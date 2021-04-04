@@ -11,7 +11,7 @@ else {
         window.location.href = '/page/login.html';
     }
     //Nếu đăng nhập rồi mà không phải là admin thì về trang trước
-    else if (userObject.conditionAccount != 1) {
+    else if (userObject.conditionAccount != 2 && userObject.conditionAccount != 3) {
         alert('Bạn không có quyền sử dụng chức năng này. Vui lòng đăng nhập dưới quyền admin!');
         window.history.go(-1);
     }

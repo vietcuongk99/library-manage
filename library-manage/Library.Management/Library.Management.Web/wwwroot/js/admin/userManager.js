@@ -1,4 +1,15 @@
-﻿$(document).ready(function () {
+﻿const RECORD_PER_PAGE = 20;
+//khai báo trang hiển thị mặc định
+//trang đầu tiên
+const PAGE_DEFAULT = 1;
+//khai báo số trang hiển thị mặc định trên thanh pagination
+//1 trang
+const VISIBLE_PAGE_DEFAULT = 1;
+//khai báo biến toàn cục lưu tổng số bản ghi sách sau tìm kiếm và số trang hiển thị
+var totalBookRecord;
+var totalPages;
+
+$(document).ready(function () {
     var setting = new UserManager();
     var userObject = JSON.parse(localStorage.getItem("user"));
 });
@@ -6,6 +17,7 @@
 class UserManager {
     constructor() {
         this.loadDataUser();
+        $(".fa-search").on('click', this.onclickSearch.bind(this));
     }
 
     initEvents() {
@@ -14,29 +26,42 @@ class UserManager {
     }
 
     loadDataUser() {
-        var self = this;
+        var self = this,
+            searchValue = $('.searchInp').val();
+
+        $('#lstUserGrid').empty();
+
         $.ajax({
             method: "GET",
-            url: "/api/UserAccount/",
+            url: "/api/UserAccount/GetPagingData?paramUserName=" + searchValue.trim() + "&pageNumber=" + PAGE_DEFAULT + "&pageSize=" + RECORD_PER_PAGE,
             async: false,
             contentType: "application/json",
         }).done(function (res) {
             if (res.success) {
-                var lstData = res.data.lstData;
+                var lstData = res.data.dataItems;
 
                 if (lstData.length > 0) {
                     $('#noUsers').hide();
 
+                    totalBookRecord = res.data.totalRecord;
+
+                    //tính toán số trang hiển thị và gán cho biến toàn cục
+                    totalPages = Math.ceil(totalBookRecord / RECORD_PER_PAGE);
+
+                    //gọi hàm loadPaginationSearchResult
+                    //phân trang dữ liệu
+                    self.loadPaginationSearchResult(totalPages, searchValue);
+
                     $.each(lstData, function (index, user) {
                         var userHTML = `
-                            <tr userID="${user.userId}">
+                            <tr userID="${user.userId}" typeUser="${user.conditionAccount}">
                                 <td>${index + 1}</td>
                                 <td>${user.userName}</td>
                                 <td>${user.email}</td>
                                 <td>${(user.firstName != null) ? user.firstName : ""} ${(user.lastName != null) ? user.lastName : ""}</td>
                                 <td>${(user.age != null) ? user.age : ""}</td>
                                 <td>${(user.country != null) ? user.country : ""}</td>
-                                <td align="center"><input type="checkbox" class="tdIsAdmin" style="height: 25px !important;" ${user.isAdmin ? "checked" : ""} /></td >
+                                <td align="center"><input type="checkbox" class="tdIsAdmin" style="height: 25px !important;" ${user.conditionAccount == 1 ? "" : "checked"} /></td >
                                 <td align="center"><button type="button" class="fa fa-trash-o btn btn-light btnDelete" title="Xóa"></button></td>
                             </tr>`
 
@@ -61,10 +86,10 @@ class UserManager {
         var checkBox = event.target;
         var self = this;
 
-        if (this.validateAdmin(checkBox)) {
+        if (this.validatePermissionEdit(checkBox) && this.validateAdmin(checkBox)) {
             var data = {
                 UserID: checkBox.closest('tr').getAttribute('userID'),
-                IsAdmin: checkBox.checked
+                ConditionAccount: (checkBox.checked) ? 2 : 1
             };
 
             $.ajax({
@@ -86,7 +111,7 @@ class UserManager {
                 commonBaseJS.showToastMsgFailed("Cập nhật không thành công")
             })
         } else {
-            checkBox.checked = true;
+            checkBox.checked = !checkBox.checked;
         }
     }
 
@@ -94,7 +119,7 @@ class UserManager {
         var itemDel = event.target;
         var self = this;
 
-        if (this.validateDelete(itemDel)) {
+        if (this.validatePermissionEdit(itemDel) &&this.validateDelete(itemDel)) {
 
             var conf = confirm("Bạn có thực sự muốn xóa người dùng này?");
             if (conf == true) {
@@ -121,10 +146,7 @@ class UserManager {
                     commonBaseJS.showToastMsgFailed("Xóa người dùng không thành công")
                 })
             }
-        } else {
-            alert('Bạn không được xóa chính mình khỏi danh sách người dùng.');
         }
-
     }
 
     validateDelete(element) {
@@ -136,32 +158,127 @@ class UserManager {
             bvalid = false;
         } 
 
+        if (!bvalid) {
+            alert('Bạn không được xóa chính mình khỏi danh sách người dùng.');
+        }
+
         return bvalid;
     }
 
     validateAdmin(element) {
         var bvalid = false,
             checkBox = $(".tdIsAdmin"),
-            thisTrId = element.closest('tr').getAttribute('userID');
-        
-        if (userObject.userID == thisTrId) {
-            alert('Bạn không được gỡ quyền admin của mình.');
-        } else {
+            thisTrId = element.closest('tr').getAttribute('userID'),
+            typeUser = element.closest('tr').getAttribute('typeUser');
 
-            if (!element.checked) {
-                $.each(checkBox, function (index, item) {
-                    if (item.checked) {
-                        bvalid = true;
-                    }
-                });
+        if (userObject.conditionAccount == 2 && typeUser == 1) {
+            alert('Bạn không có quyền cấp tài khoản admin cho người dùng.');
+        }
+        else {
+            if (userObject.userID == thisTrId) {
+                alert('Bạn không được gỡ quyền admin của mình.');
             } else {
-                bvalid = true;
-            }
 
-            if (!bvalid) {
-                alert('Phải có ít nhất 1 admin.');
+                if (!element.checked) {
+                    $.each(checkBox, function (index, item) {
+                        if (item.checked) {
+                            bvalid = true;
+                        }
+                    });
+                } else {
+                    bvalid = true;
+                }
+
+                if (!bvalid) {
+                    alert('Phải có ít nhất 1 admin.');
+                }
             }
         }
+
         return bvalid;
+    }
+
+    validatePermissionEdit(element) {
+        var bValid = true,
+            typeUser = element.closest('tr').getAttribute('typeUser');
+
+        if (userObject.conditionAccount == 3) {
+            return bValid;
+        }
+        else if (userObject.conditionAccount == 2) {
+            if (parseInt(typeUser) == 2 || parseInt(typeUser) == 3) {
+                bValid = false;
+                alert('Bạn không có quyền thay đổi thông tin của tài khoản admin khác.');
+            }
+        }
+        return bValid;
+    }
+
+    onclickSearch() {
+        this.loadDataUser();
+    }
+
+    loadPaginationSearchResult(totalPages, searchValue) {
+
+        //gọi hàm twbsPagination từ twbs-pagination plugin
+        $('#pagingDiv').twbsPagination({
+            totalPages: totalPages,
+            visiblePages: VISIBLE_PAGE_DEFAULT,
+            onPageClick: function (event, page) {
+                //call api
+                $.ajax({
+                    method: "GET",
+                    url: "/api/UserAccount/GetPagingData?paramUserName=" + searchValue.trim() + "&pageNumber=" + PAGE_DEFAULT + "&pageSize=" + RECORD_PER_PAGE,
+                    async: true,
+                    contentType: "application/json",
+                    beforeSend: function () {
+                        //show loading
+                        commonBaseJS.showLoadingData(1);
+                    }
+                }).done(function (res) {
+                    if (res.success && res.data) {
+                        var lstData = res.data.dataItems;
+
+                        $('#lstUserGrid').empty();
+                        $('#noUsers').show();
+                        if (lstData.length > 0) {
+                            $('#noUsers').hide();
+
+                            $.each(lstData, function (index, user) {
+                                var userHTML = `
+                            <tr userID="${user.userId}" typeUser="${user.conditionAccount}">
+                                <td>${index + 1}</td>
+                                <td>${user.userName}</td>
+                                <td>${user.email}</td>
+                                <td>${(user.firstName != null) ? user.firstName : ""} ${(user.lastName != null) ? user.lastName : ""}</td>
+                                <td>${(user.age != null) ? user.age : ""}</td>
+                                <td>${(user.country != null) ? user.country : ""}</td>
+                                <td align="center"><input type="checkbox" class="tdIsAdmin" style="height: 25px !important;" ${user.conditionAccount == 1 ? "" : "checked"} /></td >
+                                <td align="center"><button type="button" class="fa fa-trash-o btn btn-light btnDelete" title="Xóa"></button></td>
+                            </tr>`
+
+                                $(userHTML).data('userID', user.userId)
+
+                                $('#lstUserGrid').append($(userHTML))
+                            });
+                        }
+                        //ẩn loading
+                        commonBaseJS.showLoadingData(0);
+
+
+                    } else {
+                        //ẩn loading
+                        commonBaseJS.showLoadingData(0);
+                        //show alert
+                        commonBaseJS.showToastMsgFailed(res.message);
+                    }
+                }).fail(function (res) {
+                    //ẩn loading
+                    commonBaseJS.showLoadingData(0);
+                    //show alert
+                    commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
+                })
+            }
+        })
     }
 }
