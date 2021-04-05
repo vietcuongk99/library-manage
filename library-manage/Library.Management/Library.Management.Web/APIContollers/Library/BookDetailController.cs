@@ -27,6 +27,11 @@ namespace Library.Management.Web
             _bookDetailBL = bookDetailBL;
         }
 
+        /// <summary>
+        /// Lấy ra các thông tin dùng cho monitor
+        /// </summary>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 05/04/2021
         [HttpGet("GetMonitorActivation")]
         public async Task<ActionServiceResult> GetMonitorActivation()
         {
@@ -64,7 +69,6 @@ namespace Library.Management.Web
             var res = await _bookDetailBL.UpdateBookDetail(param);
             return res;
         }
-
 
         /// <summary>
         /// Lấy ảnh đại diện sách từ đường dẫn
@@ -194,7 +198,7 @@ namespace Library.Management.Web
                 bookUriConvertBase64.BookID = bookImageUri.BookID;
                 bookUriConvertBase64.BookName = bookImageUri.BookName;
                 bookUriConvertBase64.BookAuthor = bookImageUri.BookAuthor;
-                if (bookImageUri != null)
+                if (bookImageUri.BookImageUri != null)
                 {
                     imagePath = Directory.GetCurrentDirectory() + bookImageUri.BookImageUri;
                 }
@@ -260,6 +264,12 @@ namespace Library.Management.Web
             return res;
         }
 
+        /// <summary>
+        /// Mở tài liệu 1 cuốn sách
+        /// </summary>
+        /// <param name="BookID"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 05/04/2021
         [HttpPost("OpenFileBookInfo")]
         public async Task<IActionResult> OpenFileBookInfo(string BookID)
         {

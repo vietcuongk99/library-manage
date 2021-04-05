@@ -39,7 +39,6 @@ namespace Library.Management.BL
         /// CreatedBy: VDDUNG1 04/04/2021
         Task<ActionServiceResult> ConfirmBorrowActivation(string id, int statusActivate);
 
-
         /// <summary>
         /// Cập nhật thông tin trả sách
         /// </summary>

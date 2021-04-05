@@ -64,7 +64,7 @@ namespace Library.Management.Web
                 bookUriConvertBase64.BorrowDate = bookImageUri.BorrowDate;
                 bookUriConvertBase64.BorrowStatus = bookImageUri.BorrowStatus;
                 bookUriConvertBase64.ReturnDate = bookImageUri.ReturnDate;
-                if (bookImageUri != null)
+                if (bookImageUri.BookImageUri != null)
                 {
                     imagePath = Directory.GetCurrentDirectory() + bookImageUri.BookImageUri;
                 }
@@ -110,7 +110,74 @@ namespace Library.Management.Web
         public async Task<ActionServiceResult> GetListRequestActivation()
         {
             var res = await _bookBorrowBL.GetListRequestActivation();
+            if (res.Data != null)
+            {
+                res.Data = ConvertAvtImage((List<ReponseProcedureListRequestBorrowActivation>)res.Data);
+            };
             return res;
+        }
+
+        /// <summary>
+        /// Convert link ảnh người dùng sang base64
+        /// </summary>
+        /// <param name="lst"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 05/04/2021
+        private List<ReponseProcedureListRequestBorrowActivation> ConvertAvtImage(List<ReponseProcedureListRequestBorrowActivation> lst)
+        {
+            var res = new ActionServiceResult();
+            var lstAvtUriConvertBase64 = new List<ReponseProcedureListRequestBorrowActivation>();
+            string imagePath;
+            // Vòng for trả về list Book chứa các đường dẫn Base64 được convert từ link ảnh
+            foreach (ReponseProcedureListRequestBorrowActivation avtImageUri in lst)
+            {
+                var avtUriConvertBase64 = new ReponseProcedureListRequestBorrowActivation();
+                avtUriConvertBase64.BookBorrowID = avtImageUri.BookBorrowID;
+                avtUriConvertBase64.BookID = avtImageUri.BookID;
+                avtUriConvertBase64.UserID = avtImageUri.UserID;
+                avtUriConvertBase64.CreatedDate = avtImageUri.CreatedDate;
+                avtUriConvertBase64.CreatedBy = avtImageUri.CreatedBy;
+                avtUriConvertBase64.BookName = avtImageUri.BookName;
+                avtUriConvertBase64.UserName = avtImageUri.UserName;
+                avtUriConvertBase64.Email = avtImageUri.Email;
+                avtUriConvertBase64.Age = avtImageUri.Age;
+                avtUriConvertBase64.FirstName = avtImageUri.FirstName;
+                avtUriConvertBase64.LastName = avtImageUri.LastName;
+                if (avtImageUri.AvatarUrl != null)
+                {
+                    imagePath = Directory.GetCurrentDirectory() + avtImageUri.AvatarUrl;
+                }
+                else
+                {
+                    imagePath = Directory.GetCurrentDirectory() + GlobalResource.DirectoryImage + GlobalResource.AvatarUserDefault;
+                }
+                // Nếu tồn tại đường dẫn chứa ảnh thì gọi đến, không thì gọi về ảnh mặc định
+                if (System.IO.File.Exists(imagePath))
+                {
+                    using (Image img = Image.FromFile(imagePath))
+                    {
+                        if (img != null)
+                        {
+                            avtUriConvertBase64.AvatarUrl = _baseBL.ImageToBase64(img, ImageFormat.Jpeg);
+                            lstAvtUriConvertBase64.Add(avtUriConvertBase64);
+                        }
+                    }
+                }
+                else
+                {
+                    // Nếu link ảnh có nhưng không chính xác thì bắn về ảnh mặc định
+                    imagePath = Directory.GetCurrentDirectory() + GlobalResource.DirectoryImage + GlobalResource.AvatarUserDefault;
+                    using (Image img = Image.FromFile(imagePath))
+                    {
+                        if (img != null)
+                        {
+                            avtUriConvertBase64.AvatarUrl = _baseBL.ImageToBase64(img, ImageFormat.Jpeg);
+                            lstAvtUriConvertBase64.Add(avtUriConvertBase64);
+                        }
+                    }
+                }
+            }
+            return lstAvtUriConvertBase64;
         }
 
         /// <summary>

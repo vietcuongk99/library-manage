@@ -64,7 +64,8 @@ namespace Library.Management.Entity
         /// </summary>
         public int TotalBookBorrow { get; set; }
     }
-    public class ResponseProcedureTotalBookBorrow {
+    public class ResponseProcedureTotalBookBorrow
+    {
         /// <summary>
         /// Tổng số lượt mượn sách
         /// </summary>
@@ -73,5 +74,20 @@ namespace Library.Management.Entity
         /// Tổng số lượt đang mượn
         /// </summary>
         public int TotalBookBorrowActive { get; set; }
+    }
+    public class ReponseProcedureListRequestBorrowActivation
+    {
+        public Guid BookBorrowID { get; set; }
+        public Guid BookID { get; set; }
+        public Guid UserID { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public string BookName { get; set; }
+        public string UserName { get; set; }
+        public string AvatarUrl { get; set; }
+        public string Email { get; set; }
+        public int Age { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

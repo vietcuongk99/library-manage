@@ -9,8 +9,13 @@ namespace Library.Management.BL
 {
     public interface IBookDetailBL
     {
-
+        /// <summary>
+        /// Lấy thông tin phục vụ màn hình Monitor
+        /// </summary>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 05/04/2021
         Task<ActionServiceResult> GetMonitorActivation();
+
         /// <summary>
         /// Lọc dữ liệu phân trang
         /// </summary>

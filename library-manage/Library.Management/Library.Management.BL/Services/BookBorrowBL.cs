@@ -42,7 +42,7 @@ namespace Library.Management.BL
         public async Task<ActionServiceResult> GetListRequestActivation()
         {
             var res = new ActionServiceResult();
-            res.Data = await _baseDL.GetListAsync(ProcdureTypeName.GetListRequestActivation);
+            res.Data = await _baseDL.GetListAsyncV2<ReponseProcedureListRequestBorrowActivation>(ProcdureTypeName.GetListRequestActivation);
             return res;
         }
 
@@ -103,12 +103,12 @@ namespace Library.Management.BL
         public async Task<ActionServiceResult> ConfirmBorrowActivation(string id, int statusActivate)
         {
             var res = new ActionServiceResult();
-            if(statusActivate == (int)StatusActivate.Remove)
+            if (statusActivate == (int)StatusActivate.Remove)
             {
-                 await _baseDL.Delete(id);
+                await _baseDL.Delete(id);
                 res.Data = 1; // thành công
             }
-            else if(statusActivate == (int)StatusActivate.Confirm)
+            else if (statusActivate == (int)StatusActivate.Confirm)
             {
                 var param = new
                 {
@@ -117,6 +117,7 @@ namespace Library.Management.BL
                     ReturnDate = DateTime.Now.AddDays(int.Parse(GlobalResource.TotalMaxReturnDate)),
                     Status = (int)Status.Active
                 };
+
                 await _baseDL.UpdateAsync(param, ProcdureTypeName.ConfirmBorrowActivation);
                 res.Data = 1; // thành công
             }
@@ -198,7 +199,7 @@ namespace Library.Management.BL
                         res.LibraryCode = LibraryCode.ErrorExtendBookBorrow;
                     }
                     //Nếu chưa hết hạn và ngày gia hạn mới lớn hơn ngày hết hạn cũ + maxExtend ngày
-                    else if(DateTime.Now < bookBorrowByID.ReturnDate
+                    else if (DateTime.Now < bookBorrowByID.ReturnDate
                         && param.ReturnDate > bookBorrowByID.ReturnDate.AddDays(int.Parse(GlobalResource.TotalMaxReturnDateExtend)))
                     {
                         res.Success = false;
@@ -207,7 +208,7 @@ namespace Library.Management.BL
                     }
 
                     //Nếu đã hết hạn và ngày gia hạn mới lớn hơn ngày hôm nay + maxExtend ngày
-                    else if(DateTime.Now > bookBorrowByID.ReturnDate 
+                    else if (DateTime.Now > bookBorrowByID.ReturnDate
                         && param.ReturnDate > DateTime.Now.AddDays(int.Parse(GlobalResource.TotalMaxReturnDateExtend)))
                     {
                         res.Success = false;
