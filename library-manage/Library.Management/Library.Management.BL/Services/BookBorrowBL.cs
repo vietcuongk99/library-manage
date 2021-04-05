@@ -103,23 +103,33 @@ namespace Library.Management.BL
         public async Task<ActionServiceResult> ConfirmBorrowActivation(string id, int statusActivate)
         {
             var res = new ActionServiceResult();
-            if (statusActivate == (int)StatusActivate.Remove)
+            var requestBorrow = await _baseDL.GetEntityById(id);
+            if (requestBorrow == null)
             {
-                await _baseDL.Delete(id);
-                res.Data = 1; // thành công
+                res.Success = false;
+                res.Message = GlobalResource.CancelRequestBorrow;
+                res.LibraryCode = LibraryCode.CancelRequestBorrow;
             }
-            else if (statusActivate == (int)StatusActivate.Confirm)
+            else
             {
-                var param = new
+                if (statusActivate == (int)StatusActivate.Remove)
                 {
-                    BookBorrowID = id,
-                    BorrowDate = DateTime.Now,
-                    ReturnDate = DateTime.Now.AddDays(int.Parse(GlobalResource.TotalMaxReturnDate)),
-                    Status = (int)Status.Active
-                };
+                    await _baseDL.Delete(id);
+                    res.Data = 1; // thành công
+                }
+                else if (statusActivate == (int)StatusActivate.Confirm)
+                {
+                    var param = new
+                    {
+                        BookBorrowID = id,
+                        BorrowDate = DateTime.Now,
+                        ReturnDate = DateTime.Now.AddDays(int.Parse(GlobalResource.TotalMaxReturnDate)),
+                        Status = (int)Status.Active
+                    };
 
-                await _baseDL.UpdateAsync(param, ProcdureTypeName.ConfirmBorrowActivation);
-                res.Data = 1; // thành công
+                    await _baseDL.UpdateAsync(param, ProcdureTypeName.ConfirmBorrowActivation);
+                    res.Data = 1; // thành công
+                }
             }
             return res;
         }
