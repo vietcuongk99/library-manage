@@ -193,6 +193,7 @@ namespace Library.Management.Entity
 
         GetBookBorrowByUser,
         GetListRequestActivation,
+        GetMonitorActivation,
         /// <summary>
         /// Thêm mới
         /// </summary>

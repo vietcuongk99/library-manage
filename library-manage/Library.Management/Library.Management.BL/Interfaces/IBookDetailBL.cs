@@ -9,6 +9,8 @@ namespace Library.Management.BL
 {
     public interface IBookDetailBL
     {
+
+        Task<ActionServiceResult> GetMonitorActivation();
         /// <summary>
         /// Lọc dữ liệu phân trang
         /// </summary>

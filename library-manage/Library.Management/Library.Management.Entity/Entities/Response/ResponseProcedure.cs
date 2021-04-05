@@ -53,4 +53,25 @@ namespace Library.Management.Entity
         public int ConditionAccount { get; set; }
         public ulong? Status { get; set; }
     }
+    public class ResponseProcedureTotalBook
+    {
+        /// <summary>
+        /// Tổng số sách
+        /// </summary>
+        public int TotalBook { get; set; }
+        /// <summary>
+        /// Tổng số sách được mượn
+        /// </summary>
+        public int TotalBookBorrow { get; set; }
+    }
+    public class ResponseProcedureTotalBookBorrow {
+        /// <summary>
+        /// Tổng số lượt mượn sách
+        /// </summary>
+        public int TotalBorrowActivated { get; set; }
+        /// <summary>
+        /// Tổng số lượt đang mượn
+        /// </summary>
+        public int TotalBookBorrowActive { get; set; }
+    }
 }

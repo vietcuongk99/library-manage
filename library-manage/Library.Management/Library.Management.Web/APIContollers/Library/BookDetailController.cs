@@ -27,6 +27,13 @@ namespace Library.Management.Web
             _bookDetailBL = bookDetailBL;
         }
 
+        [HttpGet("GetMonitorActivation")]
+        public async Task<ActionServiceResult> GetMonitorActivation()
+        {
+            var res = await _bookDetailBL.GetMonitorActivation();
+            return res;
+        }
+
         /// <summary>
         /// Thêm 1 bản ghi thông tin cuốn sách
         /// </summary>

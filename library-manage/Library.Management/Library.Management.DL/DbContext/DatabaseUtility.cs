@@ -64,6 +64,9 @@ namespace Library.Management.DL.DbContext
                 case ProcdureTypeName.GetListRequestActivation:
                     storeName = $"Proc_GetList{tableName}RequestActivation";
                     break;
+                case ProcdureTypeName.GetMonitorActivation:
+                    storeName = $"Proc_GetMonitorActivation";
+                    break;
                 case ProcdureTypeName.Insert:
                     storeName = $"Proc_Insert{tableName}";
                     break;

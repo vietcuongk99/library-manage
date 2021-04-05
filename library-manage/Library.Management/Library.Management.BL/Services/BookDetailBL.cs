@@ -21,6 +21,13 @@ namespace Library.Management.BL
             _bookDetailDL = bookDetailDL;
         }
 
+        public async Task<ActionServiceResult> GetMonitorActivation()
+        {
+            var res = new ActionServiceResult();
+            res.Data = await _bookDetailDL.GetMonitorActivation(ProcdureTypeName.GetMonitorActivation);
+            return res;
+        }
+
         /// <summary>
         /// Lọc dữ liệu phân trang
         /// </summary>
