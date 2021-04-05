@@ -45,7 +45,7 @@ namespace Library.Management.DL
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
             _db.Open();
             var storeName = DatabaseUtility.GeneateStoreName<T>(procdureTypeName);
-            var entities = _db.Query<T>(storeName, commandType: CommandType.StoredProcedure);
+            var entities = _db.Query<T>(storeName, entity, commandType: CommandType.StoredProcedure);
             _db.Close();
             return (IReadOnlyList<T>)await Task.FromResult(entities);
         }
