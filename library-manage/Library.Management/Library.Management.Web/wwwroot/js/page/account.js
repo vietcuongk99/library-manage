@@ -170,6 +170,7 @@ class AccountJS extends BaseJS {
             } else {
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
+                debugger
                 commonBaseJS.showToastMsgFailed(res.message);
             }
         }).fail(function(res) {

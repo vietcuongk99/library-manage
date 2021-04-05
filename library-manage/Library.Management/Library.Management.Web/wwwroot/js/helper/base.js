@@ -31,6 +31,7 @@ class BaseJS {
             var adminUrl = HOST_URL + "admin"
 
             //khai báo các thành phần html
+            var searchBtn = `<li class="nav-item"><a class="nav-link" href="/page/search-result.html">Danh mục sách</a></li>`
             var manageSystemBtn = `<li class="nav-item"><a class="nav-link" href="` + adminUrl + `">Quản lý hệ thống</a></li>`
             var dropDownAction = `<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAvatar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -42,14 +43,18 @@ class BaseJS {
             </div>
             </li>`
 
+            //thêm đường dẫn tới trang search-result
+            $('#navItemList').append(searchBtn);
             //nếu user không có quyền manage/admin
-            //thêm đường dẫn tới trang admin.html
             if (userObject.conditionAccount == 1) {
+                //thêm dropdown
                 $('#navItemList').append(dropDownAction)
             }
-            //nếu user không có quyền manage/admin
+            //nếu user có quyền manage/admin
             else {
-                $('#navItemList').append(manageSystemBtn)
+                //thêm đường dẫn tới trang admin.html
+                $('#navItemList').append(manageSystemBtn);
+                //thêm dropdown
                 $('#navItemList').append(dropDownAction)
             }
         } else {
@@ -57,7 +62,6 @@ class BaseJS {
             $('#navItemList').append(loginBtn)
             console.log(userObject)
         }
-
     }
 
     //load dữ liệu ảnh đại diện user trên thanh nav bar
@@ -86,7 +90,6 @@ class BaseJS {
                 commonBaseJS.showToastMsgFailed("Tải ảnh đại diện không thành công.");
             })
         }
-
     }
 
 }

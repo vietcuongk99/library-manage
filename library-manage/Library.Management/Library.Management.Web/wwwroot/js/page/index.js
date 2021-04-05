@@ -71,24 +71,6 @@ class IndexJS extends BaseJS {
         window.open("search-result.html", "_self")
     }
 
-    //chi tiết xử lý sự kiện khi click vào nút Tìm kiếm
-    searchEvent() {
-
-        //lấy thông tin tìm kiếm hiện tại
-        var searchValue = $('#searchInput').val().trim()
-
-        //lưu thông tin tìm kiếm vào localStorage
-        //localStorage.setItem("searchValue", searchValue);
-
-        debugger
-        //tạo url với param chứa giá trị cần tìm kiếm
-        var searchPageStr = "search-result.html?searchValue=" + searchValue;
-        //mở trang search-result.html
-        window.open(searchPageStr, "_self")
-
-    }
-
-
 }
 
 //fake data

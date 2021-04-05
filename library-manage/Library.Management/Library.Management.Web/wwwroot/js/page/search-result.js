@@ -7,13 +7,9 @@ const PAGE_DEFAULT = 1;
 //khai báo số trang hiển thị mặc định trên thanh pagination
 //1 trang
 const VISIBLE_PAGE_DEFAULT = 1;
-//khai báo biến toàn cục lưu tổng số bản ghi sách sau tìm kiếm và số trang hiển thị
-var totalBookRecord;
-var totalPages;
 
 //lấy ra giá trị tìm kiếm từ url
 var searchValue = commonJS.getURLParameter('searchValue')
-debugger
 
 $(document).ready(function() {
     searchResultJS = new SearchResultJS()
@@ -24,67 +20,65 @@ $(document).ready(function() {
 class SearchResultJS extends BaseJS {
     constructor() {
         super();
-        this.loadData();
+        this.loadSearchResult(searchValue);
         this.initEvent();
 
     }
 
     //gán sự kiện trong trang search-result.html
     initEvent() {
+        //gán xử lý sự kiện khi click nút Tìm kiếm
+        $('#searchBtn').on('click', this.searchEvent.bind(this));
         //gán xử lý sự kiện khi click vào 1 card sách
         $('#searchResultDiv').on('click', '.card.h-100', this.cardOnClick)
 
     }
 
     ///load dữ liệu
-    loadData() {
+    loadSearchResult(searchValue) {
 
         //khai báo và gán giá trị trong localStorage
         // var fieldValue = localStorage.getItem("fieldValue")
         // var fieldText = localStorage.getItem("fieldText")
         //var searchValue = localStorage.getItem("searchValue");
-        var showNewBook = localStorage.getItem("showNewBook")
-        var showHotBook = localStorage.getItem("showHotBook");
+        //var showNewBook = localStorage.getItem("showNewBook")
+        //var showHotBook = localStorage.getItem("showHotBook");
 
         //load dữ liệu các thành phần HTML
         //dữ liệu thay đổi phụ thuộc event trên trang index
         //nếu user ấn button 'xem thêm' sách hot trên trang index
-        if (showHotBook) {
+        // if (showHotBook) {
 
-            //load dữ liệu
-            var fieldHTML = $(`<li class="breadcrumb-item">Sách HOT</li>`)
-            $('#breadcrumbDiv').append(fieldHTML);
-            //gán dữ liệu lên ui
-            //đợi api
-            commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
+        //     //load dữ liệu
+        //     var fieldHTML = $(`<li class="breadcrumb-item">Sách HOT</li>`)
+        //     $('#breadcrumbDiv').append(fieldHTML);
+        //     //gán dữ liệu lên ui
+        //     //đợi api
+        //     commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
 
-            //thay đổi giao diện footer
-            // $('footer').removeClass("fixed-bottom")
+        //     //thay đổi giao diện footer
+        //     // $('footer').removeClass("fixed-bottom")
 
-        }
+        // }
 
         //nếu user ấn button 'xem thêm' sách mới trên trang index
-        if (showNewBook) {
+        // if (showNewBook) {
 
-            //load dữ liệu
-            var fieldHTML = $(`<li class="breadcrumb-item">Sách Mới</li>`)
-            $('#breadcrumbDiv').append(fieldHTML);
-            //gán dữ liệu lên ui
-            //đợi api
-            commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
+        //     //load dữ liệu
+        //     var fieldHTML = $(`<li class="breadcrumb-item">Sách Mới</li>`)
+        //     $('#breadcrumbDiv').append(fieldHTML);
+        //     //gán dữ liệu lên ui
+        //     //đợi api
+        //     commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
 
-            //thay đổi giao diện footer
-            //$('footer').removeClass("fixed-bottom")
-        }
+        //     //thay đổi giao diện footer
+        //     //$('footer').removeClass("fixed-bottom")
+        // }
+
+
 
         //nếu user ấn nút tìm kiếm trên trang index
         if (searchValue || searchValue == "") {
-
-            if (searchValue.trim().length > 0) {
-                //thay đổi giao diện breadcrumb
-                var fieldHTML = $(`<li class="breadcrumb-item">Tên sách</li><li class="breadcrumb-item">` + searchValue.trim() + `</li>`)
-                $('#breadcrumbDiv').append(fieldHTML)
-            }
             //lấy ra đầu sách phù hợp trong csdl
             $.ajax({
                 method: "GET",
@@ -99,15 +93,18 @@ class SearchResultJS extends BaseJS {
                 if (res.success && res.data) {
                     debugger
                     //gán tổng số bản ghi cho biến toàn cục
-                    totalBookRecord = res.data.totalRecord;
+                    var totalBookRecord = res.data.totalRecord;
 
                     //tính toán số trang hiển thị và gán cho biến toàn cục
-                    totalPages = Math.ceil(totalBookRecord / RECORD_PER_PAGE);
+                    var totalPages = Math.ceil(totalBookRecord / RECORD_PER_PAGE);
 
+                    debugger
                     //gọi hàm loadPaginationSearchResult
                     //phân trang dữ liệu
+                    debugger
                     searchResultJS.loadPaginationSearchResult(totalPages, searchValue)
                 } else {
+                    debugger
                     //ẩn loading
                     commonBaseJS.showLoadingData(0);
                     //show alert
@@ -139,10 +136,30 @@ class SearchResultJS extends BaseJS {
         window.open(bookDetailStr, "_self")
     }
 
+    //chi tiết xử lý sự kiện khi click vào nút Tìm kiếm
+    searchEvent() {
+
+        //lấy thông tin tìm kiếm hiện tại
+        var searchValue = $('#searchInput').val().trim()
+
+        //lưu thông tin tìm kiếm vào localStorage
+        //localStorage.setItem("searchValue", searchValue);
+
+        debugger
+        //tạo url với param chứa giá trị cần tìm kiếm
+        var searchPageStr = "search-result.html?searchValue=" + searchValue;
+        //mở trang search-result.html
+        window.open(searchPageStr, "_self")
+            // $('#pagingDiv').children().remove();
+            // $('#searchResultDiv').children().remove();
+
+
+    }
+
 
     //phân trang và hiển thị kết quả tìm kiếm
     loadPaginationSearchResult(totalPages, searchValue) {
-
+        debugger
         //gọi hàm twbsPagination từ twbs-pagination plugin
         $('#pagingDiv').twbsPagination({
             totalPages: totalPages,
