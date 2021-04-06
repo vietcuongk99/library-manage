@@ -34,7 +34,7 @@ class IndexJS extends BaseJS {
     initEvent() {
 
         //gán xử lý sự kiện khi click nút Tìm kiếm
-        $('#searchBtn').on('click', this.searchEvent.bind(this));
+        //$('#searchBtn').on('click', this.searchEvent.bind(this));
         //gán xử lý sự kiện khi click nút Xem thêm Sách HOT
         //$('#showHotBookBtn').on('click', this.getAllHotBookEvent.bind(this));
         //gán xử lý sự kiện khi click nút Xem thêm Sách Mới

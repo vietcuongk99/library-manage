@@ -27,10 +27,11 @@ namespace Library.Management.Web
         }
 
         /// <summary>
-        /// Lấy danh sách sách đang mượn của người dùng
+        /// Lấy danh sách sách đang mượn và yêu cầu mượn của người dùng
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
+        /// ModifiedBy: Cuong 06/04/2021
         [HttpGet("GetPagingData")]
         public async Task<ActionServiceResult> GetPagingData([FromQuery]ParamFilterBookBorrow param)
         {
@@ -48,6 +49,7 @@ namespace Library.Management.Web
         /// <param name="lstBookImageUri"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 24/03/2021
+        /// ModifiedBy: CUONG 06/04/2021
         private List<ResponseBookBorrowDownloadInfo> ShowListBookImageConvertBase64String(List<ResponseProcedureBookBorrow> lstBookImageUri)
         {
             var res = new ActionServiceResult();
@@ -64,6 +66,8 @@ namespace Library.Management.Web
                 bookUriConvertBase64.BorrowDate = bookImageUri.BorrowDate;
                 bookUriConvertBase64.BorrowStatus = bookImageUri.BorrowStatus;
                 bookUriConvertBase64.ReturnDate = bookImageUri.ReturnDate;
+                //status của bảng BookBorrow
+                bookUriConvertBase64.BookBorrowStatus = bookImageUri.BookBorrowStatus;
                 if (bookImageUri.BookImageUri != null)
                 {
                     imagePath = Directory.GetCurrentDirectory() + bookImageUri.BookImageUri;

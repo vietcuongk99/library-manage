@@ -23,6 +23,9 @@ namespace Library.Management.Entity
         public string BookImageUriBase64String { get; set; }
         public string BookAuthor { get; set; }
     }
+    /// <summary>
+    /// ModifiedBy: CUONG 06/04/2021
+    /// </summary>
     public class ResponseBookBorrowDownloadInfo
     {
         public Guid BookBorrowID { get; set; }
@@ -33,5 +36,6 @@ namespace Library.Management.Entity
         public DateTime BorrowDate { get; set; }
         public ulong? BorrowStatus { get; set; }
         public DateTime ReturnDate { get; set; }
+        public ulong? BookBorrowStatus { get; set; }
     }
 }

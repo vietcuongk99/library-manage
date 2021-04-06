@@ -22,11 +22,12 @@ namespace Library.Management.BL
         }
 
         /// <summary>
-        /// Lấy danh sách sách đã mượn của người dùng
+        /// Lấy danh sách sách đã mượn và yêu cầu mượn sách của người dùng
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 29/03/2021
+        /// ModifiedBy: CUONG 06/04/2021
         public async Task<ActionServiceResult> GetPagingData(ParamFilterBookBorrow param)
         {
             var res = new ActionServiceResult();

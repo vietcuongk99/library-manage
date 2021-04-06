@@ -177,13 +177,10 @@ class SearchResultJS extends BaseJS {
                     }
                 }).done(function(res) {
                     if (res.success && res.data) {
-
                         //gán dữ liệu lên ui
                         commonJS.appendBookDataToCard(res.data.dataItems, "#searchResultDiv");
                         //ẩn loading
                         commonBaseJS.showLoadingData(0);
-
-
                     } else {
                         //ẩn loading
                         commonBaseJS.showLoadingData(0);
