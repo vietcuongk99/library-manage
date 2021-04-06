@@ -7,6 +7,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -96,7 +97,7 @@ namespace Library.Management.DL
             _db.Close();
             return await Task.FromResult(entities);
         }
-        
+
         /// <summary>
         /// Lấy ra dữ liệu từ 1 trường thông tin truyền vào bất kỳ
         /// </summary>
@@ -129,7 +130,7 @@ namespace Library.Management.DL
             var responseProcedure = (Activator.CreateInstance<Y>()).GetType().Name;
             var storeName = DatabaseUtility.GeneateStoreName<T>(procdureTypeName);
             //Gọi vào hàm swith case lấy ra dữ liệu
-            var entities = DatabaseUtility.ResponseProcedure(_db ,responseProcedure, entity, storeName);
+            var entities = DatabaseUtility.ResponseProcedure(_db, responseProcedure, entity, storeName);
             _db.Close();
             return await Task.FromResult(entities);
         }
@@ -183,6 +184,26 @@ namespace Library.Management.DL
                 return 1;
             }
             return 0;
+        }
+
+        public DataTable ExcureDataReader(string query)
+        {
+            var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
+            _db.Open();
+            MySqlCommand command = new MySqlCommand(query, _db);
+            DataTable myTable = new DataTable();
+
+            using var reader = command.ExecuteReader();
+            // Kiểm tra có kết quả trả về
+            if (reader.HasRows)
+            {
+                myTable.Load(reader);
+            }
+            else
+            {
+                Console.WriteLine("Không có dữ liệu trả về");
+            }
+            return myTable;
         }
     }
 }

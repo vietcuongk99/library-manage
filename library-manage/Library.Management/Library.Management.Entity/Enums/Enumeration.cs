@@ -220,6 +220,8 @@ namespace Library.Management.Entity
         /// </summary>
         GetPagingParamBookDetail,
 
+        GetPagingParamBookDetailV2,
+
         /// <summary>
         /// Lọc dữ liệu phân trang tài khoản
         /// </summary>
@@ -338,5 +340,38 @@ namespace Library.Management.Entity
         /// Xác nhận
         /// </summary>
         Confirm = 1
+    }
+    public enum ValueTypeBook
+    {
+        /// <summary>
+        /// Mới nhất
+        /// </summary>
+        New = 1,
+        /// <summary>
+        /// Được mượn nhiều nhất
+        /// </summary>
+        Count = 2
+    }
+    public enum OrderByType
+    {
+        /// <summary>
+        /// Giảm dần
+        /// </summary>
+        DESC = 1,
+        /// <summary>
+        /// Tăng dần
+        /// </summary>
+        ASC = 2
+    }
+    public enum SearchType
+    {
+        /// <summary>
+        /// Tên sách
+        /// </summary>
+        BookName = 1,
+        /// <summary>
+        /// Tên tác giả
+        /// </summary>
+        AuthorName = 2
     }
 }

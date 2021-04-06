@@ -44,7 +44,7 @@ namespace Library.Management.BL
             var res = new ActionServiceResult();
             if (param.paramBookName == null) param.paramBookName = "";
             if (param.pageNumber <= 0) param.pageNumber = 1;
-            if (param.pageSize <= 0) param.pageSize = 30;
+            if (param.pageSize <= 0) param.pageSize = int.Parse(GlobalResource.PageSize);
             if (param.paramBookCategoryID == null) param.paramBookCategoryID = "";
 
             res.Data = await _baseDL.GetEntityByMultipleTable<ResponseProcedureBookDetail>(param, ProcdureTypeName.GetPagingParamBookDetail);
@@ -63,7 +63,7 @@ namespace Library.Management.BL
             InsertRequestBuildBeforeUpdate(param, bookDetail);
             //Kiểm tra xem mã sách đã tồn tại hay chưa, nếu tồn tại rồi log lỗi luôn
             var bookDetailCode = await _baseDL.GetEntityByCode(bookDetail.BookCode, ProcdureTypeName.GetByCode);
-            if(bookDetailCode != null)
+            if (bookDetailCode != null)
             {
                 return new ActionServiceResult
                 {
@@ -235,6 +235,72 @@ namespace Library.Management.BL
         {
             var res = new ActionServiceResult();
             res.Data = await _baseDL.UpdateAsync(parameter, ProcdureTypeName.UpdateBookDownloadUri);
+            return res;
+        }
+
+        /// <summary>
+        /// API lọc phân trang sách V2
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 07/04/2021
+        public async Task<ActionServiceResult> GetPagingDataV2(ParamFilterBookDetailV2 param)
+        {
+            var res = new ActionServiceResult();
+            //Truyền vào 1 số thông tin mặc định
+            if (param.pageNumber == 0) param.pageNumber = 1;
+            if (param.pageSize == 0) param.pageSize = int.Parse(GlobalResource.PageSize);
+            if (param.maxValueType == 0) param.maxValueType = (int)ValueTypeBook.New;
+            if (param.orderByType == 0) param.orderByType = (int)OrderByType.DESC;
+
+            //khai báo mặc định 1 đoạn build câu where
+            string where = " Where 1=1";
+
+            if (param.searchType == (int)SearchType.AuthorName)
+            {
+                where += " And b.BookAuthor like %" + param.paramName + "%";
+            }
+            else
+            {
+                where += " And b.BookName like '%" + param.paramName + "%'";
+            }
+            if (param.paramBookCategoryID != null)
+            {
+                where += " And b.BookCategoryID = " + param.paramBookCategoryID;
+            }
+            if (param.startYear != null)
+            {
+                where += " And b.YearOfPublication >= " + param.startYear;
+            }
+            if (param.finishYear != null)
+            {
+                where += " And b.YearOfPublication <= " + param.finishYear;
+            }
+            if (param.maxValueType == (int)ValueTypeBook.Count)
+            {
+                if (param.orderByType == (int)OrderByType.ASC)
+                {
+                    where += " Order By b.BorrowTotal ASC";
+                }
+                else
+                {
+                    where += " Order By b.BorrowTotal DESC";
+                }
+            }
+            if (param.maxValueType == (int)ValueTypeBook.New)
+            {
+                if (param.orderByType == (int)OrderByType.ASC)
+                {
+                    where += " Order By b.CreatedDate ASC";
+                }
+                else
+                {
+                    where += " Order By b.CreatedDate DESC";
+                }
+            }
+            string query = "Select * from Book b" + where;
+            //res.Data = _baseDL.ExcureDataReader(query);
+            res.Data = await _baseDL.GetEntityByMultipleTable<ResponseProcedureBookDetail>(new { query }, ProcdureTypeName.GetPagingParamBookDetailV2);
             return res;
         }
     }

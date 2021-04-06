@@ -165,7 +165,7 @@ namespace Library.Management.Web
                 var dataLimit = (res.Data as List<ResponseProcedureBookDetail>).Skip(offset).Take(param.pageSize);
                 if (dataLimit.Count() > 0)
                 {
-                    var data = ShowListBookImageConvertBase64String((List<ResponseProcedureBookDetail>)dataLimit.ToList());
+                    var data = ShowListBookImageConvertBase64String(dataLimit.ToList());
                     res.Data = new
                     {
                         TotalRecord = (res.Data as List<ResponseProcedureBookDetail>).Count,
@@ -291,6 +291,38 @@ namespace Library.Management.Web
                     //        writer.Flush();
                     //    }
                     //}
+        }
+
+        /// <summary>
+        /// API lọc phân trang sách V2
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 07/04/2021
+        [HttpGet("GetPagingDataV2")]
+        public async Task<ActionServiceResult> GetPagingDataV2([FromQuery]ParamFilterBookDetailV2 param)
+        {
+            var res = await _bookDetailBL.GetPagingDataV2(param);
+            if (res.Data != null)
+            {
+                // Lọc dữ liệu phân trang
+                var offset = (param.pageNumber - 1) * param.pageSize;
+                var dataLimit = (res.Data as List<ResponseProcedureBookDetail>).Skip(offset).Take(param.pageSize);
+                if (dataLimit.Count() > 0)
+                {
+                    var data = ShowListBookImageConvertBase64String(dataLimit.ToList());
+                    res.Data = new
+                    {
+                        TotalRecord = (res.Data as List<ResponseProcedureBookDetail>).Count,
+                        DataItems = data
+                    };
+                }
+                else
+                {
+                    res.Data = null;
+                }
+            };
+            return res;
         }
     }
 }

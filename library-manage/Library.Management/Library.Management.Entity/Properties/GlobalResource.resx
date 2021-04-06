@@ -213,6 +213,10 @@
   <data name="OverMaxReturnDate" xml:space="preserve">
     <value>Chỉ được gia hạn thêm tối đa {0} ngày, vui lòng thử lại</value>
   </data>
+  <data name="PageSize" xml:space="preserve">
+    <value>20</value>
+    <comment>Số bản ghi trên 1 trang</comment>
+  </data>
   <data name="SubjectSendMail" xml:space="preserve">
     <value>&lt;b&gt;Library Management&lt;/b&gt;: Mã xác thực OTP của tài khoản &lt;b&gt;{0}&lt;/b&gt; là &lt;b&gt;{1}&lt;/b&gt;. Bạn đang thực hiện &lt;b&gt;{2}&lt;/b&gt; trên hệ thống Library, mật khẩu mới là &lt;b&gt;{3}&lt;/b&gt;.</value>
   </data>

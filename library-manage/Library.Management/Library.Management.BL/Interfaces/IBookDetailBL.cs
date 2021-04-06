@@ -53,5 +53,13 @@ namespace Library.Management.BL
         /// <param name="parameter"></param>
         /// <returns></returns>
         Task<ActionServiceResult> SaveFileBookInfo(object parameter);
+
+        /// <summary>
+        /// Lọc phân trang sách V2
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 07/04/2021
+        Task<ActionServiceResult> GetPagingDataV2(ParamFilterBookDetailV2 param);
     }
 }

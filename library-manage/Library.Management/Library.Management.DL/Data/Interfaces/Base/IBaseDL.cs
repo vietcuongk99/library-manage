@@ -1,6 +1,7 @@
 ﻿using Library.Management.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -88,5 +89,7 @@ namespace Library.Management.DL
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 17/03/2021
         Task<int> Delete(object id);
+
+        DataTable ExcureDataReader(string query);
     }
 }

@@ -52,6 +52,9 @@ namespace Library.Management.DL.DbContext
                 case ProcdureTypeName.GetPagingParamBookDetail:
                     storeName = $"Proc_Get{tableName}PagingData";
                     break;
+                case ProcdureTypeName.GetPagingParamBookDetailV2:
+                    storeName = $"Proc_Get{tableName}PagingDataV2";
+                    break;
                 case ProcdureTypeName.GetPagingParamUserAccount:
                     storeName = $"Proc_Get{tableName}PagingData";
                     break;
