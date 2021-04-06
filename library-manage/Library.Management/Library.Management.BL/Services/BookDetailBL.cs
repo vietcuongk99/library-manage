@@ -22,6 +22,18 @@ namespace Library.Management.BL
         }
 
         /// <summary>
+        /// Lấy thông tin phục vụ màn Monitor
+        /// </summary>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 05/04/2021
+        public async Task<ActionServiceResult> GetMonitorActivation()
+        {
+            var res = new ActionServiceResult();
+            res.Data = await _bookDetailDL.GetMonitorActivation(ProcdureTypeName.GetMonitorActivation);
+            return res;
+        }
+
+        /// <summary>
         /// Lọc dữ liệu phân trang
         /// </summary>
         /// <param name="param"></param>

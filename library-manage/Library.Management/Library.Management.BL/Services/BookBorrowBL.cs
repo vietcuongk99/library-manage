@@ -22,11 +22,12 @@ namespace Library.Management.BL
         }
 
         /// <summary>
-        /// Lấy danh sách sách đã mượn của người dùng
+        /// Lấy danh sách sách đã mượn và yêu cầu mượn sách của người dùng
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 29/03/2021
+        /// ModifiedBy: CUONG 06/04/2021
         public async Task<ActionServiceResult> GetPagingData(ParamFilterBookBorrow param)
         {
             var res = new ActionServiceResult();
@@ -42,7 +43,7 @@ namespace Library.Management.BL
         public async Task<ActionServiceResult> GetListRequestActivation()
         {
             var res = new ActionServiceResult();
-            res.Data = await _baseDL.GetListAsync(ProcdureTypeName.GetListRequestActivation);
+            res.Data = await _baseDL.GetListAsyncV2<ReponseProcedureListRequestBorrowActivation>(ProcdureTypeName.GetListRequestActivation);
             return res;
         }
 
@@ -103,22 +104,33 @@ namespace Library.Management.BL
         public async Task<ActionServiceResult> ConfirmBorrowActivation(string id, int statusActivate)
         {
             var res = new ActionServiceResult();
-            if(statusActivate == (int)StatusActivate.Remove)
+            var requestBorrow = await _baseDL.GetEntityById(id);
+            if (requestBorrow == null)
             {
-                 await _baseDL.Delete(id);
-                res.Data = 1; // thành công
+                res.Success = false;
+                res.Message = GlobalResource.CancelRequestBorrow;
+                res.LibraryCode = LibraryCode.CancelRequestBorrow;
             }
-            else if(statusActivate == (int)StatusActivate.Confirm)
+            else
             {
-                var param = new
+                if (statusActivate == (int)StatusActivate.Remove)
                 {
-                    BookBorrowID = id,
-                    BorrowDate = DateTime.Now,
-                    ReturnDate = DateTime.Now.AddDays(int.Parse(GlobalResource.TotalMaxReturnDate)),
-                    Status = (int)Status.Active
-                };
-                await _baseDL.UpdateAsync(param, ProcdureTypeName.ConfirmBorrowActivation);
-                res.Data = 1; // thành công
+                    await _baseDL.Delete(id);
+                    res.Data = 1; // thành công
+                }
+                else if (statusActivate == (int)StatusActivate.Confirm)
+                {
+                    var param = new
+                    {
+                        BookBorrowID = id,
+                        BorrowDate = DateTime.Now,
+                        ReturnDate = DateTime.Now.AddDays(int.Parse(GlobalResource.TotalMaxReturnDate)),
+                        Status = (int)Status.Active
+                    };
+
+                    await _baseDL.UpdateAsync(param, ProcdureTypeName.ConfirmBorrowActivation);
+                    res.Data = 1; // thành công
+                }
             }
             return res;
         }
@@ -198,7 +210,7 @@ namespace Library.Management.BL
                         res.LibraryCode = LibraryCode.ErrorExtendBookBorrow;
                     }
                     //Nếu chưa hết hạn và ngày gia hạn mới lớn hơn ngày hết hạn cũ + maxExtend ngày
-                    else if(DateTime.Now < bookBorrowByID.ReturnDate
+                    else if (DateTime.Now < bookBorrowByID.ReturnDate
                         && param.ReturnDate > bookBorrowByID.ReturnDate.AddDays(int.Parse(GlobalResource.TotalMaxReturnDateExtend)))
                     {
                         res.Success = false;
@@ -207,7 +219,7 @@ namespace Library.Management.BL
                     }
 
                     //Nếu đã hết hạn và ngày gia hạn mới lớn hơn ngày hôm nay + maxExtend ngày
-                    else if(DateTime.Now > bookBorrowByID.ReturnDate 
+                    else if (DateTime.Now > bookBorrowByID.ReturnDate
                         && param.ReturnDate > DateTime.Now.AddDays(int.Parse(GlobalResource.TotalMaxReturnDateExtend)))
                     {
                         res.Success = false;

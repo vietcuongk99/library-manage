@@ -9,5 +9,6 @@ namespace Library.Management.DL
 {
     public interface IBookDetailDL
     {
+        Task<object> GetMonitorActivation(ProcdureTypeName procdureTypeName);
     }
 }

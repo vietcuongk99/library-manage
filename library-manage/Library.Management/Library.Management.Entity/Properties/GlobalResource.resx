@@ -123,6 +123,9 @@
   <data name="AvatarUserDefault" xml:space="preserve">
     <value>avatar-sample.jpg</value>
   </data>
+  <data name="CancelRequestBorrow" xml:space="preserve">
+    <value>Người dùng đã hủy bỏ yêu cầu mượn sách</value>
+  </data>
   <data name="ConfirmMessageBorrowBookDetail" xml:space="preserve">
     <value>{0} thành công {1} lượt mượn sách</value>
   </data>

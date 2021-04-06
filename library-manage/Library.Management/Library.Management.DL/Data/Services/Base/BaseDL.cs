@@ -36,6 +36,21 @@ namespace Library.Management.DL
         }
 
         /// <summary>
+        /// Lấy toàn bộ danh sách các bản ghi của bảng có trong Database
+        /// </summary>
+        /// <returns></returns>
+        /// CreateBy: VDDUNG(05/04/2021)
+        public async Task<IReadOnlyList<Y>> GetListAsyncV2<Y>(ProcdureTypeName procdureTypeName)
+        {
+            var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
+            _db.Open();
+            var storeName = DatabaseUtility.GeneateStoreName<Y>(procdureTypeName);
+            var entities = _db.Query<Y>(storeName, commandType: CommandType.StoredProcedure);
+            _db.Close();
+            return (IReadOnlyList<Y>)await Task.FromResult(entities);
+        }
+
+        /// <summary>
         /// Lấy toàn bộ danh sách các bản ghi của bảng có trong Database theo param truyền vào
         /// </summary>
         /// <returns></returns>
@@ -45,7 +60,7 @@ namespace Library.Management.DL
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
             _db.Open();
             var storeName = DatabaseUtility.GeneateStoreName<T>(procdureTypeName);
-            var entities = _db.Query<T>(storeName, commandType: CommandType.StoredProcedure);
+            var entities = _db.Query<T>(storeName, entity, commandType: CommandType.StoredProcedure);
             _db.Close();
             return (IReadOnlyList<T>)await Task.FromResult(entities);
         }

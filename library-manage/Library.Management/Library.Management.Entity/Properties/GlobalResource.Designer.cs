@@ -79,6 +79,15 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Người dùng đã hủy bỏ yêu cầu mượn sách.
+        /// </summary>
+        public static string CancelRequestBorrow {
+            get {
+                return ResourceManager.GetString("CancelRequestBorrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} thành công {1} lượt mượn sách.
         /// </summary>
         public static string ConfirmMessageBorrowBookDetail {

@@ -62,7 +62,10 @@ namespace Library.Management.DL.DbContext
                     storeName = $"Proc_Get{tableName}ByUser";
                     break;
                 case ProcdureTypeName.GetListRequestActivation:
-                    storeName = $"Proc_GetList{tableName}RequestActivation";
+                    storeName = $"Proc_GetListBookBorrowRequestActivation";
+                    break;
+                case ProcdureTypeName.GetMonitorActivation:
+                    storeName = $"Proc_GetMonitorActivation";
                     break;
                 case ProcdureTypeName.Insert:
                     storeName = $"Proc_Insert{tableName}";
@@ -126,7 +129,6 @@ namespace Library.Management.DL.DbContext
                     var proc_User = _db.Query<ResponseProcedureUser>(storeName, entity, commandType: CommandType.StoredProcedure);
                     return proc_User;
                 default:
-                    //return _db.Query<ResponseProcedureUser>(storeName, entity, commandType: CommandType.StoredProcedure);
                     break;
             }
             return null;

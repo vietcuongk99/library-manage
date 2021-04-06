@@ -14,6 +14,18 @@ var commonJS = {
         return dateAsString;
     },
 
+    //thêm ngày cho thời gian hiện tại
+    addDayToDate(date, day) {
+
+        if (day > 0) {
+            date.setDate(date.getDate() + day);
+        } else {
+            date.setDate(date.getDate);
+        }
+        return new Date(date);
+
+    },
+
     //convert từ date sang string chứa ngày-tháng-năm
     getDateString(date, option) {
         // slice(-2) chọn hai phần tử cuối cùng của mảng.
@@ -79,21 +91,21 @@ var commonJS = {
         var dateNow = commonJS.getDateString(new Date(), Enum.ConvertOption.YEAR_FIRST);
         var row = $(`<div class="row mt-2"></div>`)
         data.forEach(book => {
-
-            var checkDateHTML = (book.returnDate >= dateNow) ?
-                `<div class="text-success text-center">Còn hạn</div>` :
-                `<div class="text-danger text-center">Quá hạn</div>`
+            // var checkDateHTML = (book.returnDate >= dateNow) ?
+            //     `<div class="text-success text-center">Còn hạn</div>` :
+            //     `<div class="text-danger text-center">Quá hạn</div>`
             var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
-            var card = $(`<div class="col-6 col-md-3 col-sm-4 portfolio-item">
+            var card = $(`<div class="col-6 col-md-4 col-sm-4 col-xl-4 col-lg-4 portfolio-item">
                             </div>`)
             var bookHTML = $(`
             <div class="card h-100">
-                    <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 17rem">
+                    <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 22rem">
                     <div class="card-body">
                         <p class="card-title text-truncate text-uppercase text-center">` + book.bookName + `</b>
-                        <p class="text-truncate text-center">` + book.bookAuthor + `</p>` + checkDateHTML + `
+                        <p class="text-truncate text-center">` + book.bookAuthor + `</p>
                     </div>
                 </div>`)
+                // ` + checkDateHTML + `
 
             bookHTML.data('bookId', book.bookID)
             $(card).append(bookHTML)
@@ -191,5 +203,22 @@ var commonJS = {
 
         return result;
 
+    },
+
+    //lưu danh sách mượn của người dùng vào localStorage
+    saveBorrowListToLocal(bookBorrowList, data) {
+        data.forEach(item => {
+            debugger
+            var borrowItem = {};
+            borrowItem.bookBorrowID = item.bookBorrowID;
+            borrowItem.bookID = item.bookID;
+            borrowItem.borrowDate = commonJS.getDateString(new Date(item.borrowDate), Enum.ConvertOption.YEAR_FIRST);
+            borrowItem.returnDate = commonJS.getDateString(new Date(item.returnDate), Enum.ConvertOption.YEAR_FIRST);
+            borrowItem.status = item.bookBorrowStatus;
+            bookBorrowList.push(borrowItem)
+        });
+
+        //lưu borrowList vào local storage
+        localStorage.setItem("borrowList", JSON.stringify(bookBorrowList));
     }
 }

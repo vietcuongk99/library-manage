@@ -137,19 +137,8 @@ class LoginJS {
             if (res.success) {
 
                 var list = res.data;
-                //gán giá trị cho borrowItem và lưu vào borrowList
-                list.forEach(item => {
-                    var borrowItem = {};
-                    borrowItem.bookBorrowID = item.bookBorrowID;
-                    borrowItem.bookID = item.bookID;
-                    borrowItem.borrowDate = commonJS.getDateString(new Date(item.borrowDate), Enum.ConvertOption.YEAR_FIRST);
-                    borrowItem.returnDate = commonJS.getDateString(new Date(item.returnDate), Enum.ConvertOption.YEAR_FIRST);
-                    borrowList.push(borrowItem)
-
-                });
-
-                //lưu borrowList vào local storage
-                localStorage.setItem("borrowList", JSON.stringify(borrowList));
+                //lưu danh sách mượn vào localStorage
+                commonJS.saveBorrowListToLocal(borrowList, list);
 
                 commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgSuccess("Đăng nhập thành công.");

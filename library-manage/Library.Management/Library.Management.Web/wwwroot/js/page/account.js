@@ -152,15 +152,8 @@ class AccountJS extends BaseJS {
                 //khởi tạo borrowList array mới nhất
                 var borrowList = []
 
-                //gán giá trị cho borrowItem và lưu vào borrowList
-                list.forEach(item => {
-                    var borrowItem = {};
-                    borrowItem.bookBorrowID = item.bookBorrowID;
-                    borrowItem.bookID = item.bookID;
-                    borrowItem.borrowDate = commonJS.getDateString(new Date(item.borrowDate), Enum.ConvertOption.YEAR_FIRST);
-                    borrowItem.returnDate = commonJS.getDateString(new Date(item.returnDate), Enum.ConvertOption.YEAR_FIRST);
-                    borrowList.push(borrowItem)
-                });
+                //lưu danh sách mượn vào localStorage
+                commonJS.saveBorrowListToLocal(borrowList, list);
 
                 //lưu borrowList mới nhất vào local storage
                 localStorage.setItem("borrowList", JSON.stringify(borrowList));
@@ -170,6 +163,7 @@ class AccountJS extends BaseJS {
             } else {
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
+                debugger
                 commonBaseJS.showToastMsgFailed(res.message);
             }
         }).fail(function(res) {

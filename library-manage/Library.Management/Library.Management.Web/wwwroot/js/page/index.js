@@ -34,7 +34,7 @@ class IndexJS extends BaseJS {
     initEvent() {
 
         //gán xử lý sự kiện khi click nút Tìm kiếm
-        $('#searchBtn').on('click', this.searchEvent.bind(this));
+        //$('#searchBtn').on('click', this.searchEvent.bind(this));
         //gán xử lý sự kiện khi click nút Xem thêm Sách HOT
         //$('#showHotBookBtn').on('click', this.getAllHotBookEvent.bind(this));
         //gán xử lý sự kiện khi click nút Xem thêm Sách Mới
@@ -70,24 +70,6 @@ class IndexJS extends BaseJS {
         localStorage.setItem("showNewBook", true)
         window.open("search-result.html", "_self")
     }
-
-    //chi tiết xử lý sự kiện khi click vào nút Tìm kiếm
-    searchEvent() {
-
-        //lấy thông tin tìm kiếm hiện tại
-        var searchValue = $('#searchInput').val().trim()
-
-        //lưu thông tin tìm kiếm vào localStorage
-        //localStorage.setItem("searchValue", searchValue);
-
-        debugger
-        //tạo url với param chứa giá trị cần tìm kiếm
-        var searchPageStr = "search-result.html?searchValue=" + searchValue;
-        //mở trang search-result.html
-        window.open(searchPageStr, "_self")
-
-    }
-
 
 }
 

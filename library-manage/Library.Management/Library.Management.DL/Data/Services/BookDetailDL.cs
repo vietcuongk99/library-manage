@@ -19,6 +19,17 @@ namespace Library.Management.DL
         {
             _config = config;
         }
+        public async Task<object> GetMonitorActivation(ProcdureTypeName procdureTypeName)
+        {
+            var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
+            _db.Open();
+            var storeName = DatabaseUtility.GeneateStoreName<Book>(procdureTypeName);
+            var entities = _db.QueryMultiple(storeName, commandType: CommandType.StoredProcedure);
+            var totalBook = entities.Read<ResponseProcedureTotalBook>();
+            var totalBookBorrow = entities.Read<ResponseProcedureTotalBookBorrow>();
+            _db.Close();
+            return await Task.FromResult(new { TotalBook = totalBook, TotalBookBorrow = totalBookBorrow });
+        }
 
     }
 }

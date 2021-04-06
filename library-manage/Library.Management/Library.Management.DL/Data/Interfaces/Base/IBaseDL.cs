@@ -15,6 +15,22 @@ namespace Library.Management.DL
         /// <returns></returns>
         Task<IReadOnlyList<T>> GetListAsync(ProcdureTypeName procdureTypeName);
 
+        /// <summary>
+        /// Lấy ra toàn bộ dữ liệu của 1 bảng entity truyền vào
+        /// </summary>
+        /// <typeparam name="Y"></typeparam>
+        /// <param name="procdureTypeName"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 05/04/2021
+        Task<IReadOnlyList<Y>> GetListAsyncV2<Y>(ProcdureTypeName procdureTypeName);
+
+        /// <summary>
+        /// Lấy ra toàn bộ dữ liệu theo điều kiện (entity)
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="procdureTypeName"></param>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 05/04/2021
         Task<IReadOnlyList<T>> GetListAsyncByEntity(object entity, ProcdureTypeName procdureTypeName);
 
         /// <summary>

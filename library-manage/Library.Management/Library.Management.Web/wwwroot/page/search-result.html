@@ -16,6 +16,7 @@
     <!-- Custom styles for this template -->
     <link href="../css/page/common.css" rel="stylesheet">
     <link href="../css/base/common.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
 </head>
 
@@ -37,9 +38,6 @@
                     <li id="aboutBtn" class="nav-item">
                         <a class="nav-link" href="about.html">Thông tin</a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="services.html">Tính năng</a>
-                    </li> -->
                 </ul>
             </div>
         </div>
@@ -54,12 +52,54 @@
         </h1> -->
 
         <ol id="breadcrumbDiv" class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="index.html">Trang chủ</a>
-            </li>
-            <li class="breadcrumb-item active">Kết quả tìm kiếm</li>
+            <div class="row w-100">
+                <div class="col-2">
+                    <select id="searchTypeSelect" class="custom-select w-100">
+                        <option value="1" selected>Tên sách</option>
+                        <option value="2">Tác giả</option>
+                        </select>
+                </div>
+                <div class="col-10">
+                    <div class="input-group h-auto">
+                        <input id="searchInput" class="input-group-prepend form-control" type="text" placeholder="Tìm kiếm">
+                        <div class="input-group-append">
+                            <button id="searchBtn" type="button" class="fas fa-search btn btn-success"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </ol>
         <ol class="breadcrumb">
+            <!-- bộ lọc -->
+            <div>
+                <!-- chọn loại sách -->
+                <select id="categorySelect" class="custom-select mr-auto w-auto">
+                <option selected>Chọn loại sách</option>
+                <option value="1">Truyện ngắn</option>
+                <option value="2">Truyện dài</option>
+                </select>
+                <!-- chọn năm xuất bản -->
+                <div id="yearPublishSelect" class="btn-group">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Năm xuất bản
+                    </button>
+                    <div class="dropdown-menu">
+                        <input id="startYearInput" class="form-control dropdown-item" type="number" placeholder="Bắt đầu">
+                        <div class="dropdown-divider"></div>
+                        <input id="endYearInput" class="form-control dropdown-item" type="number" placeholder="Kết thúc">
+                    </div>
+                </div>
+                <select id="filterTypeSelect" class="custom-select w-auto">
+                <option selected>Sắp xếp theo</option>
+                <option value="1">Số lượt mượn</option>
+                <option value="1">Ngày thêm sách</option>
+              </select>
+                <select id="sortTypeSelect" class="custom-select w-auto">
+                <option value="1" selected>Tăng dần</option>
+                <option value="2">Giảm dần</option>
+              </select>
+
+            </div>
             <!-- thanh phân trang -->
             <div id="pagingDiv" class="pagination-sm ml-auto">
             </div>

@@ -119,7 +119,7 @@
         <!-- /.row -->
         <!-- sự kiện khi click nút Mượn sách -->
         <!-- Modal -->
-        <div class="modal fade" id="modalBorrowBook" tabindex="-1" role="dialog" aria-hidden="true">
+        <!-- <div class="modal fade" id="modalBorrowBook" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -142,7 +142,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- sự kiện khi click nút Trả sách -->
         <!-- Modal -->
@@ -198,15 +198,39 @@
                                 </div>
                             </div>
                             <div id="newReturnDateDiv" class="row mt-1">
-                                <label for="newReturnDate" class="col-5">Ngày trả mới:</label>
-                                <input type="date" class="form-control col-6" id="newReturnDate">
+                                <div class="col-5">
+                                    <p>Ngày trả mới:</p>
+                                </div>
+                                <div class="col-6">
+                                    <p id="newReturnDate"></p>
+                                </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button id="dismissExtendBtn" class="btn btn-outline-secondary">Hủy bỏ</button>
                         <button id="confirmExtendBtn" class="btn btn-success">Xác nhận</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- sự kiện khi click nút Hủy mượn sách-->
+        <!-- Modal -->
+        <div class="modal fade" id="modalCancelBorrow" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Hủy yêu cầu mượn sách</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <p>Bạn có muốn thực hiện thao tác này?</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="dismissCancelBtn" class="btn btn-outline-secondary">Hủy bỏ</button>
+                        <button id="confirmCancelBtn" class="btn btn-success">Xác nhận</button>
                     </div>
                 </div>
             </div>
@@ -284,7 +308,6 @@
 
         <!-- nội dung bình luận -->
         <div id="commentContentDiv" class="container-fluid">
-
         </div>
 
         <!-- Pagination -->

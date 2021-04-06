@@ -57,34 +57,42 @@ namespace Library.Management.Entity
         /// Lỗi Exception
         /// </summary>
         Exception = 500,
+
         /// <summary>
         /// Thêm mới không thành công
         /// </summary>
         ErrorAddEntity = 600,
+
         /// <summary>
         /// Xóa bản ghi không thành công
         /// </summary>
         ErrorDeleteEntity = 601,
+
         /// <summary>
         /// Thể loại sách không tồn tại
         /// </summary>
         ErrorBookCategory = 602,
+
         /// <summary>
         /// Mã sách đã tồn tại
         /// </summary>
         ErrorBookExist = 603,
+
         /// <summary>
         /// Mã loại sách đã tồn tại
         /// </summary>
         ErrorBookCategoryExist = 604,
+
         /// <summary>
         /// Cập nhật không thành công
         /// </summary>
         ErrorUpdateEntity = 605,
+
         /// <summary>
         /// Lỗi không tìm thấy dữ liệu
         /// </summary>
         ErrorNotIDEntity = 606,
+
         /// <summary>
         /// Lỗi tài khoản không tồn tại
         /// </summary>
@@ -94,41 +102,62 @@ namespace Library.Management.Entity
         /// Lỗi mã OTP sai
         /// </summary>
         ErrorOTPCode = 608,
+
         /// <summary>
         /// Tên tài khoản hoặc địa chỉ mail đã tồn tại
         /// </summary>
         IsExistUserAccount = 609,
+
         /// <summary>
         /// Địa chỉ mail đã tồn tại
         /// </summary>
         IsUsedEmail = 610,
+
         /// <summary>
         /// Tài khoản hoặc mật khẩu không chính xác
         /// </summary>
         ErrorUserAccountValidate = 611,
+
         /// <summary>
         /// Không thể đổi mật khẩu
         /// </summary>
         ErrorConfirmOTPPassWord = 612,
+
         /// <summary>
         /// Chưa mượn cuốn sách này
         /// </summary>
         ErrorExtendBookBorrow = 613,
+
         /// <summary>
         /// Bình luận không tồn tại
         /// </summary>
         ErrorCommentUser = 614,
+
         /// <summary>
         /// Mật khẩu không chính xác
         /// </summary>
         ErrorUserPassWord = 615,
+
         /// <summary>
         /// Mã OTP đã hết hiệu lực
         /// </summary>
         ExpiryTimeOTP = 616,
 
+        /// <summary>
+        /// Số lượng sách tối đa có thể mượn
+        /// </summary>
         OverCountBookBorrow = 617,
+
+        /// <summary>
+        /// Số ngày mượn sách tối đa
+        /// </summary>
         OverMaxReturnDate = 618,
+
+        /// <summary>
+        /// Người dùng đã hủy yêu cầu mượn sách
+        /// </summary>
+        CancelRequestBorrow = 620,
+
         /// <summary>
         /// Thất bại
         /// </summary>
@@ -150,49 +179,72 @@ namespace Library.Management.Entity
         /// Lấy dữ liệu theo khóa chính
         /// </summary>
         GetById,
+
         /// <summary>
         /// Lấy dữ liệu theo mã code
         /// </summary>
         GetByCode,
+
         /// <summary>
         /// Lấy thông tin theo 1 trường thông tin
         /// </summary>
         GetByUserName,
+
         /// <summary>
         /// Lấy thông tin tài khoản qua email
         /// </summary>
         GetByEmail,
+
         /// <summary>
         /// Kiểm tra tài khoản và mật khẩu
         /// </summary>
         GetByUserAndPassWord,
+
         /// <summary>
         /// Lấy ra bình luận của 1 người dùng trên 1 cuốn sách
         /// </summary>
         GetByUserAndBookDetail,
+
         /// <summary>
         /// Lấy ra các bình luận của 1 người dùng
         /// </summary>
         GetByUser,
+
         /// <summary>
         /// Lấy ra các bình luận của 1 cuốn sách
         /// </summary>
         GetByBookDetail,
+
         /// <summary>
         /// Lọc dữ liệu phân trang sách
         /// </summary>
         GetPagingParamBookDetail,
+
         /// <summary>
         /// Lọc dữ liệu phân trang tài khoản
         /// </summary>
         GetPagingParamUserAccount,
+
         /// <summary>
         /// Lấy danh sách sách đã mượn của người dùng
         /// </summary>
         GetPagingParamBookBorrow,
 
+        /// <summary>
+        /// Lấy ra số sách mượn của 1 người dùng
+        /// </summary>
         GetBookBorrowByUser,
+
+        /// <summary>
+        /// Lấy danh sách các yêu cầu mượn sách
+        /// </summary>
         GetListRequestActivation,
+
+        /// <summary>
+        /// Lấy thông tin phục vụ cho monitor
+        /// </summary>
+        GetMonitorActivation,
+
         /// <summary>
         /// Thêm mới
         /// </summary>
@@ -202,30 +254,37 @@ namespace Library.Management.Entity
         /// Sửa/ cập nhật dữ liệu
         /// </summary>
         Update,
+
         /// <summary>
         /// Cập nhật tài khoản
         /// </summary>
         UpdateAccount,
+
         /// <summary>
         /// Cập nhật mật khẩu
         /// </summary>
         UpdateUserPassWord,
+
         /// <summary>
         /// Cập nhật ảnh đại diện người dùng
         /// </summary>
         UpdateAvatarUrl,
+
         /// <summary>
         /// Cập nhật ảnh đại diện sách
         /// </summary>
         UpdateBookImageUri,
+
         /// <summary>
         /// Cập nhật link xem chi tiết sách
         /// </summary>
         UpdateBookDownloadUri,
+
         /// <summary>
         /// Xác nhận mượn sách
         /// </summary>
         ConfirmBorrowActivation,
+
         /// <summary>
         /// Gia hạn sách
         /// </summary>
@@ -269,7 +328,8 @@ namespace Library.Management.Entity
     /// <summary>
     /// Trạng thái xác nhận
     /// </summary>
-    public enum StatusActivate { 
+    public enum StatusActivate
+    {
         /// <summary>
         /// Loại bỏ
         /// </summary>
