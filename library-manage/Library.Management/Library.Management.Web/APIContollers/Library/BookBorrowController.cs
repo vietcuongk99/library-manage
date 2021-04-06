@@ -33,7 +33,7 @@ namespace Library.Management.Web
         /// <returns></returns>
         /// ModifiedBy: Cuong 06/04/2021
         [HttpGet("GetPagingData")]
-        public async Task<ActionServiceResult> GetPagingData([FromQuery]ParamFilterBookBorrow param)
+        public async Task<ActionServiceResult> GetPagingData([FromQuery] ParamFilterBookBorrow param)
         {
             var res = await _bookBorrowBL.GetPagingData(param);
             if (res.Data != null)
@@ -208,7 +208,7 @@ namespace Library.Management.Web
         public async Task<ActionServiceResult> ConfirmBorrowActivation([FromBody] List<string> listBorrowID, int statusActivate)
         {
             var response = new ActionServiceResult();
-            var totalRecordConfirm = 0;
+            int totalRecordConfirm = 0, totalFail = 0;
 
             if (listBorrowID.Count == 0 || listBorrowID == null)
             {
@@ -221,20 +221,21 @@ namespace Library.Management.Web
                 // Đặt vòng lặp chạy từng bản ghi một
                 foreach (var id in listBorrowID)
                 {
-                    await _bookBorrowBL.ConfirmBorrowActivation(id, statusActivate);
-                    totalRecordConfirm += 1;
+                    response = await _bookBorrowBL.ConfirmBorrowActivation(id, statusActivate);
+                    if (response.Success == true)
+                    {
+                        totalRecordConfirm += 1;
+                    }
+                    else
+                    {
+                        totalFail += 1;
+                    }
                 }
-                if (totalRecordConfirm == 0)
-                {
-                    response.Success = false;
-                    response.Message = GlobalResource.ErrorDeleteEntity;
-                    response.LibraryCode = LibraryCode.ErrorDeleteEntity;
-                }
-                else
+                if (totalRecordConfirm > 0)
                 {
                     if (statusActivate == (int)StatusActivate.Remove)
                     {
-                        response.Data = string.Format(GlobalResource.ConfirmMessageBorrowBookDetail, EnumResource.StatusActivateRemove , totalRecordConfirm);
+                        response.Data = string.Format(GlobalResource.ConfirmMessageBorrowBookDetail, EnumResource.StatusActivateRemove, totalRecordConfirm);
                     }
                     else
                     {
