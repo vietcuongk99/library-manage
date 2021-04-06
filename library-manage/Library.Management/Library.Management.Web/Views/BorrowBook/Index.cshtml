@@ -1,7 +1,52 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Quản lý mượn trả";
 }
 
-<h1>Index</h1>
+@section css{
+    <link href="~/css/admin/page/bookborrow.css" rel="stylesheet" />
+}
 
+@section scripts
+{
+    <script src="~/js/admin/bookborrow.js" asp-append-version="true"></script>
+}
+
+<ul class="nav nav-pills" role="tablist">
+    <li role="presentation" class="active"><a style="color: #000000">Yêu cầu <span class="badge">42</span></a></li>
+    <li role="presentation" ><a style="color: #000000">Đang mượn</a></li>
+    <li role="presentation"><a style="color: #000000">Quá hạn <span class="badge">3</span></a></li>
+</ul>
+
+<div class="item-book-borrow">
+    <div class="avt-item-circle">
+        <img src="https://media-cdn.laodong.vn/Storage/NewsPortal/2020/8/21/829850/Bat-Cuoi-Truoc-Nhung-07.jpg" class="img-circle" />
+    </div>
+    <div class="content-item">
+        <div class="title-notify">
+            <h3>THằng ABC đang muốn mượn cuốn cmn sách nàykajjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjTHằng ABC đang muốn mượn cuốn cmn sách nàykajjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</h3>
+        </div>
+        <div class="content-notify">
+            <h5>vào lúc 11h30</h5>
+        </div>
+    </div>
+    <div class="actions-item">
+        <button type="button" class="btn btn-danger btn-action">Hủy bỏ</button>
+    </div>
+    <div class="actions-item">
+        <button type="button" class="btn btn-primary btn-action">Xác nhận</button>
+    </div>
+</div>
+
+<div id="pop-up" style="display: none;">
+    <div class="avt-item-circle">
+        <img src="https://media-cdn.laodong.vn/Storage/NewsPortal/2020/8/21/829850/Bat-Cuoi-Truoc-Nhung-07.jpg" class="img-circle" />
+        <h5 class="user-inf">bvbao123124dgssssssdfsss</h5>
+    </div>
+    <div class="info-user">
+        <div><strong>Họ tên: </strong>Bùi Văn Bảo</div>
+        <div><strong>Tuổi: </strong>21</div>
+        <div><strong>Email: </strong>bvbao1234@gmail.com</div>
+        <div><strong>Địa chỉ: </strong>Thái Thụy - Thái Bình - Việt Nam</div>
+    </div>
+</div>
