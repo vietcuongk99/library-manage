@@ -8,21 +8,20 @@ const PAGE_DEFAULT = 1;
 //1 trang
 const VISIBLE_PAGE_DEFAULT = 1;
 
-//lấy ra giá trị tìm kiếm từ url
-var searchValue = commonJS.getURLParameter('searchValue')
+//lấy ra đường dẫn chứa tham số từ url
+var searchURL = commonJS.getURLParameter(Enum.SplitOption.ALL);
 
 $(document).ready(function() {
-    searchResultJS = new SearchResultJS()
+    searchBookJS = new SearchBookJS()
 })
 
-
-//class quản lý các sự kiện trong trang search-result.html
-class SearchResultJS extends BaseJS {
+//class quản lý các sự kiện trong trang search.html
+class SearchBookJS extends BaseJS {
     constructor() {
         super();
-        this.loadSearchResult(searchValue);
+        this.loadCategoryData();
+        this.loadSearchResult(searchURL);
         this.initEvent();
-
     }
 
     //gán sự kiện trong trang search-result.html
@@ -31,58 +30,40 @@ class SearchResultJS extends BaseJS {
         $('#searchBtn').on('click', this.searchEvent.bind(this));
         //gán xử lý sự kiện khi click vào 1 card sách
         $('#searchResultDiv').on('click', '.card.h-100', this.cardOnClick)
-
     }
 
-    ///load dữ liệu
-    loadSearchResult(searchValue) {
+    //load dữ liệu loại sách
+    loadCategoryData() {
+        //gọi api
+        $.ajax({
+            url: HOST_URL + "api/BookCategory",
+            contentType: "application/json",
+            method: "GET"
+        }).done(function(res) {
+            //nếu response trả về thành công
+            if (res.success) {
+                var categoryList = res.data.lstData;
+                //gán dữ liệu lên ui
+                commonJS.appendCategoryListToHTML(categoryList, '#categorySelect');
+            }
+            //nếu response trả về không thành công
+            else {
+                // show alert
+                commonBaseJS.showToastMsgFailed(res.message)
+            }
+        }).fail(function(res) {
+            // show alert
+            commonBaseJS.showToastMsgFailed(res.message)
+        })
+    }
 
-        //khai báo và gán giá trị trong localStorage
-        // var fieldValue = localStorage.getItem("fieldValue")
-        // var fieldText = localStorage.getItem("fieldText")
-        //var searchValue = localStorage.getItem("searchValue");
-        //var showNewBook = localStorage.getItem("showNewBook")
-        //var showHotBook = localStorage.getItem("showHotBook");
-
-        //load dữ liệu các thành phần HTML
-        //dữ liệu thay đổi phụ thuộc event trên trang index
-        //nếu user ấn button 'xem thêm' sách hot trên trang index
-        // if (showHotBook) {
-
-        //     //load dữ liệu
-        //     var fieldHTML = $(`<li class="breadcrumb-item">Sách HOT</li>`)
-        //     $('#breadcrumbDiv').append(fieldHTML);
-        //     //gán dữ liệu lên ui
-        //     //đợi api
-        //     commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
-
-        //     //thay đổi giao diện footer
-        //     // $('footer').removeClass("fixed-bottom")
-
-        // }
-
-        //nếu user ấn button 'xem thêm' sách mới trên trang index
-        // if (showNewBook) {
-
-        //     //load dữ liệu
-        //     var fieldHTML = $(`<li class="breadcrumb-item">Sách Mới</li>`)
-        //     $('#breadcrumbDiv').append(fieldHTML);
-        //     //gán dữ liệu lên ui
-        //     //đợi api
-        //     commonJS.appendBookDataToCard(fakeData, "#searchResultDiv")
-
-        //     //thay đổi giao diện footer
-        //     //$('footer').removeClass("fixed-bottom")
-        // }
-
-
-
-        //nếu user ấn nút tìm kiếm trên trang index
-        if (searchValue || searchValue == "") {
+    ///load kết quả tìm kiếm
+    loadSearchResult(searchURL) {
+        if (searchURL.trim().length > 0) {
             //lấy ra đầu sách phù hợp trong csdl
             $.ajax({
                 method: "GET",
-                url: HOST_URL + "api/BookDetail/GetPagingData?paramBookName=" + searchValue.trim() + "&pageNumber=" + PAGE_DEFAULT + "&pageSize=" + RECORD_PER_PAGE,
+                url: HOST_URL + "api/BookDetail/GetPagingDataV2" + "?pageNumber=" + PAGE_DEFAULT + "&pageSize=" + RECORD_PER_PAGE + searchURL,
                 async: true,
                 contentType: "application/json",
                 beforeSend: function() {
@@ -91,20 +72,14 @@ class SearchResultJS extends BaseJS {
                 }
             }).done(function(res) {
                 if (res.success && res.data) {
-                    debugger
                     //gán tổng số bản ghi cho biến toàn cục
                     var totalBookRecord = res.data.totalRecord;
-
                     //tính toán số trang hiển thị và gán cho biến toàn cục
                     var totalPages = Math.ceil(totalBookRecord / RECORD_PER_PAGE);
-
-                    debugger
                     //gọi hàm loadPaginationSearchResult
                     //phân trang dữ liệu
-                    debugger
-                    searchResultJS.loadPaginationSearchResult(totalPages, searchValue)
+                    searchBookJS.loadPaginationSearchResult(totalPages, searchURL)
                 } else {
-                    debugger
                     //ẩn loading
                     commonBaseJS.showLoadingData(0);
                     //show alert
@@ -117,19 +92,12 @@ class SearchResultJS extends BaseJS {
                 commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
             })
         }
-
     }
 
     //chi tiết xử lý sự kiện khi click vào 1 card sách
     cardOnClick() {
-
         //lấy ra id book được click
         let bookId = $(this).data('bookId');
-
-        //lưu id vào local storage
-        //mở trang book-detail
-        //localStorage.setItem("bookId", bookId)
-
         //tạo url với param chứa id đầu sách vừa được click
         var bookDetailStr = "book-detail.html?id=" + bookId;
         //mở trang book-detail
@@ -138,28 +106,28 @@ class SearchResultJS extends BaseJS {
 
     //chi tiết xử lý sự kiện khi click vào nút Tìm kiếm
     searchEvent() {
-
         //lấy thông tin tìm kiếm hiện tại
-        var searchValue = $('#searchInput').val().trim()
-
-        //lưu thông tin tìm kiếm vào localStorage
-        //localStorage.setItem("searchValue", searchValue);
-
-        debugger
+        var searchValue = $('#searchInput').val().trim();
+        //lấy lựa chọn tìm kiếm hiện tại
+        var searchType = $('#searchTypeSelect option:selected').val();
+        //lấy id loại sách cần lọc
+        var categoryID = $('#categorySelect option:selected').data('id');
+        //lấy khoảng năm xuất bản cần lọc
+        var startYear = $('#startYearInput').val();
+        var finishYear = $('#finishYearInput').val();
+        //lấy lựa chọn sắp xếp cần lọc
+        var sortName = $('#sortNameSelect option:selected').val();
+        //lấy kiểu sắp xếp cần lọc
+        var sortType = $('#sortTypeSelect option:selected').val();
         //tạo url với param chứa giá trị cần tìm kiếm
-        var searchPageStr = "search-result.html?searchValue=" + searchValue;
+        var searchPageStr = commonJS.buildUrlSearchPage(searchValue, searchType, categoryID, startYear, finishYear, sortName, sortType);
         //mở trang search-result.html
-        window.open(searchPageStr, "_self")
-            // $('#pagingDiv').children().remove();
-            // $('#searchResultDiv').children().remove();
-
-
+        window.open("search.html?" + searchPageStr, "_self")
     }
 
-
     //phân trang và hiển thị kết quả tìm kiếm
-    loadPaginationSearchResult(totalPages, searchValue) {
-        debugger
+    loadPaginationSearchResult(totalPages, searchURL) {
+
         //gọi hàm twbsPagination từ twbs-pagination plugin
         $('#pagingDiv').twbsPagination({
             totalPages: totalPages,
@@ -168,7 +136,7 @@ class SearchResultJS extends BaseJS {
                 //call api
                 $.ajax({
                     method: "GET",
-                    url: HOST_URL + "api/BookDetail/GetPagingData?paramBookName=" + searchValue.trim() + "&pageNumber=" + page + "&pageSize=" + RECORD_PER_PAGE,
+                    url: HOST_URL + "api/BookDetail/GetPagingDataV2" + "?pageNumber=" + page + "&pageSize=" + RECORD_PER_PAGE + searchURL,
                     async: true,
                     contentType: "application/json",
                     beforeSend: function() {

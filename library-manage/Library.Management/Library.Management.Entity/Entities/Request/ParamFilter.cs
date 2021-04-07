@@ -21,9 +21,13 @@ namespace Library.Management.Entity
     {
         public Guid userId { get; set; }
     }
+    /// <summary>
+    /// ModifiedBy: Cuong 07/04/2021
+    /// </summary>
     public class ParamFilterBookDetailV2
     {
-        public string paramName { get; set; }
+        //public string paramName { get; set; }
+        public string searchValue { get; set; }
         public int searchType { get; set; }
         public int pageNumber { get; set; }
         public int pageSize { get; set; }

@@ -244,6 +244,7 @@ namespace Library.Management.BL
         /// <param name="param"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 07/04/2021
+        /// ModifiedBy: Cuong 07/04/2021
         public async Task<ActionServiceResult> GetPagingDataV2(ParamFilterBookDetailV2 param)
         {
             var res = new ActionServiceResult();
@@ -254,19 +255,22 @@ namespace Library.Management.BL
             if (param.orderByType == 0) param.orderByType = (int)OrderByType.DESC;
 
             //khai báo mặc định 1 đoạn build câu where
-            string where = " Where 1=1";
+            //string where = " Where 1=1";
+            string where = " Where b.Status=1";
 
             if (param.searchType == (int)SearchType.AuthorName)
             {
-                where += " And b.BookAuthor like %" + param.paramName + "%";
+                //where += " And b.BookAuthor like %" + param.searchValue + "%";
+                where += " And b.BookAuthor like '%" + param.searchValue + "%'";
             }
             else
             {
-                where += " And b.BookName like '%" + param.paramName + "%'";
+                where += " And b.BookName like '%" + param.searchValue + "%'";
             }
             if (param.paramBookCategoryID != null)
             {
-                where += " And b.BookCategoryID = " + param.paramBookCategoryID;
+                //where += " And b.BookCategoryID = " + param.paramBookCategoryID;
+                where += " And b.BookCategoryID = '" + param.paramBookCategoryID + "'";
             }
             if (param.startYear != null)
             {

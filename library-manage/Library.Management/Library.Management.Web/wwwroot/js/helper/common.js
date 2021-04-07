@@ -7,6 +7,7 @@ var commonJS = {
 
     //fix timezone
     //convert từ date sang kiểu datetime (sql)
+    //sử dụng trong trang book-detail
     fromDateToString(date) {
         date = new Date(+date);
         date.setTime(date.getTime() - (date.getTimezoneOffset() * 60000));
@@ -15,6 +16,7 @@ var commonJS = {
     },
 
     //thêm ngày cho thời gian hiện tại
+    //sử dụng trong trang book-detail
     addDayToDate(date, day) {
 
         if (day > 0) {
@@ -27,6 +29,7 @@ var commonJS = {
     },
 
     //convert từ date sang string chứa ngày-tháng-năm
+    //sử dụng trong trang book-detail
     getDateString(date, option) {
         // slice(-2) chọn hai phần tử cuối cùng của mảng.
         var day = ("0" + date.getDate()).slice(-2);
@@ -45,6 +48,7 @@ var commonJS = {
     },
 
     //convert từ date sang string chứa ngày-tháng-năm và giờ-phút
+    //sử dụng trong trang book-detail
     getDateTimeString(date) {
         //convert datetime
         var timeComment = new Date(date);
@@ -57,9 +61,8 @@ var commonJS = {
         return timeCommentConvert
     },
 
-
     //append dữ liệu vào thẻ card
-    //sử dụng trong trang search-result
+    //sử dụng trong trang search
     appendBookDataToCard(data, selector) {
 
         var row = $(`<div class="row mt-2"></div>`)
@@ -88,7 +91,7 @@ var commonJS = {
     //sử dụng trong trang account
     appendBorrowDataToCard(data, selector) {
         //lấy ra ngày hiện tại
-        var dateNow = commonJS.getDateString(new Date(), Enum.ConvertOption.YEAR_FIRST);
+        //var dateNow = commonJS.getDateString(new Date(), Enum.ConvertOption.YEAR_FIRST);
         var row = $(`<div class="row mt-2"></div>`)
         data.forEach(book => {
             // var checkDateHTML = (book.returnDate >= dateNow) ?
@@ -137,8 +140,8 @@ var commonJS = {
         $('#commentContentDiv').html(commentGroupDiv);
     },
 
-
     //gán sự kiện khi ấn nút enter
+    //sử dụng trong trang login, signup, change-pass
     addEnterEvent(action) {
         var enterClicked = false
 
@@ -154,22 +157,30 @@ var commonJS = {
         });
     },
 
-    //lấy giá trị param trên url
-    getURLParameter(sParam) {
-
+    //lấy giá trị tham số trên url
+    //sử dụng trong trang book-detail, search
+    getURLParameter(option, sParam) {
         var sPageURL = window.location.search.substring(1);
-
-        var sURLVariables = sPageURL.split('&');
-        for (var i = 0; i < sURLVariables.length; i++) {
-            var sParameterName = sURLVariables[i].split('=');
-            if (sParameterName[0] == sParam) {
-                //decodeUriComponent giúp giải mã chuỗi có kí tự đặc biệt, ví dụ "%20" -> " "
-                return decodeURIComponent(sParameterName[1]);
+        debugger
+        //nếu lấy chuỗi chứa tất cả tham số từ url
+        if (option == Enum.SplitOption.ALL) {
+            return sPageURL;
+        }
+        //ngược lại, tìm tham số phù hợp trong url
+        else {
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    //decodeUriComponent giúp giải mã chuỗi có kí tự đặc biệt, ví dụ "%20" -> " "
+                    return decodeURIComponent(sParameterName[1]);
+                }
             }
         }
     },
 
     //lấy số sách đang mượn hiện tại của người dùng
+    //sử dụng trong trang book-detail
     getBorrowListSize() {
         //lấy ra danh sách mượn của user trong localStorage
         var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
@@ -178,34 +189,35 @@ var commonJS = {
     },
 
     //kiểm tra sách hiện tại có đang mượn hay không
+    //sử dụng trong trang book-detail
     checkValidBookBorrow(bookId) {
-
         //khai báo kết quả trả về
         var result = true;
         //lấy ra danh sách mượn của user trong localStorage
         var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
-
+        //kiểm tra id sách hiện tại có nằm trong danh sách mượn hay không
         if (borrowList.length > 0) {
             //kiểm tra id sách hiện tại trong danh sách mượn
             for (let index = 0; index < borrowList.length; index++) {
+                //nếu id sách có trong danh sách
                 if (bookId == borrowList[index].bookID) {
                     result = true;
+                    //thoát vòng lặp
                     break
-                } else {
+                }
+                //nếu không
+                else {
                     result = false;
                 }
             }
         } else {
             result = false;
         }
-
-
-
         return result;
-
     },
 
     //lưu danh sách mượn của người dùng vào localStorage
+    //sử dụng trong trang book-detail, account
     saveBorrowListToLocal(bookBorrowList, data) {
         data.forEach(item => {
             debugger
@@ -217,8 +229,48 @@ var commonJS = {
             borrowItem.status = item.bookBorrowStatus;
             bookBorrowList.push(borrowItem)
         });
-
         //lưu borrowList vào local storage
         localStorage.setItem("borrowList", JSON.stringify(bookBorrowList));
+    },
+
+    //gán danh sách loại sách vào thành phần HTML
+    //sử dụng trong trang search
+    appendCategoryListToHTML(list, selectorID) {
+        var selector = $(selectorID);
+        list.forEach(item => {
+            //khai báo và gán giá trị cho thẻ option
+            var optionHTML = $(`<option value=` + item.bookCategoryCode + `>` + item.bookCategoryName + `</option>`);
+            //gán id cho data thẻ option
+            optionHTML.data("id", item.bookCategoryId);
+            selector.append(optionHTML)
+        });
+    },
+
+    //build url
+    //sử dụng cho trang search
+    buildUrlSearchPage(searchValue, searchType, categoryID, startYear, finishYear, sortName, sortType) {
+        var url = "";
+        if (searchValue.trim().length > 0) {
+            url = "&searchValue=" + searchValue;
+        }
+        if (searchType > 0) {
+            url = url + "&searchType=" + searchType;
+        }
+        if (categoryID && categoryID.trim().length > 0) {
+            url = url + "&paramBookCategoryID=" + categoryID;
+        }
+        if (startYear > 0) {
+            url = url + "&startYear=" + startYear;
+        }
+        if (finishYear > 0) {
+            url = url + "&finishYear=" + finishYear;
+        }
+        if (sortName > 0) {
+            url = url + "&maxValueType=" + sortName;
+        }
+        if (sortType > 0) {
+            url = url + "&orderByType=" + sortType;
+        }
+        return url;
     }
 }

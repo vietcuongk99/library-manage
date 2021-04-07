@@ -74,9 +74,7 @@
             <div>
                 <!-- chọn loại sách -->
                 <select id="categorySelect" class="custom-select mr-auto w-auto">
-                <option selected>Chọn loại sách</option>
-                <option value="1">Truyện ngắn</option>
-                <option value="2">Truyện dài</option>
+                <option value="0" selected>Chọn loại sách</option>
                 </select>
                 <!-- chọn năm xuất bản -->
                 <div id="yearPublishSelect" class="btn-group">
@@ -86,17 +84,18 @@
                     <div class="dropdown-menu">
                         <input id="startYearInput" class="form-control dropdown-item" type="number" placeholder="Bắt đầu">
                         <div class="dropdown-divider"></div>
-                        <input id="endYearInput" class="form-control dropdown-item" type="number" placeholder="Kết thúc">
+                        <input id="finishYearInput" class="form-control dropdown-item" type="number" placeholder="Kết thúc">
                     </div>
                 </div>
-                <select id="filterTypeSelect" class="custom-select w-auto">
-                <option selected>Sắp xếp theo</option>
-                <option value="1">Số lượt mượn</option>
-                <option value="1">Ngày thêm sách</option>
+                <select id="sortNameSelect" class="custom-select w-auto">
+                <option value="0" selected>Sắp xếp theo</option>
+                <option value="1">Mới nhất</option>
+                <option value="2">Số lượt mượn</option>
               </select>
                 <select id="sortTypeSelect" class="custom-select w-auto">
-                <option value="1" selected>Tăng dần</option>
-                <option value="2">Giảm dần</option>
+                <option value="0" selected>Cấp độ</option>
+                <option value="1">Giảm dần</option>
+                <option value="2">Tăng dần</option>
               </select>
 
             </div>
@@ -167,10 +166,12 @@
     <script src="../js/base/commonBase.js"></script>
     <!-- xử lý nội dung thanh top navigation -->
     <script src="../js/helper/base.js"></script>
+    <!-- xử lý với enum -->
+    <script src="../js/helper/enum.js"></script>
     <!-- xử lý hàm dùng chung -->
     <script src="../js/helper/common.js"></script>
     <!-- xử lý nội dung trang hiện tại -->
-    <script src="../js/page/search-result.js"></script>
+    <script src="../js/page/search.js"></script>
 
 </body>
 

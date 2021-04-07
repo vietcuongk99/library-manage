@@ -31,7 +31,7 @@ class BaseJS {
             var adminUrl = HOST_URL + "admin"
 
             //khai báo các thành phần html
-            var searchBtn = `<li class="nav-item"><a class="nav-link" href="/page/search-result.html">Danh mục sách</a></li>`
+            var searchBtn = `<li class="nav-item"><a class="nav-link" href="/page/search.html">Danh mục sách</a></li>`
             var manageSystemBtn = `<li class="nav-item"><a class="nav-link" href="` + adminUrl + `">Quản lý hệ thống</a></li>`
             var dropDownAction = `<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAvatar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

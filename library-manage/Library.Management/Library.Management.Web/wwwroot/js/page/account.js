@@ -9,7 +9,6 @@ $(document).ready(function() {
     accountJS = new AccountJS()
 })
 
-
 //class quản lý các sự kiện trong trang account.html
 class AccountJS extends BaseJS {
     constructor() {
@@ -20,15 +19,12 @@ class AccountJS extends BaseJS {
         this.initEvent();
     }
 
-
     ///load dữ liệu cá nhân của user
     loadUserData() {
-
         // lấy userId từ localStorage
         var userObject = JSON.parse(localStorage.getItem("user"))
         var userID = userObject.userID
-
-        //hiện loading
+            //hiện loading
         commonBaseJS.showLoadingData(1);
         //call api
         $.ajax({
@@ -37,8 +33,8 @@ class AccountJS extends BaseJS {
             contentType: "application/json"
         }).done(function(res) {
             if (res.success) {
+                //gán data
                 userData = res.data;
-
                 //khai báo các biến và gán giá trị từ userData object
                 //tên đầy đủ của người dùng
                 var userFullNameTxt = ((userData.firstName) ? userData.firstName + " " : "") + ((userData.lastName) ? userData.lastName : "");
@@ -47,23 +43,19 @@ class AccountJS extends BaseJS {
                 var userAddressTxt = ((userData.ward) ? userData.ward + ", " : "") +
                     ((userData.district) ? userData.district + ", " : "") +
                     ((userData.province) ? userData.province + ", " : "") +
-                    ((userData.country) ? userData.country : "")
-
-                userAddressTxt = userAddressTxt.trim()
+                    ((userData.country) ? userData.country : "").trim();
                 if (userAddressTxt.length == 0) { userAddressTxt = "chưa xác định" }
                 if (userAddressTxt.charAt(userAddressTxt.length - 1) == ",") { userAddressTxt = userAddressTxt.slice(0, -1) }
                 //email của người dùng
-                var userEmailTxt = (userData.email || userData.email.length > 0) ? userData.email : "chưa có"
-                var userAge = (userData.age || userData.age > 0) ? userData.age : "chưa có"
-
+                var userEmailTxt = (userData.email || userData.email.length > 0) ? userData.email : "chưa có";
+                var userAge = (userData.age || userData.age > 0) ? userData.age : "chưa có";
                 //gán giá trị và thuộc tính cho các thành phần thẻ p trên trang account
-                $('#userFullName').text(userFullNameTxt)
-                $('#userAddress').text(userAddressTxt)
-                $('#userEmail').text(userEmailTxt)
-                $('#userName').text(userData.userName)
-                $('#userPassword').attr('value', userData.password)
-                $('#userAge').text(userAge)
-
+                $('#userFullName').text(userFullNameTxt);
+                $('#userAddress').text(userAddressTxt);
+                $('#userEmail').text(userEmailTxt);
+                $('#userName').text(userData.userName);
+                $('#userPassword').attr('value', userData.password);
+                $('#userAge').text(userAge);
                 //gán giá trị và thuộc tính cho các thành phần input trong modal trên trang account
                 $('#firstNameInput').val(userData.firstName);
                 $('#lastNameInput').val(userData.lastName);
@@ -73,12 +65,9 @@ class AccountJS extends BaseJS {
                 $('#provinceInput').val(userData.province);
                 $('#countryInput').val(userData.country);
                 $('#emailInput').val(userData.email);
-                $('#passwordInput').val(userData.password)
-
+                $('#passwordInput').val(userData.password);
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
-
-
             } else {
                 //show alert
                 commonBaseJS.showToastMsgFailed(res.message);
@@ -87,17 +76,14 @@ class AccountJS extends BaseJS {
             //show alert
             commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
         })
-
     }
 
     //load dữ liệu ảnh đại diện của user
     loadUserAvatar() {
-
         // lấy userId từ localStorage
-        var userObject = JSON.parse(localStorage.getItem("user"))
-        var userID = userObject.userID
-        var userAvatarURL = userObject.avatarUrl
-
+        var userObject = JSON.parse(localStorage.getItem("user"));
+        var userID = userObject.userID;
+        var userAvatarURL = userObject.avatarUrl;
         //call api
         $.ajax({
             method: "GET",
@@ -113,23 +99,19 @@ class AccountJS extends BaseJS {
                     $('#userAvatar').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
                     $('#userAvatarNav').attr('src', "data:image/jpg;base64," + userData.userAvatarBase64String)
                 }
-
             } else {
                 commonBaseJS.showToastMsgFailed(res.message);
             }
         }).fail(function(res) {
             commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
         })
-
     }
 
     //load danh sách mượn
     loadBookBorrowList() {
-
         // lấy userId từ localStorage
         var userObject = JSON.parse(localStorage.getItem("user"));
         var userID = userObject.userID;
-
         //hiện loading
         commonBaseJS.showLoadingData(1);
         //call api
@@ -142,7 +124,6 @@ class AccountJS extends BaseJS {
         }).done(function(res) {
             //nếu server xử lý thành công
             if (res.success) {
-
                 //gán data
                 var list = res.data;
                 //gọi hàm render html lên ui
@@ -171,9 +152,6 @@ class AccountJS extends BaseJS {
             commonBaseJS.showLoadingData(0);
             commonBaseJS.showToastMsgFailed("Lấy thông tin sách đang mượn thất bại.");
         })
-
-
-
     }
 
     //gán sự kiện trong trang
@@ -189,8 +167,7 @@ class AccountJS extends BaseJS {
         $('#modalUpdateInfor #dismissUpdateInfor').on('click', function() {
             //đóng modal
             $('#modalUpdateInfor').modal('hide')
-
-            //xóa alert validate nếu có
+                //xóa alert validate nếu có
             if ($('#emailAlert')) {
                 $('#emailAlert').remove()
             }
@@ -210,8 +187,7 @@ class AccountJS extends BaseJS {
             $('#provinceInput').val(userData.province);
             $('#countryInput').val(userData.country);
             $('#emailInput').val(userData.email);
-        })
-
+        });
         // sự kiện khi click nút Hủy bỏ trong modal cập nhật mật khẩu
         $('#modalUpdatePassword #dismissUpdatePass').on('click', function() {
             //đóng modal
@@ -233,8 +209,7 @@ class AccountJS extends BaseJS {
             $('#passwordInput').val(userPassword);
             $('#newPasswordInput').val("");
             $('#reNewPasswordInput').val("");
-        })
-
+        });
         //gán xử lý sự kiện khi click vào 1 card sách
         $('#borrowListContent').on('click', '.card.h-100', this.cardOnClick)
 
@@ -244,16 +219,12 @@ class AccountJS extends BaseJS {
     //tham khảo:https://tungnt.net/download-va-upload-anh-su-dung-asp-net-web-api-tren-asp-net-mvc/?fbclid=IwAR2hYsV3SOdp-E2TYrNdmFSx6I6x6pOQz88GhKu8ljKLVQ9VdzUAKA2PpMc
     showImgPreviewModal() {
         $('#chooseImg').change(function() {
-
             //kiểm tra file input của người dùng
             if (this.files && this.files[0]) {
-
-
                 //kiểm tra file hợp lệ
                 //nếu file không phải định dạng jpg, jpeg, gif, png
                 if (!validImageTypes.includes(this.files[0]['type'])) {
                     commonBaseJS.showToastMsgFailed("Định dạng file không hợp lệ (gif, jpeg, jpg, png)")
-
                 } else {
                     $('#previewImg').attr('style', 'width: 300px; height: 300px');
                     $('#modalUpdateAvatar').modal('show');
@@ -264,9 +235,7 @@ class AccountJS extends BaseJS {
                     }
                     reader.readAsDataURL(this.files[0])
                 }
-
             }
-
         })
     }
 
@@ -322,32 +291,26 @@ class AccountJS extends BaseJS {
 
     //validate dữ liệu nhập vào từ người dùng (modal cập nhật thông tin)
     validateUserInforInput() {
-
         //khai báo kết quả trả về
         var result = true;
         var alertDiv;
-
         //lấy email input của người dùng
         var emailInput = $('#emailInput').val().trim();
         var firstNameInput = $('#firstNameInput').val().trim();
         var lastNameInput = $('#lastNameInput').val().trim();
-
         //validate email
         var emailValid = (function validateEmail(email) {
             var re = /\S+@\S+\.\S+/;
             return re.test(email);
-        })(emailInput)
-
+        })(emailInput);
         //validate tên họ và tên đệm
         var firstNameValid = (function validateFirstName(firstName) {
             return firstName.length > 0;
-        })(firstNameInput)
-
+        })(firstNameInput);
         //validate tên riêng
         var lastNameValid = (function validateLastName(lastName) {
             return lastName.length > 0;
-        })(lastNameInput)
-
+        })(lastNameInput);
         //nếu email, tên họ, tên đệm chưa được validate
         //thêm thành phần html
         if (!firstNameValid) {
@@ -366,7 +329,6 @@ class AccountJS extends BaseJS {
                 $('#firstNameAlert').remove()
             }
         }
-
         if (!lastNameValid) {
             //khai báo thành phần alert
             alertDiv = $(`<div id="lastNameAlert" class="row mb-1">
@@ -383,7 +345,6 @@ class AccountJS extends BaseJS {
                 $('#lastNameAlert').remove()
             }
         }
-
         if (!emailValid) {
             //khai báo thành phần alert
             alertDiv = $(`<div id="emailAlert" class="row mb-1">
@@ -400,24 +361,19 @@ class AccountJS extends BaseJS {
                 $('#emailAlert').remove()
             }
         }
-
         //trả về kết quả validate
         return result;
-
     }
 
     //validate dữ liệu nhập vào từ người dùng (modal cập nhật mật khẩu)
     validatePasswordInput() {
-
         //khai báo kết quả trả về
         var result = true;
         var alertDiv;
-
         //lấy email input của người dùng
         var passwordInput = $('#passwordInput').val().trim();
         var newPasswordInput = $('#newPasswordInput').val().trim();
         var reNewPasswordInput = $('#reNewPasswordInput').val().trim();
-
         //password chứa tối thiểu 5 kí tự và không có khoảng trắng
         var passwordValid = (function validatePassword(password) {
             if (password.includes(" ")) {
@@ -425,8 +381,7 @@ class AccountJS extends BaseJS {
             } else {
                 return password.length >= 5
             }
-        })(passwordInput)
-
+        })(passwordInput);
         //password chứa tối thiểu 5 kí tự và không có khoảng trắng
         var newPasswordValid = (function validateNewPassword(password) {
             if (password.includes(" ")) {
@@ -434,16 +389,14 @@ class AccountJS extends BaseJS {
             } else {
                 return password.length >= 5
             }
-        })(newPasswordInput)
-
+        })(newPasswordInput);
         //password và repassword phải trùng khớp
         if (newPasswordInput) {
             var reNewPasswordValid = (function validateRePassWord(rePassword, password) {
                 return rePassword == password
             })(reNewPasswordInput, newPasswordInput)
         }
-
-        //nếu email, tên họ, tên đệm chưa được validate
+        //nếu password, password mới và nhập lại pass chưa được validate
         //thêm thành phần html
         if (!passwordValid) {
             //khai báo thành phần alert
@@ -461,9 +414,7 @@ class AccountJS extends BaseJS {
                 $('#passwordAlert').remove()
             }
         }
-
         if (!newPasswordValid) {
-
             if ($('#newPasswordAlert')) {
                 $('#newPasswordAlert').remove()
             }
@@ -480,7 +431,6 @@ class AccountJS extends BaseJS {
                 $('#newPasswordAlert').remove()
             }
         }
-
         if (!reNewPasswordValid && newPasswordValid) {
             //khai báo thành phần alert
             alertDiv = $(`<div id="reNewPassAlert" class="row mb-1">
@@ -497,21 +447,17 @@ class AccountJS extends BaseJS {
                 $('#reNewPassAlert').remove()
             }
         }
-
         //trả về kết quả validate
         return result;
-
     }
 
     //xử lý sự kiện khi click nút Xác nhận (modal cập nhật thông tin)
     updateUserInfor() {
         // lấy userId từ localStorage
-        var userObject = JSON.parse(localStorage.getItem("user"))
-        var userID = userObject.userID
-
+        var userObject = JSON.parse(localStorage.getItem("user"));
+        var userID = userObject.userID;
         //khai báo validate email input
-        var validateUserInput = accountJS.validateUserInforInput()
-
+        var validateUserInput = accountJS.validateUserInforInput();
         //nếu email được validate
         if (validateUserInput) {
             //lấy input từ người dùng
@@ -523,7 +469,6 @@ class AccountJS extends BaseJS {
             var userProvince = $('#provinceInput').val().trim();
             var userCountry = $('#countryInput').val().trim();
             var userEmail = $('#emailInput').val().trim();
-
             //tạo data và gán trường dữ liệu
             var data = {
                 userId: userID,
@@ -560,8 +505,6 @@ class AccountJS extends BaseJS {
                 commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
             })
-
-
         } else {
             commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng ký không thành công.");
         }
@@ -572,16 +515,13 @@ class AccountJS extends BaseJS {
         // lấy userId từ localStorage
         var userObject = JSON.parse(localStorage.getItem("user"))
         var userID = userObject.userID
-
-        //khai báo validate email input
+            //khai báo validate email input
         var validateUserInput = accountJS.validatePasswordInput()
-
-        //nếu email được validate
+            //nếu email được validate
         if (validateUserInput) {
             //lấy input từ người dùng
             var userPassword = $('#passwordInput').val().trim();
             var userNewPassword = $('#newPasswordInput').val().trim();
-
             //tạo data và gán trường dữ liệu
             var data = {
                 userId: userID,
@@ -612,8 +552,6 @@ class AccountJS extends BaseJS {
                 commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
             })
-
-
         } else {
             commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng ký không thành công.");
         }
@@ -621,19 +559,11 @@ class AccountJS extends BaseJS {
 
     //chi tiết xử lý sự kiện khi click vào 1 card sách
     cardOnClick() {
-
         //lấy ra id book được click
         let bookId = $(this).data('bookId');
-
-        //lưu id vào local storage
-        //localStorage.setItem("bookId", bookId)
-
         //tạo url với param chứa id đầu sách vừa được click
         var bookDetailStr = "book-detail.html?id=" + bookId;
         //mở trang book-detail
         window.open(bookDetailStr, "_self")
     }
-
-
-
 }

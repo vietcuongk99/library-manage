@@ -14,12 +14,9 @@ $(document).ready(function() {
 class LoginJS {
 
     constructor() {
-
         this.loadData()
         this.initEvent()
     }
-
-
     loadData() {}
 
     //gán sự kiện cho các thẻ liên quan trên trang login.html
@@ -30,7 +27,7 @@ class LoginJS {
         //gán sự kiện cho nút đăng nhập khi nhấn enter
         commonJS.addEnterEvent(this.loginEvent)
         $('#guestLoginLink').prop('href', "./index.html").on('click', this.guestLoginEvent.bind(this))
-        $('#signUpLink').prop('href', "./signup.html").on('click', this.signUpEvent.bind(this))
+        $('#signUpLink').prop('href', "./signup.html");
         $('#changePassword').prop('href', "./change-pass.html").on('click', this.changePassEvent.bind(this))
 
     }
@@ -56,16 +53,13 @@ class LoginJS {
             }).done(function(res) {
                 //nếu response trả về success (response.success: true)
                 if (res.success) {
-
                     //khai báo biến và lấy giá trị userID
                     //lưu thông tin đăng nhập vào localStorage
                     var user = res.data;
                     var userID = user.userID;
                     localStorage.setItem("user", JSON.stringify(user));
-
                     //gọi hàm getBorrowList()
                     loginJS.getBorrowList(userID);
-
                 } else {
                     //gọi phương thức thêm alert div của loginJS object
                     commonBaseJS.showLoadingData(0);
@@ -78,11 +72,7 @@ class LoginJS {
                 //lỗi bên server
                 commonBaseJS.showToastMsgFailed("Đăng nhập không thành công.");
             })
-
         } else {
-
-            //gọi phương thức thêm alert div của loginJS object
-            //loginJS.addAlertDiv();
             //show alert cảnh báo
             commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng nhập không thành công.");
         }
@@ -94,18 +84,14 @@ class LoginJS {
         localStorage.setItem("user", null)
     }
 
-    //chi tiết xử lý khi click link "đăng ký"
-    signUpEvent() {}
-
     //chi tiết xử lý khi click link "quên mật khẩu"
     changePassEvent() {}
 
     //chi tiết xử lý validate input của người dùng
     validateInput() {
         //lấy dữ liệu input
-        var usernameInput = $('#usernameInput').val().trim()
-        var passwordInput = $('#passwordInput').val().trim()
-
+        var usernameInput = $('#usernameInput').val().trim();
+        var passwordInput = $('#passwordInput').val().trim();
         //username chứa tối thiểu 5 kí tự và không có khoảng trắng
         //password chứa tối thiểu 5 kí tự và không có khoảng trắng
         if (!usernameInput || usernameInput.length < 5 ||
@@ -118,42 +104,37 @@ class LoginJS {
         }
     }
 
-
-    //gọi api lấy ra danh sách mượn sách của người dùng
+    //lấy ra danh sách mượn sách của người dùng
     getBorrowList(userID) {
-
         //khai báo array chứa danh sách mượn cửa người dùng
-        //lưu vào storage
         var borrowList = [];
-
         //call api
         $.ajax({
             method: "GET",
             url: HOST_URL + "api/BookBorrow/GetPagingData?userId=" + userID,
             contentType: "application/json"
-
         }).done(function(res) {
             //nếu server xử lý thành công
             if (res.success) {
-
+                //lấy data từ response
                 var list = res.data;
                 //lưu danh sách mượn vào localStorage
                 commonJS.saveBorrowListToLocal(borrowList, list);
-
+                //ẩn loading
                 commonBaseJS.showLoadingData(0);
+                //show alert
                 commonBaseJS.showToastMsgSuccess("Đăng nhập thành công.");
-
-                //chuyển sang trang index
+                //chuyển sang trang index sau 1.5s
                 setTimeout(function() {
                     window.open("index.html", "_self")
                 }, 1500);
             } else {
+                //show alert
                 commonBaseJS.showToastMsgFailed(res.message);
             }
         }).fail(function(res) {
+            //show alert
             commonBaseJS.showToastMsgFailed("Lấy thông tin sách đang mượn thất bại.");
         })
-
     }
-
 }

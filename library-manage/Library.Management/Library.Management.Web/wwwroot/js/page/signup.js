@@ -7,7 +7,6 @@ $(document).ready(function() {
     signUpJS = new SignUpJS()
 })
 
-
 //class quản lý các sự kiện trang signup.html
 class SignUpJS {
     constructor() {
@@ -22,16 +21,13 @@ class SignUpJS {
         //this = signUpJS
         $('#signUpBtn').click(this.signUpEvent.bind(this))
         commonJS.addEnterEvent(this.signUpEvent)
-
     }
 
     //chi tiết xử lý khi click nút "đăng ký"
     signUpEvent() {
-
         //lấy giá trị validate input
         var checkValidated = signUpJS.validateInput()
-
-        //nếu validate input thành công
+            //nếu validate input thành công
         if (checkValidated) {
             //khai báo data trước khi gọi api
             var data = {
@@ -60,7 +56,7 @@ class SignUpJS {
                     //show alert
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
-            }).fail(function (res) {
+            }).fail(function(res) {
                 commonBaseJS.showLoadingData(0);
                 //show alert
                 commonBaseJS.showToastMsgFailed("Đăng ký không thành công.");
@@ -74,25 +70,21 @@ class SignUpJS {
 
     //chi tiết xử lý validate input của người dùng
     validateInput() {
-
         //khai báo kết quả trả về
         var result = true;
-
         //lấy input của người dùng
-        var emailInput = $('#emailInput').val().trim()
+        var emailInput = $('#emailInput').val().trim();
         var usernameInput = $('#usernameInput').val().trim();
-        var passwordInput = $('#passwordInput').val().trim()
-        var rePasswordInput = $('#rePasswordInput').val().trim()
-        var checkBoxInput = $('#checkBox')[0].checked
-
+        var passwordInput = $('#passwordInput').val().trim();
+        var rePasswordInput = $('#rePasswordInput').val().trim();
+        var checkBoxInput = $('#checkBox')[0].checked;
         //self - invoked
         //validate email, username, password, checkbox của người dùng
         //email đăng nhập phải có kí tự '@' và '.'
         var emailValid = (function validateEmail(email) {
             var re = /\S+@\S+\.\S+/;
             return re.test(email);
-        })(emailInput)
-
+        })(emailInput);
         //tên đăng nhập không chứa khoảng trắng, tối thiểu 5 kí tự
         var usernameValid = (function validateUserName(username) {
             if (username.includes(" ")) {
@@ -100,9 +92,7 @@ class SignUpJS {
             } else {
                 return username.length >= 5
             }
-
-        })(usernameInput)
-
+        })(usernameInput);
         //password chứa tối thiểu 5 kí tự và không có khoảng trắng
         var passwordValid = (function validatePassword(password) {
             if (password.includes(" ")) {
@@ -110,20 +100,17 @@ class SignUpJS {
             } else {
                 return password.length >= 5
             }
-        })(passwordInput)
-
+        })(passwordInput);
         //password và repassword phải trùng khớp
         if (passwordInput) {
             var rePasswordValid = (function validateRePassWord(rePassword, password) {
                 return rePassword == password
             })(rePasswordInput, passwordInput)
         }
-
         //checkBox phải được chọn
         var checkBoxValid = (function validateCheckBox(checkBox) {
             return checkBox
-        })(checkBoxInput)
-
+        })(checkBoxInput);
         //xử lý nếu các input không thỏa mãn validate
         //thêm alert div tương ứng trên giao diện
         var alertDiv;
@@ -187,8 +174,6 @@ class SignUpJS {
                 $('#checkBoxTitle').next().remove()
             }
         }
-
         return result;
-
     }
 }

@@ -3,24 +3,20 @@ $(document).ready(function() {
     confirmOTPCodeJS = new ConfirmOTPCodeJS()
 })
 
-
 //class quản lý các sự kiện trang confirm-otp.html
 class ConfirmOTPCodeJS {
-
     constructor() {
         this.loadData()
         this.initEvent()
     }
-
 
     loadData() {}
 
     //gán sự kiện cho các thẻ liên quan trên trang change-pass.html
     initEvent() {
         //bind đối tượng this cho hàm của changePassJS Object
-        $('#confirmBtn').on('click', this.confirmOTPCodeEvent.bind(this))
-        commonJS.addEnterEvent(this.confirmOTPCodeEvent)
-
+        $('#confirmBtn').on('click', this.confirmOTPCodeEvent.bind(this));
+        commonJS.addEnterEvent(this.confirmOTPCodeEvent);
     }
 
     //chi tiết xử lý khi click nút "xác nhận"
@@ -52,24 +48,19 @@ class ConfirmOTPCodeJS {
                     setTimeout(function() {
                         window.open("login.html", "_self")
                     }, 2000);
-
-
                 } else {
                     commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
-            }).fail(function (res) {
+            }).fail(function(res) {
                 commonBaseJS.showLoadingData(0);
                 //show alert
                 commonBaseJS.showToastMsgFailed("Đổi mật khẩu không thành công.");
             })
-
         } else {
             commonBaseJS.showToastMsgFailed("Xử lý dữ liệu không thành công.");
         }
-
-
     }
 
     //chi tiết xử lý validate dữ liệu
@@ -77,15 +68,13 @@ class ConfirmOTPCodeJS {
         //khai báo và gán giá trị kết quả trả về
         var result = true;
         //lấy input từ người dùng
-        var codeInput = $('#codeInput').val().trim()
-
+        var codeInput = $('#codeInput').val().trim();
         //self - invoked
         //validate email, password của người dùng
         //code otp gồm số 6 chữ số
         var codeValid = (function validateCode(code) {
             return (code >= 100000 && code <= 999999);
-        })(codeInput)
-
+        })(codeInput);
         //xử lý nếu các input không thỏa mãn validate
         var alertDiv;
         if (!codeValid) {
@@ -101,7 +90,6 @@ class ConfirmOTPCodeJS {
             }
         }
         return result;
-
     }
 
 }
