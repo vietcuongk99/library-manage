@@ -196,9 +196,10 @@ namespace Library.Management.BL
                 var bookBorrowByID = await _baseDL.GetEntityById(param.BookBorrowId.ToString());
                 if (bookBorrowByID == null)
                 {
+                    //Không mượn sách
                     res.Success = false;
-                    res.Message = GlobalResource.Failed;
-                    res.LibraryCode = LibraryCode.Failed;
+                    res.Message = GlobalResource.ErrorExtendBookBorrow;
+                    res.LibraryCode = LibraryCode.ErrorExtendBookBorrow;
                 }
                 else
                 {
@@ -208,23 +209,6 @@ namespace Library.Management.BL
                         res.Success = false;
                         res.Message = GlobalResource.ErrorExtendBookBorrow;
                         res.LibraryCode = LibraryCode.ErrorExtendBookBorrow;
-                    }
-                    //Nếu chưa hết hạn và ngày gia hạn mới lớn hơn ngày hết hạn cũ + maxExtend ngày
-                    else if (DateTime.Now < bookBorrowByID.ReturnDate
-                        && param.ReturnDate > bookBorrowByID.ReturnDate.AddDays(int.Parse(GlobalResource.TotalMaxReturnDateExtend)))
-                    {
-                        res.Success = false;
-                        res.Message = string.Format(GlobalResource.OverMaxReturnDate, GlobalResource.TotalMaxReturnDateExtend);
-                        res.LibraryCode = LibraryCode.OverMaxReturnDate;
-                    }
-
-                    //Nếu đã hết hạn và ngày gia hạn mới lớn hơn ngày hôm nay + maxExtend ngày
-                    else if (DateTime.Now > bookBorrowByID.ReturnDate
-                        && param.ReturnDate > DateTime.Now.AddDays(int.Parse(GlobalResource.TotalMaxReturnDateExtend)))
-                    {
-                        res.Success = false;
-                        res.Message = string.Format(GlobalResource.OverMaxReturnDate, GlobalResource.TotalMaxReturnDateExtend);
-                        res.LibraryCode = LibraryCode.OverMaxReturnDate;
                     }
                     else
                     {

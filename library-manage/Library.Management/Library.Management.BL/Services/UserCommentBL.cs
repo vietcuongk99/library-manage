@@ -54,15 +54,15 @@ namespace Library.Management.BL
         /// <param name="BookId"></param>
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 25/03/2021
-        public async Task<ActionServiceResult> GetCommentByBookDetail(string BookId)
+        public async Task<ActionServiceResult> GetCommentByBookDetail(ParameterShowCommentInBookDetail param)
         {
             var res = new ActionServiceResult();
-            var param = new
+            var parameter = new
             {
-                BookID = BookId
+                BookID = param.BookID
             };
             //Gọi lên hàm base truyền vào 1 response trả về sẵn dùng cho TH dữ liệu join từ nhiều bảng
-            res.Data = await _baseDL.GetEntityByMultipleTable<ResponseProcedureUserComment>(param, ProcdureTypeName.GetByBookDetail);
+            res.Data = await _baseDL.GetEntityByMultipleTable<ResponseProcedureUserComment>(parameter, ProcdureTypeName.GetByBookDetail);
             return res;
         }
 

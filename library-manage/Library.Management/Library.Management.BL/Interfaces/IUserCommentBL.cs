@@ -27,7 +27,7 @@ namespace Library.Management.BL
         /// </summary>
         /// <param name="BookId"></param>
         /// <returns></returns>
-        Task<ActionServiceResult> GetCommentByBookDetail(string BookId);
+        Task<ActionServiceResult> GetCommentByBookDetail(ParameterShowCommentInBookDetail param);
 
         /// <summary>
         /// Thêm mới bình luận

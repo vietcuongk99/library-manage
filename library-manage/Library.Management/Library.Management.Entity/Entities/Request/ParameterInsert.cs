@@ -55,4 +55,10 @@ namespace Library.Management.Entity
         public Guid BookId { get; set; }
         public string Comment { get; set; }
     }
+    public class ParameterShowCommentInBookDetail
+    {
+        public Guid BookID { get; set; }
+        public int pageNumber { get; set; }
+        public int pageSize { get; set; }
+    }
 }
