@@ -1,12 +1,8 @@
-//hằng số lưu đường dẫn host mặc định
-const HOST_URL = "https://localhost:44328/";
 //biến global lưu danh sách mượn hiện tại của user
-var userBorrowList = {}
-
+//var userBorrowList = {}
 $(document).ready(function() {
 
 })
-
 
 //class quản lý các sự kiện cho thanh header dùng chung
 class BaseJS {
@@ -15,24 +11,19 @@ class BaseJS {
         this.loadAvatarNav();
     }
 
-
     //load dữ liệu trên thanh nav bar
     loadDataNav() {
-
         //lấy thông tin user từ localStorage
-        var userValue = localStorage.getItem("user")
-        var userObject = JSON.parse(userValue)
-
+        var userValue = localStorage.getItem("user");
+        var userObject = JSON.parse(userValue);
         //nếu user khác null
         if (userObject) {
-
             //khai báo biến lưu giá trị từ userObject
             var userName = userObject.userName;
-            var adminUrl = HOST_URL + "admin"
-
+            var adminUrl = Enum.URL.HOST_URL + "admin";
             //khai báo các thành phần html
-            var searchBtn = `<li class="nav-item"><a class="nav-link" href="/page/search.html">Danh mục sách</a></li>`
-            var manageSystemBtn = `<li class="nav-item"><a class="nav-link" href="` + adminUrl + `">Quản lý hệ thống</a></li>`
+            var searchBtn = `<li class="nav-item"><a class="nav-link" href="/page/search.html">Danh mục sách</a></li>`;
+            var manageSystemBtn = `<li class="nav-item"><a class="nav-link" href="` + adminUrl + `">Quản lý hệ thống</a></li>`;
             var dropDownAction = `<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAvatar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img id="userAvatarNav" class="avatar-icon"></a>
@@ -41,8 +32,7 @@ class BaseJS {
                 <a class="dropdown-item" href="/page/account.html">Chi tiết tài khoản</a>
                 <a class="dropdown-item" href="/page/login.html">Đăng xuất</a>
             </div>
-            </li>`
-
+            </li>`;
             //thêm đường dẫn tới trang search-result
             $('#navItemList').append(searchBtn);
             //nếu user không có quyền manage/admin
@@ -72,7 +62,7 @@ class BaseJS {
         if (userObject) {
             $.ajax({
                 method: "GET",
-                url: HOST_URL + "api/UserAccount/GetImageFromUrl" + "?userID=" + userObject.userID + "&avatarUrl=" + userObject.avatarUrl,
+                url: Enum.URL.HOST_URL + "api/UserAccount/GetImageFromUrl" + "?userID=" + userObject.userID + "&avatarUrl=" + userObject.avatarUrl,
                 contentType: "application/json"
             }).done(function(res) {
                 if (res.success) {
@@ -82,7 +72,6 @@ class BaseJS {
                     } else {
                         $('#userAvatarNav').attr('src', "../content/img/avatar-sample.png")
                     }
-
                 } else {
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
@@ -91,5 +80,4 @@ class BaseJS {
             })
         }
     }
-
 }

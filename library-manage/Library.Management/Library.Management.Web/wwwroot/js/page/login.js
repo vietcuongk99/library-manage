@@ -1,5 +1,3 @@
-// khai báo đường dẫn host mặc định
-const HOST_URL = "https://localhost:44328/"
 $(document).ready(function() {
     //xóa dữ liệu user cũ trong localStorage và sessionStorage
     localStorage.clear()
@@ -46,7 +44,7 @@ class LoginJS {
             //call api
             $.ajax({
                 method: "POST",
-                url: HOST_URL + "api/UserAccount/LoginUserAccount",
+                url: Enum.URL.HOST_URL + "api/UserAccount/LoginUserAccount",
                 data: JSON.stringify(userInput),
                 contentType: "application/json"
 
@@ -111,7 +109,7 @@ class LoginJS {
         //call api
         $.ajax({
             method: "GET",
-            url: HOST_URL + "api/BookBorrow/GetPagingData?userId=" + userID,
+            url: Enum.URL.HOST_URL + "api/BookBorrow/GetPagingData?userId=" + userID,
             contentType: "application/json"
         }).done(function(res) {
             //nếu server xử lý thành công

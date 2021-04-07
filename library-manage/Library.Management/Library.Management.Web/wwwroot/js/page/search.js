@@ -1,13 +1,3 @@
-//số lượng bản ghi sách hiển thị trên một trang
-//20 sách
-const RECORD_PER_PAGE = 20;
-//khai báo trang hiển thị mặc định
-//trang đầu tiên
-const PAGE_DEFAULT = 1;
-//khai báo số trang hiển thị mặc định trên thanh pagination
-//1 trang
-const VISIBLE_PAGE_DEFAULT = 1;
-
 //lấy ra đường dẫn chứa tham số từ url
 var searchURL = commonJS.getURLParameter(Enum.SplitOption.ALL);
 
@@ -36,7 +26,7 @@ class SearchBookJS extends BaseJS {
     loadCategoryData() {
         //gọi api
         $.ajax({
-            url: HOST_URL + "api/BookCategory",
+            url: Enum.URL.HOST_URL + "api/BookCategory",
             contentType: "application/json",
             method: "GET"
         }).done(function(res) {
@@ -63,7 +53,9 @@ class SearchBookJS extends BaseJS {
             //lấy ra đầu sách phù hợp trong csdl
             $.ajax({
                 method: "GET",
-                url: HOST_URL + "api/BookDetail/GetPagingDataV2" + "?pageNumber=" + PAGE_DEFAULT + "&pageSize=" + RECORD_PER_PAGE + searchURL,
+                url: Enum.URL.HOST_URL + "api/BookDetail/GetPagingDataV2" +
+                    "?pageNumber=" + Enum.BookPaging.PAGE_DEFAULT +
+                    "&pageSize=" + Enum.BookPaging.RECORD_PER_PAGE + searchURL,
                 async: true,
                 contentType: "application/json",
                 beforeSend: function() {
@@ -75,7 +67,7 @@ class SearchBookJS extends BaseJS {
                     //gán tổng số bản ghi cho biến toàn cục
                     var totalBookRecord = res.data.totalRecord;
                     //tính toán số trang hiển thị và gán cho biến toàn cục
-                    var totalPages = Math.ceil(totalBookRecord / RECORD_PER_PAGE);
+                    var totalPages = Math.ceil(totalBookRecord / Enum.BookPaging.RECORD_PER_PAGE);
                     //gọi hàm loadPaginationSearchResult
                     //phân trang dữ liệu
                     searchBookJS.loadPaginationSearchResult(totalPages, searchURL)
@@ -131,12 +123,14 @@ class SearchBookJS extends BaseJS {
         //gọi hàm twbsPagination từ twbs-pagination plugin
         $('#pagingDiv').twbsPagination({
             totalPages: totalPages,
-            visiblePages: VISIBLE_PAGE_DEFAULT,
+            visiblePages: Enum.BookPaging.VISIBLE_PAGE_DEFAULT,
             onPageClick: function(event, page) {
                 //call api
                 $.ajax({
                     method: "GET",
-                    url: HOST_URL + "api/BookDetail/GetPagingDataV2" + "?pageNumber=" + page + "&pageSize=" + RECORD_PER_PAGE + searchURL,
+                    url: Enum.URL.HOST_URL + "api/BookDetail/GetPagingDataV2" +
+                        "?pageNumber=" + page +
+                        "&pageSize=" + Enum.BookPaging.RECORD_PER_PAGE + searchURL,
                     async: true,
                     contentType: "application/json",
                     beforeSend: function() {

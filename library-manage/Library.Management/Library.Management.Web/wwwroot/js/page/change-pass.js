@@ -1,5 +1,3 @@
-//hằng số lưu đường dẫn host mặc định
-const HOST_URL = "https://localhost:44328/"
 $(document).ready(function() {
     changePassJS = new ChangePassJS()
 })
@@ -32,7 +30,7 @@ class ChangePassJS {
             //call api
             $.ajax({
                 method: "POST",
-                url: HOST_URL + "api/UserAccount/ChangeConfirmPassWordStepOne",
+                url: Enum.URL.HOST_URL + "api/UserAccount/ChangeConfirmPassWordStepOne",
                 contentType: "application/json",
                 data: JSON.stringify(data)
             }).done(function(res) {

@@ -62,12 +62,10 @@ var commonJS = {
     },
 
     //append dữ liệu vào thẻ card
-    //sử dụng trong trang search
+    //sử dụng trong trang index, search, book-detail
     appendBookDataToCard(data, selector) {
-
         var row = $(`<div class="row mt-2"></div>`)
         data.forEach(book => {
-
             var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
             var card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
                             </div>`)
@@ -79,7 +77,6 @@ var commonJS = {
                         <p class="text-truncate text-center">` + book.bookAuthor + `</p>
                     </div>
                 </div>`)
-
             bookHTML.data('bookId', book.bookID)
             $(card).append(bookHTML)
             row.append(card)
@@ -220,7 +217,6 @@ var commonJS = {
     //sử dụng trong trang book-detail, account
     saveBorrowListToLocal(bookBorrowList, data) {
         data.forEach(item => {
-            debugger
             var borrowItem = {};
             borrowItem.bookBorrowID = item.bookBorrowID;
             borrowItem.bookID = item.bookID;

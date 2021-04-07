@@ -1,4 +1,3 @@
-const HOST_URL = "https://localhost:44328/"
 $(document).ready(function() {
     confirmOTPCodeJS = new ConfirmOTPCodeJS()
 })
@@ -36,7 +35,7 @@ class ConfirmOTPCodeJS {
             //call api
             $.ajax({
                 method: "POST",
-                url: HOST_URL + "api/UserAccount/ChangeConfirmPassWordStepTwo",
+                url: Enum.URL.HOST_URL + "api/UserAccount/ChangeConfirmPassWordStepTwo",
                 contentType: "application/json",
                 data: JSON.stringify(data)
             }).done(function(res) {

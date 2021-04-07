@@ -1,5 +1,3 @@
-//khai báo đường dẫn host mặc định
-const HOST_URL = "https://localhost:44328/"
 $(document).ready(function() {
     // xóa bỏ dữ liệu cũ trong localStorage và sessionStorage
     localStorage.clear()
@@ -39,7 +37,7 @@ class SignUpJS {
             //gọi api
             $.ajax({
                 method: "POST",
-                url: HOST_URL + "api/UserAccount/RegisterUserAccount",
+                url: Enum.URL.HOST_URL + "api/UserAccount/RegisterUserAccount",
                 contentType: "application/json",
                 data: JSON.stringify(data)
             }).done(function(res) {

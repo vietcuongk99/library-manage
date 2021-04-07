@@ -1,18 +1,9 @@
-//khai báo hằng số lưu số lượng sách được mượn tối đa
-//user được mượn tối đa 6 tài liệu
-const MAX_BORROW_NUMBER = 6;
-
-//khai báo hằng số lưu thời gian gia hạn
-//user khi gia hạn thì thời gian mượn sách sẽ tăng thêm 7 ngày
-const EXTEND_BORROW_DAY = 7;
-
 //lấy ra id đầu sách từ url
 var bookId = commonJS.getURLParameter(Enum.SplitOption.ONE, 'id');
 
 $(document).ready(function() {
     bookDetailJS = new BookDetailJS()
 })
-
 
 //class quản lý các sự kiện trong trang book-detail.html
 class BookDetailJS extends BaseJS {
@@ -33,11 +24,12 @@ class BookDetailJS extends BaseJS {
         //call api lấy thông tin sách
         $.ajax({
             method: "GET",
-            url: HOST_URL + "api/BookDetail/" + bookId,
+            url: Enum.URL.HOST_URL + "api/BookDetail/" + bookId,
             async: true,
             contentType: "application/json"
         }).done(function(res) {
             if (res.success) {
+                //gán data
                 var data = res.data;
                 //gán thông tin sách
                 $('#bookTitle').text(data.bookName);
@@ -47,6 +39,8 @@ class BookDetailJS extends BaseJS {
                 $('#borrowTotal').text(data.borrowTotal);
                 $('#yearPublication').text(data.yearOfPublication);
                 $('#bookDescription').text(data.description);
+                //gán data id loại sách
+                $('#bookCategoryName').data("id", data.bookCategoryId);
                 //load ảnh bìa sách
                 //kiểm tra nếu đường dẫn ảnh tồn tại và không phải ""
                 if (data.bookImageUri && (data.bookImageUri).trim().length > 0) {
@@ -69,31 +63,11 @@ class BookDetailJS extends BaseJS {
                     //gán data cho $('#imageBook')
                     $('#imageBook').data('bookImageUri', '../content/img/avatar-book-default.jpg')
                 }
-                //call api lấy thông tin thể loại sách
-                $.ajax({
-                    method: "GET",
-                    url: HOST_URL + "api/BookCategory/" + data.bookCategoryId,
-                    async: true,
-                    contentType: "application/json"
-                }).done(function(res) {
-                    if (res.success) {
-                        var data = res.data;
-                        //gán giá trị
-                        $('#bookCategoryName').text(data.bookCategoryName);
-                        //ẩn loading
-                        commonBaseJS.showLoadingData(0);
-                    } else {
-                        $('#bookCategoryName').text("Chưa có");
-                        commonBaseJS.showToastMsgFailed(res.message);
-                        //ẩn loading
-                        commonBaseJS.showLoadingData(0);
-                    }
-                }).fail(function(res) {
-                    $('#bookCategoryName').text("Chưa có");
-                    commonBaseJS.showToastMsgFailed("Lấy dữ liệu loại sách không thành công.");
-                    //ẩn loading
-                    commonBaseJS.showLoadingData(0);
-                })
+                //lấy ra id loại sách
+                var categoryID = data.bookCategoryId;
+                //gọi hàm load tên loại sách và sách cùng loại
+                bookDetailJS.loadBookCategoryName(categoryID);
+                bookDetailJS.loadSameCategoryBooks(categoryID);
             } else {
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
@@ -106,12 +80,12 @@ class BookDetailJS extends BaseJS {
         })
     }
 
-    //load ảnh bìa sách
+    //chi tiết xử lý load ảnh bìa sách
     loadBookImg(bookID, bookImgUrl) {
         //call api lấy ảnh bìa sách (base64 string)
         $.ajax({
             method: "GET",
-            url: HOST_URL + "api/BookDetail/GetImageFromUrl?bookID=" + bookID + "&bookImageUri=" + bookImgUrl,
+            url: Enum.URL.HOST_URL + "api/BookDetail/GetImageFromUrl?bookID=" + bookID + "&bookImageUri=" + bookImgUrl,
             async: true,
             contentType: "application/json"
         }).done(function(res) {
@@ -134,6 +108,35 @@ class BookDetailJS extends BaseJS {
             }
         }).fail(function(res) {
             commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
+        })
+    }
+
+    //load tên loại sách
+    loadBookCategoryName(categoryID) {
+        //call api lấy thông tin thể loại sách
+        $.ajax({
+            method: "GET",
+            url: Enum.URL.HOST_URL + "api/BookCategory/" + categoryID,
+            async: true,
+            contentType: "application/json"
+        }).done(function(res) {
+            if (res.success) {
+                var data = res.data;
+                //gán giá trị
+                $('#bookCategoryName').text(data.bookCategoryName);
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
+            } else {
+                $('#bookCategoryName').text("Chưa có");
+                commonBaseJS.showToastMsgFailed(res.message);
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
+            }
+        }).fail(function(res) {
+            $('#bookCategoryName').text("Chưa có");
+            commonBaseJS.showToastMsgFailed("Lấy dữ liệu loại sách không thành công.");
+            //ẩn loading
+            commonBaseJS.showLoadingData(0);
         })
     }
 
@@ -183,7 +186,7 @@ class BookDetailJS extends BaseJS {
                         $('#returnDateValue').html(returnDateValue);
                         $('#oldReturnDate').html(returnDateValue);
                         //gán thời gian trả sách mới trong modal gia hạn
-                        var newReturnDate = commonJS.addDayToDate(new Date(borrowList[index].returnDate), EXTEND_BORROW_DAY);
+                        var newReturnDate = commonJS.addDayToDate(new Date(borrowList[index].returnDate), Enum.BookBorrow.EXTEND_BORROW_DAY);
                         var newReturnDateVal = commonJS.getDateString(new Date(newReturnDate), Enum.ConvertOption.DAY_FIRST)
                         $('#newReturnDate').html(newReturnDateVal);
 
@@ -222,12 +225,48 @@ class BookDetailJS extends BaseJS {
                 //loại bỏ ui của các button mượn, trả, gia hạn, mở tài liệu
                 $('#groupBookAction').children().remove();
                 //nếu số sách đang mượn không vượt quá MAX_BORROW_NUMBER = 6
-                if (borrowListSize < MAX_BORROW_NUMBER) {
+                if (borrowListSize < Enum.BookBorrow.MAX_BORROW_NUMBER) {
                     //thêm nút mượn sách
                     $('#groupBookAction').append(borrowBtnHTML);
                 }
             }
         }
+    }
+
+    //load sách cùng thể loại
+    //load dữ liệu sách mới nhất
+    loadSameCategoryBooks(categoryID) {
+        $.ajax({
+            method: "GET",
+            url: Enum.URL.HOST_URL + "api/BookDetail/GetPagingDataV2" +
+                "?pageNumber=" + Enum.BookPaging.PAGE_DEFAULT +
+                "&pageSize=3" + "&paramBookCategoryID=" +
+                categoryID + "&maxValueType=1&orderByType=1",
+            async: true,
+            contentType: "application/json",
+            beforeSend: function() {
+                //show loading
+                commonBaseJS.showLoadingData(1);
+            }
+        }).done(function(res) {
+            debugger
+            if (res.success && res.data) {
+                var sameCategoryBooks = res.data.dataItems;
+                commonJS.appendBookDataToCard(sameCategoryBooks, '#sameCategoryBookDiv');
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
+            } else {
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
+                //show alert
+                //commonBaseJS.showToastMsgFailed("Không tìm thấy sách phù hợp.");
+            }
+        }).fail(function(res) {
+            //ẩn loading
+            commonBaseJS.showLoadingData(0);
+            //show alert
+            //commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
+        })
     }
 
     //gán sự kiện cho các button
@@ -257,6 +296,10 @@ class BookDetailJS extends BaseJS {
         $(document).on('click', '#btnShowFile', function() {
             bookDetailJS.showFileEvent()
         });
+        //gán sự kiện khi chọn một card sách
+        $('#sameCategoryBookDiv').on('click', 'div.card.h-100', this.cardOnClick);
+        //gán sự kiện cho nút Xem thêm
+        $('#showSameCategoryBook').on('click', this.showSameCategoryBook);
     }
 
     //sự kiện khi click nút Mượn sách
@@ -268,7 +311,7 @@ class BookDetailJS extends BaseJS {
         if (commonJS.checkValidBookBorrow(bookId)) {
             //show alert
             commonBaseJS.showToastMsgFailed("Bạn đã mượn cuốn sách này. Thao tác không thành công.")
-        } else if (borrowListSize >= MAX_BORROW_NUMBER) {
+        } else if (borrowListSize >= Enum.BookBorrow.MAX_BORROW_NUMBER) {
             //show alert
             commonBaseJS.showToastMsgFailed("Bạn đã mượn quá số lượng sách quy định. Không thể thực hiện mượn sách.")
         } else {
@@ -291,7 +334,7 @@ class BookDetailJS extends BaseJS {
         commonBaseJS.showLoadingData(1);
         //call api
         $.ajax({
-            url: HOST_URL + "api/BookBorrow/BorrowActivation",
+            url: Enum.URL.HOST_URL + "api/BookBorrow/BorrowActivation",
             data: JSON.stringify(data),
             method: "POST",
             contentType: "application/json"
@@ -371,7 +414,7 @@ class BookDetailJS extends BaseJS {
         //goi api
         $.ajax({
             method: "DELETE",
-            url: HOST_URL + "api/BookBorrow/GroupID",
+            url: Enum.URL.HOST_URL + "api/BookBorrow/GroupID",
             data: JSON.stringify(data),
             contentType: "application/json",
             beforeSend: function() {
@@ -454,7 +497,7 @@ class BookDetailJS extends BaseJS {
         commonBaseJS.showLoadingData(1);
         //call api
         $.ajax({
-            url: HOST_URL + "api/BookBorrow/RestoreActivation",
+            url: Enum.URL.HOST_URL + "api/BookBorrow/RestoreActivation",
             data: JSON.stringify(data),
             method: "PUT",
             contentType: "application/json",
@@ -534,7 +577,7 @@ class BookDetailJS extends BaseJS {
         //hàm loadBookActionButton()
         var bookBorrowID = $('#groupBookAction').data('bookBorrowID');
         //khai báo thời gian trả sách mới
-        var newReturnDate = commonJS.addDayToDate(new Date(returnDate), EXTEND_BORROW_DAY);
+        var newReturnDate = commonJS.addDayToDate(new Date(returnDate), Enum.BookBorrow.EXTEND_BORROW_DAY);
 
         //khai báo và tạo data trước khi call api
         var data = {
@@ -546,7 +589,7 @@ class BookDetailJS extends BaseJS {
         commonBaseJS.showLoadingData(1);
         //call api
         $.ajax({
-            url: HOST_URL + "api/BookBorrow/ExtendActivation",
+            url: Enum.URL.HOST_URL + "api/BookBorrow/ExtendActivation",
             data: JSON.stringify(data),
             method: "PUT",
             contentType: "application/json"
@@ -617,7 +660,7 @@ class BookDetailJS extends BaseJS {
             //call api
             $.ajax({
                 method: "GET",
-                url: HOST_URL + "api/UserComment/GetCommentByBookDetail" + "?BookId=" + bookId,
+                url: Enum.URL.HOST_URL + "api/UserComment/GetCommentByBookDetail" + "?BookId=" + bookId,
                 contentType: "application/json"
             }).done(function(res) {
                 //lấy res từ api
@@ -697,7 +740,7 @@ class BookDetailJS extends BaseJS {
                 //call api
                 $.ajax({
                     method: "POST",
-                    url: HOST_URL + "api/UserComment/CommentBookDetailActivation",
+                    url: Enum.URL.HOST_URL + "api/UserComment/CommentBookDetailActivation",
                     async: true,
                     contentType: "application/json",
                     data: JSON.stringify(data)
@@ -719,6 +762,22 @@ class BookDetailJS extends BaseJS {
 
         }
 
+    }
+
+    //chi tiết xử lý sự kiện khi click vào 1 card sách
+    cardOnClick() {
+        //lấy ra id của sách được chọn
+        let bookId = $(this).data('bookId');
+        //tạo url với param chứa id đầu sách vừa được click
+        var bookDetailStr = "book-detail.html?id=" + bookId;
+        //mở trang book-detail
+        window.open(bookDetailStr, "_self")
+    }
+
+    //chi tiết xử lý khi click nút Xem thêm
+    showSameCategoryBook() {
+        var categoryID = $('#bookCategoryName').data("id");
+        window.open("search.html?&paramBookCategoryID=" + categoryID, "_self");
     }
 
     //validate date input của người dùng

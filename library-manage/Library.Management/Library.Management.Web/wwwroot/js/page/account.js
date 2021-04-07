@@ -29,7 +29,7 @@ class AccountJS extends BaseJS {
         //call api
         $.ajax({
             method: "GET",
-            url: HOST_URL + "api/UserAccount/" + userID,
+            url: Enum.URL.HOST_URL + "api/UserAccount/" + userID,
             contentType: "application/json"
         }).done(function(res) {
             if (res.success) {
@@ -87,7 +87,7 @@ class AccountJS extends BaseJS {
         //call api
         $.ajax({
             method: "GET",
-            url: HOST_URL + "api/UserAccount/GetImageFromUrl" + "?userID=" + userID + "&avatarUrl=" + userAvatarURL,
+            url: Enum.URL.HOST_URL + "api/UserAccount/GetImageFromUrl" + "?userID=" + userID + "&avatarUrl=" + userAvatarURL,
             contentType: "application/json"
         }).done(function(res) {
             if (res.success) {
@@ -118,7 +118,7 @@ class AccountJS extends BaseJS {
         //cache: false - gọi lại ajax khi ấn back button trên browser
         $.ajax({
             method: "GET",
-            url: HOST_URL + "api/BookBorrow/GetPagingData?userId=" + userID,
+            url: Enum.URL.HOST_URL + "api/BookBorrow/GetPagingData?userId=" + userID,
             contentType: "application/json",
             cache: false
         }).done(function(res) {
@@ -255,7 +255,7 @@ class AccountJS extends BaseJS {
         //call api
         $.ajax({
             method: "POST",
-            url: HOST_URL + "api/UserAccount/SaveImageToUrl",
+            url: Enum.URL.HOST_URL + "api/UserAccount/SaveImageToUrl",
             contentType: "application/json",
             data: JSON.stringify(data)
         }).done(function(res) {
@@ -485,7 +485,7 @@ class AccountJS extends BaseJS {
             //call api
             $.ajax({
                 method: "PUT",
-                url: HOST_URL + "api/UserAccount/UpdateUserInfo",
+                url: Enum.URL.HOST_URL + "api/UserAccount/UpdateUserInfo",
                 data: JSON.stringify(data),
                 contentType: "application/json"
             }).done(function(res) {
@@ -532,7 +532,7 @@ class AccountJS extends BaseJS {
             //call api
             $.ajax({
                 method: "PUT",
-                url: HOST_URL + "api/UserAccount/UpdateUserPassWord",
+                url: Enum.URL.HOST_URL + "api/UserAccount/UpdateUserPassWord",
                 data: JSON.stringify(data),
                 contentType: "application/json"
             }).done(function(res) {
