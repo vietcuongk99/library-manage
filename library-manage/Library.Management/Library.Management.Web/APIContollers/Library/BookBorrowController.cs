@@ -235,11 +235,11 @@ namespace Library.Management.Web
                 {
                     if (statusActivate == (int)StatusActivate.Remove)
                     {
-                        response.Data = string.Format(GlobalResource.ConfirmMessageBorrowBookDetail, EnumResource.StatusActivateRemove, totalRecordConfirm);
+                        response.Message = string.Format(GlobalResource.ConfirmMessageBorrowBookDetail, EnumResource.StatusActivateRemove, totalRecordConfirm);
                     }
                     else
                     {
-                        response.Data = string.Format(GlobalResource.ConfirmMessageBorrowBookDetail, EnumResource.StatusActivateConfirm, totalRecordConfirm);
+                        response.Message = string.Format(GlobalResource.ConfirmMessageBorrowBookDetail, EnumResource.StatusActivateConfirm, totalRecordConfirm);
                     }
                 }
             }

@@ -54,10 +54,10 @@ class BookBorrow {
                 }
 
             } else {
-                commonBaseJS.showToastMsgFailed("Load danh sách sách thất bại")
+                commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công")
             }
         }).fail(function (res) {
-            commonBaseJS.showToastMsgFailed("Load danh sách thất bại")
+            commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công")
         })
     }
 
@@ -79,12 +79,17 @@ class BookBorrow {
         }).done(function (res) {
             if (res.success) {
                 self.loadFormData();
-                commonBaseJS.showToastMsgSuccess("Xác nhận thành công.");
+                commonBaseJS.showToastMsgSuccess(res.message);
             } else {
-                commonBaseJS.showToastMsgFailed("Xác nhận không thành công")
+                if (res.libraryCode = 620) { //TH người dùng đã hủy bỏ yêu cầu mượn sách trước đó
+                    commonBaseJS.showToastMsgInfomation(res.message);
+                }
+                else {
+                    commonBaseJS.showToastMsgFailed("Xác nhận không thành công");
+                }
             }
         }).fail(function (res) {
-            commonBaseJS.showToastMsgFailed("Xác nhận không thành công")
+            commonBaseJS.showToastMsgFailed("Xác nhận không thành công");
         })
     }
 
@@ -98,7 +103,7 @@ class BookBorrow {
                                 </div>
                                 <div class="content-item">
                                     <div class="title-notify">
-                                        <h3><b>${request.userName} </b>yêu cầu mượn cuốn sách ${request.bookName}</h3>
+                                        <h3>Tài khoản <i>${request.userName}</i> gửi yêu cầu mượn cuốn sách <i>${request.bookName}</i></h3>
                                     </div>
                                     <div class="content-notify">
                                         <h5>vào ${commonJS.getDateTimeString(request.createdDate)}</h5>

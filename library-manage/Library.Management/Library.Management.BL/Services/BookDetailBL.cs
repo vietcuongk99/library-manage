@@ -255,12 +255,10 @@ namespace Library.Management.BL
             if (param.orderByType == 0) param.orderByType = (int)OrderByType.DESC;
 
             //khai báo mặc định 1 đoạn build câu where
-            //string where = " Where 1=1";
-            string where = " Where b.Status=1";
+            string where = " Where b.Status = 1";
 
             if (param.searchType == (int)SearchType.AuthorName)
             {
-                //where += " And b.BookAuthor like %" + param.searchValue + "%";
                 where += " And b.BookAuthor like '%" + param.searchValue + "%'";
             }
             else
@@ -269,7 +267,6 @@ namespace Library.Management.BL
             }
             if (param.paramBookCategoryID != null)
             {
-                //where += " And b.BookCategoryID = " + param.paramBookCategoryID;
                 where += " And b.BookCategoryID = '" + param.paramBookCategoryID + "'";
             }
             if (param.startYear != null)

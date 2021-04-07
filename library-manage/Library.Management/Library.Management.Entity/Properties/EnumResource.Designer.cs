@@ -70,7 +70,7 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loại bỏ.
+        ///   Looks up a localized string similar to Hủy bỏ.
         /// </summary>
         public static string StatusActivateRemove {
             get {

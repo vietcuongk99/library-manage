@@ -26,7 +26,6 @@ namespace Library.Management.Entity
     /// </summary>
     public class ParamFilterBookDetailV2
     {
-        //public string paramName { get; set; }
         public string searchValue { get; set; }
         public int searchType { get; set; }
         public int pageNumber { get; set; }
