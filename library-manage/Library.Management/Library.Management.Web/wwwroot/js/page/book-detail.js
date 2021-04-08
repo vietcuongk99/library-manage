@@ -29,6 +29,7 @@ class BookDetailJS extends BaseJS {
             contentType: "application/json"
         }).done(function(res) {
             if (res.success) {
+                debugger
                 //gán data
                 var data = res.data;
                 //gán thông tin sách
@@ -143,9 +144,9 @@ class BookDetailJS extends BaseJS {
     //thay đổi giao diện ui nút mượn, trả, gia hạn, tải tài liệu với từng trang thông tin sách
     loadBookActionButton() {
         var userData = JSON.parse(localStorage.getItem("user"));
-        //nếu user là khách, không có tài khoản
+        //nếu user là khách hoặc có quyền admin
         //không hiển thị button mượn, trả, gia hạn, tải tài liệu
-        if (!userData) {
+        if (!userData || userData.conditionAccount == 0) {
             $('#groupBookAction').children().remove();
         }
         //nếu user có tài khoản
@@ -185,11 +186,6 @@ class BookDetailJS extends BaseJS {
                         var returnDateValue = commonJS.getDateString(new Date(borrowList[index].returnDate), Enum.ConvertOption.DAY_FIRST)
                         $('#returnDateValue').html(returnDateValue);
                         $('#oldReturnDate').html(returnDateValue);
-                        //gán thời gian trả sách mới trong modal gia hạn
-                        var newReturnDate = commonJS.addDayToDate(new Date(borrowList[index].returnDate), Enum.BookBorrow.EXTEND_BORROW_DAY);
-                        var newReturnDateVal = commonJS.getDateString(new Date(newReturnDate), Enum.ConvertOption.DAY_FIRST)
-                        $('#newReturnDate').html(newReturnDateVal);
-
                         //nếu sách vẫn còn hạn mượn
                         if (borrowList[index].returnDate >= dateNow) {
                             //thêm nút mở tài liệu
@@ -549,6 +545,12 @@ class BookDetailJS extends BaseJS {
         }
         //nếu người dùng đã mượn cuốn sách hiện tại
         else {
+            //lấy ra ngày hiện tại
+            var dateNow = commonJS.getDateString(new Date(), Enum.ConvertOption.YEAR_FIRST);
+            //gán thời gian trả sách mới trong modal gia hạn
+            var newReturnDate = commonJS.addDayToDate(new Date(dateNow), Enum.BookBorrow.EXTEND_BORROW_DAY);
+            var newReturnDateVal = commonJS.getDateString(new Date(newReturnDate), Enum.ConvertOption.DAY_FIRST)
+            $('#newReturnDate').html(newReturnDateVal);
             //hiện modal Gia hạn
             $('#modalExtendDate').modal('show');
             if ($('#confirmExtendBtn')) {
@@ -570,14 +572,13 @@ class BookDetailJS extends BaseJS {
 
     //sự kiện khi click nút Xác nhận (modal gia hạn)
     confirmExtendBook() {
-        //lấy thời gian trả sách hiện tại
-        //hàm loadBookActionButton()
-        var returnDate = $('#groupBookAction').data('returnDate');
+        //lấy ra ngày hiện tại
+        var dateNow = commonJS.getDateString(new Date(), Enum.ConvertOption.YEAR_FIRST);
         //lấy id mượn sách hiện tại
         //hàm loadBookActionButton()
         var bookBorrowID = $('#groupBookAction').data('bookBorrowID');
         //khai báo thời gian trả sách mới
-        var newReturnDate = commonJS.addDayToDate(new Date(returnDate), Enum.BookBorrow.EXTEND_BORROW_DAY);
+        var newReturnDate = commonJS.addDayToDate(new Date(dateNow), Enum.BookBorrow.EXTEND_BORROW_DAY);
 
         //khai báo và tạo data trước khi call api
         var data = {
@@ -660,14 +661,20 @@ class BookDetailJS extends BaseJS {
             //call api
             $.ajax({
                 method: "GET",
-                url: Enum.URL.HOST_URL + "api/UserComment/GetCommentByBookDetail" + "?BookId=" + bookId,
+                url: Enum.URL.HOST_URL + "api/UserComment/GetCommentByBookDetail" +
+                    "?BookID=" + bookId + "&pageNumber=" + Enum.CommentPaging.PAGE_DEFAULT +
+                    "&pageSize=" + Enum.CommentPaging.RECORD_PER_PAGE,
                 contentType: "application/json"
             }).done(function(res) {
                 //lấy res từ api
-                if (res.success) {
-                    var data = res.data;
+                if (res.success && res.data.totalRecord > 0) {
+                    //lấy ra tổng số bình luận
+                    var totalRecord = res.data.totalRecord;
+                    //tính toán số trang có thể hiển thị khi phân trang
+                    var totalPages = Math.ceil(totalRecord / Enum.CommentPaging.RECORD_PER_PAGE);
                     //gọi hàm loadBookComment của commonJS object
-                    commonJS.appendCommentData(data);
+                    //commonJS.appendCommentData(data);
+                    bookDetailJS.loadCommentPagination(totalPages)
                 } else {
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
@@ -780,42 +787,50 @@ class BookDetailJS extends BaseJS {
         window.open("search.html?&paramBookCategoryID=" + categoryID, "_self");
     }
 
-    //validate date input của người dùng
-    //date: input từ người dùng
-    //selector: form nhập thời gian
-    //tạm thời không dùng từ ngày 6/4/2021
-    // validateDateInput(date, selector, dateCompare) {
-    //     var result = true;
-    //     //self - invoke
-    //     //kiểm tra input date đầy đủ thông tin ngày, tháng, năm
-    //     var validateDate = function(dateInput) {
-    //         return dateInput.length > 0 && dateInput >= dateCompare
-    //     }(date);
-    //     //nếu input được validate
-    //     if (validateDate) {
-    //         //xóa alert nếu có
-    //         if (selector.prev()) {
-    //             selector.prev().remove()
-    //         }
-    //     }
-    //     //nếu input chưa được validate
-    //     else {
-    //         result = false;
-    //         //xóa alert nếu có
-    //         if (selector.prev()) {
-    //             selector.prev().remove()
-    //         }
-    //         //khai báo thành phần alert HTML
-    //         var alertDiv = $(`<div class="alert alert-danger" role="alert">
-    //                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    //                                 <span aria-hidden="true">&times;</span>
-    //                             </button>
-    //                             Thời gian chưa hợp lệ
-    //                         </div>`);
-    //         //thêm alert vào form nhập thời gian
-    //         alertDiv.insertBefore(selector)
-    //     }
-    //     return result
-    // }
+    //chi tiết xử lý phân trang danh sách bình luận
+    loadCommentPagination(totalPages) {
+        //hủy pagination từ twbs-paginaton plugin
+        $('#pagingDiv').twbsPagination('destroy');
+        //gọi hàm twbsPagination từ twbs-pagination plugin
+        $('#pagingDiv').twbsPagination({
+            totalPages: totalPages,
+            visiblePages: Enum.CommentPaging.VISIBLE_PAGE_DEFAULT,
+            onPageClick: function(event, page) {
+                //call api
+                $.ajax({
+                    method: "GET",
+                    url: Enum.URL.HOST_URL + "api/UserComment/GetCommentByBookDetail" +
+                        "?BookID=" + bookId + "&pageNumber=" + page +
+                        "&pageSize=" + Enum.CommentPaging.RECORD_PER_PAGE,
+                    async: true,
+                    contentType: "application/json",
+                    beforeSend: function() {
+                        //show loading
+                        commonBaseJS.showLoadingData(1);
+                    }
+                }).done(function(res) {
+                    if (res.success && res.data) {
+                        //lấy ra danh sách bình luận
+                        var data = res.data.dataItems;
+                        //gán dữ liệu lên ui
+                        commonJS.appendCommentData(data);
+                        //ẩn loading
+                        commonBaseJS.showLoadingData(0);
+                    } else {
+                        //ẩn loading
+                        commonBaseJS.showLoadingData(0);
+                        //show alert
+                        //commonBaseJS.showToastMsgInfomation("Không tìm thấy sách phù hợp");
+                    }
+                }).fail(function(res) {
+                    //ẩn loading
+                    commonBaseJS.showLoadingData(0);
+                    //show alert
+                    commonBaseJS.showToastMsgFailed("Không thể hiển thị danh sách bình luận.");
+                })
+            }
+        })
 
+
+    }
 }

@@ -165,19 +165,10 @@
                             <div class="col-7">
                                 <p id="returnDateValue">22/12/2020</p>
                             </div>
-
                         </div>
-                        <!-- <div class="row">
-                            <div class="col-5">
-                                <p>Thời gian mượn còn lại:</p>
-                            </div>
-                        <div class="col-7">
-                            <p id="timeBorrowLeft"></p>
-                        </div>
-                    </div> -->
                     </div>
                     <div class="modal-footer">
-                        <button id="dismissReturnBtn" class="btn btn-outline-secondary">Hủy</button>
+                        <button id="dismissReturnBtn" class="btn btn-outline-secondary">Hủy bỏ</button>
                         <button id="confirmReturnBtn" class="btn btn-success">Xác nhận</button>
                     </div>
                 </div>
@@ -265,34 +256,20 @@
         </div>
 
         <!-- nội dung bình luận -->
+        <div class="row mt-5">
+            <div class="col-4">
+                <h3>Phản hồi từ người đọc</h3>
+            </div>
+            <div class="col-5"></div>
+            <div class="col-3">
+                <!-- Pagination -->
+                <div id="pagingDiv" class="pagination-sm">
+                </div>
+            </div>
+        </div>
+        <hr>
         <div id="commentContentDiv" class="container-fluid">
         </div>
-
-        <!-- Pagination -->
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
-
     </div>
     <!-- /.container -->
     <!-- Footer -->
@@ -315,6 +292,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="../js/lib/jquery/jquery.min.js"></script>
     <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../js/lib/twbs-pagination-1.4.1/jquery.twbsPagination.min.js"></script>
     <script src="../js/base/commonBase.js"></script>
     <script src="../js/helper/enum.js"></script>
     <script src="../js/helper/common.js"></script>

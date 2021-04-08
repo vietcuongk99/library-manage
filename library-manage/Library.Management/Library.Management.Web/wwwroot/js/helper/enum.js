@@ -18,8 +18,8 @@ var Enum = {
     BookBorrow: {
         //số sách được mượn tối đa
         MAX_BORROW_NUMBER: 6,
-        //số ngày gia hạn
-        EXTEND_BORROW_DAY: 7,
+        //số ngày mượn được thêm sau khi gia hạn
+        EXTEND_BORROW_DAY: 14,
     },
     //đường dẫn host mặc định
     URL: {
@@ -32,6 +32,15 @@ var Enum = {
         //khai báo trang hiển thị mặc định
         PAGE_DEFAULT: 1,
         //khai báo số trang hiển thị mặc định trên thanh pagination
+        VISIBLE_PAGE_DEFAULT: 1
+    },
+    //phân trang cho danh sách bình luận
+    CommentPaging: {
+        //số lượng bình luận hiển thị trên một trang
+        RECORD_PER_PAGE: 3,
+        //trang hiển thị mặc định
+        PAGE_DEFAULT: 1,
+        //số trang hiển thị mặc định trên thanh pagination
         VISIBLE_PAGE_DEFAULT: 1
     }
 }

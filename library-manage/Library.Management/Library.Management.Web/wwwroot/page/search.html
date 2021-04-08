@@ -59,57 +59,56 @@
                         <option value="2">Tác giả</option>
                         </select>
                 </div>
-                <div class="col-10">
-                    <div class="input-group h-auto">
-                        <input id="searchInput" class="input-group-prepend form-control" type="text" placeholder="Tìm kiếm">
-                        <div class="input-group-append">
-                            <button id="searchBtn" type="button" class="fas fa-search btn btn-success"></button>
-                        </div>
+                <div class="col-10 input-group">
+                    <input id="searchInput" class="input-group-prepend form-control" type="text" placeholder="Tìm kiếm">
+                    <div class="input-group-append">
+                        <button id="searchBtn" type="button" class="fas fa-search btn btn-success"></button>
                     </div>
                 </div>
             </div>
         </ol>
         <ol class="breadcrumb">
             <!-- bộ lọc -->
-            <div>
-                <!-- chọn loại sách -->
-                <select id="categorySelect" class="custom-select mr-auto w-auto">
-                <option value="0" selected>Chọn loại sách</option>
-                </select>
-                <!-- chọn năm xuất bản -->
-                <div id="yearPublishSelect" class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Năm xuất bản
-                    </button>
-                    <div class="dropdown-menu">
-                        <input id="startYearInput" class="form-control dropdown-item" type="number" placeholder="Bắt đầu">
-                        <div class="dropdown-divider"></div>
-                        <input id="finishYearInput" class="form-control dropdown-item" type="number" placeholder="Kết thúc">
+            <div class="row w-100">
+                <div class="col-8">
+                    <!-- chọn loại sách -->
+                    <select id="categorySelect" class="custom-select custom-select-sm w-auto">
+                    <option value="0" selected>Chọn loại sách</option>
+                    </select>
+                    <!-- chọn năm xuất bản -->
+                    <div id="yearPublishSelect" class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-light border-light dropdown-toggle" data-toggle="dropdown" style="background-color: white;">
+                          Năm xuất bản
+                        </button>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item d-inline-block form-inline">
+                                <input id="startYearInput" class="form-control form-control-sm" type="number" placeholder="Bắt đầu">
+                                <input id="finishYearInput" class="form-control form-control-sm" type="number" placeholder="Kết thúc">
+                            </div>
+                        </div>
+                    </div>
+                    <select id="sortNameSelect" class="custom-select custom-select-sm w-auto">
+                    <option value="0" selected>Sắp xếp theo</option>
+                    <option value="1">Mới nhất</option>
+                    <option value="2">Số lượt mượn</option>
+                  </select>
+                    <select id="sortTypeSelect" class="custom-select custom-select-sm w-auto">
+                    <option value="0" selected>Cấp độ</option>
+                    <option value="1">Giảm dần</option>
+                    <option value="2">Tăng dần</option>
+                  </select>
+                </div>
+                <div class="col-1"></div>
+                <!-- thanh phân trang -->
+                <div class="col-3">
+                    <div id="pagingDiv" class="pagination-sm ml-auto">
                     </div>
                 </div>
-                <select id="sortNameSelect" class="custom-select w-auto">
-                <option value="0" selected>Sắp xếp theo</option>
-                <option value="1">Mới nhất</option>
-                <option value="2">Số lượt mượn</option>
-              </select>
-                <select id="sortTypeSelect" class="custom-select w-auto">
-                <option value="0" selected>Cấp độ</option>
-                <option value="1">Giảm dần</option>
-                <option value="2">Tăng dần</option>
-              </select>
-
-            </div>
-            <!-- thanh phân trang -->
-            <div id="pagingDiv" class="pagination-sm ml-auto">
             </div>
         </ol>
-
-
         <!-- kết quả tìm kiếm -->
         <div id="searchResultDiv">
-
         </div>
-
 
         <!-- Pagination -->
         <!-- <ul class="pagination justify-content-center">
@@ -154,6 +153,11 @@
     <div class="toastMsgFailed">
         <span class="toastMsgFailed-img"></span> Thất bại
         <div class="toastMsgFailed-text"></div>
+    </div>
+
+    <div class="toastMsgInfomation">
+        <span class="toastMsgInfomation-img"></span> Thông báo
+        <div class="toastMsgInfomation-text"></div>
     </div>
 
     <!-- Jquery Library -->

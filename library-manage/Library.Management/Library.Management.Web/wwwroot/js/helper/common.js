@@ -73,7 +73,7 @@ var commonJS = {
             <div class="card h-100">
             <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 23rem;">
                     <div class="card-body">
-                        <p class="card-title text-truncate text-uppercase text-center">` + book.bookName + `</b>
+                        <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + book.bookName + `</p>
                         <p class="text-truncate text-center">` + book.bookAuthor + `</p>
                     </div>
                 </div>`)
@@ -101,7 +101,7 @@ var commonJS = {
             <div class="card h-100">
                     <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 22rem">
                     <div class="card-body">
-                        <p class="card-title text-truncate text-uppercase text-center">` + book.bookName + `</b>
+                        <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + book.bookName + `</p>
                         <p class="text-truncate text-center">` + book.bookAuthor + `</p>
                     </div>
                 </div>`)
@@ -118,13 +118,13 @@ var commonJS = {
     //sử dụng trong trang book-detail
     appendCommentData(data) {
         var commentGroupDiv = $(`<div></div>`);
-
         data.forEach(comment => {
             //convert datetime
             var timeComment = this.getDateTimeString(comment.createdDate);
-
+            //lấy string biểu diễn avatar
+            var avatarBase64String = "data:image/jpg;base64," + comment.avatarUrl;
             var commentHTML = $(`<div class="media mb-4">
-                                    <img class="d-flex mr-3 rounded-circle avatar-comment" src="../content/img/avatar-sample.png" alt="">
+                                    <img class="d-flex mr-3 rounded-circle avatar-comment" src=` + avatarBase64String + ` alt="">
                                     <div class="media-body">
                                         <h5 class="mt-0">` + comment.userName + `</h5>
                                         ` + comment.comment + `<br><small class="mt-1">` + timeComment + `</small>

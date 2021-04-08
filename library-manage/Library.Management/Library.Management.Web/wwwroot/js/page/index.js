@@ -101,11 +101,13 @@ class IndexJS extends BaseJS {
 
     //chi tiết xử lý sự kiện khi click nút xem thêm SÁCH HOT
     getAllHotBookEvent() {
-        window.open("search.html?" + "&maxValueType=2&orderByType=1", "_self")
+        localStorage.setItem("searchURL", "&maxValueType=2&orderByType=1");
+        window.open("search.html", "_self")
     }
 
     //chi tiết xử lý sự kiện khi click nút xem thêm SÁCH HOT
     getAllNewBookEvent() {
-        window.open("search.html?" + "&maxValueType=1&orderByType=1", "_self")
+        localStorage.setItem("searchURL", "&maxValueType=1&orderByType=1");
+        window.open("search.html", "_self")
     }
 }

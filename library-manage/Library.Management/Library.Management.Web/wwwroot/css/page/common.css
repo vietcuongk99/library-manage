@@ -94,8 +94,7 @@ input {
 }
 
 .dropdown-item:active {
-    color: #fff;
-    background-color: #343a40;
+    background-color: white;
     border-color: white;
 }
 
