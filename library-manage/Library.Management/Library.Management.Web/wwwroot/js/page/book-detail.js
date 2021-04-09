@@ -1,6 +1,9 @@
 //lấy ra id đầu sách từ url
 var bookId = commonJS.getURLParameter(Enum.SplitOption.ONE, 'id');
 
+//khai báo biến toàn cục lưu đường dẫn file pdf của sách
+var bookDownloadUrl;
+
 $(document).ready(function() {
     bookDetailJS = new BookDetailJS()
 })
@@ -69,6 +72,9 @@ class BookDetailJS extends BaseJS {
                 //gọi hàm load tên loại sách và sách cùng loại
                 bookDetailJS.loadBookCategoryName(categoryID);
                 bookDetailJS.loadSameCategoryBooks(categoryID);
+
+                //lấy ra đường dẫn file pdf của sách và gán cho biến toàn cục
+                bookDownloadUrl = data.bookDownloadUri;
             } else {
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
@@ -290,7 +296,7 @@ class BookDetailJS extends BaseJS {
         });
         //gán sự kiện cho nút Mở tài liệu
         $(document).on('click', '#btnShowFile', function() {
-            bookDetailJS.showFileEvent()
+            bookDetailJS.showFileEvent(bookDownloadUrl)
         });
         //gán sự kiện khi chọn một card sách
         $('#sameCategoryBookDiv').on('click', 'div.card.h-100', this.cardOnClick);
@@ -638,7 +644,7 @@ class BookDetailJS extends BaseJS {
     }
 
     //sự kiện khi click nút Mở tài liệu
-    showFileEvent() {
+    showFileEvent(bookDownloadUrl) {
 
         //nếu người dùng chưa mượn cuốn sách hiện tại
         if (!commonJS.checkValidBookBorrow(bookId)) {
@@ -647,9 +653,16 @@ class BookDetailJS extends BaseJS {
         }
         //nếu người dùng đã mượn cuốn sách hiện tại
         else {
-            commonBaseJS.showToastMsgSuccess('Đang mở file, vui lòng đợi')
+            if (bookDownloadUrl && bookDownloadUrl.trim().length > 0) {
+                //tạo url cho trang hiển thị file pdf
+                var showFileUrl = Enum.URL.HOST_URL + bookDownloadUrl;
+                //mở tab với url trên
+                window.open(showFileUrl, "blank")
+            } else {
+                //show alert
+                commonBaseJS.showToastMsgInfomation('Sách chưa được bổ sung tài liệu.')
+            }
         }
-
     }
 
     //load nội dung bình luận
@@ -667,14 +680,16 @@ class BookDetailJS extends BaseJS {
                 contentType: "application/json"
             }).done(function(res) {
                 //lấy res từ api
-                if (res.success && res.data.totalRecord > 0) {
-                    //lấy ra tổng số bình luận
-                    var totalRecord = res.data.totalRecord;
-                    //tính toán số trang có thể hiển thị khi phân trang
-                    var totalPages = Math.ceil(totalRecord / Enum.CommentPaging.RECORD_PER_PAGE);
-                    //gọi hàm loadBookComment của commonJS object
-                    //commonJS.appendCommentData(data);
-                    bookDetailJS.loadCommentPagination(totalPages)
+                if (res.success) {
+                    if (res.data && res.data.totalRecord > 0) {
+                        //lấy ra tổng số bình luận
+                        var totalRecord = res.data.totalRecord;
+                        //tính toán số trang có thể hiển thị khi phân trang
+                        var totalPages = Math.ceil(totalRecord / Enum.CommentPaging.RECORD_PER_PAGE);
+                        //gọi hàm loadBookComment của commonJS object
+                        //commonJS.appendCommentData(data);
+                        bookDetailJS.loadCommentPagination(totalPages)
+                    }
                 } else {
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
