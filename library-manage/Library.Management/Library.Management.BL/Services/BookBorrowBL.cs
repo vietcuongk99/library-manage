@@ -47,6 +47,13 @@ namespace Library.Management.BL
             return res;
         }
 
+        public async Task<ActionServiceResult> GetListBorrowBook()
+        {
+            var res = new ActionServiceResult();
+            res.Data = await _bookBorrowDL.GetListRequestActivation<ReponseProcedureListRequestBorrowActivation>();
+            return res;
+        }
+
         /// <summary>
         /// Thêm mới giao dịch mượn sách
         /// </summary>

@@ -66,7 +66,7 @@ class BookDetailJS {
                             if (data.bookImageUri.includes("~Temp")) {
                                 $.ajax({
                                     method: "GET",
-                                    url: HOST_URL + "api/BookDetail/GetImageFromUrl?bookID=" + thisBookId + "&bookImageUri=" + data.bookImageUri,
+                                    url: "api/BookDetail/GetImageFromUrl?bookID=" + thisBookId + "&bookImageUri=" + data.bookImageUri,
                                     async: true,
                                     contentType: "application/json"
                                 }).done(function (res) {

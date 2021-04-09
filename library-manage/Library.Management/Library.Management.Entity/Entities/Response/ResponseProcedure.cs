@@ -93,5 +93,7 @@ namespace Library.Management.Entity
         public int Age { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public DateTime BorrowDate { get; set; }
+        public DateTime ReturnDate { get; set; }
     }
 }

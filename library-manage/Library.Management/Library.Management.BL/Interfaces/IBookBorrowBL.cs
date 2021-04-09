@@ -22,6 +22,12 @@ namespace Library.Management.BL
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 04/04/2021
         Task<ActionServiceResult> GetListRequestActivation();
+        /// <summary>
+        /// Danh sách sách đang mượn
+        /// </summary>
+        /// <returns></returns>
+        /// CreatedBy: VDDUNG1 04/04/2021
+        Task<ActionServiceResult> GetListBorrowBook();
 
         /// <summary>
         /// Thêm mới giao dịch mượn sách

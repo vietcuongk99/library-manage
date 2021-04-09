@@ -44,6 +44,16 @@
         align-self: center;
     }
 
+.item-book-borrow .time-alert {
+    margin-left: 20px;
+    align-self: center;
+    width: 260px;
+}
+
+    .item-book-borrow .time-alert .alert {
+        margin: 0 !important;
+    }
+
         .item-book-borrow .actions-item .btn-action {
             border-radius: 20px;
             min-width: 70px;

@@ -13,36 +13,17 @@
 }
 
 <ul class="nav nav-pills" role="tablist">
-    <li role="presentation" class="active"><a style="color: #000000">Yêu cầu <span class="badge request"></span></a></li>
-    <li role="presentation" ><a style="color: #000000">Đang mượn</a></li>
-    <li role="presentation"><a style="color: #000000">Quá hạn <span class="badge">3</span></a></li>
+    <li role="presentation" class="tab-header active" typetab="bookRequest"><a style="color: #000000">Yêu cầu <span class="badge request"></span></a></li>
+    <li role="presentation" class="tab-header" typetab="bookBorrowing"><a style="color: #000000">Đang mượn <span class="badge borrowBook"></span></a></li>
+    <li role="presentation" class="tab-header" typetab="bookOutDate"><a style="color: #000000">Quá hạn <span class="badge outDate"></span></a></li>
 </ul>
 
 <div class="container-request-book"></div>
-
-@*<div class="item-book-borrow">
-    <div class="avt-item-circle">
-        <img src="https://media-cdn.laodong.vn/Storage/NewsPortal/2020/8/21/829850/Bat-Cuoi-Truoc-Nhung-07.jpg" class="img-circle" />
-    </div>
-    <div class="content-item">
-        <div class="title-notify">
-            <h3>THằng ABC đang muốn mượn cuốn cmn sách nàykajjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjTHằng ABC đang muốn mượn cuốn cmn sách nàykajjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</h3>
-        </div>
-        <div class="content-notify">
-            <h5>vào lúc 11h30</h5>
-        </div>
-    </div>
-    <div class="actions-item">
-        <button type="button" class="btn btn-danger btn-action">Hủy bỏ</button>
-    </div>
-    <div class="actions-item">
-        <button type="button" class="btn btn-primary btn-action">Xác nhận</button>
-    </div>
-</div>*@
+<div class="container-borrow-book"></div>
 
 <div id="pop-up" style="display: none;">
     <div class="avt-item-circle">
-        <img src="https://media-cdn.laodong.vn/Storage/NewsPortal/2020/8/21/829850/Bat-Cuoi-Truoc-Nhung-07.jpg" class="img-circle" />
+        <img src="" class="img-circle" />
         <h5 class="user-inf">bvbao123124dgssssssdfsss</h5>
     </div>
     <div class="info-user">
