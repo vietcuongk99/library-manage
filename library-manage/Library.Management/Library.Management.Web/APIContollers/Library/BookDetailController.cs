@@ -65,7 +65,7 @@ namespace Library.Management.Web
         public async Task<ActionServiceResult> UpdateBookDetail(ParameterUpdateBook param)
         {
             param.BookImageUri = GlobalResource.DirectoryBookImageUri + param.BookId + ".jpg";
-            param.BookDownloadUri = GlobalResource.DirectoryBookInfo + param.BookId + ".pdf";
+            param.BookDownloadUri = GlobalResource.DirectShowFolderBookInfo + param.BookId + ".pdf";
             var res = await _bookDetailBL.UpdateBookDetail(param);
             return res;
         }
