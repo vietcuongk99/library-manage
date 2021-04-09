@@ -6,11 +6,14 @@ $(document).ready(function () {
 
 class BookBorrow {
     constructor() {
-        this.loadFormData();
-        this.initEvents();
+        this.loadFormData(0);
+        //this.initEvents();
+        this.appendRequestBookHTML(lstDataBookBorrow);
     }
 
     initEvents() {
+        $('.tab-header').on('click', this.onChangeTabHeader.bind(this));
+
         $('.img-circle').hover(function (e) {
             $('div#pop-up').show();
             var curentUser = $(e.target),
@@ -35,22 +38,57 @@ class BookBorrow {
         $('.btn-action').on('click', this.confirmRequestBorrow.bind(this));
     }
 
-    loadFormData() {
-        var self = this;
+    onChangeTabHeader(even) {
+        var self = this,
+            curentEle = $(even.target).closest('li');
+
+        if (!curentEle.attr('class').includes('active')) {
+            var lastActive = $(curentEle).parent().find('.active');
+
+            curentEle.addClass('active');
+            lastActive.removeClass('active');
+
+            var thistab = curentEle.attr('typetab');
+
+            switch (thistab) {
+                case 'bookRequest':
+                    $('.container-request-book').show();
+                    $('.container-borrow-book').hide();
+                    this.loadFormData(0);
+                    this.appendRequestBookHTML(lstDataBookBorrow);
+                    break;
+                case 'bookBorrowing':
+                    $('.container-request-book').hide();
+                    $('.container-borrow-book').show();
+                    this.loadFormData(1);
+                    this.appendBorrowBookHTML(lstDataBookBorrow, true);
+                    break;
+                case 'bookOutDate':
+                    $('.container-request-book').hide();
+                    $('.container-borrow-book').show();
+                    this.loadFormData(1);
+                    this.appendBorrowBookHTML(lstDataBookBorrow, false);
+                    break;
+            }
+        }
+    }
+
+    loadFormData(type) {
+        var self = this,
+            url = (type == 0) ? "/api/BookBorrow/GetListRequestActivation" : "/api/BookBorrow/GetListBorrowBook";
+        lstDataBookBorrow = [];
+
         $.ajax({
             method: "GET",
-            url: "/api/BookBorrow/GetListRequestActivation",
-            async: true,
+            url: url,
+            async: false,
             contentType: "application/json"
         }).done(function (res) {
             if (res.success) {
                 var data = res.data;
 
                 if (data.length > 0) {
-                    $('span.request').text(data.length);
                     lstDataBookBorrow = data;
-                    self.appendRequestBookHTML(data);
-                    self.initEvents();
                 }
 
             } else {
@@ -78,7 +116,8 @@ class BookBorrow {
             async: false,
         }).done(function (res) {
             if (res.success) {
-                self.loadFormData();
+                self.loadFormData(0);
+                self.appendRequestBookHTML(lstDataBookBorrow);
                 commonBaseJS.showToastMsgSuccess(res.message);
             } else {
                 if (res.libraryCode = 620) { //TH người dùng đã hủy bỏ yêu cầu mượn sách trước đó
@@ -119,5 +158,51 @@ class BookBorrow {
 
             $('.container-request-book').append($(elementHTML))
         });
+        this.initEvents();
+        $('span.request').text(lstDataBookBorrow.length);
+    }
+
+    appendBorrowBookHTML(data, type) {
+        var subData = [],
+            nowDate = new Date();;
+        $('.container-borrow-book').empty();
+        
+        if (type) {
+            subData = data.filter(function (x) {
+                return new Date(x.returnDate) > nowDate
+            });
+        }
+        else {
+            subData = data.filter(function (x) {
+                return new Date(x.returnDate) < nowDate
+            });
+        }
+        
+        $.each(subData, function (index, request) {
+            var dateDiff = Math.floor((new Date(request.returnDate) - nowDate) / (1000 * 60 * 60 * 24)),
+                classWarning = (dateDiff >= 0) ? ((dateDiff > 2) ? 'alert-success' : 'alert-warning') : 'alert-danger';
+
+            var elementHTML = `<div class="item-book-borrow" borrowID="${request.bookBorrowID}">
+                                <div class="avt-item-circle">
+                                    <img src="data:image/jpg;base64,${request.avatarUrl}" class="img-circle" />
+                                </div>
+                                <div class="content-item">
+                                    <div class="title-notify">
+                                        <h3>Tài khoản <i>${request.userName}</i> đang mượn cuốn sách <i>${request.bookName}</i></h3>
+                                    </div>
+                                    <div class="content-notify">
+                                        <h5>mượn sách ngày ${commonJS.getDateTimeString(request.createdDate)}</h5>
+                                    </div>
+                                </div>
+                                <div class="time-alert">
+                                    <div class="alert ${classWarning}" role="alert">
+                                        ${dateDiff < 0 ? `Quá hạn trả sách ${Math.abs(dateDiff)} ngày` : `Thời hạn còn ${dateDiff} ngày`}
+                                    </div>
+                                </div>
+                            </div>`
+
+            $('.container-borrow-book').append($(elementHTML))
+        });
+        this.initEvents();
     }
 }

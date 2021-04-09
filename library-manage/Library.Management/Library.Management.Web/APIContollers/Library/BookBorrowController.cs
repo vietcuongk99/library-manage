@@ -120,6 +120,17 @@ namespace Library.Management.Web
             };
             return res;
         }
+        
+        [HttpGet("GetListBorrowBook")]
+        public async Task<ActionServiceResult> GetListBorrowBook()
+        {
+            var res = await _bookBorrowBL.GetListBorrowBook();
+            if (res.Data != null)
+            {
+                res.Data = ConvertAvtImage((List<ReponseProcedureListRequestBorrowActivation>)res.Data);
+            };
+            return res;
+        }
 
         /// <summary>
         /// Convert link ảnh người dùng sang base64
@@ -147,6 +158,8 @@ namespace Library.Management.Web
                 avtUriConvertBase64.Age = avtImageUri.Age;
                 avtUriConvertBase64.FirstName = avtImageUri.FirstName;
                 avtUriConvertBase64.LastName = avtImageUri.LastName;
+                avtUriConvertBase64.BorrowDate = avtImageUri.BorrowDate;
+                avtUriConvertBase64.ReturnDate = avtImageUri.ReturnDate;
                 if (avtImageUri.AvatarUrl != null)
                 {
                     imagePath = Directory.GetCurrentDirectory() + avtImageUri.AvatarUrl;

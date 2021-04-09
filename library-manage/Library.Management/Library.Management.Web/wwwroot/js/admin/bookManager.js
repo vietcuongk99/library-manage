@@ -270,7 +270,7 @@ class BookManager {
                 //call api
                 $.ajax({
                     method: "GET",
-                    url: HOST_URL + "api/BookDetail/GetPagingData?paramBookName=" + searchValue.trim() + "&pageNumber=" + page + "&pageSize=" + RECORD_PER_PAGE,
+                    url: "api/BookDetail/GetPagingData?paramBookName=" + searchValue.trim() + "&pageNumber=" + page + "&pageSize=" + RECORD_PER_PAGE,
                     async: true,
                     contentType: "application/json",
                     beforeSend: function () {
