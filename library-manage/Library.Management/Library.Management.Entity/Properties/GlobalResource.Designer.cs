@@ -115,7 +115,7 @@ namespace Library.Management.Entity.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \~Temp\FileInfo\.
+        ///   Looks up a localized string similar to \wwwroot\file-upload\.
         /// </summary>
         public static string DirectoryBookInfo {
             get {
@@ -129,6 +129,15 @@ namespace Library.Management.Entity.Properties {
         public static string DirectoryImage {
             get {
                 return ResourceManager.GetString("DirectoryImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \file-upload\.
+        /// </summary>
+        public static string DirectShowFolderBookInfo {
+            get {
+                return ResourceManager.GetString("DirectShowFolderBookInfo", resourceCulture);
             }
         }
         

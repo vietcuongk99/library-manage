@@ -50,7 +50,7 @@ namespace Library.Management.Web
         {
             //Khai báo lại ID vì bên client không cần truyền lên ID, ID tự sinh
             param.BookImageUri = GlobalResource.DirectoryBookImageUri + param.BookId + ".jpg";
-            param.BookDownloadUri = GlobalResource.DirectoryBookInfo + param.BookId + ".pdf";
+            param.BookDownloadUri = GlobalResource.DirectShowFolderBookInfo + param.BookId + ".pdf";
             var res = await _bookDetailBL.InsertBookDetail(param);
             return res;
         }
@@ -249,11 +249,13 @@ namespace Library.Management.Web
             string strFileName = Directory.GetCurrentDirectory() + bookDetailDownloadInfo;
             byte[] bytes = Convert.FromBase64String(param.BookDetailBase64String);
             System.IO.File.WriteAllBytes(strFileName, bytes);
+            //Config lại đường dẫn vì đặt trong wwwroot khi get ra không cần thêm wwwroot vào url
+            string bookGetUrl = GlobalResource.DirectShowFolderBookInfo + param.BookID + ".pdf";
             if (System.IO.File.Exists(strFileName))
             {
-                var parameter = new { BookID = param.BookID, BookDownloadUri = bookDetailDownloadInfo };
+                var parameter = new { BookID = param.BookID, BookDownloadUri = bookGetUrl };
                 await _bookDetailBL.SaveFileBookInfo(parameter);
-                res.Data = bookDetailDownloadInfo;
+                res.Data = bookGetUrl;
             }
             else
             {

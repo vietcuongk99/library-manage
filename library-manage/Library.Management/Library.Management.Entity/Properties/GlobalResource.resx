@@ -136,10 +136,13 @@
     <value>\~Temp\FileImage\AvatarBook\</value>
   </data>
   <data name="DirectoryBookInfo" xml:space="preserve">
-    <value>\~Temp\FileInfo\</value>
+    <value>\wwwroot\file-upload\</value>
   </data>
   <data name="DirectoryImage" xml:space="preserve">
     <value>\~Temp\FileImage\AvatarUser\</value>
+  </data>
+  <data name="DirectShowFolderBookInfo" xml:space="preserve">
+    <value>\file-upload\</value>
   </data>
   <data name="ErrorAddEntity" xml:space="preserve">
     <value>Thêm mới không thành công</value>
