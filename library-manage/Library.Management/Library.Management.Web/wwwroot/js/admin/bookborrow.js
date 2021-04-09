@@ -9,7 +9,6 @@ class BookBorrow {
         this.loadFormData(0);
         //this.initEvents();
         this.appendRequestBookHTML(lstDataBookBorrow);
-
     }
 
     initEvents() {
@@ -89,7 +88,6 @@ class BookBorrow {
                 var data = res.data;
 
                 if (data.length > 0) {
-                    $('span.request').text(data.length);
                     lstDataBookBorrow = data;
                 }
 
@@ -118,7 +116,8 @@ class BookBorrow {
             async: false,
         }).done(function (res) {
             if (res.success) {
-                self.loadFormData();
+                self.loadFormData(0);
+                self.appendRequestBookHTML(lstDataBookBorrow);
                 commonBaseJS.showToastMsgSuccess(res.message);
             } else {
                 if (res.libraryCode = 620) { //TH người dùng đã hủy bỏ yêu cầu mượn sách trước đó
@@ -160,6 +159,7 @@ class BookBorrow {
             $('.container-request-book').append($(elementHTML))
         });
         this.initEvents();
+        $('span.request').text(lstDataBookBorrow.length);
     }
 
     appendBorrowBookHTML(data, type) {
