@@ -168,7 +168,7 @@ class BookDetailJS extends BaseJS {
             //button mượn sách, trả sách, gia hạn thời gian mượn, mở tài liệu
             var borrowBtnHTML = $(`<button id="btnBorrowBook" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Mượn sách</button>`);
             var returnBtnHTML = $(`<button id="btnReturnBook" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Trả sách</button>`);
-            var extendBtnHTML = $(`<button id="btnExtendDate" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Gia hạn</button>`);
+            //var extendBtnHTML = $(`<button id="btnExtendDate" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Gia hạn</button>`);
             var showFileBtnHTML = $(`<button id="btnShowFile" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Mở tài liệu</button>`);
             var cancelResBtnHTML = $(`<button id="btnCancelBorrowRes" type="button" class="btn btn-sm btn-outline-success mb-2" data-toggle="modal">Hủy mượn sách</button>`);
 
@@ -183,7 +183,8 @@ class BookDetailJS extends BaseJS {
                     if (borrowList[index].status == 1) {
                         //thêm nút trả, gia hạn và mở tài liệu
                         $('#groupBookAction').children().remove();
-                        $('#groupBookAction').append(returnBtnHTML, extendBtnHTML);
+                        // $('#groupBookAction').append(returnBtnHTML, extendBtnHTML);
+                        $('#groupBookAction').append(returnBtnHTML);
                         //gán data chứa id và ngày trả của bản ghi mượn hiện tại
                         //dùng cho hàm returnBookEvent() và extendBookEvent()
                         $('#groupBookAction').data('bookBorrowID', borrowList[index].bookBorrowID);
@@ -195,7 +196,7 @@ class BookDetailJS extends BaseJS {
                         //nếu sách vẫn còn hạn mượn
                         if (borrowList[index].returnDate >= dateNow) {
                             //thêm nút mở tài liệu
-                            showFileBtnHTML.insertAfter($('#btnExtendDate'))
+                            $('#groupBookAction').append(showFileBtnHTML)
                         } else {
                             showFileBtnHTML.remove()
                         }
@@ -287,9 +288,9 @@ class BookDetailJS extends BaseJS {
             bookDetailJS.returnBookEvent()
         });
         //gán sự kiện cho nút Gia hạn
-        $(document).on('click', '#btnExtendDate', function() {
-            bookDetailJS.extendBookEvent()
-        });
+        // $(document).on('click', '#btnExtendDate', function() {
+        //     bookDetailJS.extendBookEvent()
+        // });
         //gán sự kiện cho nút Hủy mượn sách
         $(document).on('click', '#btnCancelBorrowRes', function() {
             bookDetailJS.cancelBorrowEvent()
@@ -798,8 +799,13 @@ class BookDetailJS extends BaseJS {
 
     //chi tiết xử lý khi click nút Xem thêm
     showSameCategoryBook() {
+        //lấy ra id loại sách hiện tại và tạo url tìm kiếm
         var categoryID = $('#bookCategoryName').data("id");
-        window.open("search.html?&paramBookCategoryID=" + categoryID, "_self");
+        var searchURL = "&paramBookCategoryID=" + categoryID;
+        //lưu url tìm kiếm trong local storage
+        localStorage.setItem("searchURL", searchURL);
+        //mở trang search.html
+        window.open("search.html", "_self");
     }
 
     //chi tiết xử lý phân trang danh sách bình luận
