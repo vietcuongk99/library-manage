@@ -254,7 +254,7 @@ class BookDetailJS extends BaseJS {
             debugger
             if (res.success && res.data) {
                 var sameCategoryBooks = res.data.dataItems;
-                commonJS.appendBookDataToCard(sameCategoryBooks, '#sameCategoryBookDiv');
+                commonJS.appendSameCategoryBookToCard(sameCategoryBooks, '#sameCategoryBookDiv', bookId);
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
             } else {
