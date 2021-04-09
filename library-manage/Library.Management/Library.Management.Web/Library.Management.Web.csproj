@@ -10,11 +10,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\file-upload\" />
     <Folder Include="wwwroot\UploadImage\" />
     <Folder Include="~Temp\FileImage\AvatarUser\" />
     <Folder Include="~Temp\FileImage\AvatarBook\" />
     <Folder Include="~Temp\FileInfo\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\file-upload\FileInfo.pdf" />
   </ItemGroup>
 
   <ItemGroup>
