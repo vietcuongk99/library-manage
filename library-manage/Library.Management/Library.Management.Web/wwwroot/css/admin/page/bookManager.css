@@ -1,12 +1,11 @@
 ﻿.book-manager-container .book-image {
     width: 100%;
-    height: 270px;
-    margin-bottom: 15px;
+    height: 285px;
     border: 1px solid;
 }
 
 .modalBookDetail {
-    padding: 20px 30px 0px 30px !important;
+    padding: 8px 30px 0px 30px !important;
 }
 
 .book-manager-container .book-image img {
@@ -37,6 +36,7 @@
 .custom-select {
     height: 35px !important;
     border-radius: 3px 0px 0px 3px;
+    font-size: 13px;
 }
 .btnToolbar {
     margin-left: 8px !important;
@@ -135,7 +135,7 @@
 }
 
 #modalAddBook > .modal-dialog {
-    max-width: 60%;
+    max-width: 65%;
 }
 
 .input-error {
@@ -206,4 +206,33 @@
     font-weight: 600;
     text-transform: capitalize;
     text-align: center;
+}
+
+.checkedBook {
+    box-shadow: rgb(0 0 0) 0px 0px 10px;
+    border-color: black;
+}
+
+#bookCategory {
+    height: 31px !important;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+.modal input {
+    border-radius: 3px;
+}
+
+.form-control{
+    border: 1px solid #ced4da;
+}
+
+.form-group {
+    margin-bottom: 8px;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 2px;
+    font-weight: 500;
 }

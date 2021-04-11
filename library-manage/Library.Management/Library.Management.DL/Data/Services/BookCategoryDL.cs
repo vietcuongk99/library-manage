@@ -29,5 +29,15 @@ namespace Library.Management.DL
             _db.Close();
             return await Task.FromResult(entities);
         }
+
+        public async Task<IReadOnlyList<ResponseProcedureChartInfo>> GetChartInfo()
+        {
+            var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
+            _db.Open();
+            var storeName = "Proc_GetChartInfomation";
+            var entities = _db.Query<ResponseProcedureChartInfo>(storeName, commandType: CommandType.StoredProcedure);
+            _db.Close();
+            return (IReadOnlyList<ResponseProcedureChartInfo>)await Task.FromResult(entities);
+        }
     }
 }

@@ -79,6 +79,17 @@ namespace Library.Management.Entity
         /// </summary>
         public int TotalBookBorrowActive { get; set; }
     }
+    public class ResponseProcedureChartInfo
+    {
+        /// <summary>
+        /// Tên danh mục
+        /// </summary>
+        public string BookCategoryName { get; set; }
+        /// <summary>
+        /// Tổng số sách của danh mục
+        /// </summary>
+        public int TotalBook { get; set; }
+    }
     public class ReponseProcedureListRequestBorrowActivation
     {
         public Guid BookBorrowID { get; set; }

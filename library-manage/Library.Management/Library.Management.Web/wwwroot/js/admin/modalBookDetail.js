@@ -22,11 +22,13 @@ class BookDetailJS {
                 var data = res.data.lstData;
 
                 if (data.length > 0) {
+                    commonJS.appendCategoryListToHTML(data, '#searchSelectGroup');
+
                     $.each(data, function (index, category) {
                         var userHTML = `<option value="${category.bookCategoryId}">${category.bookCategoryName}</option>`
 
                         $('#bookCategory').append($(userHTML))
-                        $('#searchSelectGroup').append($(userHTML))
+                        //$('#searchSelectGroup').append($(userHTML))
                     });
                 }
 
@@ -47,8 +49,13 @@ class BookDetailJS {
                     method: "GET",
                     url: `/api/BookDetail/${thisBookId}`,
                     async: true,
-                    contentType: "application/json"
+                    contentType: "application/json",
+                    beforeSend: function () {
+                        //show loading
+                        commonBaseJS.showLoadingData(1);
+                    }
                 }).done(function (res) {
+                    commonBaseJS.showLoadingData(0);
                     if (res.success) {
                         var data = res.data;
 
@@ -113,6 +120,7 @@ class BookDetailJS {
                         commonBaseJS.showToastMsgFailed("Không lấy được thông tin sách")
                     }
                 }).fail(function (res) {
+                    commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgFailed("Không lấy được thông tin sách")
                 })
             }
@@ -152,8 +160,13 @@ class BookDetailJS {
                     method: "POST",
                     url: "/api/BookDetail/SaveFileBookInfo",
                     contentType: "application/json",
-                    data: JSON.stringify(data)
+                    data: JSON.stringify(data),
+                    beforeSend: function () {
+                        //show loading
+                        commonBaseJS.showLoadingData(1);
+                    }
                 }).done(function (res) {
+                    commonBaseJS.showLoadingData(0);
                     if (res.success) {
                         commonBaseJS.showToastMsgSuccess("Tải tài liệu lên thành công")
                     } else {
@@ -161,6 +174,7 @@ class BookDetailJS {
                         commonBaseJS.showToastMsgFailed("Tải tài liệu lên thất bại")
                     }
                 }).fail(function (res) {
+                    commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgFailed("Tải tài liệu lên thất bại")
                 })
@@ -193,8 +207,13 @@ class BookDetailJS {
                     method: "POST",
                     url: "/api/BookDetail/SaveImageToUrl",
                     contentType: "application/json",
-                    data: JSON.stringify(data)
+                    data: JSON.stringify(data),
+                    beforeSend: function () {
+                        //show loading
+                        commonBaseJS.showLoadingData(1);
+                    }
                 }).done(function (res) {
+                    commonBaseJS.showLoadingData(0);
                     if (res.success) {
                         commonBaseJS.showToastMsgSuccess("Tải ảnh lên thành công")
                     } else {
@@ -202,6 +221,7 @@ class BookDetailJS {
                         commonBaseJS.showToastMsgFailed("Tải ảnh lên thất bại")
                     }
                 }).fail(function (res) {
+                    commonBaseJS.showLoadingData(0);
                     //show alert
                     commonBaseJS.showToastMsgFailed("Tải ảnh lên thất bại")
                 })
@@ -230,8 +250,13 @@ class BookDetailJS {
                     url: "/api/BookDetail/InsertBookDetail",
                     async: true,
                     data: JSON.stringify(objectData),
-                    contentType: "application/json"
+                    contentType: "application/json",
+                    beforeSend: function () {
+                        //show loading
+                        commonBaseJS.showLoadingData(1);
+                    }
                 }).done(function (res) {
+                    commonBaseJS.showLoadingData(0);
                     if (res.success) {
                         commonBaseJS.showToastMsgSuccess("Thêm mới sách thành công.")
                         $('.btn-discard').click();
@@ -242,6 +267,7 @@ class BookDetailJS {
                         commonBaseJS.showToastMsgFailed("Thêm sách thất bại")
                     }
                 }).fail(function (res) {
+                    commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgFailed("Thêm sách thất bại")
                 })
             }
@@ -256,8 +282,13 @@ class BookDetailJS {
                     url: "/api/BookDetail/UpdateBookDetail",
                     async: true,
                     data: JSON.stringify(objectData),
-                    contentType: "application/json"
+                    contentType: "application/json",
+                    beforeSend: function () {
+                        //show loading
+                        commonBaseJS.showLoadingData(1);
+                    }
                 }).done(function (res) {
+                    commonBaseJS.showLoadingData(0);
                     if (res.success) {
                         commonBaseJS.showToastMsgSuccess("Cập nhật thông tin sách thành công.")
                         $('.btn-discard').click();
@@ -268,6 +299,7 @@ class BookDetailJS {
                         commonBaseJS.showToastMsgFailed("Cập nhật thông tin sách thất bại")
                     }
                 }).fail(function (res) {
+                    commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgFailed("Cập nhật thông tin sách thất bại")
                 })
             }

@@ -8,6 +8,7 @@ const VISIBLE_PAGE_DEFAULT = 1;
 //khai báo biến toàn cục lưu tổng số bản ghi sách sau tìm kiếm và số trang hiển thị
 var totalBookRecord;
 var totalPages;
+var DELAY = 300, clicks = 0, timer = null;
 
 $(document).ready(function () {
     var setting = new BookManager();
@@ -23,16 +24,25 @@ class BookManager {
 
     static loadData() {
         var self = this,
-            searchValue = $('.searchInp').val();
+            searchValue = $('.searchInp').val(),
+            categoryID = $('#searchSelectGroup option:selected').data('id'),
+            searchURL = commonJS.buildUrlSearchPage(searchValue, 1, categoryID, 0, 0, 0, 0);
 
         $('#searchResultDiv').empty();
 
         $.ajax({
             method: "GET",
-            url: "/api/BookDetail/GetPagingData?paramBookName=" + searchValue.trim() + "&pageNumber=" + PAGE_DEFAULT + "&pageSize=" + RECORD_PER_PAGE,
+            url: "api/BookDetail/GetPagingDataV2" +
+                "?pageNumber=" + PAGE_DEFAULT +
+                "&pageSize=" + RECORD_PER_PAGE + searchURL,
             async: true,
             contentType: "application/json",
+            beforeSend: function () {
+                //show loading
+                commonBaseJS.showLoadingData(1);
+            }
         }).done(function (res) {
+            commonBaseJS.showLoadingData(0);
             if (res.success) {
                 if (res.data) {
                     BookManager.appendDataToHTML(res.data.dataItems, "#searchResultDiv");
@@ -56,6 +66,7 @@ class BookManager {
                 commonBaseJS.showToastMsgFailed(res.message);
             }
         }).fail(function (res) {
+            commonBaseJS.showLoadingData(0);
             commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
         })
     }
@@ -66,6 +77,7 @@ class BookManager {
         $(".btnDelete").on('click', this.onClickDelete.bind(this));
         $(".btnAdd").on('click', this.onShowModal.bind(this));
         $(".fa-search").on('click', this.onclickSearch.bind(this));
+        $('#searchSelectGroup').on('change', this.onclickSearch.bind(this));
         $(".check-file-upload").on("change", function () {
             let filename = $(this).val().split("\\").pop();
             if (filename == '') {
@@ -76,7 +88,30 @@ class BookManager {
             }
             $(this).blur();
         });
-        $('#searchResultDiv').on('dblclick', '.card.h-100', this.handleDbClickBook.bind(this))
+        //$('#searchResultDiv').on('dblclick', '.card.h-100', )
+        $('#searchResultDiv').on('click', '.card.h-100', function (e) {
+
+            clicks++;  //count clicks
+
+            if (clicks === 1) {
+
+                timer = setTimeout(function () {
+                    clicks = 0;             //after action performed, reset counter
+                    BookManager.onclickChooseBook(e);
+
+                }, DELAY);
+
+            } else {
+
+                clearTimeout(timer);    //prevent single-click action
+                clicks = 0;             //after action performed, reset counter
+                BookManager.handleDbClickBook(e);
+            }
+
+        })
+        .on("dblclick", function (e) {
+            e.preventDefault();  //cancel system double-click event
+        });
     }
 
     downloadTemplateFile(event) {
@@ -101,21 +136,22 @@ class BookManager {
             var fileNewUpload = $("#fileNewupload").get(0);
             fdata.append(fileNewUpload.files[0].name, fileNewUpload.files[0]);
 
-            $('#loader').show();
-            $('.main-container').addClass("loading");
-
             $.ajax({
                 type: "POST",
                 url: `api/Upload/uploadFileImport`,
                 data: fdata,
                 contentType: false,
                 processData: false,
+                beforeSend: function () {
+                    //show loading
+                    commonBaseJS.showLoadingData(1);
+                },
                 success: function (response) {
                     var result = response.data.result;
 
+                    commonBaseJS.showLoadingData(0);
+
                     if (result) {
-                        $('#loader').hide();
-                        $('.main-container').removeClass("loading");
 
                         alert(`Nhập khẩu thành công ${result.InsertCategorySuccess} thể loại mới và ${result.InsertBookSuccess} / ${result.TotalRecord} cuốn sách.`);
                         $(".check-file-upload").val('');
@@ -126,15 +162,12 @@ class BookManager {
                         BookManager.loadData();
                     }
                     else {
-                        $('#loader').hide();
-                        $('.main-container').removeClass("loading");
-                        alert('Nhập khẩu thất bại');
+                        commonBaseJS.showToastMsgFailed('Nhập khẩu thất bại');
                     }
                 },
                 error: function (e) {
-                    $('#loader').hide();
-                    $('.main-container').removeClass("loading");
-                    alert('Nhập khẩu thất bại');
+                    commonBaseJS.showLoadingData(0);
+                    commonBaseJS.showToastMsgFailed('Nhập khẩu thất bại');
                 }
             });
         }
@@ -148,13 +181,13 @@ class BookManager {
     checkFile(filename) {
         var fileExtension = ['xls', 'xlsx'];
         if (filename.length == 0 || !filename || filename == null) {
-            alert("Vui lòng chọn file");
+            commonBaseJS.showToastMsgWarning("Vui lòng chọn file");
             return false;
         }
         else {
             var extension = filename.replace(/^.*\./, '');
             if ($.inArray(extension, fileExtension) == -1) {
-                alert("Vui lòng chọn file Excel");
+                commonBaseJS.showToastMsgWarning("Vui lòng chọn file Excel");
                 return false;
             }
         }
@@ -171,7 +204,6 @@ class BookManager {
                             </div>`)
             var bookHTML = $(`
             <div class="card h-100" bookId="${book.bookID}">
-                <input type="checkbox" class="cbxBookDetail" />
                 <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 23rem;">
                     <div class="card-body">
                         <p class="card-title text-truncate text-uppercase text-center">` + book.bookName + `</b>
@@ -205,7 +237,12 @@ class BookManager {
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     async: false,
+                    beforeSend: function () {
+                        //show loading
+                        commonBaseJS.showLoadingData(1);
+                    },
                 }).done(function (res) {
+                    commonBaseJS.showLoadingData(0);
                     if (res.success) {
                         $('#searchResultDiv').empty();
                         BookManager.loadData();
@@ -214,23 +251,23 @@ class BookManager {
                         commonBaseJS.showToastMsgFailed("Xóa sách không thành công")
                     }
                 }).fail(function (res) {
+                    commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgFailed("Xóa sách không thành công")
                 })
             }
         }
         else {
-            alert("Vui lòng chọn sách cần xóa");
+            commonBaseJS.showToastMsgWarning("Vui lòng chọn sách cần xóa");
         }
     }
 
     static getRecordSelected() {
         var lstBookId = [],
-            lstChecked = $('.cbxBookDetail:checkbox:checked');
+            lstChecked = $('.checkedBook');
 
         if (lstChecked.length > 0) {
             for (var i = 0; i < lstChecked.length; i++) {
-                var a = $(lstChecked[i]).parent(),
-                    bookId = a.get(0).getAttribute('bookId');
+                var bookId = $(lstChecked[i]).attr('bookId');
 
                 lstBookId.push(bookId);
             }
@@ -240,24 +277,36 @@ class BookManager {
     }
 
     onShowModal(event) {
+        $('#blah').attr('src', "/content/img/avatar-book-default.jpg");
         BookManager.editMode = 1;
         $('#modalAddBook').modal('show'); 
     }
 
-    handleDbClickBook(event) {
+    static handleDbClickBook(event) {
         var thisCard = event.target.closest('.portfolio-item'),
-            lstChecked = $('.cbxBookDetail:checkbox:checked');
-
+            lstChecked = $('.checkedBook');
+        
         if (lstChecked.length > 0) {
             for (var i = 0; i < lstChecked.length; i++) {
-                lstChecked[i].checked = false;
+                $(lstChecked[i]).removeClass('checkedBook');
             }
         }
 
-        thisCard.querySelector('.cbxBookDetail').checked = true;
+        $(thisCard).children().addClass('checkedBook');
         
         BookManager.editMode = 2;
         $('#modalAddBook').modal('show'); 
+    }
+
+    static onclickChooseBook(event) {
+        var thisCard = $(event.target.closest('.h-100'));
+        
+        if (thisCard.attr('class').includes('checkedBook')) {
+            thisCard.removeClass('checkedBook');
+        }
+        else {
+            thisCard.addClass('checkedBook');
+        }
     }
 
     static loadPaginationSearchResult(totalPages, searchValue) {

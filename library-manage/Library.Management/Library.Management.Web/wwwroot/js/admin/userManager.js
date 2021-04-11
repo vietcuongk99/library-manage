@@ -18,6 +18,7 @@ class UserManager {
     constructor() {
         this.loadDataUser();
         $(".fa-search").on('click', this.onclickSearch.bind(this));
+        this.initEvents();
     }
 
     initEvents() {
@@ -28,7 +29,7 @@ class UserManager {
     loadDataUser() {
         var self = this,
             searchValue = $('.searchInp').val();
-
+        debugger
         $('#lstUserGrid').empty();
 
         $.ajax({
@@ -36,10 +37,14 @@ class UserManager {
             url: "/api/UserAccount/GetPagingData?paramUserName=" + searchValue.trim() + "&pageNumber=" + PAGE_DEFAULT + "&pageSize=" + RECORD_PER_PAGE,
             async: false,
             contentType: "application/json",
+            beforeSend: function () {
+                //show loading
+                commonBaseJS.showLoadingData(1);
+            }
         }).done(function (res) {
-            if (res.success) {
+            if (res.success && res.data) {
                 var lstData = res.data.dataItems;
-
+                commonBaseJS.showLoadingData(0);
                 if (lstData.length > 0) {
                     $('#noUsers').hide();
 
@@ -69,15 +74,15 @@ class UserManager {
 
                         $('#lstUserGrid').append($(userHTML))
                     });
-
-                    self.initEvents();
                 }
+                self.initEvents();
             } else {
                 $('#noUsers').show();
                 alert("Lấy dữ liệu thất bại")
             }
         }).fail(function (res) {
             $('#noUsers').show();
+            commonBaseJS.showLoadingData(0);
             alert("Lấy dữ liệu không thành công")
         })
     }
@@ -119,7 +124,7 @@ class UserManager {
         var itemDel = event.target;
         var self = this;
 
-        if (this.validatePermissionEdit(itemDel) &&this.validateDelete(itemDel)) {
+        if (this.validatePermissionEdit(itemDel) && this.validateDelete(itemDel)) {
 
             var conf = confirm("Bạn có thực sự muốn xóa người dùng này?");
             if (conf == true) {
@@ -156,7 +161,7 @@ class UserManager {
 
         if (userObject.userID == thisTrId) {
             bvalid = false;
-        } 
+        }
 
         if (!bvalid) {
             alert('Bạn không được xóa chính mình khỏi danh sách người dùng.');
@@ -219,6 +224,7 @@ class UserManager {
     }
 
     loadPaginationSearchResult(totalPages, searchValue) {
+        var self = this;
 
         //gọi hàm twbsPagination từ twbs-pagination plugin
         $('#pagingDiv').twbsPagination({
@@ -264,7 +270,7 @@ class UserManager {
                         }
                         //ẩn loading
                         commonBaseJS.showLoadingData(0);
-
+                        self.initEvents();
 
                     } else {
                         //ẩn loading

@@ -49,5 +49,12 @@ namespace Library.Management.Web
             var res = await _bookCategoryBL.UpdateBookCategory(param);
             return res;
         }
+
+        [HttpGet("GetChartInfomation")]
+        public async Task<ActionServiceResult> GetChartInfomation()
+        {
+            var res = await _bookCategoryBL.GetChartInfo();
+            return res;
+        }
     }
 }

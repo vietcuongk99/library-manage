@@ -145,5 +145,16 @@ namespace Library.Management.BL
             bookMaster.ModifiedDate = DateTime.Now;
             bookMaster.ModifiedBy = GlobalResource.CreatedBy;
         }
+
+        public async Task<ActionServiceResult> GetChartInfo()
+        {
+            return new ActionServiceResult
+            {
+                Success = true,
+                Message = GlobalResource.Success,
+                LibraryCode = LibraryCode.Success,
+                Data = await _bookCategoryDL.GetChartInfo()
+            };
+        }
     }
 }

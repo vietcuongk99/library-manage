@@ -10,5 +10,6 @@ namespace Library.Management.DL
     public interface IBookCategoryDL
     {
         Task<BookCategory> GetBookCategoryByName(string categoryName);
+        Task<IReadOnlyList<ResponseProcedureChartInfo>> GetChartInfo();
     }
 }

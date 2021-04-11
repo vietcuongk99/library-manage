@@ -6,6 +6,12 @@
     <link href="~/css/admin/page/monitor.css" rel="stylesheet" asp-append-version="true" />
 }
 
+@section scripts {
+    <script src="~/js/admin/monitor.js" asp-append-version="true"></script>
+    <script src="~/js/lib/chart/canvasjs.js" asp-append-version="true"></script>
+    <script src="~/js/lib/chart/canvasjs2.js" asp-append-version="true"></script>
+}
+
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <!-- Column -->
@@ -16,19 +22,15 @@
                     <div class="box bg-success text-center">
                         <!-- <h1 class="text-white fa fa-address-card m-b-5 font-36"></h1> -->
                         <h2 class="text-white">Số lượng sách</h2> <br>
-                        <p class="text-white m-b-0 m-t-5 display-3" id="total-requests">100,000</p><br>
+                        <p class="text-white m-b-0 m-t-5 display-3" id="total-books">0</p><br>
                         <div class="row">
-                            <div class="col-4 text-center p-t-10">
+                            <div class="col-6 text-center p-t-10">
                                 <h2 class="mb-0 font-weight-bold text-warning">1,234</h2>
                                 <h4 class="text-white">Tổng số</h4>
                             </div>
-                            <div class="col-4 border-left text-center p-t-10">
+                            <div class="col-6 border-left text-center p-t-10">
                                 <h2 class="mb-0 font-weight-bold text-warning">802</h2>
                                 <h4 class="text-white">Đang mượn</h4>
-                            </div>
-                            <div class="col-4 border-left text-center p-t-10">
-                                <h2 class="mb-0 font-weight-bold text-warning">802</h2>
-                                <h4 class="text-white">Tại thư viện</h4>
                             </div>
                         </div>
                     </div>
@@ -43,11 +45,11 @@
                     <div class="box bg-split-number text-center">
                         <!-- <h1 class="text-white fa fa-check-circle m-b-5 font-36"></h1> -->
                         <h2 class="text-white">Số lượt mượn sách</h2><br>
-                        <p class="text-white m-b-0 m-t-5 display-3" id="total-orgs">1,060,000</p><br>
+                        <p class="text-white m-b-0 m-t-5 display-3" id="total-borrows">0</p><br>
                         <div class="row">
                             <div class="col-12 text-center p-t-10">
-                                <h2 class="mb-0 font-weight-bold text-warning">999,999</h2>
-                                <h4 class="text-white">Phân tách thành công</h4>
+                                <h4 class="text-white">Tổng số sách đang mượn</h4>
+                                <h2 class="mb-0 font-weight-bold text-warning book-borrow-active">0</h2>
                             </div>
                         </div>
                     </div>
@@ -74,61 +76,8 @@
         </div>
 
         <!-- Column -->
-        <div class="col-lg-12">
-            <div class="ibox">
-                <div class="card card-hover">
-                    <div class="box bg-white text-center">
-                        <div class="row">
-                            <div class="col-12 date-box">
-                                <h2 class="text-center p-t-20">Lấy thông tin</h2><hr>
-                                <div class="row">
-                                    <div class=" col-lg-4">
-                                        <h3 class="text-center">Theo ngày</h3>
-                                        <canvas id="loc-by-day"></canvas>
-                                    </div>
-                                    <div class=" col-lg-4">
-                                        <h3 class="text-center">Theo thiết bị</h3>
-                                        <canvas id="loc-by-device"></canvas>
-                                    </div>
-                                    <div class=" col-lg-4">
-                                        <h3 class="text-center">Theo ứng dụng</h3>
-                                        <canvas id="loc-by-app"></canvas>
-                                    </div>
-                                </div>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-12">
-            <div class="ibox">
-                <div class="card card-hover">
-                    <div class="box bg-white text-center">
-                        <div class="row">
-                            <div class="col-12 time-box">
-                                <h2 class="text-center p-t-20">Phân tách</h2><hr>
-                                <div class="row">
-                                    <div class=" col-lg-4">
-                                        <h3 class="text-center">Theo ngày</h3>
-                                        <canvas id="sep-by-day"></canvas>
-                                    </div>
-                                    <div class=" col-lg-4">
-                                        <h3 class="text-center">Theo thiết bị</h3>
-                                        <canvas id="sep-by-device"></canvas>
-                                    </div>
-                                    <div class=" col-lg-4">
-                                        <h3 class="text-center">Theo ứng dụng</h3>
-                                        <canvas id="sep-by-app"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-lg-12" style="margin: 30px 0px">
+            <div id="chartContainer" style="height: 300px; width: 100%;"></div>
         </div>
 
         <div class=" col-lg-6" id="table" style="overflow: auto;">

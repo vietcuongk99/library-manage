@@ -24,5 +24,6 @@ namespace Library.Management.BL
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 19/03/2021
         Task<ActionServiceResult> UpdateBookCategory(ParameterUpdateBookCategory param);
+        Task<ActionServiceResult> GetChartInfo();
     }
 }
