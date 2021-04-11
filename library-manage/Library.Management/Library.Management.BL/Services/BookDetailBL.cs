@@ -251,19 +251,20 @@ namespace Library.Management.BL
             //Truyền vào 1 số thông tin mặc định
             if (param.pageNumber == 0) param.pageNumber = 1;
             if (param.pageSize == 0) param.pageSize = int.Parse(GlobalResource.PageSize);
-            if (param.maxValueType == 0) param.maxValueType = (int)ValueTypeBook.New;
-            if (param.orderByType == 0) param.orderByType = (int)OrderByType.DESC;
 
             //khai báo mặc định 1 đoạn build câu where
             string where = " Where b.Status = 1";
-
-            if (param.searchType == (int)SearchType.AuthorName)
+            // vddung1 sửa lại điều kiện trong TH không nhập gì vào tìm kiếm
+            if (!string.IsNullOrEmpty(param.searchValue))
             {
-                where += " And b.BookAuthor like '%" + param.searchValue + "%'";
-            }
-            else
-            {
-                where += " And b.BookName like '%" + param.searchValue + "%'";
+                if (param.searchType == (int)SearchType.AuthorName)
+                {
+                    where += " And MATCH(b.BookAuthor) AGAINST('" + param.searchValue + "' WITH QUERY EXPANSION)";
+                }
+                else if (param.searchType == (int)SearchType.BookName)
+                {
+                    where += " And MATCH(b.BookName) AGAINST('" + param.searchValue + "' WITH QUERY EXPANSION)";
+                }
             }
             if (param.paramBookCategoryID != null)
             {

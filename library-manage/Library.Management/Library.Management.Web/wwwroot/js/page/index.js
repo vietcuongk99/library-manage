@@ -27,7 +27,7 @@ class IndexJS extends BaseJS {
                 commonBaseJS.showLoadingData(1);
             }
         }).done(function(res) {
-            debugger
+            
             if (res.success && res.data) {
                 var newBooks = res.data.dataItems;
                 commonJS.appendBookDataToCard(newBooks, '#newBookRow');
