@@ -62,7 +62,7 @@ var commonJS = {
     },
 
     //append dữ liệu vào thẻ card
-    //sử dụng trong trang index, search, book-detail
+    //sử dụng trong trang index, search
     appendBookDataToCard(data, selector) {
         var row = $(`<div class="row mt-2"></div>`)
         data.forEach(book => {
@@ -80,6 +80,31 @@ var commonJS = {
             bookHTML.data('bookId', book.bookID)
             $(card).append(bookHTML)
             row.append(card)
+        })
+        $(selector).html(row)
+    },
+
+    //append dữ liệu sách cùng thể loại vào thẻ card
+    //sử dụng trong trang book-detail
+    appendSameCategoryBookToCard(data, selector, currentBookID) {
+        var row = $(`<div class="row mt-2"></div>`)
+        data.forEach(book => {
+            if (book.bookID != currentBookID) {
+                var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
+                var card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
+                                </div>`)
+                var bookHTML = $(`
+                <div class="card h-100">
+                <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 23rem;">
+                        <div class="card-body">
+                            <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + book.bookName + `</p>
+                            <p class="text-truncate text-center">` + book.bookAuthor + `</p>
+                        </div>
+                    </div>`)
+                bookHTML.data('bookId', book.bookID)
+                $(card).append(bookHTML)
+                row.append(card)
+            }
         })
         $(selector).html(row)
     },

@@ -1,6 +1,9 @@
 //lấy ra id đầu sách từ url
 var bookId = commonJS.getURLParameter(Enum.SplitOption.ONE, 'id');
 
+//khai báo biến toàn cục lưu đường dẫn file pdf của sách
+var bookDownloadUrl;
+
 $(document).ready(function() {
     bookDetailJS = new BookDetailJS()
 })
@@ -69,6 +72,9 @@ class BookDetailJS extends BaseJS {
                 //gọi hàm load tên loại sách và sách cùng loại
                 bookDetailJS.loadBookCategoryName(categoryID);
                 bookDetailJS.loadSameCategoryBooks(categoryID);
+
+                //lấy ra đường dẫn file pdf của sách và gán cho biến toàn cục
+                bookDownloadUrl = data.bookDownloadUri;
             } else {
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
@@ -162,7 +168,7 @@ class BookDetailJS extends BaseJS {
             //button mượn sách, trả sách, gia hạn thời gian mượn, mở tài liệu
             var borrowBtnHTML = $(`<button id="btnBorrowBook" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Mượn sách</button>`);
             var returnBtnHTML = $(`<button id="btnReturnBook" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Trả sách</button>`);
-            var extendBtnHTML = $(`<button id="btnExtendDate" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Gia hạn</button>`);
+            //var extendBtnHTML = $(`<button id="btnExtendDate" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Gia hạn</button>`);
             var showFileBtnHTML = $(`<button id="btnShowFile" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Mở tài liệu</button>`);
             var cancelResBtnHTML = $(`<button id="btnCancelBorrowRes" type="button" class="btn btn-sm btn-outline-success mb-2" data-toggle="modal">Hủy mượn sách</button>`);
 
@@ -177,7 +183,8 @@ class BookDetailJS extends BaseJS {
                     if (borrowList[index].status == 1) {
                         //thêm nút trả, gia hạn và mở tài liệu
                         $('#groupBookAction').children().remove();
-                        $('#groupBookAction').append(returnBtnHTML, extendBtnHTML);
+                        // $('#groupBookAction').append(returnBtnHTML, extendBtnHTML);
+                        $('#groupBookAction').append(returnBtnHTML);
                         //gán data chứa id và ngày trả của bản ghi mượn hiện tại
                         //dùng cho hàm returnBookEvent() và extendBookEvent()
                         $('#groupBookAction').data('bookBorrowID', borrowList[index].bookBorrowID);
@@ -189,7 +196,7 @@ class BookDetailJS extends BaseJS {
                         //nếu sách vẫn còn hạn mượn
                         if (borrowList[index].returnDate >= dateNow) {
                             //thêm nút mở tài liệu
-                            showFileBtnHTML.insertAfter($('#btnExtendDate'))
+                            $('#groupBookAction').append(showFileBtnHTML)
                         } else {
                             showFileBtnHTML.remove()
                         }
@@ -248,7 +255,7 @@ class BookDetailJS extends BaseJS {
             debugger
             if (res.success && res.data) {
                 var sameCategoryBooks = res.data.dataItems;
-                commonJS.appendBookDataToCard(sameCategoryBooks, '#sameCategoryBookDiv');
+                commonJS.appendSameCategoryBookToCard(sameCategoryBooks, '#sameCategoryBookDiv', bookId);
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
             } else {
@@ -281,16 +288,16 @@ class BookDetailJS extends BaseJS {
             bookDetailJS.returnBookEvent()
         });
         //gán sự kiện cho nút Gia hạn
-        $(document).on('click', '#btnExtendDate', function() {
-            bookDetailJS.extendBookEvent()
-        });
+        // $(document).on('click', '#btnExtendDate', function() {
+        //     bookDetailJS.extendBookEvent()
+        // });
         //gán sự kiện cho nút Hủy mượn sách
         $(document).on('click', '#btnCancelBorrowRes', function() {
             bookDetailJS.cancelBorrowEvent()
         });
         //gán sự kiện cho nút Mở tài liệu
         $(document).on('click', '#btnShowFile', function() {
-            bookDetailJS.showFileEvent()
+            bookDetailJS.showFileEvent(bookDownloadUrl)
         });
         //gán sự kiện khi chọn một card sách
         $('#sameCategoryBookDiv').on('click', 'div.card.h-100', this.cardOnClick);
@@ -638,7 +645,7 @@ class BookDetailJS extends BaseJS {
     }
 
     //sự kiện khi click nút Mở tài liệu
-    showFileEvent() {
+    showFileEvent(bookDownloadUrl) {
 
         //nếu người dùng chưa mượn cuốn sách hiện tại
         if (!commonJS.checkValidBookBorrow(bookId)) {
@@ -647,9 +654,16 @@ class BookDetailJS extends BaseJS {
         }
         //nếu người dùng đã mượn cuốn sách hiện tại
         else {
-            commonBaseJS.showToastMsgSuccess('Đang mở file, vui lòng đợi')
+            if (bookDownloadUrl && bookDownloadUrl.trim().length > 0) {
+                //tạo url cho trang hiển thị file pdf
+                var showFileUrl = Enum.URL.HOST_URL + bookDownloadUrl;
+                //mở tab với url trên
+                window.open(showFileUrl, "blank")
+            } else {
+                //show alert
+                commonBaseJS.showToastMsgInfomation('Sách chưa được bổ sung tài liệu.')
+            }
         }
-
     }
 
     //load nội dung bình luận
@@ -667,14 +681,16 @@ class BookDetailJS extends BaseJS {
                 contentType: "application/json"
             }).done(function(res) {
                 //lấy res từ api
-                if (res.success && res.data.totalRecord > 0) {
-                    //lấy ra tổng số bình luận
-                    var totalRecord = res.data.totalRecord;
-                    //tính toán số trang có thể hiển thị khi phân trang
-                    var totalPages = Math.ceil(totalRecord / Enum.CommentPaging.RECORD_PER_PAGE);
-                    //gọi hàm loadBookComment của commonJS object
-                    //commonJS.appendCommentData(data);
-                    bookDetailJS.loadCommentPagination(totalPages)
+                if (res.success) {
+                    if (res.data && res.data.totalRecord > 0) {
+                        //lấy ra tổng số bình luận
+                        var totalRecord = res.data.totalRecord;
+                        //tính toán số trang có thể hiển thị khi phân trang
+                        var totalPages = Math.ceil(totalRecord / Enum.CommentPaging.RECORD_PER_PAGE);
+                        //gọi hàm loadBookComment của commonJS object
+                        //commonJS.appendCommentData(data);
+                        bookDetailJS.loadCommentPagination(totalPages)
+                    }
                 } else {
                     commonBaseJS.showToastMsgFailed(res.message);
                 }
@@ -783,8 +799,13 @@ class BookDetailJS extends BaseJS {
 
     //chi tiết xử lý khi click nút Xem thêm
     showSameCategoryBook() {
+        //lấy ra id loại sách hiện tại và tạo url tìm kiếm
         var categoryID = $('#bookCategoryName').data("id");
-        window.open("search.html?&paramBookCategoryID=" + categoryID, "_self");
+        var searchURL = "&paramBookCategoryID=" + categoryID;
+        //lưu url tìm kiếm trong local storage
+        localStorage.setItem("searchURL", searchURL);
+        //mở trang search.html
+        window.open("search.html", "_self");
     }
 
     //chi tiết xử lý phân trang danh sách bình luận

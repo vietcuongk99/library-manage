@@ -14,14 +14,30 @@ class SearchBookJS extends BaseJS {
     //gán sự kiện trong trang search-result.html
     initEvent() {
         //gán xử lý sự kiện khi click nút Tìm kiếm
-        $('#searchBtn').on('click', this.loadSearchResult.bind(this));
+        $('#searchBtn').on('click', function() {
+            //xóa chuỗi tìm kiếm cũ
+            localStorage.removeItem("searchURL");
+            searchBookJS.loadSearchResult();
+        });
         //gán xử lý sự kiện khi click vào 1 card sách
         $('#searchResultDiv').on('click', '.card.h-100', this.cardOnClick);
         //gán xử lý khi chọn option lọc
         //dùng change()
-        $('#categorySelect').on('change', this.loadSearchResult);
-        $('#sortNameSelect').on('change', this.loadSearchResult);
-        $('#sortTypeSelect').on('change', this.loadSearchResult);
+        $('#categorySelect').on('change', function() {
+            //xóa chuỗi tìm kiếm cũ
+            localStorage.removeItem("searchURL");
+            searchBookJS.loadSearchResult();
+        });
+        $('#sortNameSelect').on('change', function() {
+            //xóa chuỗi tìm kiếm cũ
+            localStorage.removeItem("searchURL");
+            searchBookJS.loadSearchResult();
+        });
+        $('#sortTypeSelect').on('change', function() {
+            //xóa chuỗi tìm kiếm cũ
+            localStorage.removeItem("searchURL");
+            searchBookJS.loadSearchResult();
+        });
         //gán xử lý khi nhập năm xuất bản
         //dùng blur()
         $('#startYearInput').blur(function(event) {
@@ -62,7 +78,7 @@ class SearchBookJS extends BaseJS {
         //xóa kết quả tìm kiếm và thanh phân trang 
         $('#searchResultDiv').children().remove();
         $('#pagingDiv').children().remove();
-        //lấy ra string searchURL từ localStorage (sự kiện 'Xem thêm' trang index)
+        //lấy ra string searchURL từ localStorage
         var searchURL = localStorage.getItem("searchURL");
         //nếu string searchURL không tồn tại
         if (!searchURL) {
@@ -81,6 +97,8 @@ class SearchBookJS extends BaseJS {
             var sortType = $('#sortTypeSelect option:selected').val();
             //tạo url với param chứa giá trị cần tìm kiếm
             searchURL = commonJS.buildUrlSearchPage(searchValue, searchType, categoryID, startYear, finishYear, sortName, sortType);
+            //lưu chuỗi searchURL mới
+            localStorage.setItem("searchURL", searchURL);
         }
         //call api tìm kiếm sách phù hợp trong csdl
         $.ajax({
@@ -96,16 +114,20 @@ class SearchBookJS extends BaseJS {
             }
         }).done(function(res) {
             //xóa string searchURL trong localStorage
-            localStorage.removeItem("searchURL");
+            //localStorage.removeItem("searchURL");
             //nếu response trả về báo thành công và có data
             if (res.success && res.data) {
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
                 //gán tổng số bản ghi cho biến toàn cục
                 var totalBookRecord = res.data.totalRecord;
                 //tính toán số trang hiển thị và gán cho biến toàn cục
                 var totalPages = Math.ceil(totalBookRecord / Enum.BookPaging.RECORD_PER_PAGE);
+                //gán dữ liệu lên ui
+                //commonJS.appendBookDataToCard(res.data.dataItems, "#searchResultDiv");
                 //gọi hàm loadPaginationSearchResult
                 //phân trang dữ liệu
-                searchBookJS.loadPaginationSearchResult(totalPages, searchURL)
+                searchBookJS.loadPaginationSearchResult(totalPages, searchURL, res.data.dataItems)
             } else {
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
@@ -131,7 +153,7 @@ class SearchBookJS extends BaseJS {
     }
 
     //phân trang và hiển thị kết quả tìm kiếm
-    loadPaginationSearchResult(totalPages, searchURL) {
+    loadPaginationSearchResult(totalPages, searchURL, pageDefaultData) {
         //hủy pagination từ twbs-paginaton plugin
         $('#pagingDiv').twbsPagination('destroy');
         //gọi hàm twbsPagination từ twbs-pagination plugin
@@ -139,36 +161,41 @@ class SearchBookJS extends BaseJS {
             totalPages: totalPages,
             visiblePages: Enum.BookPaging.VISIBLE_PAGE_DEFAULT,
             onPageClick: function(event, page) {
-                //call api
-                $.ajax({
-                    method: "GET",
-                    url: Enum.URL.HOST_URL + "api/BookDetail/GetPagingDataV2" +
-                        "?pageNumber=" + page +
-                        "&pageSize=" + Enum.BookPaging.RECORD_PER_PAGE + searchURL,
-                    async: true,
-                    contentType: "application/json",
-                    beforeSend: function() {
-                        //show loading
-                        commonBaseJS.showLoadingData(1);
-                    }
-                }).done(function(res) {
-                    if (res.success && res.data) {
-                        //gán dữ liệu lên ui
-                        commonJS.appendBookDataToCard(res.data.dataItems, "#searchResultDiv");
-                        //ẩn loading
-                        commonBaseJS.showLoadingData(0);
-                    } else {
+                if (page > Enum.BookPaging.PAGE_DEFAULT) {
+                    //call api
+                    $.ajax({
+                        method: "GET",
+                        url: Enum.URL.HOST_URL + "api/BookDetail/GetPagingDataV2" +
+                            "?pageNumber=" + page +
+                            "&pageSize=" + Enum.BookPaging.RECORD_PER_PAGE + searchURL,
+                        async: true,
+                        contentType: "application/json",
+                        beforeSend: function() {
+                            //show loading
+                            commonBaseJS.showLoadingData(1);
+                        }
+                    }).done(function(res) {
+                        if (res.success && res.data) {
+                            //gán dữ liệu lên ui
+                            commonJS.appendBookDataToCard(res.data.dataItems, "#searchResultDiv");
+                            //ẩn loading
+                            commonBaseJS.showLoadingData(0);
+                        } else {
+                            //ẩn loading
+                            commonBaseJS.showLoadingData(0);
+                            //show alert
+                            commonBaseJS.showToastMsgInfomation("Không tìm thấy sách phù hợp");
+                        }
+                    }).fail(function(res) {
                         //ẩn loading
                         commonBaseJS.showLoadingData(0);
                         //show alert
-                        commonBaseJS.showToastMsgInfomation("Không tìm thấy sách phù hợp");
-                    }
-                }).fail(function(res) {
-                    //ẩn loading
-                    commonBaseJS.showLoadingData(0);
-                    //show alert
-                    commonBaseJS.showToastMsgFailed("Tìm kiếm không thành công.");
-                })
+                        commonBaseJS.showToastMsgFailed("Tìm kiếm không thành công.");
+                    })
+                } else {
+                    commonJS.appendBookDataToCard(pageDefaultData, "#searchResultDiv");
+                }
+
             }
         })
     }
