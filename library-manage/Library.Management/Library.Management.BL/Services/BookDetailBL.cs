@@ -261,13 +261,13 @@ namespace Library.Management.BL
                 if (param.searchType == (int)SearchType.AuthorName)
                 {
                     FTSearch = " And MATCH(b.BookAuthor) AGAINST('" + param.searchValue + "' WITH QUERY EXPANSION)";
-                    LikeSearch = " And b.BookAuthor like '%" + param.searchValue + "%'";
+                    LikeSearch = " And b.BookAuthor like '" + param.searchValue + "%'";
                     where += FTSearch;
                 }
                 else if (param.searchType == (int)SearchType.BookName)
                 {
                     FTSearch = " And MATCH(b.BookName) AGAINST('" + param.searchValue + "' WITH QUERY EXPANSION)";
-                    LikeSearch = " And b.BookName like '%" + param.searchValue + "%'";
+                    LikeSearch = " And b.BookName like '" + param.searchValue + "%'";
                     where += FTSearch;
                 }
             }
