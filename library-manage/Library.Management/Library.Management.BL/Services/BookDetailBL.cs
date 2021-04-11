@@ -254,16 +254,21 @@ namespace Library.Management.BL
 
             //khai báo mặc định 1 đoạn build câu where
             string where = " Where b.Status = 1";
+            string FTSearch = string.Empty, LikeSearch = string.Empty;
             // vddung1 sửa lại điều kiện trong TH không nhập gì vào tìm kiếm
             if (!string.IsNullOrEmpty(param.searchValue))
             {
                 if (param.searchType == (int)SearchType.AuthorName)
                 {
-                    where += " And MATCH(b.BookAuthor) AGAINST('" + param.searchValue + "' WITH QUERY EXPANSION)";
+                    FTSearch = " And MATCH(b.BookAuthor) AGAINST('" + param.searchValue + "' WITH QUERY EXPANSION)";
+                    LikeSearch = " And b.BookAuthor like '%" + param.searchValue + "%'";
+                    where += FTSearch;
                 }
                 else if (param.searchType == (int)SearchType.BookName)
                 {
-                    where += " And MATCH(b.BookName) AGAINST('" + param.searchValue + "' WITH QUERY EXPANSION)";
+                    FTSearch = " And MATCH(b.BookName) AGAINST('" + param.searchValue + "' WITH QUERY EXPANSION)";
+                    LikeSearch = " And b.BookName like '%" + param.searchValue + "%'";
+                    where += FTSearch;
                 }
             }
             if (param.paramBookCategoryID != null)
@@ -303,6 +308,11 @@ namespace Library.Management.BL
             string query = "Select * from Book b" + where;
             //res.Data = _baseDL.ExcureDataReader(query);
             res.Data = await _baseDL.GetEntityByMultipleTable<ResponseProcedureBookDetail>(new { query }, ProcdureTypeName.GetPagingParamBookDetailV2);
+            if ((res.Data as List<ResponseProcedureBookDetail>).Count == 0 && !string.IsNullOrEmpty(param.searchValue))
+            {
+                query = query.Replace(FTSearch, LikeSearch);
+                res.Data = await _baseDL.GetEntityByMultipleTable<ResponseProcedureBookDetail>(new { query }, ProcdureTypeName.GetPagingParamBookDetailV2);
+            }
             return res;
         }
     }
