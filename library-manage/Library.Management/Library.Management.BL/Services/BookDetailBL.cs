@@ -255,20 +255,45 @@ namespace Library.Management.BL
             //khai báo mặc định 1 đoạn build câu where
             string where = " Where b.Status = 1";
             string FTSearch = string.Empty, LikeSearch = string.Empty;
+            int temp = 0;
             // vddung1 sửa lại điều kiện trong TH không nhập gì vào tìm kiếm
             if (!string.IsNullOrEmpty(param.searchValue))
             {
+                string[] subs = param.searchValue.Split(' ');
+                // Kiểm tra xem trong chuỗi có từ nào tối thiểu 3 kí tự hay không
+                //Nếu có thì tìm kiếm fulltext, nếu không dùng like
+                foreach(var sub in subs)
+                {
+                    if(sub.Length >= 3)
+                    {
+                        temp += 1;
+                    }
+                }
                 if (param.searchType == (int)SearchType.AuthorName)
                 {
                     FTSearch = " And MATCH(b.BookAuthor) AGAINST('" + param.searchValue + "' WITH QUERY EXPANSION)";
-                    LikeSearch = " And b.BookAuthor like '" + param.searchValue + "%'";
-                    where += FTSearch;
+                    LikeSearch = " And b.BookAuthor like '%" + param.searchValue + "%'";
+                    if (temp > 0)
+                    {
+                        where += FTSearch;
+                    }
+                    else
+                    {
+                        where += LikeSearch;
+                    }
                 }
                 else if (param.searchType == (int)SearchType.BookName)
                 {
                     FTSearch = " And MATCH(b.BookName) AGAINST('" + param.searchValue + "' WITH QUERY EXPANSION)";
-                    LikeSearch = " And b.BookName like '" + param.searchValue + "%'";
-                    where += FTSearch;
+                    LikeSearch = " And b.BookName like '%" + param.searchValue + "%'";
+                    if (temp > 0)
+                    {
+                        where += FTSearch;
+                    }
+                    else
+                    {
+                        where += LikeSearch;
+                    }
                 }
             }
             if (param.paramBookCategoryID != null)
@@ -308,11 +333,6 @@ namespace Library.Management.BL
             string query = "Select * from Book b" + where;
             //res.Data = _baseDL.ExcureDataReader(query);
             res.Data = await _baseDL.GetEntityByMultipleTable<ResponseProcedureBookDetail>(new { query }, ProcdureTypeName.GetPagingParamBookDetailV2);
-            if ((res.Data as List<ResponseProcedureBookDetail>).Count == 0 && !string.IsNullOrEmpty(param.searchValue))
-            {
-                query = query.Replace(FTSearch, LikeSearch);
-                res.Data = await _baseDL.GetEntityByMultipleTable<ResponseProcedureBookDetail>(new { query }, ProcdureTypeName.GetPagingParamBookDetailV2);
-            }
             return res;
         }
     }
