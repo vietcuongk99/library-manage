@@ -72,7 +72,7 @@ class LoginJS {
             })
         } else {
             //show alert cảnh báo
-            commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng nhập không thành công.");
+            commonBaseJS.showToastMsgFailed("Bạn cần nhập đúng tên đăng nhập và mật khẩu.");
         }
     }
 

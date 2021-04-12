@@ -87,7 +87,7 @@ var commonJS = {
     //append dữ liệu sách cùng thể loại vào thẻ card
     //sử dụng trong trang book-detail
     appendSameCategoryBookToCard(data, selector, currentBookID) {
-        var row = $(`<div class="row mt-2"></div>`)
+        var row = $(`<div class="row mt-2"></div>`);
         data.forEach(book => {
             if (book.bookID != currentBookID) {
                 var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
@@ -181,9 +181,7 @@ var commonJS = {
 
     //lấy giá trị tham số trên url
     //sử dụng trong trang book-detail, search
-    getURLParameter(option, sParam) {
-        var sPageURL = window.location.search.substring(1);
-        debugger
+    getURLParameter(sPageURL, option, sParam) {
         //nếu lấy chuỗi chứa tất cả tham số từ url
         if (option == Enum.SplitOption.ALL) {
             return sPageURL;

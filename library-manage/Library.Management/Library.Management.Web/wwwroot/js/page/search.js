@@ -7,6 +7,7 @@ class SearchBookJS extends BaseJS {
     constructor() {
         super();
         this.loadCategoryData();
+        this.loadUserSearchInput();
         this.loadSearchResult();
         this.initEvent();
     }
@@ -41,9 +42,11 @@ class SearchBookJS extends BaseJS {
         //gán xử lý khi nhập năm xuất bản
         //dùng blur()
         $('#startYearInput').blur(function(event) {
+            localStorage.removeItem("searchURL");
             searchBookJS.blurEvent(event, 'finishYearInput')
         });
         $('#finishYearInput').blur(function(event) {
+            localStorage.removeItem("searchURL");
             searchBookJS.blurEvent(event, 'startYearInput')
         });
     }
@@ -59,13 +62,34 @@ class SearchBookJS extends BaseJS {
             //nếu response trả về thành công
             if (res.success) {
                 var categoryList = res.data.lstData;
-                //gán dữ liệu lên ui
+                //gán option loại sách lên ui
+                //lấy ra id loại sách cần tìm
                 commonJS.appendCategoryListToHTML(categoryList, '#categorySelect');
+                //lấy ra chuỗi tìm kiếm trong local storage
+                var searchURL = localStorage.getItem("searchURL");
+                //nếu có chuỗi tìm kiếm
+                if (searchURL) {
+                    //lấy ra id loại sách hiện tại đang tìm kiếm
+                    var categoryID = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'paramBookCategoryID');
+                    //duyệt list loại sách và gán option loại sách hiện tại lên ui
+                    var categoryList = $('#categorySelect option');
+                    for (let index = 0; index < categoryList.length; index++) {
+                        var optionObj = categoryList[index];
+                        if ($(optionObj).data("id") == categoryID) {
+                            $('#categorySelect option')
+                                .removeAttr('selected')
+                                .filter('[value=' + optionObj.value + ']')
+                                .prop('selected', true);
+                            //thoát vòng lặp
+                            break
+                        }
+                    }
+                }
             }
             //nếu response trả về không thành công
             else {
                 // show alert
-                commonBaseJS.showToastMsgFailed(res.message)
+                //commonBaseJS.showToastMsgFailed(res.message)
             }
         }).fail(function(res) {
             // show alert
@@ -144,16 +168,6 @@ class SearchBookJS extends BaseJS {
         })
     }
 
-    //chi tiết xử lý sự kiện khi click vào 1 card sách
-    cardOnClick() {
-        //lấy ra id book được click
-        let bookId = $(this).data('bookId');
-        //tạo url với param chứa id đầu sách vừa được click
-        var bookDetailStr = "book-detail.html?id=" + bookId;
-        //mở trang book-detail
-        window.open(bookDetailStr, "_self")
-    }
-
     //phân trang và hiển thị kết quả tìm kiếm
     loadPaginationSearchResult(totalPages, searchURL, pageDefaultData) {
         //hủy pagination từ twbs-paginaton plugin
@@ -208,6 +222,16 @@ class SearchBookJS extends BaseJS {
         })
     }
 
+    //chi tiết xử lý sự kiện khi click vào 1 card sách
+    cardOnClick() {
+        //lấy ra id book được click
+        let bookId = $(this).data('bookId');
+        //tạo url với param chứa id đầu sách vừa được click
+        var bookDetailStr = "book-detail.html?id=" + bookId;
+        //mở trang book-detail
+        window.open(bookDetailStr, "_self")
+    }
+
     //chi tiết xử lý cho sự kiện lose focus của input nhập năm xuất bản
     blurEvent(event, relatedSelectorID) {
         //lấy ra id của element được focus ngay sau khi input nhập năm xuất bản lose focus
@@ -230,6 +254,52 @@ class SearchBookJS extends BaseJS {
                     searchBookJS.loadSearchResult();
                 }
             }
+        }
+    }
+
+    //load dữ liệu tìm kiếm của người dùng (không tính loại sách)
+    loadUserSearchInput() {
+        debugger
+        //lấy ra chuỗi tìm kiếm trong local storage
+        var searchURL = localStorage.getItem("searchURL");
+        if (searchURL) {
+            //lấy ra giá trị tìm kiếm
+            var searchType = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'searchType');
+            //lấy ra loại tìm kiếm
+            var searchValue = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'searchValue');
+            //lấy ra năm bắt đầu xuất bản
+            var startYear = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'startYear');
+            //lấy ra năm kết thúc xuất bản
+            var finishYear = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'finishYear');
+            //lấy ra giá trị sắp xếp
+            var maxValueType = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'maxValueType');
+            //lấy ra cấp độ sắp xếp
+            var orderByType = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'orderByType');
+            //gán giá trị tìm kiếm và năm xuất bản lên ui
+            (searchValue && searchValue.trim().length > 0) ? ($('#searchInput').val(searchValue)) : ($('#searchInput').val(""));
+            (startYear) ? ($('#startYearInput').val(startYear)) : ($('#startYearInput').val(""));
+            (finishYear) ? ($('#finishYearInput').val(finishYear)) : ($('#finishYearInput').val(""));
+            //gán option loại tìm kiếm
+            (searchType) ? (
+                $('#searchTypeSelect option')
+                .removeAttr('selected')
+                .filter('[value=' + searchType + ']')
+                .prop('selected', true)) : (
+                $('#searchTypeSelect option:selected').val("Tên sách"));
+            //gán option sắp xếp
+            (maxValueType) ? (
+                $('#sortNameSelect option')
+                .removeAttr('selected')
+                .filter('[value=' + maxValueType + ']')
+                .prop('selected', true)) : (
+                $('#sortNameSelect option:selected').val("Sắp xếp theo"));
+            //gán option cấp độ
+            (orderByType && orderByType >= 1 && orderByType <= 2) ? (
+                $('#sortTypeSelect option')
+                .removeAttr('selected')
+                .filter('[value=' + orderByType + ']')
+                .prop('selected', true)) : (
+                $('#sortTypeSelect option:selected').val("Cấp độ"));
         }
     }
 }

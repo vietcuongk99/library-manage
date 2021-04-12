@@ -1,5 +1,7 @@
+//lấy ra url hiện tại của trang
+var sPageURL = window.location.search.substring(1);
 //lấy ra id đầu sách từ url
-var bookId = commonJS.getURLParameter(Enum.SplitOption.ONE, 'id');
+var bookId = commonJS.getURLParameter(sPageURL, Enum.SplitOption.ONE, 'id');
 
 //khai báo biến toàn cục lưu đường dẫn file pdf của sách
 var bookDownloadUrl;
@@ -150,7 +152,7 @@ class BookDetailJS extends BaseJS {
         })
     }
 
-    //thay đổi giao diện ui nút mượn, trả, gia hạn, tải tài liệu với từng trang thông tin sách
+    //load giao diện ui nút mượn, trả, gia hạn, tải tài liệu
     loadBookActionButton() {
         var userData = JSON.parse(localStorage.getItem("user"));
         //nếu user là khách hoặc có quyền admin
@@ -158,7 +160,7 @@ class BookDetailJS extends BaseJS {
         if (!userData || userData.conditionAccount == 0) {
             $('#groupBookAction').children().remove();
         }
-        //nếu user có tài khoản
+        //nếu user có tài khoản không phải admin
         else {
             //lấy ra ngày hiện tại
             var dateNow = commonJS.getDateString(new Date(), Enum.ConvertOption.YEAR_FIRST);
@@ -166,7 +168,6 @@ class BookDetailJS extends BaseJS {
             var borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]");
             //lấy ra số lượng sách đang mượn
             var borrowListSize = commonJS.getBorrowListSize();
-
             //khai báo các thành phần html cho từng action với sách
             //button mượn sách, trả sách, gia hạn thời gian mượn, mở tài liệu
             var borrowBtnHTML = $(`<button id="btnBorrowBook" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Mượn sách</button>`);
@@ -174,7 +175,6 @@ class BookDetailJS extends BaseJS {
             //var extendBtnHTML = $(`<button id="btnExtendDate" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Gia hạn</button>`);
             var showFileBtnHTML = $(`<button id="btnShowFile" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Mở tài liệu</button>`);
             var cancelResBtnHTML = $(`<button id="btnCancelBorrowRes" type="button" class="btn btn-sm btn-outline-success mb-2" data-toggle="modal">Hủy mượn sách</button>`);
-
             //kiểm tra sách được mượn hay chưa
             //khai báo biến đếm
             let count = 0;
@@ -242,12 +242,12 @@ class BookDetailJS extends BaseJS {
     //load sách cùng thể loại
     //load dữ liệu sách mới nhất
     loadSameCategoryBooks(categoryID) {
-        debugger
+        //call api
         $.ajax({
             method: "GET",
             url: Enum.URL.HOST_URL + "api/BookDetail/GetPagingDataV2" +
                 "?pageNumber=" + Enum.BookPaging.PAGE_DEFAULT +
-                "&pageSize=3" + "&paramBookCategoryID=" +
+                "&pageSize=" + (Enum.BookPaging.RECORD_PER_PAGE + 1) + "&paramBookCategoryID=" +
                 categoryID + "&maxValueType=1&orderByType=1",
             async: true,
             contentType: "application/json",
