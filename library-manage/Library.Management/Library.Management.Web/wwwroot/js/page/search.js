@@ -123,8 +123,6 @@ class SearchBookJS extends BaseJS {
                 var totalBookRecord = res.data.totalRecord;
                 //tính toán số trang hiển thị và gán cho biến toàn cục
                 var totalPages = Math.ceil(totalBookRecord / Enum.BookPaging.RECORD_PER_PAGE);
-                //gán dữ liệu lên ui
-                //commonJS.appendBookDataToCard(res.data.dataItems, "#searchResultDiv");
                 //gọi hàm loadPaginationSearchResult
                 //phân trang dữ liệu
                 searchBookJS.loadPaginationSearchResult(totalPages, searchURL, res.data.dataItems)
@@ -133,12 +131,16 @@ class SearchBookJS extends BaseJS {
                 commonBaseJS.showLoadingData(0);
                 //show alert
                 commonBaseJS.showToastMsgInfomation("Không tìm thấy sách phù hợp");
+                //thêm empty list html
+                commonJS.addEmptyListHTML("Không tìm thấy sách phù hợp", "#searchResultDiv")
             }
         }).fail(function(res) {
             //ẩn loading
             commonBaseJS.showLoadingData(0);
             //show alert
             commonBaseJS.showToastMsgFailed("Tìm kiếm không thành công.");
+            //thêm empty list html
+            commonJS.addEmptyListHTML("Không thể hiển thị sách", "#searchResultDiv")
         })
     }
 
@@ -162,6 +164,8 @@ class SearchBookJS extends BaseJS {
             visiblePages: Enum.BookPaging.VISIBLE_PAGE_DEFAULT,
             onPageClick: function(event, page) {
                 if (page > Enum.BookPaging.PAGE_DEFAULT) {
+                    //xóa kết quả tìm kiếm
+                    $('#searchResultDiv').children().remove();
                     //call api
                     $.ajax({
                         method: "GET",
@@ -185,12 +189,16 @@ class SearchBookJS extends BaseJS {
                             commonBaseJS.showLoadingData(0);
                             //show alert
                             commonBaseJS.showToastMsgInfomation("Không tìm thấy sách phù hợp");
+                            //thêm empty list html
+                            commonJS.addEmptyListHTML("Không tìm thấy sách phù hợp", "#searchResultDiv")
                         }
                     }).fail(function(res) {
                         //ẩn loading
                         commonBaseJS.showLoadingData(0);
                         //show alert
                         commonBaseJS.showToastMsgFailed("Tìm kiếm không thành công.");
+                        //thêm empty list html
+                        commonJS.addEmptyListHTML("Không thể hiển thị sách", "#searchResultDiv")
                     })
                 } else {
                     commonJS.appendBookDataToCard(pageDefaultData, "#searchResultDiv");

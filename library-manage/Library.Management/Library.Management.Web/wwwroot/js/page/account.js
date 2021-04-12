@@ -66,8 +66,6 @@ class AccountJS extends BaseJS {
                 $('#countryInput').val(userData.country);
                 $('#emailInput').val(userData.email);
                 $('#passwordInput').val(userData.password);
-                //ẩn loading
-                commonBaseJS.showLoadingData(0);
             } else {
                 //show alert
                 commonBaseJS.showToastMsgFailed(res.message);
@@ -123,34 +121,39 @@ class AccountJS extends BaseJS {
             cache: false
         }).done(function(res) {
             //nếu server xử lý thành công
-            if (res.success) {
+            if (res.success && res.data && res.data.length > 0) {
                 //gán data
                 var list = res.data;
                 //gọi hàm render html lên ui
                 //commonJS
                 commonJS.appendBorrowDataToCard(list, "#borrowListContent");
-
                 //khởi tạo borrowList array mới nhất
                 var borrowList = []
-
-                //lưu danh sách mượn vào localStorage
+                    //lưu danh sách mượn vào localStorage
                 commonJS.saveBorrowListToLocal(borrowList, list);
-
                 //lưu borrowList mới nhất vào local storage
                 localStorage.setItem("borrowList", JSON.stringify(borrowList));
-
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
             } else {
+                //thêm giao diện hiển thị list rỗng
+                var borrowDivHTML = $(`<div class="row d-flex justify-content-center mt-3">
+                                        <button id="borrowBtn" class="btn btn-success">Mượn sách</button>
+                                    </div>`);
+                //gán sự kiện mở trang tìm kiếm cho button vừa tạo
+                $(document).on('click', '#borrowBtn', function() {
+                    window.open('search.html', "_self")
+                });
+                //thêm empty list html
+                commonJS.addEmptyListHTML("Bạn chưa mượn cuốn sách nào", '#borrowListContent', borrowDivHTML);
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
-                debugger
-                commonBaseJS.showToastMsgFailed(res.message);
             }
         }).fail(function(res) {
+            //thêm empty list html
+            commonJS.addEmptyListHTML("Không thể hiển thị sách", "#borrowListContent");
             //ẩn loading
             commonBaseJS.showLoadingData(0);
-            commonBaseJS.showToastMsgFailed("Lấy thông tin sách đang mượn thất bại.");
         })
     }
 

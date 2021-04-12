@@ -27,7 +27,6 @@ class IndexJS extends BaseJS {
                 commonBaseJS.showLoadingData(1);
             }
         }).done(function(res) {
-            
             if (res.success && res.data) {
                 var newBooks = res.data.dataItems;
                 commonJS.appendBookDataToCard(newBooks, '#newBookRow');
@@ -38,12 +37,14 @@ class IndexJS extends BaseJS {
                 commonBaseJS.showLoadingData(0);
                 //show alert
                 //commonBaseJS.showToastMsgFailed("Không tìm thấy sách phù hợp.");
+                commonJS.addEmptyListHTML("Chưa có sách", '#newBookRow')
             }
         }).fail(function(res) {
             //ẩn loading
             commonBaseJS.showLoadingData(0);
             //show alert
             //commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
+            commonJS.addEmptyListHTML("Không thể hiển thị sách", '#newBookRow')
         })
     }
 
@@ -71,12 +72,14 @@ class IndexJS extends BaseJS {
                 commonBaseJS.showLoadingData(0);
                 //show alert
                 //commonBaseJS.showToastMsgFailed("Không tìm thấy sách phù hợp.");
+                commonJS.addEmptyListHTML("Chưa có sách", '#hotBookRow')
             }
         }).fail(function(res) {
             //ẩn loading
             commonBaseJS.showLoadingData(0);
             //show alert
             //commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
+            commonJS.addEmptyListHTML("Không thể hiển thị sách", '#hotBookRow')
         })
     }
 

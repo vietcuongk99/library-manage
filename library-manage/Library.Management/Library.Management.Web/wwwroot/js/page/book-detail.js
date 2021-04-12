@@ -78,11 +78,14 @@ class BookDetailJS extends BaseJS {
             } else {
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
-                commonBaseJS.showToastMsgFailed(res.message);
+                //commonBaseJS.showToastMsgFailed(res.message);
+                //load sách cùng thể loại
+                commonJS.addEmptyListHTML("Chưa có sách", "#sameCategoryBookDiv")
             }
         }).fail(function(res) {
             //ẩn loading
             commonBaseJS.showLoadingData(0);
+            commonJS.addEmptyListHTML("Không thể hiển thị sách", "#sameCategoryBookDiv")
             commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
         })
     }
@@ -239,6 +242,7 @@ class BookDetailJS extends BaseJS {
     //load sách cùng thể loại
     //load dữ liệu sách mới nhất
     loadSameCategoryBooks(categoryID) {
+        debugger
         $.ajax({
             method: "GET",
             url: Enum.URL.HOST_URL + "api/BookDetail/GetPagingDataV2" +
@@ -252,23 +256,28 @@ class BookDetailJS extends BaseJS {
                 commonBaseJS.showLoadingData(1);
             }
         }).done(function(res) {
-            debugger
-            if (res.success && res.data) {
-                var sameCategoryBooks = res.data.dataItems;
-                commonJS.appendSameCategoryBookToCard(sameCategoryBooks, '#sameCategoryBookDiv', bookId);
+            if (res.success) {
+                //nếu response trả về có nhiều hơn 1 đầu sách
+                if (res.data && res.data.dataItems.length > 1) {
+                    var sameCategoryBooks = res.data.dataItems;
+                    commonJS.appendSameCategoryBookToCard(sameCategoryBooks, '#sameCategoryBookDiv', bookId);
+                } else {
+                    //thêm ui list rỗng
+                    commonJS.addEmptyListHTML("Chưa có sách", "#sameCategoryBookDiv");
+                }
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
-            } else {
+            }
+            //nếu response trả về chỉ có sách hiện tại
+            else {
+                commonJS.addEmptyListHTML("Chưa có sách", '#sameCategoryBookDiv');
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
-                //show alert
-                //commonBaseJS.showToastMsgFailed("Không tìm thấy sách phù hợp.");
             }
         }).fail(function(res) {
+            commonJS.addEmptyListHTML("Không thể hiển thị sách", "#sameCategoryBookDiv");
             //ẩn loading
             commonBaseJS.showLoadingData(0);
-            //show alert
-            //commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
         })
     }
 
@@ -689,13 +698,17 @@ class BookDetailJS extends BaseJS {
                         var totalPages = Math.ceil(totalRecord / Enum.CommentPaging.RECORD_PER_PAGE);
                         //gọi hàm loadBookComment của commonJS object
                         //commonJS.appendCommentData(data);
-                        bookDetailJS.loadCommentPagination(totalPages)
+                        bookDetailJS.loadCommentPagination(totalPages, res.data.dataItems)
+                    } else {
+                        commonJS.addEmptyListHTML("Chưa có bình luận nào", "#commentContentDiv")
                     }
                 } else {
-                    commonBaseJS.showToastMsgFailed(res.message);
+                    //commonBaseJS.showToastMsgFailed(res.message);
+                    commonJS.addEmptyListHTML("Chưa có bình luận nào", "#commentContentDiv")
                 }
             }).fail(function(res) {
-                commonBaseJS.showToastMsgFailed("Lấy dữ liệu bình luận không thành công.");
+                //commonBaseJS.showToastMsgFailed("Lấy dữ liệu bình luận không thành công.");
+                commonJS.addEmptyListHTML("Không thể hiển thị bình luận", "#commentContentDiv")
             })
         }
     }
@@ -750,10 +763,8 @@ class BookDetailJS extends BaseJS {
             var validateCommentRes = bookDetailJS.validateCommentInput();
             //nếu nội dung comment được validate
             if (validateCommentRes) {
-
-                //lấy ra comment của người dùng
+                //lấy ra nội dung comment của người dùng
                 var commentContent = $('#commentInput').val().trim();
-
                 //khai báo data
                 var data = {
                     userId: userID,
@@ -779,7 +790,7 @@ class BookDetailJS extends BaseJS {
                         commonBaseJS.showToastMsgFailed(res.message);
                     }
                 }).fail(function(res) {
-                    commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công.");
+                    commonBaseJS.showToastMsgFailed("Không thể gửi bình luận.");
                 })
             }
 
@@ -809,7 +820,7 @@ class BookDetailJS extends BaseJS {
     }
 
     //chi tiết xử lý phân trang danh sách bình luận
-    loadCommentPagination(totalPages) {
+    loadCommentPagination(totalPages, defaultList) {
         //hủy pagination từ twbs-paginaton plugin
         $('#pagingDiv').twbsPagination('destroy');
         //gọi hàm twbsPagination từ twbs-pagination plugin
@@ -817,38 +828,40 @@ class BookDetailJS extends BaseJS {
             totalPages: totalPages,
             visiblePages: Enum.CommentPaging.VISIBLE_PAGE_DEFAULT,
             onPageClick: function(event, page) {
-                //call api
-                $.ajax({
-                    method: "GET",
-                    url: Enum.URL.HOST_URL + "api/UserComment/GetCommentByBookDetail" +
-                        "?BookID=" + bookId + "&pageNumber=" + page +
-                        "&pageSize=" + Enum.CommentPaging.RECORD_PER_PAGE,
-                    async: true,
-                    contentType: "application/json",
-                    beforeSend: function() {
-                        //show loading
-                        commonBaseJS.showLoadingData(1);
-                    }
-                }).done(function(res) {
-                    if (res.success && res.data) {
-                        //lấy ra danh sách bình luận
-                        var data = res.data.dataItems;
-                        //gán dữ liệu lên ui
-                        commonJS.appendCommentData(data);
+                //xóa danh sách bình luận
+                $('#commentContentDiv').children().remove();
+                if (page > Enum.CommentPaging.PAGE_DEFAULT) {
+                    //call api
+                    $.ajax({
+                        method: "GET",
+                        url: Enum.URL.HOST_URL + "api/UserComment/GetCommentByBookDetail" +
+                            "?BookID=" + bookId + "&pageNumber=" + page +
+                            "&pageSize=" + Enum.CommentPaging.RECORD_PER_PAGE,
+                        async: true,
+                        contentType: "application/json",
+                        beforeSend: function() {
+                            //show loading
+                            commonBaseJS.showLoadingData(1);
+                        }
+                    }).done(function(res) {
+                        if (res.success && res.data) {
+                            //lấy ra danh sách bình luận
+                            var data = res.data.dataItems;
+                            //gán dữ liệu lên ui
+                            commonJS.appendCommentData(data);
+                        } else {
+                            commonJS.addEmptyListHTML("Chưa có bình luận nào", "#commentContentDiv")
+                        }
                         //ẩn loading
                         commonBaseJS.showLoadingData(0);
-                    } else {
+                    }).fail(function(res) {
+                        commonJS.addEmptyListHTML("Không thể hiển thị bình luận", "#commentContentDiv");
                         //ẩn loading
                         commonBaseJS.showLoadingData(0);
-                        //show alert
-                        //commonBaseJS.showToastMsgInfomation("Không tìm thấy sách phù hợp");
-                    }
-                }).fail(function(res) {
-                    //ẩn loading
-                    commonBaseJS.showLoadingData(0);
-                    //show alert
-                    commonBaseJS.showToastMsgFailed("Không thể hiển thị danh sách bình luận.");
-                })
+                    })
+                } else {
+                    commonJS.appendCommentData(defaultList);
+                }
             }
         })
 

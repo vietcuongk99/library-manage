@@ -293,5 +293,22 @@ var commonJS = {
             url = url + "&orderByType=" + sortType;
         }
         return url;
+    },
+
+    //thêm ui hiển thị danh sách rỗng
+    //sử dụng ở trang index, search, account, book-detail
+    addEmptyListHTML(title, parentElementID, subElement) {
+        var emptyDiv = $(`<div class="my-5">
+        <div class="row d-flex justify-content-center">
+            <img class="empty-list-image" src="../content/img/empty-list.png">
+        </div>
+        <div class="row d-flex justify-content-center mt-3">
+            <p class="empty-list-title">` + title + `</p>
+        </div>
+    </div>`)
+        $(parentElementID).append(emptyDiv);
+        if (subElement) {
+            $(emptyDiv).append(subElement);
+        }
     }
 }

@@ -112,3 +112,17 @@ input {
 .card {
     cursor: pointer;
 }
+
+
+/* custom list rỗng */
+
+.empty-list-title {
+    font-size: 1.125rem;
+    text-align: center;
+}
+
+.empty-list-image {
+    width: 8.375rem;
+    height: auto;
+    border-radius: 50%
+}
