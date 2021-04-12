@@ -22,9 +22,9 @@ class AccountJS extends BaseJS {
     ///load dữ liệu cá nhân của user
     loadUserData() {
         // lấy userId từ localStorage
-        var userObject = JSON.parse(localStorage.getItem("user"))
-        var userID = userObject.userID
-            //hiện loading
+        var userObject = JSON.parse(localStorage.getItem("user"));
+        var userID = userObject.userID;
+        //hiện loading
         commonBaseJS.showLoadingData(1);
         //call api
         $.ajax({
@@ -66,7 +66,11 @@ class AccountJS extends BaseJS {
                 $('#countryInput').val(userData.country);
                 $('#emailInput').val(userData.email);
                 $('#passwordInput').val(userData.password);
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
             } else {
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
                 //show alert
                 commonBaseJS.showToastMsgFailed(res.message);
             }
