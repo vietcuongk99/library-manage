@@ -22,15 +22,15 @@ class ConfirmOTPCodeJS {
     confirmOTPCodeEvent() {
         if (confirmOTPCodeJS.validateInput()) {
             //lấy giá trị otp code từ input và giá trị email, password trong sessionStorage
-            var codeInput = $('#codeInput').val()
-            var emailValue = sessionStorage.getItem("email");
-            var passwordValue = sessionStorage.getItem("password");
-            //khai báo và gán giá trị data trước khi gọi api
-            var data = {
-                "email": emailValue,
-                "passWord": passwordValue,
-                "otp": parseInt(codeInput)
-            };
+            var codeInput = $('#codeInput').val(),
+                emailValue = sessionStorage.getItem("email"),
+                passwordValue = sessionStorage.getItem("password"),
+                //khai báo và gán giá trị data trước khi gọi api
+                data = {
+                    "email": emailValue,
+                    "passWord": passwordValue,
+                    "otp": parseInt(codeInput)
+                };
             commonBaseJS.showLoadingData(1);
             //call api
             $.ajax({
@@ -65,15 +65,15 @@ class ConfirmOTPCodeJS {
     //chi tiết xử lý validate dữ liệu
     validateInput() {
         //khai báo và gán giá trị kết quả trả về
-        var result = true;
-        //lấy input từ người dùng
-        var codeInput = $('#codeInput').val().trim();
-        //self - invoked
-        //validate email, password của người dùng
-        //code otp gồm số 6 chữ số
-        var codeValid = (function validateCode(code) {
-            return (code >= 100000 && code <= 999999);
-        })(codeInput);
+        var result = true,
+            //lấy input từ người dùng
+            codeInput = $('#codeInput').val().trim(),
+            //self - invoked
+            //validate email, password của người dùng
+            //code otp gồm số 6 chữ số
+            codeValid = (function validateCode(code) {
+                return (code >= 100000 && code <= 999999);
+            })(codeInput);
         //xử lý nếu các input không thỏa mãn validate
         var alertDiv;
         if (!codeValid) {

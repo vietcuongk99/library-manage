@@ -70,9 +70,9 @@ class SearchBookJS extends BaseJS {
                 //nếu có chuỗi tìm kiếm
                 if (searchURL) {
                     //lấy ra id loại sách hiện tại đang tìm kiếm
-                    var categoryID = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'paramBookCategoryID');
-                    //duyệt list loại sách và gán option loại sách hiện tại lên ui
-                    var categoryList = $('#categorySelect option');
+                    var categoryID = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'paramBookCategoryID'),
+                        //duyệt list loại sách và gán option loại sách hiện tại lên ui
+                        categoryList = $('#categorySelect option');
                     for (let index = 0; index < categoryList.length; index++) {
                         var optionObj = categoryList[index];
                         if ($(optionObj).data("id") == categoryID) {
@@ -107,20 +107,20 @@ class SearchBookJS extends BaseJS {
         //nếu string searchURL không tồn tại
         if (!searchURL) {
             //lấy thông tin tìm kiếm hiện tại
-            var searchValue = $('#searchInput').val().trim();
-            //lấy lựa chọn tìm kiếm hiện tại
-            var searchType = $('#searchTypeSelect option:selected').val();
-            //lấy id loại sách cần lọc
-            var categoryID = $('#categorySelect option:selected').data('id');
-            //lấy khoảng năm xuất bản cần lọc
-            var startYear = $('#startYearInput').val();
-            var finishYear = $('#finishYearInput').val();
-            //lấy lựa chọn sắp xếp cần lọc
-            var sortName = $('#sortNameSelect option:selected').val();
-            //lấy kiểu sắp xếp cần lọc
-            var sortType = $('#sortTypeSelect option:selected').val();
-            //tạo url với param chứa giá trị cần tìm kiếm
-            searchURL = commonJS.buildUrlSearchPage(searchValue, searchType, categoryID, startYear, finishYear, sortName, sortType);
+            var searchValue = $('#searchInput').val().trim(),
+                //lấy lựa chọn tìm kiếm hiện tại
+                searchType = $('#searchTypeSelect option:selected').val(),
+                //lấy id loại sách cần lọc
+                categoryID = $('#categorySelect option:selected').data('id'),
+                //lấy khoảng năm xuất bản cần lọc
+                startYear = $('#startYearInput').val(),
+                finishYear = $('#finishYearInput').val(),
+                //lấy lựa chọn sắp xếp cần lọc
+                sortName = $('#sortNameSelect option:selected').val(),
+                //lấy kiểu sắp xếp cần lọc
+                sortType = $('#sortTypeSelect option:selected').val(),
+                //tạo url với param chứa giá trị cần tìm kiếm
+                searchURL = commonJS.buildUrlSearchPage(searchValue, searchType, categoryID, startYear, finishYear, sortName, sortType);
             //lưu chuỗi searchURL mới
             localStorage.setItem("searchURL", searchURL);
         }
@@ -225,9 +225,9 @@ class SearchBookJS extends BaseJS {
     //chi tiết xử lý sự kiện khi click vào 1 card sách
     cardOnClick() {
         //lấy ra id book được click
-        let bookId = $(this).data('bookId');
-        //tạo url với param chứa id đầu sách vừa được click
-        var bookDetailStr = "book-detail.html?id=" + bookId;
+        var selectedBookId = $(this).data('bookId'),
+            //tạo url với param chứa id đầu sách vừa được click
+            bookDetailStr = "book-detail.html?id=" + selectedBookId;
         //mở trang book-detail
         window.open(bookDetailStr, "_self")
     }
@@ -240,8 +240,8 @@ class SearchBookJS extends BaseJS {
         //element được focus không phải input nhập năm bắt đầu/kết thúc
         if (focusTargetID != relatedSelectorID) {
             //lấy ra giá trị năm bắt đầu và năm kết thúc
-            var startYear = parseInt($('#startYearInput').val());
-            var finishYear = parseInt($('#finishYearInput').val());
+            var startYear = parseInt($('#startYearInput').val()),
+                finishYear = parseInt($('#finishYearInput').val());
             //nếu giá trị năm > 0
             if (startYear > 0 || finishYear > 0) {
                 //hiện alert nếu giá trị năm không hợp lệ
@@ -259,22 +259,21 @@ class SearchBookJS extends BaseJS {
 
     //load dữ liệu tìm kiếm của người dùng (không tính loại sách)
     loadUserSearchInput() {
-        debugger
         //lấy ra chuỗi tìm kiếm trong local storage
         var searchURL = localStorage.getItem("searchURL");
         if (searchURL) {
             //lấy ra giá trị tìm kiếm
-            var searchType = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'searchType');
-            //lấy ra loại tìm kiếm
-            var searchValue = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'searchValue');
-            //lấy ra năm bắt đầu xuất bản
-            var startYear = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'startYear');
-            //lấy ra năm kết thúc xuất bản
-            var finishYear = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'finishYear');
-            //lấy ra giá trị sắp xếp
-            var maxValueType = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'maxValueType');
-            //lấy ra cấp độ sắp xếp
-            var orderByType = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'orderByType');
+            var searchType = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'searchType'),
+                //lấy ra loại tìm kiếm
+                searchValue = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'searchValue'),
+                //lấy ra năm bắt đầu xuất bản
+                startYear = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'startYear'),
+                //lấy ra năm kết thúc xuất bản
+                finishYear = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'finishYear'),
+                //lấy ra giá trị sắp xếp
+                maxValueType = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'maxValueType'),
+                //lấy ra cấp độ sắp xếp
+                orderByType = commonJS.getURLParameter(searchURL, Enum.SplitOption.ONE, 'orderByType');
             //gán giá trị tìm kiếm và năm xuất bản lên ui
             (searchValue && searchValue.trim().length > 0) ? ($('#searchInput').val(searchValue)) : ($('#searchInput').val(""));
             (startYear) ? ($('#startYearInput').val(startYear)) : ($('#startYearInput').val(""));
@@ -285,21 +284,21 @@ class SearchBookJS extends BaseJS {
                 .removeAttr('selected')
                 .filter('[value=' + searchType + ']')
                 .prop('selected', true)) : (
-                $('#searchTypeSelect option:selected').val("Tên sách"));
+                $('#searchTypeSelect option').removeAttr('selected').filter('[value=' + '1' + ']').prop('selected', true));
             //gán option sắp xếp
             (maxValueType) ? (
                 $('#sortNameSelect option')
                 .removeAttr('selected')
                 .filter('[value=' + maxValueType + ']')
                 .prop('selected', true)) : (
-                $('#sortNameSelect option:selected').val("Sắp xếp theo"));
+                $('#sortNameSelect option').removeAttr('selected').filter('[innerText=' + '"Sắp xếp theo"' + ']').prop('selected ', true));
             //gán option cấp độ
             (orderByType && orderByType >= 1 && orderByType <= 2) ? (
                 $('#sortTypeSelect option')
                 .removeAttr('selected')
                 .filter('[value=' + orderByType + ']')
                 .prop('selected', true)) : (
-                $('#sortTypeSelect option:selected').val("Cấp độ"));
+                $('#sortTypeSelect option').removeAttr('selected').filter('[innerText=' + '"Cấp độ"' + ']').prop('selected', true));
         }
     }
 }

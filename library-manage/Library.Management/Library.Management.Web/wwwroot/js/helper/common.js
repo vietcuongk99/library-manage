@@ -18,23 +18,20 @@ var commonJS = {
     //thêm ngày cho thời gian hiện tại
     //sử dụng trong trang book-detail
     addDayToDate(date, day) {
-
         if (day > 0) {
             date.setDate(date.getDate() + day);
         } else {
             date.setDate(date.getDate);
         }
         return new Date(date);
-
     },
 
     //convert từ date sang string chứa ngày-tháng-năm
     //sử dụng trong trang book-detail
     getDateString(date, option) {
         // slice(-2) chọn hai phần tử cuối cùng của mảng.
-        var day = ("0" + date.getDate()).slice(-2);
-        var month = ("0" + (date.getMonth() + 1)).slice(-2);
-
+        var day = ("0" + date.getDate()).slice(-2),
+            month = ("0" + (date.getMonth() + 1)).slice(-2);
         switch (option) {
             case Enum.ConvertOption.YEAR_FIRST:
                 var dateString = date.getFullYear() + "-" + (month) + "-" + (day);
@@ -43,7 +40,6 @@ var commonJS = {
                 var dateString = (day) + "-" + (month) + "-" + date.getFullYear();
                 break;
         }
-
         return dateString;
     },
 
@@ -51,92 +47,92 @@ var commonJS = {
     //sử dụng trong trang book-detail
     getDateTimeString(date) {
         //convert datetime
-        var timeComment = new Date(date);
-        var timeMinutes = ("0" + timeComment.getMinutes()).slice(-2);
-        var timeCommentConvert = timeComment.getUTCDate() + "/" +
+        var timeComment = new Date(date),
+            timeMinutes = ("0" + timeComment.getMinutes()).slice(-2),
+            timeCommentConvert = timeComment.getUTCDate() + "/" +
             (timeComment.getMonth() + 1) + "/" +
             timeComment.getUTCFullYear() +
             " lúc " + timeComment.getHours() + ":" + timeMinutes;
-
-        return timeCommentConvert
+        return timeCommentConvert;
     },
 
     //append dữ liệu vào thẻ card
     //sử dụng trong trang index, search
     appendBookDataToCard(data, selector) {
-        var row = $(`<div class="row mt-2"></div>`)
+        var row = $(`<div class="row mt-2"></div>`);
         data.forEach(book => {
-            var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
-            var card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
-                            </div>`)
-            var bookHTML = $(`
-            <div class="card h-100">
-            <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 23rem;">
-                    <div class="card-body">
-                        <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + book.bookName + `</p>
-                        <p class="text-truncate text-center">` + book.bookAuthor + `</p>
-                    </div>
-                </div>`)
-            bookHTML.data('bookId', book.bookID)
-            $(card).append(bookHTML)
-            row.append(card)
+            var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String,
+                card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
+                            </div>`),
+                bookHTML = $(`<div class="card h-100">
+                                <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 23rem;">
+                                <div class="card-body">
+                                    <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + book.bookName + `</p>
+                                    <p class="text-truncate text-center">` + book.bookAuthor + `</p>
+                                </div>
+                            </div>`);
+            bookHTML.data('bookId', book.bookID);
+            $(card).append(bookHTML);
+            row.append(card);
         })
-        $(selector).html(row)
+        $(selector).html(row);
     },
 
     //append dữ liệu sách cùng thể loại vào thẻ card
     //sử dụng trong trang book-detail
     appendSameCategoryBookToCard(data, selector, currentBookID) {
-        var row = $(`<div class="row mt-2"></div>`);
-        data.forEach(book => {
-            if (book.bookID != currentBookID) {
-                var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
-                var card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
-                                </div>`)
-                var bookHTML = $(`
-                <div class="card h-100">
-                <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 23rem;">
-                        <div class="card-body">
-                            <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + book.bookName + `</p>
-                            <p class="text-truncate text-center">` + book.bookAuthor + `</p>
-                        </div>
-                    </div>`)
-                bookHTML.data('bookId', book.bookID)
-                $(card).append(bookHTML)
-                row.append(card)
+        var row = $(`<div class="row mt-2"></div>`),
+            totalItem = 0;
+        for (let index = 0; index < data.length; index++) {
+            if (totalItem < 4) {
+                if (data[index].bookID != currentBookID) {
+                    var bookImgBase64String = "data:image/jpg;base64," + data[index].bookImageUriBase64String;
+                    var card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
+                                    </div>`)
+                    var bookHTML = $(`
+                    <div class="card h-100">
+                    <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 23rem;">
+                            <div class="card-body">
+                                <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + data[index].bookName + `</p>
+                            </div>
+                        </div>`)
+                        // <p class="text-truncate text-center">` + data[index].bookAuthor + `</p>
+                    bookHTML.data('bookId', data[index].bookID);
+                    $(card).append(bookHTML);
+                    row.append(card);
+                    totalItem++;
+                }
+            } else {
+                break
             }
-        })
-        $(selector).html(row)
+        }
+        $(selector).html(row);
     },
 
     //append dữ liệu sách đang mượn vào thẻ card
     //sử dụng trong trang account
     appendBorrowDataToCard(data, selector) {
         //lấy ra ngày hiện tại
-        //var dateNow = commonJS.getDateString(new Date(), Enum.ConvertOption.YEAR_FIRST);
-        var row = $(`<div class="row mt-2"></div>`)
+        var row = $(`<div class="row mt-2"></div>`);
         data.forEach(book => {
-            // var checkDateHTML = (book.returnDate >= dateNow) ?
-            //     `<div class="text-success text-center">Còn hạn</div>` :
-            //     `<div class="text-danger text-center">Quá hạn</div>`
             var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
             var card = $(`<div class="col-6 col-md-4 col-sm-4 col-xl-4 col-lg-4 portfolio-item">
                             </div>`)
             var bookHTML = $(`
             <div class="card h-100">
-                    <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 22rem">
-                    <div class="card-body">
-                        <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + book.bookName + `</p>
-                        <p class="text-truncate text-center">` + book.bookAuthor + `</p>
-                    </div>
+                    <img class="card-img-top w-100 p-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 22rem">
                 </div>`)
                 // ` + checkDateHTML + `
-
-            bookHTML.data('bookId', book.bookID)
-            $(card).append(bookHTML)
-            row.append(card)
+                // <div class="card-body">
+                //     <p class="text-truncate text-center">` + book.bookAuthor + `</p>
+                //     <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + book.bookName + `</p>
+                // </div>
+            bookHTML.data('bookId', book.bookID);
+            bookHTML.data('borrowData', book);
+            $(card).append(bookHTML);
+            row.append(card);
         })
-        $(selector).html(row)
+        $(selector).html(row);
     },
 
     //append dữ liệu comment
@@ -155,8 +151,7 @@ var commonJS = {
                                         ` + comment.comment + `<br><small class="mt-1">` + timeComment + `</small>
                                     </div>
                                 <div>`);
-
-            commentHTML.data('commentId', comment.commentId)
+            commentHTML.data('commentId', comment.commentId);
             commentGroupDiv.append(commentHTML);
         })
         $('#commentContentDiv').html(commentGroupDiv);
@@ -165,17 +160,14 @@ var commonJS = {
     //gán sự kiện khi ấn nút enter
     //sử dụng trong trang login, signup, change-pass
     addEnterEvent(action) {
-        var enterClicked = false
-
+        var enterClicked = false;
         $(document).on("keyup", function(event) {
             if (event.keyCode == 13) {
-
                 //alert("Enter clicked");
                 enterClicked = true
                 event.preventDefault()
                 action()
             }
-
         });
     },
 
@@ -238,7 +230,8 @@ var commonJS = {
 
     //lưu danh sách mượn của người dùng vào localStorage
     //sử dụng trong trang book-detail, account
-    saveBorrowListToLocal(bookBorrowList, data) {
+    saveBorrowListToLocal(data) {
+        var bookBorrowList = [];
         data.forEach(item => {
             var borrowItem = {};
             borrowItem.bookBorrowID = item.bookBorrowID;
@@ -246,7 +239,7 @@ var commonJS = {
             borrowItem.borrowDate = commonJS.getDateString(new Date(item.borrowDate), Enum.ConvertOption.YEAR_FIRST);
             borrowItem.returnDate = commonJS.getDateString(new Date(item.returnDate), Enum.ConvertOption.YEAR_FIRST);
             borrowItem.status = item.bookBorrowStatus;
-            bookBorrowList.push(borrowItem)
+            bookBorrowList.push(borrowItem);
         });
         //lưu borrowList vào local storage
         localStorage.setItem("borrowList", JSON.stringify(bookBorrowList));
@@ -261,7 +254,7 @@ var commonJS = {
             var optionHTML = $(`<option value=` + item.bookCategoryCode + `>` + item.bookCategoryName + `</option>`);
             //gán id cho data thẻ option
             optionHTML.data("id", item.bookCategoryId);
-            selector.append(optionHTML)
+            selector.append(optionHTML);
         });
     },
 
@@ -297,13 +290,13 @@ var commonJS = {
     //sử dụng ở trang index, search, account, book-detail
     addEmptyListHTML(title, parentElementID, subElement) {
         var emptyDiv = $(`<div class="my-5">
-        <div class="row d-flex justify-content-center">
-            <img class="empty-list-image" src="../content/img/empty-list.png">
-        </div>
-        <div class="row d-flex justify-content-center mt-3">
-            <p class="empty-list-title">` + title + `</p>
-        </div>
-    </div>`)
+                            <div class="row d-flex justify-content-center">
+                                <img class="empty-list-image" src="../content/img/empty-list.png">
+                            </div>
+                            <div class="row d-flex justify-content-center mt-3">
+                                <p class="empty-list-title">` + title + `</p>
+                            </div>
+                        </div>`);
         $(parentElementID).append(emptyDiv);
         if (subElement) {
             $(emptyDiv).append(subElement);

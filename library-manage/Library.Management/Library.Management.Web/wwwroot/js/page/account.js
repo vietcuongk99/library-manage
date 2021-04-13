@@ -22,8 +22,8 @@ class AccountJS extends BaseJS {
     ///load dữ liệu cá nhân của user
     loadUserData() {
         // lấy userId từ localStorage
-        var userObject = JSON.parse(localStorage.getItem("user"));
-        var userID = userObject.userID;
+        var userObject = JSON.parse(localStorage.getItem("user")),
+            userID = userObject.userID;
         //hiện loading
         commonBaseJS.showLoadingData(1);
         //call api
@@ -83,9 +83,9 @@ class AccountJS extends BaseJS {
     //load dữ liệu ảnh đại diện của user
     loadUserAvatar() {
         // lấy userId từ localStorage
-        var userObject = JSON.parse(localStorage.getItem("user"));
-        var userID = userObject.userID;
-        var userAvatarURL = userObject.avatarUrl;
+        var userObject = JSON.parse(localStorage.getItem("user")),
+            userID = userObject.userID,
+            userAvatarURL = userObject.avatarUrl;
         //call api
         $.ajax({
             method: "GET",
@@ -112,8 +112,8 @@ class AccountJS extends BaseJS {
     //load danh sách mượn
     loadBookBorrowList() {
         // lấy userId từ localStorage
-        var userObject = JSON.parse(localStorage.getItem("user"));
-        var userID = userObject.userID;
+        var userObject = JSON.parse(localStorage.getItem("user")),
+            userID = userObject.userID;
         //hiện loading
         commonBaseJS.showLoadingData(1);
         //call api
@@ -131,14 +131,24 @@ class AccountJS extends BaseJS {
                 //gọi hàm render html lên ui
                 //commonJS
                 commonJS.appendBorrowDataToCard(list, "#borrowListContent");
-                //khởi tạo borrowList array mới nhất
-                var borrowList = []
-                    //lưu danh sách mượn vào localStorage
-                commonJS.saveBorrowListToLocal(borrowList, list);
-                //lưu borrowList mới nhất vào local storage
-                localStorage.setItem("borrowList", JSON.stringify(borrowList));
+                //lưu danh sách mượn mới nhất vào localStorage
+                commonJS.saveBorrowListToLocal(list);
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
+                //gán xử lý sự kiện hover chuột vào 1 card sách
+                $('#borrowListContent .card.h-100').hover(
+                    accountJS.hoverHandlerIn,
+                    accountJS.hoverHandlerOut);
+                $('#borrowListContent .card.h-100').mousemove(function(e) {
+                    $("#popUpDiv")
+                        .css('width', '200px!important')
+                        .css('background-color', '#fff')
+                        .css('position', 'absolute')
+                        .css('top', e.pageY - 25)
+                        .css('left', e.pageX + 50);
+                    $('#popUpDiv > .row > div > p, h5').css('font-size', '14px');
+                    $('#borrowWarning > div').css('font-size', '14px');
+                });
             } else {
                 //thêm giao diện hiển thị list rỗng
                 var borrowDivHTML = $(`<div class="row d-flex justify-content-center mt-3">
@@ -218,8 +228,7 @@ class AccountJS extends BaseJS {
             $('#reNewPasswordInput').val("");
         });
         //gán xử lý sự kiện khi click vào 1 card sách
-        $('#borrowListContent').on('click', '.card.h-100', this.cardOnClick)
-
+        $('#borrowListContent').on('click', '.card.h-100', this.cardOnClick);
     }
 
     //xử lý sự kiện sau khi chọn file
@@ -248,16 +257,14 @@ class AccountJS extends BaseJS {
 
     //xử lý sự kiện khi click nút "Đặt ảnh đại diện"
     setUserAvatar() {
-
         // lấy userId từ localStorage
-        var userObject = JSON.parse(localStorage.getItem("user"))
-        var userID = userObject.userID
-
-        //tạo data
-        var data = {
-            userId: userID,
-            userAvatarBase64String: $("#previewImg").attr("src").split(",")[1]
-        };
+        var userObject = JSON.parse(localStorage.getItem("user")),
+            userID = userObject.userID,
+            //tạo data
+            data = {
+                userId: userID,
+                userAvatarBase64String: $("#previewImg").attr("src").split(",")[1]
+            };
         commonBaseJS.showLoadingData(1);
         //call api
         $.ajax({
@@ -267,23 +274,15 @@ class AccountJS extends BaseJS {
             data: JSON.stringify(data)
         }).done(function(res) {
             if (res.success) {
-                //show alert
-                // alert("Thay đổi avatar thành công.");
                 //ẩn modal thay đổi avatar
                 commonBaseJS.showLoadingData(0);
                 $('#modalUpdateAvatar').modal('hide');
                 commonBaseJS.showToastMsgSuccess("Cập nhật thành công.");
-
-                //avatarUrl của người dùng
-                //cập nhật thông tin mới nhất vào localStorage
+                //cập nhật thông tin user vào localStorage
                 userObject.avatarUrl = res.data
                 localStorage.setItem("user", JSON.stringify(userObject));
-                // lấy thông tin user vừa cập nhật từ localStorage
-                userObject = JSON.parse(localStorage.getItem("user"));
-                //gọi hàm loadUserAvatar()
-                //cập nhật ảnh mới nhất
+                //gọi hàm loadUserAvatar() cập nhật ảnh mới nhất
                 accountJS.loadUserAvatar();
-
             } else {
                 commonBaseJS.showLoadingData(0);
                 //show alert
@@ -299,25 +298,25 @@ class AccountJS extends BaseJS {
     //validate dữ liệu nhập vào từ người dùng (modal cập nhật thông tin)
     validateUserInforInput() {
         //khai báo kết quả trả về
-        var result = true;
-        var alertDiv;
-        //lấy email input của người dùng
-        var emailInput = $('#emailInput').val().trim();
-        var firstNameInput = $('#firstNameInput').val().trim();
-        var lastNameInput = $('#lastNameInput').val().trim();
-        //validate email
-        var emailValid = (function validateEmail(email) {
-            var re = /\S+@\S+\.\S+/;
-            return re.test(email);
-        })(emailInput);
-        //validate tên họ và tên đệm
-        var firstNameValid = (function validateFirstName(firstName) {
-            return firstName.length > 0;
-        })(firstNameInput);
-        //validate tên riêng
-        var lastNameValid = (function validateLastName(lastName) {
-            return lastName.length > 0;
-        })(lastNameInput);
+        var result = true,
+            alertDiv,
+            //lấy email input của người dùng
+            emailInput = $('#emailInput').val().trim(),
+            firstNameInput = $('#firstNameInput').val().trim(),
+            lastNameInput = $('#lastNameInput').val().trim(),
+            //validate email
+            emailValid = (function validateEmail(email) {
+                var re = /\S+@\S+\.\S+/;
+                return re.test(email);
+            })(emailInput),
+            //validate tên họ và tên đệm
+            firstNameValid = (function validateFirstName(firstName) {
+                return firstName.length > 0;
+            })(firstNameInput),
+            //validate tên riêng
+            lastNameValid = (function validateLastName(lastName) {
+                return lastName.length > 0;
+            })(lastNameInput);
         //nếu email, tên họ, tên đệm chưa được validate
         //thêm thành phần html
         if (!firstNameValid) {
@@ -375,28 +374,28 @@ class AccountJS extends BaseJS {
     //validate dữ liệu nhập vào từ người dùng (modal cập nhật mật khẩu)
     validatePasswordInput() {
         //khai báo kết quả trả về
-        var result = true;
-        var alertDiv;
-        //lấy email input của người dùng
-        var passwordInput = $('#passwordInput').val().trim();
-        var newPasswordInput = $('#newPasswordInput').val().trim();
-        var reNewPasswordInput = $('#reNewPasswordInput').val().trim();
-        //password chứa tối thiểu 5 kí tự và không có khoảng trắng
-        var passwordValid = (function validatePassword(password) {
-            if (password.includes(" ")) {
-                return false
-            } else {
-                return password.length >= 5
-            }
-        })(passwordInput);
-        //password chứa tối thiểu 5 kí tự và không có khoảng trắng
-        var newPasswordValid = (function validateNewPassword(password) {
-            if (password.includes(" ")) {
-                return false
-            } else {
-                return password.length >= 5
-            }
-        })(newPasswordInput);
+        var result = true,
+            alertDiv,
+            //lấy email input của người dùng
+            passwordInput = $('#passwordInput').val().trim(),
+            newPasswordInput = $('#newPasswordInput').val().trim(),
+            reNewPasswordInput = $('#reNewPasswordInput').val().trim(),
+            //password chứa tối thiểu 5 kí tự và không có khoảng trắng
+            passwordValid = (function validatePassword(password) {
+                if (password.includes(" ")) {
+                    return false
+                } else {
+                    return password.length >= 5
+                }
+            })(passwordInput),
+            //password chứa tối thiểu 5 kí tự và không có khoảng trắng
+            newPasswordValid = (function validateNewPassword(password) {
+                if (password.includes(" ")) {
+                    return false
+                } else {
+                    return password.length >= 5
+                }
+            })(newPasswordInput);
         //password và repassword phải trùng khớp
         if (newPasswordInput) {
             var reNewPasswordValid = (function validateRePassWord(rePassword, password) {
@@ -461,21 +460,21 @@ class AccountJS extends BaseJS {
     //xử lý sự kiện khi click nút Xác nhận (modal cập nhật thông tin)
     updateUserInfor() {
         // lấy userId từ localStorage
-        var userObject = JSON.parse(localStorage.getItem("user"));
-        var userID = userObject.userID;
+        var userObject = JSON.parse(localStorage.getItem("user")),
+            userID = userObject.userID;
         //khai báo validate email input
         var validateUserInput = accountJS.validateUserInforInput();
         //nếu email được validate
         if (validateUserInput) {
             //lấy input từ người dùng
-            var userFirstName = $('#firstNameInput').val().trim();
-            var userLastName = $('#lastNameInput').val().trim();
-            var userAge = parseInt($('#ageInput').val());
-            var userWard = $('#wardInput').val().trim();
-            var userDistrict = $('#districtInput').val().trim();
-            var userProvince = $('#provinceInput').val().trim();
-            var userCountry = $('#countryInput').val().trim();
-            var userEmail = $('#emailInput').val().trim();
+            var userFirstName = $('#firstNameInput').val().trim(),
+                userLastName = $('#lastNameInput').val().trim(),
+                userAge = parseInt($('#ageInput').val()),
+                userWard = $('#wardInput').val().trim(),
+                userDistrict = $('#districtInput').val().trim(),
+                userProvince = $('#provinceInput').val().trim(),
+                userCountry = $('#countryInput').val().trim(),
+                userEmail = $('#emailInput').val().trim();
             //tạo data và gán trường dữ liệu
             var data = {
                 userId: userID,
@@ -519,16 +518,16 @@ class AccountJS extends BaseJS {
 
     //xử lý sự kiện khi click nút Xác nhận thông tin (modal cập nhật mật khẩu)
     updateUserPassword() {
-        // lấy userId từ localStorage
-        var userObject = JSON.parse(localStorage.getItem("user"))
-        var userID = userObject.userID
+        // lấy user data từ localStorage
+        var userObject = JSON.parse(localStorage.getItem("user")),
+            userID = userObject.userID,
             //khai báo validate email input
-        var validateUserInput = accountJS.validatePasswordInput()
-            //nếu email được validate
+            validateUserInput = accountJS.validatePasswordInput();
+        //nếu email được validate
         if (validateUserInput) {
             //lấy input từ người dùng
-            var userPassword = $('#passwordInput').val().trim();
-            var userNewPassword = $('#newPasswordInput').val().trim();
+            var userPassword = $('#passwordInput').val().trim(),
+                userNewPassword = $('#newPasswordInput').val().trim();
             //tạo data và gán trường dữ liệu
             var data = {
                 userId: userID,
@@ -567,10 +566,47 @@ class AccountJS extends BaseJS {
     //chi tiết xử lý sự kiện khi click vào 1 card sách
     cardOnClick() {
         //lấy ra id book được click
-        let bookId = $(this).data('bookId');
+        let selectedBookId = $(this).data('bookId');
         //tạo url với param chứa id đầu sách vừa được click
-        var bookDetailStr = "book-detail.html?id=" + bookId;
+        var bookDetailStr = "book-detail.html?id=" + selectedBookId;
         //mở trang book-detail
         window.open(bookDetailStr, "_self")
+    }
+
+    //chi tiết xử lý khi hover vào 1 card sách
+    hoverHandlerIn() {
+        var borrowData = $(this).data("borrowData"),
+            borrowStatusTxt = "",
+            borrowDate = "",
+            returnDate = "";
+        if (borrowData.borrowStatus == Enum.Status.VALID) {
+            if (borrowData.bookBorrowStatus == Enum.Status.VALID) {
+                var dateNow = new Date(),
+                    dateDiff = Math.ceil((new Date(borrowData.returnDate) - dateNow) / (1000 * 60 * 60 * 24)),
+                    classWarning = (dateDiff >= 0) ? ((dateDiff > 2) ? 'alert-success' : 'alert-warning') : 'alert-danger',
+                    txtWarning = (dateDiff >= 0) ? ("Thời hạn còn " + dateDiff + " ngày") : "Quá hạn",
+                    divWarning = $(`<div class="alert ` + classWarning + `">` + txtWarning + `</div>`)
+                borrowStatusTxt = "Đang mượn";
+                borrowDate = commonJS.getDateString(new Date(borrowData.borrowDate), Enum.ConvertOption.DAY_FIRST);
+                returnDate = commonJS.getDateString(new Date(borrowData.returnDate), Enum.ConvertOption.DAY_FIRST);
+                $('#borrowWarning').children().remove();
+                $('#borrowWarning').append(divWarning);
+            } else {
+                borrowStatusTxt = "Chờ mượn sách";
+                borrowDate = "Chưa có";
+                returnDate = "Chưa có";
+            }
+        }
+        $('#bookName').html(borrowData.bookName);
+        $('#bookAuthor').html(borrowData.bookAuthor);
+        $('#borrowStatus').html(borrowStatusTxt);
+        $('#borrowDate').html(borrowDate);
+        $('#returnDate').html(returnDate);
+        $('#popUpDiv').show();
+    }
+
+    //chi tiết xử lý khi hover ra khỏi 1 card sách
+    hoverHandlerOut() {
+        $('#popUpDiv').hide();
     }
 }

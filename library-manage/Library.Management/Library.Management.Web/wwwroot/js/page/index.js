@@ -90,16 +90,16 @@ class IndexJS extends BaseJS {
         //gán xử lý sự kiện khi click nút Xem thêm Sách Mới
         $('#showNewBookBtn').on('click', this.getAllNewBookEvent.bind(this));
         //gán xử lý sự kiện khi click vào 1 card sách
-        $('#newBookRow').on('click', 'div.card.h-100', this.cardOnClick)
-        $('#hotBookRow').on('click', 'div.card.h-100', this.cardOnClick)
+        $('#newBookRow').on('click', 'div.card.h-100', this.cardOnClick);
+        $('#hotBookRow').on('click', 'div.card.h-100', this.cardOnClick);
     }
 
     //chi tiết xử lý sự kiện khi click vào 1 card sách
     cardOnClick() {
-        let bookId = $(this).data('bookId')
-        console.log(bookId)
-        console.log(this)
-        window.open("book-detail.html?id=" + bookId, "_self")
+        var selectedBookId = $(this).data('bookId');
+        // console.log(bookId)
+        // console.log(this);
+        window.open("book-detail.html?id=" + selectedBookId, "_self");
     }
 
     //chi tiết xử lý sự kiện khi click nút xem thêm SÁCH HOT

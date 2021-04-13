@@ -2,15 +2,12 @@ $(document).ready(function() {
     //xóa dữ liệu user cũ trong localStorage và sessionStorage
     localStorage.clear()
     sessionStorage.clear()
-
     loginJS = new LoginJS()
-
 })
 
 
 //class quản lý các sự kiện trang login.html
 class LoginJS {
-
     constructor() {
         this.loadData()
         this.initEvent()
@@ -19,7 +16,6 @@ class LoginJS {
 
     //gán sự kiện cho các thẻ liên quan trên trang login.html
     initEvent() {
-
         //this = loginJS
         $('#loginBtn').on('click', this.loginEvent.bind(this));
         //gán sự kiện cho nút đăng nhập khi nhấn enter
@@ -27,16 +23,15 @@ class LoginJS {
         $('#guestLoginLink').prop('href', "./index.html").on('click', this.guestLoginEvent.bind(this))
         $('#signUpLink').prop('href', "./signup.html");
         $('#changePassword').prop('href', "./change-pass.html").on('click', this.changePassEvent.bind(this))
-
     }
 
     //chi tiết xử lý khi click nút "đăng nhập"
     loginEvent() {
         //lấy dữ liệu input và validate input
-        var validateCheck = loginJS.validateInput()
-        var usernameInput = $('#usernameInput').val().trim()
-        var passwordInput = $('#passwordInput').val().trim()
-            //nếu validate thành công
+        var validateCheck = loginJS.validateInput(),
+            usernameInput = $('#usernameInput').val().trim(),
+            passwordInput = $('#passwordInput').val().trim();
+        //nếu validate thành công
         if (validateCheck) {
             //khởi tạo data trước khi call api
             var userInput = { "userName": usernameInput, "passWord": passwordInput };
@@ -47,14 +42,13 @@ class LoginJS {
                 url: Enum.URL.HOST_URL + "api/UserAccount/LoginUserAccount",
                 data: JSON.stringify(userInput),
                 contentType: "application/json"
-
             }).done(function(res) {
                 //nếu response trả về success (response.success: true)
                 if (res.success) {
                     //khai báo biến và lấy giá trị userID
                     //lưu thông tin đăng nhập vào localStorage
-                    var user = res.data;
-                    var userID = user.userID;
+                    var user = res.data,
+                        userID = user.userID;
                     localStorage.setItem("user", JSON.stringify(user));
                     //gọi hàm getBorrowList()
                     loginJS.getBorrowList(userID);
@@ -88,17 +82,17 @@ class LoginJS {
     //chi tiết xử lý validate input của người dùng
     validateInput() {
         //lấy dữ liệu input
-        var usernameInput = $('#usernameInput').val().trim();
-        var passwordInput = $('#passwordInput').val().trim();
+        var usernameInput = $('#usernameInput').val().trim(),
+            passwordInput = $('#passwordInput').val().trim();
         //username chứa tối thiểu 5 kí tự và không có khoảng trắng
         //password chứa tối thiểu 5 kí tự và không có khoảng trắng
         if (!usernameInput || usernameInput.length < 5 ||
             !passwordInput || passwordInput.length < 5 ||
             usernameInput.includes(" ") ||
             passwordInput.includes(" ")) {
-            return false
+            return false;
         } else {
-            return true
+            return true;
         }
     }
 

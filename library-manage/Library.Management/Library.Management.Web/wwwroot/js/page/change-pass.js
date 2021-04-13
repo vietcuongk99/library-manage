@@ -1,20 +1,20 @@
 $(document).ready(function() {
-    changePassJS = new ChangePassJS()
+    changePassJS = new ChangePassJS();
 })
 
 //class quản lý các sự kiện trang change-pass.html
 class ChangePassJS {
     constructor() {
-        this.loadData()
-        this.initEvent()
+        this.loadData();
+        this.initEvent();
     }
     loadData() {}
 
     //gán sự kiện cho các thẻ liên quan trên trang change-pass.html
     initEvent() {
         //this = changePassJS object
-        $('#confirmBtn').on('click', this.updatePassEvent.bind(this))
-        commonJS.addEnterEvent(this.updatePassEvent)
+        $('#confirmBtn').on('click', this.updatePassEvent.bind(this));
+        commonJS.addEnterEvent(this.updatePassEvent);
     }
 
     //chi tiết xử lý khi click nút "thay đổi"
@@ -43,7 +43,7 @@ class ChangePassJS {
                     commonBaseJS.showToastMsgSuccess("Gửi mail chứa mã OTP thành công, vui lòng kiểm tra email.");
                     //mở trang confirm-otp
                     setTimeout(function() {
-                        window.open("confirm-otp.html", "_self")
+                        window.open("confirm-otp.html", "_self");
                     }, 2000);
                 } else {
                     commonBaseJS.showLoadingData(0);
@@ -63,25 +63,25 @@ class ChangePassJS {
     //chi tiết xử lý validate dữ liệu
     validateInput() {
         //khai báo và gán giá trị kết quả trả về
-        var result = true;
-        //khai báo và gán giá trị từ input người dùng
-        var emailInput = $('#emailInput').val().trim();
-        var passwordInput = $('#passwordInput').val().trim();
-        var rePasswordInput = $('#rePasswordInput').val().trim();
-        //self - invoked
-        //validate email, password của người dùng
-        var emailValid = (function validateEmail(email) {
-            var re = /\S+@\S+\.\S+/;
-            return re.test(email);
-        })(emailInput);
-        //password chứa tối thiểu 5 kí tự và không có khoảng trắng
-        var passwordValid = (function validatePassword(password) {
-            if (password.includes(" ")) {
-                return false
-            } else {
-                return password.length >= 5
-            }
-        })(passwordInput);
+        var result = true,
+            //khai báo và gán giá trị từ input người dùng
+            emailInput = $('#emailInput').val().trim(),
+            passwordInput = $('#passwordInput').val().trim(),
+            rePasswordInput = $('#rePasswordInput').val().trim(),
+            //self - invoked
+            //validate email, password của người dùng
+            emailValid = (function validateEmail(email) {
+                var re = /\S+@\S+\.\S+/;
+                return re.test(email);
+            })(emailInput),
+            //password chứa tối thiểu 5 kí tự và không có khoảng trắng
+            passwordValid = (function validatePassword(password) {
+                if (password.includes(" ")) {
+                    return false;
+                } else {
+                    return password.length >= 5;
+                }
+            })(passwordInput);
         //password và repassword phải trùng khớp
         if (passwordInput) {
             var rePasswordValid = (function validateRePassWord(rePassword, password) {
@@ -93,21 +93,21 @@ class ChangePassJS {
         if (!emailValid) {
             alertDiv = $(`<small id="alertEmailInput" class="form-text text-danger">Email chưa đúng định dạng.</small>`)
             if ($('#emailInput').next()) {
-                $('#emailInput').next().remove()
+                $('#emailInput').next().remove();
             }
-            $('#emailInputDiv').append(alertDiv)
+            $('#emailInputDiv').append(alertDiv);
             result = false;
         } else {
             if ($('#emailInput').next()) {
-                $('#emailInput').next().remove()
+                $('#emailInput').next().remove();
             }
         }
         if (!passwordValid) {
             alertDiv = $(`<small id="alertPasswordInput" class="form-text text-danger">Mật khẩu chứa tối thiểu 5 kí tự và không có khoảng trắng.</small>`)
             if ($('#passwordInput').next()) {
-                $('#passwordInput').next().remove()
+                $('#passwordInput').next().remove();
             }
-            $('#passwordInputDiv').append(alertDiv)
+            $('#passwordInputDiv').append(alertDiv);
             result = false;
         } else {
             if ($('#passwordInput').next()) {
@@ -117,13 +117,13 @@ class ChangePassJS {
         if (!rePasswordValid && passwordInput) {
             alertDiv = $(`<small id="alertRePassInput" class="form-text text-danger">Nhập lại mật khẩu chưa đúng.</small>`)
             if ($('#rePasswordInput').next()) {
-                $('#rePasswordInput').next().remove()
+                $('#rePasswordInput').next().remove();
             }
-            $('#rePasswordInputDiv').append(alertDiv)
+            $('#rePasswordInputDiv').append(alertDiv);
             result = false;
         } else {
             if ($('#rePasswordInput').next()) {
-                $('#rePasswordInput').next().remove()
+                $('#rePasswordInput').next().remove();
             }
         }
         return result;

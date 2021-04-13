@@ -45,10 +45,8 @@
             </div>
         </div>
     </nav>
-
     <!-- Page Content -->
     <div class="container mt-4">
-
         <!-- Page Heading/Breadcrumbs -->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -57,8 +55,7 @@
             <li class="breadcrumb-item active">Chi tiết sách</li>
             <li id="bookTitle" class="breadcrumb-item"></li>
         </ol>
-
-        <!-- Portfolio Item Row -->
+        <!-- Thông tin sách -->
         <div class="row">
             <!-- mượn, trả, gia hạn, tải tài liệu -->
             <div class="col-md-4">
@@ -119,37 +116,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <!-- /.row -->
-        <!-- sự kiện khi click nút Mượn sách -->
-        <!-- Modal -->
-        <!-- <div class="modal fade" id="modalBorrowBook" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Mượn sách</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div id="modalConfirm1" class="alert alert-success" role="alert" data-fade="3000" style="display: none;">
-                            Mượn thành công
-                        </div>
-                        <div id="returnDateDiv">
-                            <div class="row">
-                                <label for="returnDate" class="col-4">Ngày trả:</label>
-                                <input type="date" class="form-control col-7" id="returnDate">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="dismissBorrowBtn" class="btn btn-outline-secondary">Hủy</button>
-                        <button id="confirmBorrowBtn" class="btn btn-success">Xác nhận</button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-        <!-- sự kiện khi click nút Trả sách -->
+        <!-- modal sự kiện khi click nút Trả sách -->
         <!-- Modal -->
         <div class="modal fade" id="modalReturnBook" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -159,11 +127,11 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-4">
-                                <p>Ngày trả:</p>
+                            <div class="col-6">
+                                <p class="p-custom">Ngày trả cố định:</p>
                             </div>
-                            <div class="col-7">
-                                <p id="returnDateValue">22/12/2020</p>
+                            <div class="col-6">
+                                <p id="returnDateValue"></p>
                             </div>
                         </div>
                     </div>
@@ -174,8 +142,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- sự kiện khi click nút Gia hạn-->
+        <!-- modal sự kiện khi click nút Gia hạn-->
         <!-- Modal -->
         <div class="modal fade" id="modalExtendDate" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -187,7 +154,7 @@
                         <div class="form-group">
                             <div id="oldReturnDateDiv" class="row">
                                 <div class="col-5">
-                                    <p>Ngày trả cũ:</p>
+                                    <p class="p-custom">Ngày trả cũ:</p>
                                 </div>
                                 <div class="col-6">
                                     <p id="oldReturnDate"></p>
@@ -195,7 +162,7 @@
                             </div>
                             <div id="newReturnDateDiv" class="row mt-1">
                                 <div class="col-5">
-                                    <p>Ngày trả mới:</p>
+                                    <p class="p-custom">Ngày trả mới:</p>
                                 </div>
                                 <div class="col-6">
                                     <p id="newReturnDate"></p>
@@ -210,8 +177,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- sự kiện khi click nút Hủy mượn sách-->
+        <!-- modal sự kiện khi click nút Hủy mượn sách-->
         <!-- Modal -->
         <div class="modal fade" id="modalCancelBorrow" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -221,7 +187,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <p>Bạn có muốn thực hiện thao tác này?</p>
+                            <p class="p-custom">Bạn có muốn thực hiện thao tác này?</p>
                         </div>
                     </div>
                     <div class="modal-footer">

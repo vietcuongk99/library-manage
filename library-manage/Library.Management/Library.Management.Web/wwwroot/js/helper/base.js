@@ -1,5 +1,3 @@
-//biến global lưu danh sách mượn hiện tại của user
-//var userBorrowList = {}
 $(document).ready(function() {
 
 })

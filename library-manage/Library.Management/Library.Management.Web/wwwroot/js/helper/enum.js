@@ -1,5 +1,10 @@
 //enum 
 var Enum = {
+    //Trạng thái
+    Status: {
+        INVALID: 0,
+        VALID: 1
+    },
     //format chuỗi date
     ConvertOption: {
         //năm đứng trước
