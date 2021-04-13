@@ -206,7 +206,7 @@ class BookManager {
             <div class="card h-100" bookId="${book.bookID}">
                 <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 23rem;">
                     <div class="card-body">
-                        <p class="card-title text-truncate text-uppercase text-center">` + book.bookName + `</b>
+                        <p class="card-title text-truncate text-uppercase text-center">` + `<b>` +  book.bookName +  `</b>` +`</b>
                         <p class="text-truncate text-center">` + book.bookAuthor + `</p>
                     </div>
                 </div>`)
