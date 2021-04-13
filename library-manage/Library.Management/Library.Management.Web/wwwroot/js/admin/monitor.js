@@ -62,7 +62,7 @@ class Monitor {
                     var options = {
                         animationEnabled: true,
                         title: {
-                            text: "SO LUONG SACH THEO DANH MUC"
+                            text: ""
                         },
                         axisY: {
                             title: "Số lượng sách",

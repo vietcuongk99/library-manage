@@ -74,10 +74,14 @@ a:-webkit-any-link {
     cursor: pointer;
 }
 
-a:hover {
-    color: #0d3663;
-    text-decoration: none;
+.configText a:-webkit-any-link {
+    color: #28a745;
 }
+
+    a:hover {
+        color: #0d3663;
+        text-decoration: none;
+    }
 
 
 /* xử lý thẻ input */

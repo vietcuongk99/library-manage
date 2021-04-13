@@ -29,8 +29,8 @@ class BaseJS {
             <img id="userAvatarNav" class="avatar-icon"></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAvatar">
                 <p class="dropdown-item" style="font-weight: bold;">` + userName + `</p>
-                <a class="dropdown-item" href="/page/account.html">Chi tiết tài khoản</a>
-                <a class="dropdown-item" href="/page/login.html">Đăng xuất</a>
+                <a class="dropdown-item" href="/page/account.html" style="font-size: 15px;">Chi tiết tài khoản</a>
+                <a class="dropdown-item" href="/page/login.html" style="font-size: 15px;">Đăng xuất</a>
             </div>
             </li>`;
             //thêm đường dẫn tới trang search-result

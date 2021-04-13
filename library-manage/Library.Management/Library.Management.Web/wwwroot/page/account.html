@@ -247,52 +247,42 @@
                     </div>
                     <div class="modal-body">
                         <!-- form điền thông tin -->
-                        <div id="firstNameDiv">
-                            <div class="row mb-1">
-                                <label for="firstNameInput" class="col-4">Họ và tên đệm (<span class="label-required">*</span>)</label>
-                                <input id="firstNameInput" type="text" class="form-control col-6" placeholder="...">
+                        <div class="row">
+                            <div class="col-6 col-md-6 mb-2 configPopUp" id="firstNameDiv">
+                                <label for="firstNameInput" >Họ và tên đệm <span class="label-required">*</span></label>
+                                <input id="firstNameInput" type="text" class="form-control">
+                            </div>
+                            <div class="col-6 col-md-6 mb-2 configPopUp" id="lastNameDiv">
+                                <label for="lastNameInput">Tên <span class="label-required">*</span></label>
+                                <input id="lastNameInput" type="text" class="form-control " >
                             </div>
                         </div>
-                        <div id="lastNameDiv">
-                            <div class="row mb-1">
-                                <label for="lastNameInput" class="col-4">Tên (<span class="label-required">*</span>)</label>
-                                <input id="lastNameInput" type="text" class="form-control col-6" placeholder="...">
+                        <div class="row">
+                            <div class="col-5 col-md-5 mb-2 configPopUp" id="emailDiv">
+                                <label for="emailInput">Địa chỉ email <span class="label-required">*</span></label>
+                                <input id="emailInput" type="email" class="form-control " placeholder="abc@gmail.com">
+                            </div>
+                            <div class="col-3 col-md-3 mb-2 configPopUp" id="ageDiv">
+                                <label for="ageInput" >Tuổi</label>
+                                <input id="ageInput" type="number" class="form-control " placeholder="0">
+                            </div>
+                            <div class="col-4 col-md-4 mb-2 configPopUp" id="countryDiv">
+                                <label for="countryInput" >Quốc gia</label>
+                                <input id="countryInput" type="text" class="form-control " >
                             </div>
                         </div>
-                        <div id="emailDiv">
-                            <div class="row mb-1">
-                                <label for="emailInput" class="col-4">Địa chỉ email (<span class="label-required">*</span>)</label>
-                                <input id="emailInput" type="email" class="form-control col-6" placeholder="abc@gmail.com">
+                        <div class="row">
+                            <div class="col-4 col-md-4 mb-2 configPopUp" id="provinceDiv">
+                                <label for="provinceInput" >Tỉnh/Thành phố</label>
+                                <input id="provinceInput" type="text" class="form-control " >
                             </div>
-                        </div>
-                        <div id="ageDiv">
-                            <div class="row mb-1">
-                                <label for="ageInput" class="col-4">Tuổi</label>
-                                <input id="ageInput" type="number" class="form-control col-2" placeholder="0">
+                            <div class="col-4 col-md-4 mb-2 configPopUp" id="districtDiv">
+                                <label for="districtInput">Quận/Huyện</label>
+                                <input id="districtInput" type="text" class="form-control " >
                             </div>
-                        </div>
-                        <div id="countryDiv">
-                            <div class="row mb-1">
-                                <label for="countryInput" class="col-4">Quốc gia</label>
-                                <input id="countryInput" type="text" class="form-control col-6" placeholder="...">
-                            </div>
-                        </div>
-                        <div id="provinceDiv">
-                            <div class="row mb-1">
-                                <label for="provinceInput" class="col-4">Tỉnh/Thành phố</label>
-                                <input id="provinceInput" type="text" class="form-control col-6" placeholder="...">
-                            </div>
-                        </div>
-                        <div id="districtDiv">
-                            <div class="row mb-1">
-                                <label for="districtInput" class="col-4">Quận/Huyện</label>
-                                <input id="districtInput" type="text" class="form-control col-6" placeholder="...">
-                            </div>
-                        </div>
-                        <div id="wardDiv">
-                            <div class="row mb-1">
-                                <label for="wardInput" class="col-4">Xã/Phường</label>
-                                <input id="wardInput" type="text" class="form-control col-6" placeholder="...">
+                            <div class="col-4 col-md-4 mb-2 configPopUp" id="wardDiv">
+                                <label for="wardInput" >Xã/Phường</label>
+                                <input id="wardInput" type="text" class="form-control " >
                             </div>
                         </div>
                     </div>
@@ -315,21 +305,21 @@
                     <div class="modal-body">
                         <!-- form điền thông tin -->
                         <div id="passwordDiv">
-                            <div class="row mb-1">
-                                <label for="passwordInput" class="col-4">Mật khẩu cũ (<span class="label-required">*</span>)</label>
-                                <input id="passwordInput" type="password" class="form-control col-6" placeholder="...">
+                            <div class="row mb-2 configPopUp">
+                                <label for="passwordInput" class="col-4">Mật khẩu cũ <span class="label-required">*</span></label>
+                                <input id="passwordInput" type="password" class="form-control col-7">
                             </div>
                         </div>
                         <div id="newPasswordDiv">
-                            <div class="row mb-1">
-                                <label for="newPasswordInput" class="col-4">Mật khẩu mới (<span class="label-required">*</span>)</label>
-                                <input id="newPasswordInput" type="password" class="form-control col-6" placeholder="...">
+                            <div class="row mb-2 configPopUp">
+                                <label for="newPasswordInput" class="col-4">Mật khẩu mới <span class="label-required">*</span></label>
+                                <input id="newPasswordInput" type="password" class="form-control col-7">
                             </div>
                         </div>
                         <div id="reNewPasswordDiv">
-                            <div class="row mb-1">
-                                <label for="reNewPasswordInput" class="col-4">Nhập lại mật khẩu mới (<span class="label-required">*</span>)</label>
-                                <input id="reNewPasswordInput" type="password" class="form-control col-6" placeholder="">
+                            <div class="row mb-2 configPopUp">
+                                <label for="reNewPasswordInput" class="col-4">Xác nhận mật khẩu <span class="label-required">*</span></label>
+                                <input id="reNewPasswordInput" type="password" class="form-control col-7">
                             </div>
                         </div>
                     </div>

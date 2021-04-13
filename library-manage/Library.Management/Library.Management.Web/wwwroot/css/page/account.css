@@ -27,3 +27,12 @@
     background-color: #343a40;
     border-color: black;
 }
+.configPopUp {
+    align-items: center;
+}
+    #modalUpdateInfor .modal-dialog {
+        max-width: 630px;
+    }
+input{
+    font-size: 14px !important;
+}
