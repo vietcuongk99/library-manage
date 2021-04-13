@@ -179,8 +179,7 @@ class BookBorrow {
         }
         
         $.each(subData, function (index, request) {
-            //var dateDiff = Math.floor((new Date(request.returnDate) - nowDate) / (1000 * 60 * 60 * 24))
-            var dateDiff = Math.ceil((new Date(request.returnDate) - nowDate) / (1000 * 60 * 60 * 24)),
+            var dateDiff = Math.floor((new Date(request.returnDate) - nowDate) / (1000 * 60 * 60 * 24)),
                 classWarning = (dateDiff >= 0) ? ((dateDiff > 2) ? 'alert-success' : 'alert-warning') : 'alert-danger';
 
             var elementHTML = `<div class="item-book-borrow" borrowID="${request.bookBorrowID}">

@@ -147,7 +147,6 @@ class AccountJS extends BaseJS {
                         .css('top', e.pageY - 25)
                         .css('left', e.pageX + 50);
                     $('#popUpDiv > .row > div > p, h5').css('font-size', '14px');
-                    $('#borrowWarning > div').css('font-size', '14px');
                 });
             } else {
                 //thêm giao diện hiển thị list rỗng
@@ -582,10 +581,10 @@ class AccountJS extends BaseJS {
         if (borrowData.borrowStatus == Enum.Status.VALID) {
             if (borrowData.bookBorrowStatus == Enum.Status.VALID) {
                 var dateNow = new Date(),
-                    dateDiff = Math.ceil((new Date(borrowData.returnDate) - dateNow) / (1000 * 60 * 60 * 24)),
+                    dateDiff = Math.floor((new Date(borrowData.returnDate) - dateNow) / (1000 * 60 * 60 * 24)),
                     classWarning = (dateDiff >= 0) ? ((dateDiff > 2) ? 'alert-success' : 'alert-warning') : 'alert-danger',
-                    txtWarning = (dateDiff >= 0) ? ("Thời hạn còn " + dateDiff + " ngày") : "Quá hạn",
-                    divWarning = $(`<div class="alert ` + classWarning + `">` + txtWarning + `</div>`)
+                    txtWarning = (dateDiff >= 0) ? ("Thời hạn mượn còn " + dateDiff + " ngày") : "Quá hạn trả " + Math.abs(dateDiff) + " ngày",
+                    divWarning = $(`<div class="alert ` + classWarning + `" style="font-size: 14px;">` + txtWarning + `</div>`)
                 borrowStatusTxt = "Đang mượn";
                 borrowDate = commonJS.getDateString(new Date(borrowData.borrowDate), Enum.ConvertOption.DAY_FIRST);
                 returnDate = commonJS.getDateString(new Date(borrowData.returnDate), Enum.ConvertOption.DAY_FIRST);
