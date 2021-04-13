@@ -210,13 +210,14 @@
 
 .checkedBook {
     box-shadow: rgb(0 0 0) 0px 0px 10px;
-    border-color: black;
+    border-color: #676a6c;
 }
 
 #bookCategory {
     height: 31px !important;
     border-radius: 3px;
     font-size: 13px;
+    padding: 5px;
 }
 
 .modal input {

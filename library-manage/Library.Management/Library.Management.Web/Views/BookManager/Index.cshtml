@@ -3,17 +3,17 @@
 }
 
 @section css{
-<link href="~/css/admin/page/bookManager.css" rel="stylesheet" />
+    <link href="~/css/admin/page/bookManager.css" rel="stylesheet" />
 }
 @section scripts
 {
-<script src="~/js/admin/bookManager.js" asp-append-version="true"></script>
-<script src="~/js/admin/validate.js" asp-append-version="true"></script>
-<script src="~/js/admin/modalBookDetail.js" asp-append-version="true"></script>
-<script src="~/js/page/book-detail.js" asp-append-version="true"></script>
-<script src="~/js/base/commonBase.js" asp-append-version="true"></script>
-<!-- Pagination Jquery Plugin -->
-<script src="~/js/lib/twbs-pagination-1.4.1/jquery.twbsPagination.min.js"  asp-append-version="true"></script>
+    <script src="~/js/admin/bookManager.js" asp-append-version="true"></script>
+    <script src="~/js/admin/validate.js" asp-append-version="true"></script>
+    <script src="~/js/admin/modalBookDetail.js" asp-append-version="true"></script>
+    <script src="~/js/page/book-detail.js" asp-append-version="true"></script>
+    <script src="~/js/base/commonBase.js" asp-append-version="true"></script>
+    <!-- Pagination Jquery Plugin -->
+    <script src="~/js/lib/twbs-pagination-1.4.1/jquery.twbsPagination.min.js" asp-append-version="true"></script>
 }
 
 <div class="main-container">
@@ -45,18 +45,14 @@
         </div>
     </div>
 
-    <ol class="breadcrumb" style="background: center;">
+    <!-- kết quả tìm kiếm -->
+    <div id="searchResultDiv">
+    </div>
+    <ol class="breadcrumb" style="background: center; margin-bottom: 40px;">
         <!-- thanh phân trang -->
         <div id="pagingDiv" class="pagination-sm ml-auto">
         </div>
     </ol>
-
-
-    <!-- kết quả tìm kiếm -->
-    <div id="searchResultDiv">
-
-    </div>
-
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

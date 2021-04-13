@@ -196,7 +196,7 @@ class BookManager {
 
     static appendDataToHTML(data, selector) {
 
-        var row = $(`<div class="row mt-2"></div>`)
+        var row = $(`<div class="row mt-2 mb-3"></div>`)
         data.forEach(book => {
 
             var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
