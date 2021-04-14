@@ -578,6 +578,7 @@ class AccountJS extends BaseJS {
             borrowStatusTxt = "",
             borrowDate = "",
             returnDate = "";
+        $('#borrowWarning').children().remove();
         if (borrowData.borrowStatus == Enum.Status.VALID) {
             if (borrowData.bookBorrowStatus == Enum.Status.VALID) {
                 var dateNow = new Date(),

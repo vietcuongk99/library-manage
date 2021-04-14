@@ -150,17 +150,25 @@
                     <!-- Sách đang mượn -->
                     <div class="tab-pane fade" id="list-library-content" role="tabpanel" aria-labelledby="list-library-list">
                         <nav class="navbar navbar-light bg-light">
-                            <form class="form-inline">
-                                <input id="searchInput" class="form-control mr-5" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm">
-                                <select id="filterDate" class="custom-select mr-5">
-                                    <option value="0">Ngày mượn</option>
-                                    <option value="1">Ngày trả</option>
-                                </select>
-                                <select id="filterValue" class="custom-select">
-                                    <option value="0">Tăng dần</option>
-                                    <option value="1">Giảm dần</option>
-                                </select>
-                            </form>
+                            <input id="searchInput" class="form-control mr-5 w-25" type="search" placeholder="Tên sách" aria-label="Tìm kiếm">
+                            <div class="form-inline float-right">
+                                <select id="borrowStatusFilter" class="custom-select custom-select-sm mr-1">
+                                        <option value="0" selected>Trạng thái</option>
+                                        <option value="1">Đang mượn</option>
+                                        <option value="2">Quá hạn</option>
+                                        <option value="3">Chờ mượn sách</option>
+                                    </select>
+                                <select id="sortNameSelect" class="custom-select custom-select-sm mr-1">
+                                        <option value="0" selected>Sắp xếp theo</option>
+                                        <option value="1">Ngày mượn</option>
+                                        <option value="2">Ngày trả</option>
+                                    </select>
+                                <select id="sortTypeSelect" class="custom-select custom-select-sm">
+                                        <option value="0" selected>Cấp độ</option>
+                                        <option value="1">Tăng dần</option>
+                                        <option value="2">Giảm dần</option>
+                                    </select>
+                            </div>
                         </nav>
                         <!-- danh sách mượn -->
                         <div id="borrowListContent">
@@ -175,9 +183,9 @@
         <!-- Modal -->
         <div class="modal fade" id="modalUpdateAvatar" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Cập nhật ảnh đại diện</h5>
+                <div class="modal-content p-2">
+                    <div class="modal-header border-bottom-0">
+                        <h5 class="modal-title font-weight-bold">Cập nhật ảnh đại diện</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -185,14 +193,13 @@
                     <div class="modal-body text-center">
                         <img id="previewImg" src="../content/img/avatar-sample.png" class="rounded-circle border border-dark">
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer border-top-0">
                         <button id="dismissModal" type="button" data-dismiss="modal" class="btn btn-outline-secondary">Hủy bỏ</button>
                         <button id="confirmImg" class="btn btn-success">Xác nhận</button>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- sự kiện khi click nút Cập nhật (thông tin tài khoản)-->
         <!-- Modal -->
         <div class="modal fade" id="modalUpdateInfor" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
@@ -249,7 +256,6 @@
                 </div>
             </div>
         </div>
-
         <!-- sự kiện khi click nút Cập nhật (mật khẩu)-->
         <!-- Modal -->
         <div class="modal fade" id="modalUpdatePassword" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">

@@ -14,7 +14,6 @@ var commonJS = {
         let dateAsString = date.toISOString().substr(0, 19);
         return dateAsString;
     },
-
     //thêm ngày cho thời gian hiện tại
     //sử dụng trong trang book-detail
     addDayToDate(date, day) {
@@ -25,7 +24,6 @@ var commonJS = {
         }
         return new Date(date);
     },
-
     //convert từ date sang string chứa ngày-tháng-năm
     //sử dụng trong trang book-detail
     getDateString(date, option) {
@@ -42,7 +40,6 @@ var commonJS = {
         }
         return dateString;
     },
-
     //convert từ date sang string chứa ngày-tháng-năm và giờ-phút
     //sử dụng trong trang book-detail
     getDateTimeString(date) {
@@ -55,7 +52,6 @@ var commonJS = {
             " lúc " + timeComment.getHours() + ":" + timeMinutes;
         return timeCommentConvert;
     },
-
     //append dữ liệu vào thẻ card
     //sử dụng trong trang index, search
     appendBookDataToCard(data, selector) {
@@ -77,7 +73,6 @@ var commonJS = {
         })
         $(selector).html(row);
     },
-
     //append dữ liệu sách cùng thể loại vào thẻ card
     //sử dụng trong trang book-detail
     appendSameCategoryBookToCard(data, selector, currentBookID) {
@@ -108,7 +103,6 @@ var commonJS = {
         }
         $(selector).html(row);
     },
-
     //append dữ liệu sách đang mượn vào thẻ card
     //sử dụng trong trang account
     appendBorrowDataToCard(data, selector) {
@@ -134,7 +128,6 @@ var commonJS = {
         })
         $(selector).html(row);
     },
-
     //append dữ liệu comment
     //sử dụng trong trang book-detail
     appendCommentData(data) {
@@ -147,16 +140,13 @@ var commonJS = {
             var commentHTML = $(`<div class="media mb-4">
                                     <img class="d-flex mr-3 rounded-circle avatar-comment" src=` + avatarBase64String + ` alt="">
                                     <div class="media-body">
-                                        <h5 class="mt-0">` + comment.userName + `</h5>
-                                        ` + comment.comment + `<br><small class="mt-1">` + timeComment + `</small>
-                                    </div>
+                                    <div class="row"><h5 class="mt-0 mx-3">` + comment.userName + `</h5><small class="mt-1">` + timeComment + `</small></div>` + comment.comment + `</div>
                                 <div>`);
             commentHTML.data('commentId', comment.commentId);
             commentGroupDiv.append(commentHTML);
         })
         $('#commentContentDiv').html(commentGroupDiv);
     },
-
     //gán sự kiện khi ấn nút enter
     //sử dụng trong trang login, signup, change-pass
     addEnterEvent(action) {
@@ -170,7 +160,6 @@ var commonJS = {
             }
         });
     },
-
     //lấy giá trị tham số trên url
     //sử dụng trong trang book-detail, search
     getURLParameter(sPageURL, option, sParam) {
@@ -190,7 +179,6 @@ var commonJS = {
             }
         }
     },
-
     //lấy số sách đang mượn hiện tại của người dùng
     //sử dụng trong trang book-detail
     getBorrowListSize() {
@@ -199,7 +187,6 @@ var commonJS = {
         //lấy ra số lượng sách đang mượn
         return borrowList.length;
     },
-
     //kiểm tra sách hiện tại có đang mượn hay không
     //sử dụng trong trang book-detail
     checkValidBookBorrow(bookId) {
@@ -227,7 +214,6 @@ var commonJS = {
         }
         return result;
     },
-
     //lưu danh sách mượn của người dùng vào localStorage
     //sử dụng trong trang book-detail, account
     saveBorrowListToLocal(data) {
@@ -244,7 +230,6 @@ var commonJS = {
         //lưu borrowList vào local storage
         localStorage.setItem("borrowList", JSON.stringify(bookBorrowList));
     },
-
     //gán danh sách loại sách vào thành phần HTML
     //sử dụng trong trang search
     appendCategoryListToHTML(list, selectorID) {
@@ -257,7 +242,6 @@ var commonJS = {
             selector.append(optionHTML);
         });
     },
-
     //build url
     //sử dụng cho trang search
     buildUrlSearchPage(searchValue, searchType, categoryID, startYear, finishYear, sortName, sortType) {
@@ -285,7 +269,6 @@ var commonJS = {
         }
         return url;
     },
-
     //thêm ui hiển thị danh sách rỗng
     //sử dụng ở trang index, search, account, book-detail
     addEmptyListHTML(title, parentElementID, subElement) {

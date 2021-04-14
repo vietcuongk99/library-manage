@@ -38,9 +38,6 @@
                     <li id="aboutBtn" class="nav-item">
                         <a class="nav-link" href="about.html">Thông tin</a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="services.html">Tính năng</a>
-                    </li> -->
                 </ul>
             </div>
         </div>
@@ -122,7 +119,7 @@
         <div class="modal fade" id="modalReturnBook" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header border-bottom-0">
                         <h5 class="modal-title">Xác nhận trả sách</h5>
                     </div>
                     <div class="modal-body">
@@ -135,7 +132,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer border-top-0">
                         <button id="dismissReturnBtn" class="btn btn-outline-secondary">Hủy bỏ</button>
                         <button id="confirmReturnBtn" class="btn btn-success">Xác nhận</button>
                     </div>
@@ -182,15 +179,13 @@
         <div class="modal fade" id="modalCancelBorrow" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header border-bottom-0">
                         <h5 class="modal-title">Hủy yêu cầu mượn sách</h5>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <p class="p-custom">Bạn có muốn thực hiện thao tác này?</p>
-                        </div>
+                        <label>Bạn có muốn thực hiện thao tác này?</label>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer border-top-0">
                         <button id="dismissCancelBtn" class="btn btn-outline-secondary">Hủy bỏ</button>
                         <button id="confirmCancelBtn" class="btn btn-success">Xác nhận</button>
                     </div>
@@ -199,7 +194,7 @@
         </div>
         <!-- Sách cùng thể loại -->
         <h3 class="mt-5 d-inline-flex align-middle">Sách cùng thể loại</h3>
-        <button id="showSameCategoryBook" type="button" class="btn btn-outline-success btn-sm d-inline ml-1 mt-5 align-middle">Xem thêm</button>
+        <button id="showSameCategoryBook" type="button" class="btn btn-success btn-sm d-inline ml-1 mt-5 align-middle">Xem thêm</button>
         <div id="sameCategoryBookDiv">
             <!-- các sách cùng thể loại -->
         </div>
