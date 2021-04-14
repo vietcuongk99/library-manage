@@ -71,7 +71,6 @@ class BookDetailJS extends BaseJS {
                 //gọi hàm load tên loại sách và sách cùng loại
                 bookDetailJS.loadBookCategoryName(categoryID);
                 bookDetailJS.loadSameCategoryBooks(categoryID);
-
                 //lấy ra đường dẫn file pdf của sách và gán cho biến toàn cục
                 bookDownloadUrl = data.bookDownloadUri;
             } else {
@@ -764,19 +763,27 @@ class BookDetailJS extends BaseJS {
                     url: Enum.URL.HOST_URL + "api/UserComment/CommentBookDetailActivation",
                     async: true,
                     contentType: "application/json",
-                    data: JSON.stringify(data)
+                    data: JSON.stringify(data),
+                    beforeSend: function() {
+                        //hiện loading
+                        commonBaseJS.showLoadingData(1);
+                    }
                 }).done(function(res) {
                     if (res.success) {
                         //reset nội dung comment
                         $('#commentInput').val("");
-                        //show alert
-                        commonBaseJS.showToastMsgSuccess(res.message);
                         //gọi hàm loadBookComment cập nhật nội dung mới nhất
                         bookDetailJS.loadBookComment();
+                        //ẩn loading
+                        commonBaseJS.showLoadingData(0);
+                        //show alert
+                        commonBaseJS.showToastMsgSuccess(res.message);
                     } else {
+                        commonBaseJS.showLoadingData(0);
                         commonBaseJS.showToastMsgFailed(res.message);
                     }
                 }).fail(function(res) {
+                    commonBaseJS.showLoadingData(0);
                     commonBaseJS.showToastMsgFailed("Không thể gửi bình luận.");
                 })
             }
