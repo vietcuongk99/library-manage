@@ -20,10 +20,8 @@
     <div class="toolbar">
         <div class="toolbar-left">
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <select id="searchSelectGroup" class="custom-select custom-select-sm ml-1">
-                        <option value="0" selected>Tất cả</option>
-                    </select>
+                <div class="input-group-prepend custom-select btn-more-search">
+                    Bộ lọc
                 </div>
                 <input type="text" class="form-control searchInp" placeholder="Tìm kiếm...">
                 <div class="input-group-append">
@@ -41,16 +39,16 @@
                 Nhập khẩu
             </button>
 
-            <button class="btn btn-outline-secondary btnToolbar btnDelete fa fa-trash-o" title="Xóa"></button>
+            <button class="btn btn-outline-secondary btnDelete fa fa-trash-o" title="Xóa"></button>
         </div>
     </div>
 
     <!-- kết quả tìm kiếm -->
     <div id="searchResultDiv">
     </div>
-    <ol class="breadcrumb" style="background: center; margin-bottom: 40px;">
+    <ol class="breadcrumb pagingConfig" style="background: center; margin-bottom: 40px; justify-content: center;">
         <!-- thanh phân trang -->
-        <div id="pagingDiv" class="pagination-sm ml-auto">
+        <div id="pagingDiv" class="pagination-sm">
         </div>
     </ol>
     <!-- Modal -->
@@ -78,6 +76,82 @@
                     <button type="button" class="btn btn-primary" id="btn-import">Nhập khẩu</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <h3 class="modal-title">Xóa sách</h3>
+                </div>
+                <div class="modal-body">
+                    <label>Bạn có muốn xóa những cuốn sách đã chọn không?</label>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button data-dismiss="modal" class="btn btn-outline-secondary">Hủy bỏ</button>
+                    <button id="confirmDeleteBook" class="btn btn-success">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pop-up-search" style="display: none;">
+        <div class="filter-search">
+            <div style="display:flex">
+                <div class="w-50" style="margin-right: 4px;">
+                    <label>Lọc theo:</label>
+                    <select id="searchTypeSelect" class="custom-select custom-select-sm">
+                        <option value="1" selected>Tên sách</option>
+                        <option value="2">Tác giả</option>
+                    </select>
+                </div>
+                <!-- chọn loại sách -->
+                <div class="w-50" style="margin-left: 4px;">
+                    <label>Thể loại:</label>
+                    <select id="searchSelectGroup" class="custom-select custom-select-sm">
+                        <option value="0" selected>Tất cả</option>
+                    </select>
+                </div>
+            </div>
+            <div class="w-100" style="margin: 8px 0px;">
+                <label>Tùy chọn khác: </label>
+                <div style="display: flex">
+                    <!-- chọn năm xuất bản -->
+                    <div id="yearPublishSelect" class="btn-group btn-group-sm w-35" style="margin-right: 4px;">
+                        <button type="button" class="btn btn-light border-light dropdown-toggle" data-toggle="dropdown" style="background-color: white;">
+                            Năm xuất bản
+                        </button>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item d-inline-block form-inline">
+                                <input id="startYearInput" class="form-control form-control-sm" type="number" placeholder="Bắt đầu">
+                                <input id="finishYearInput" class="form-control form-control-sm" type="number" placeholder="Kết thúc">
+                            </div>
+                        </div>
+                    </div>
+                    <select id="sortNameSelect" class="custom-select custom-select-sm w-35" style="margin: 0px 4px;">
+                        <option value="0" selected>Sắp xếp theo</option>
+                        <option value="1">Mới nhất</option>
+                        <option value="2">Số lượt mượn</option>
+                    </select>
+                    <select id="sortTypeSelect" class="custom-select custom-select-sm w-30" style="margin-left: 4px;">
+                        <option value="0" selected>Cấp độ</option>
+                        <option value="1">Giảm dần</option>
+                        <option value="2">Tăng dần</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="toolbar-search">
+            <button type="button" class="btn btnToolbar btnClose btn-outline-dark">
+                Hủy
+            </button>
+            <button type="button" class="btn btnToolbar btnCancel btn-outline-info">
+                Bỏ lọc
+            </button>
+            <button type="button" class="btn btnToolbar btnApply btn-success">
+                Áp dụng
+            </button>
         </div>
     </div>
 

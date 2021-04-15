@@ -33,18 +33,22 @@
     display: flex;
     justify-content: space-between;
 }
-.custom-select {
-    height: 35px !important;
-    border-radius: 3px 0px 0px 3px;
-    font-size: 13px;
-}
+
 .btnToolbar {
     margin-left: 8px !important;
+    min-width: 70px;
+}
+
+.custom-select {
+    height: 35px !important;
+    border-radius: 3px;
+    font-size: 13px;
 }
 
 .btnDelete {
-    width: 36px;
-    height: 36px;
+    margin-left: 8px !important;
+    width: 36px !important;
+    height: 36px !important;
 }
 
 .cbxBookDetail {
@@ -56,82 +60,6 @@
     height: 35px !important;
     width: 270px !important;
     border: 1px solid #ced4da;
-}
-
-#loader {
-    opacity: 1 !important;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 1;
-    width: 120px;
-    height: 120px;
-    margin: -76px 0 0 -76px;
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid blue;
-    border-right: 16px solid blue;
-    border-bottom: 16px solid blue;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-}
-
-@-webkit-keyframes spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-    }
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/* Add animation to "page content" */
-.animate-bottom {
-    position: relative;
-    -webkit-animation-name: animatebottom;
-    -webkit-animation-duration: 1s;
-    animation-name: animatebottom;
-    animation-duration: 1s
-}
-
-@-webkit-keyframes animatebottom {
-    from {
-        bottom: -100px;
-        opacity: 0
-    }
-
-    to {
-        bottom: 0px;
-        opacity: 1
-    }
-}
-
-@keyframes animatebottom {
-    from {
-        bottom: -100px;
-        opacity: 0
-    }
-
-    to {
-        bottom: 0;
-        opacity: 1
-    }
-}
-
-.loading {
-    opacity: 0.9;
-    pointer-events: none;
 }
 
 #modalAddBook > .modal-dialog {
@@ -236,4 +164,31 @@ label {
     display: inline-block;
     margin-bottom: 2px;
     font-weight: 500;
+}
+
+div#pop-up-search {
+    display: none;
+    position: absolute;
+    width: 450px;
+    padding: 10px;
+    background: #eeeeee;
+    color: #000000;
+    border: 1px solid #cecece;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 5px;
+    font-size: 90%;
+    border-radius: 3px;
+    display: block;
+}
+
+.btn-more-search {
+    height: 35px !important;
+    border-radius: 3px 0px 0px 3px;
+    font-size: 13px;
+    width: 90px !important;
+}
+
+.toolbar-search {
+    margin-top: 8px;
+    width: 100%;
+    text-align: right;
 }

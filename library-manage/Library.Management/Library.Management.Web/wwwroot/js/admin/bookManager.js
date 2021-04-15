@@ -24,9 +24,20 @@ class BookManager {
 
     static loadData() {
         var self = this,
-            searchValue = $('.searchInp').val(),
+            searchValue = $('.searchInp').val().trim(),
             categoryID = $('#searchSelectGroup option:selected').data('id'),
-            searchURL = commonJS.buildUrlSearchPage(searchValue, 1, categoryID, 0, 0, 0, 0);
+            //lấy lựa chọn tìm kiếm hiện tại
+            searchType = $('#searchTypeSelect option:selected').val(),
+            //lấy id loại sách cần lọc
+            categoryID = $('#categorySelect option:selected').data('id'),
+            //lấy khoảng năm xuất bản cần lọc
+            startYear = $('#startYearInput').val(),
+            finishYear = $('#finishYearInput').val(),
+            //lấy lựa chọn sắp xếp cần lọc
+            sortName = $('#sortNameSelect option:selected').val(),
+            //lấy kiểu sắp xếp cần lọc
+            sortType = $('#sortTypeSelect option:selected').val(),
+            searchURL = commonJS.buildUrlSearchPage(searchValue, searchType, categoryID, startYear, finishYear, sortName, sortType);
 
         $('#searchResultDiv').empty();
 
@@ -54,7 +65,7 @@ class BookManager {
 
                     //gọi hàm loadPaginationSearchResult
                     //phân trang dữ liệu
-                    BookManager.loadPaginationSearchResult(totalPages, searchValue);
+                    BookManager.loadPaginationSearchResult(totalPages, searchURL);
                 }
                 else {
                     var row = $(`<div class="row mt-2"><h2>Không tìm thấy dữ liệu</h2></div>`);
@@ -75,9 +86,9 @@ class BookManager {
         $(".downloadTemplateFile").on('click', this.downloadTemplateFile.bind(this));
         $("#btn-import").on('click', this.uploadFileImport.bind(this));
         $(".btnDelete").on('click', this.onClickDelete.bind(this));
+        $("#confirmDeleteBook").on('click', this.confirmDeleteBook.bind(this));
         $(".btnAdd").on('click', this.onShowModal.bind(this));
         $(".fa-search").on('click', this.onclickSearch.bind(this));
-        $('#searchSelectGroup').on('change', this.onclickSearch.bind(this));
         $(".check-file-upload").on("change", function () {
             let filename = $(this).val().split("\\").pop();
             if (filename == '') {
@@ -111,6 +122,29 @@ class BookManager {
         })
         .on("dblclick", function (e) {
             e.preventDefault();  //cancel system double-click event
+        });
+
+        $('.btn-more-search').on('click', function (e) {
+            $("div#pop-up-search").css('top', e.target.getBoundingClientRect().top - 28).css('left', e.target.getBoundingClientRect().left - 220);
+            $('div#pop-up-search').show();
+        });
+
+        $('.btnClose').on('click', function () {
+            $('div#pop-up-search').hide();
+        });
+
+        $('.btnCancel').on('click', function () {
+            $('#searchSelectGroup').val(0);
+            $('#searchTypeSelect').val(1);
+            $('#startYearInput').val('');
+            $('#finishYearInput').val('');
+            $('#sortNameSelect').val(0);
+            $('#sortTypeSelect').val(0);
+        });
+
+        $('.btnApply').on('click', function () {
+            $('div#pop-up-search').hide();
+            BookManager.loadData();
         });
     }
 
@@ -227,38 +261,41 @@ class BookManager {
             listID = BookManager.getRecordSelected();
 
         if (listID.length > 0) {
-            var conf = confirm("Bạn có thực sự muốn những cuốn sách này không?");
-            if (conf == true) {
-
-                $.ajax({
-                    method: "DELETE",
-                    url: "/api/BookDetail/GroupID",
-                    data: JSON.stringify(listID),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    async: false,
-                    beforeSend: function () {
-                        //show loading
-                        commonBaseJS.showLoadingData(1);
-                    },
-                }).done(function (res) {
-                    commonBaseJS.showLoadingData(0);
-                    if (res.success) {
-                        $('#searchResultDiv').empty();
-                        BookManager.loadData();
-                        commonBaseJS.showToastMsgSuccess("Bạn đã xóa sách thành công.");
-                    } else {
-                        commonBaseJS.showToastMsgFailed("Xóa sách không thành công")
-                    }
-                }).fail(function (res) {
-                    commonBaseJS.showLoadingData(0);
-                    commonBaseJS.showToastMsgFailed("Xóa sách không thành công")
-                })
-            }
+            $('#modalConfirmDelete').modal('show'); 
         }
         else {
             commonBaseJS.showToastMsgWarning("Vui lòng chọn sách cần xóa");
         }
+    }
+
+    confirmDeleteBook() {
+        var self = this,
+            listID = BookManager.getRecordSelected();
+
+        $.ajax({
+            method: "DELETE",
+            url: "/api/BookDetail/GroupID",
+            data: JSON.stringify(listID),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                //show loading
+                commonBaseJS.showLoadingData(1);
+            },
+        }).done(function (res) {
+            commonBaseJS.showLoadingData(0);
+            if (res.success) {
+                $('#searchResultDiv').empty();
+                BookManager.loadData();
+                $('.fade').hide();
+                commonBaseJS.showToastMsgSuccess("Bạn đã xóa sách thành công.");
+            } else {
+                commonBaseJS.showToastMsgFailed("Xóa sách không thành công")
+            }
+        }).fail(function (res) {
+            commonBaseJS.showLoadingData(0);
+            commonBaseJS.showToastMsgFailed("Xóa sách không thành công")
+        })
     }
 
     static getRecordSelected() {
@@ -309,7 +346,7 @@ class BookManager {
         }
     }
 
-    static loadPaginationSearchResult(totalPages, searchValue) {
+    static loadPaginationSearchResult(totalPages, searchURL) {
 
         //gọi hàm twbsPagination từ twbs-pagination plugin
         $('#pagingDiv').twbsPagination({
@@ -319,7 +356,9 @@ class BookManager {
                 //call api
                 $.ajax({
                     method: "GET",
-                    url: "api/BookDetail/GetPagingData?paramBookName=" + searchValue.trim() + "&pageNumber=" + page + "&pageSize=" + RECORD_PER_PAGE,
+                    url: "api/BookDetail/GetPagingDataV2" +
+                        "?pageNumber=" + page +
+                        "&pageSize=" + Enum.BookPaging.RECORD_PER_PAGE + searchURL,
                     async: true,
                     contentType: "application/json",
                     beforeSend: function () {

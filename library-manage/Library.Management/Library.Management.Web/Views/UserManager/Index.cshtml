@@ -48,11 +48,28 @@
                     <span id="noUsers">Không có bản ghi nào</span>
                 </div>
             </div>
-            <ol class="breadcrumb pagingConfig">
+            <ol class="breadcrumb pagingConfig" style=" align-self: center;">
                 <!-- thanh phân trang -->
                 <div id="pagingDiv" class="pagination-sm ml-auto">
                 </div>
             </ol>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                    <h3 class="modal-title">Xóa người dùng</h3>
+                </div>
+                <div class="modal-body">
+                    <label>Bạn có muốn xóa tài khoản người dùng đã chọn không?</label>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button data-dismiss="modal" class="btn btn-outline-secondary">Hủy bỏ</button>
+                    <button id="confirmDeleteUser" class="btn btn-success">Xác nhận</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -8,6 +8,7 @@ const VISIBLE_PAGE_DEFAULT = 1;
 //khai báo biến toàn cục lưu tổng số bản ghi sách sau tìm kiếm và số trang hiển thị
 var totalBookRecord;
 var totalPages;
+var listID = [];
 
 $(document).ready(function () {
     var setting = new UserManager();
@@ -24,6 +25,7 @@ class UserManager {
     initEvents() {
         $(".tdIsAdmin").on('change', this.changeCheckboxAdmin.bind(this));
         $(".btnDelete").on('click', this.onClickDeleteUser.bind(this));
+        $("#confirmDeleteUser").on('click', this.confirmDeleteUser.bind(this));
     }
 
     loadDataUser() {
@@ -103,8 +105,12 @@ class UserManager {
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                async: false,
+                beforeSend: function () {
+                    //show loading
+                    commonBaseJS.showLoadingData(1);
+                },
             }).done(function (res) {
+                commonBaseJS.showLoadingData(0);
                 if (res.success) {
                     $('#lstUserGrid').empty();
                     self.loadDataUser();
@@ -113,6 +119,7 @@ class UserManager {
                     commonBaseJS.showToastMsgFailed("Cập nhật thất bại")
                 }
             }).fail(function (res) {
+                commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgFailed("Cập nhật không thành công")
             })
         } else {
@@ -125,33 +132,38 @@ class UserManager {
         var self = this;
 
         if (this.validatePermissionEdit(itemDel) && this.validateDelete(itemDel)) {
-
-            var conf = confirm("Bạn có thực sự muốn xóa người dùng này?");
-            if (conf == true) {
-
-                var listID = [];
-                listID.push(itemDel.closest('tr').getAttribute('userID'));
-
-                $.ajax({
-                    method: "DELETE",
-                    url: "/api/UserAccount/GroupID/",
-                    data: JSON.stringify(listID),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    async: false,
-                }).done(function (res) {
-                    if (res.success) {
-                        $('#lstUserGrid').empty();
-                        self.loadDataUser();
-                        commonBaseJS.showToastMsgSuccess("Xóa người dùng thành công.");
-                    } else {
-                        commonBaseJS.showToastMsgFailed("Xóa người dùng không thành công")
-                    }
-                }).fail(function (res) {
-                    commonBaseJS.showToastMsgFailed("Xóa người dùng không thành công")
-                })
-            }
+            listID = [];
+            listID.push(itemDel.closest('tr').getAttribute('userID'));
+            $('#modalConfirmDelete').modal('show'); 
         }
+    }
+
+    confirmDeleteUser() {
+        var self = this;
+        $.ajax({
+            method: "DELETE",
+            url: "/api/UserAccount/GroupID/",
+            data: JSON.stringify(listID),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function () {
+                //show loading
+                commonBaseJS.showLoadingData(1);
+            },
+        }).done(function (res) {
+            commonBaseJS.showLoadingData(0);
+            if (res.success) {
+                $('#lstUserGrid').empty();
+                self.loadDataUser();
+                $('.fade').hide();
+                commonBaseJS.showToastMsgSuccess("Xóa người dùng thành công.");
+            } else {
+                commonBaseJS.showToastMsgFailed("Xóa người dùng không thành công")
+            }
+        }).fail(function (res) {
+            commonBaseJS.showLoadingData(0);
+            commonBaseJS.showToastMsgFailed("Xóa người dùng không thành công")
+        })
     }
 
     validateDelete(element) {
