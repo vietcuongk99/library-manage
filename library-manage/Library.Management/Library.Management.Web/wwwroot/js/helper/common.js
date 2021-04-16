@@ -45,11 +45,13 @@ var commonJS = {
     getDateTimeString(date) {
         //convert datetime
         var timeComment = new Date(date),
-            timeMinutes = ("0" + timeComment.getMinutes()).slice(-2),
-            timeCommentConvert = timeComment.getUTCDate() + "/" +
-            (timeComment.getMonth() + 1) + "/" +
-            timeComment.getUTCFullYear() +
-            " lúc " + timeComment.getHours() + ":" + timeMinutes;
+            minutes = ("0" + timeComment.getMinutes()).slice(-2),
+            hour = ("0" + timeComment.getHours()).slice(-2),
+            day = ("0" + timeComment.getDate()).slice(-2),
+            month = ("0" + (timeComment.getMonth() + 1)).slice(-2),
+            year = timeComment.getUTCFullYear(),
+            timeCommentConvert = day + "-" + month + "-" + year +
+            " lúc " + hour + ":" + minutes;
         return timeCommentConvert;
     },
     //append dữ liệu vào thẻ card
