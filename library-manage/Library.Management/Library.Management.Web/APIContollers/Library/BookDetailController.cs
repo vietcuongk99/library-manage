@@ -273,7 +273,7 @@ namespace Library.Management.Web
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 05/04/2021
         [HttpPost("OpenFileBookInfo")]
-        public ActionServiceResult OpenFileBookInfo(string BookID)
+        public ActionServiceResult OpenFileBookInfo([FromQuery]string BookID)
         {
             var res = new ActionServiceResult();
             string FilePath = Directory.GetCurrentDirectory() + GlobalResource.DirectoryBookInfo + BookID + ".pdf";
