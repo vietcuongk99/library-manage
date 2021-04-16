@@ -63,7 +63,6 @@ class SearchBookJS extends BaseJS {
             if (res.success) {
                 var categoryList = res.data.lstData;
                 //gán option loại sách lên ui
-                //lấy ra id loại sách cần tìm
                 commonJS.appendCategoryListToHTML(categoryList, '#categorySelect');
                 //lấy ra chuỗi tìm kiếm trong local storage
                 var searchURL = localStorage.getItem("searchURL");
@@ -137,8 +136,6 @@ class SearchBookJS extends BaseJS {
                 commonBaseJS.showLoadingData(1);
             }
         }).done(function(res) {
-            //xóa string searchURL trong localStorage
-            //localStorage.removeItem("searchURL");
             //nếu response trả về báo thành công và có data
             if (res.success && res.data) {
                 //ẩn loading
@@ -149,8 +146,9 @@ class SearchBookJS extends BaseJS {
                 var totalPages = Math.ceil(totalBookRecord / Enum.BookPaging.RECORD_PER_PAGE);
                 //gọi hàm loadPaginationSearchResult
                 //phân trang dữ liệu
-                searchBookJS.loadPaginationSearchResult(totalPages, searchURL, res.data.dataItems)
+                searchBookJS.loadPaginationSearchResult(totalPages, searchURL, res.data.dataItems);
             } else {
+                $('#pageNumberDiv').empty();
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
                 //show alert
@@ -172,11 +170,13 @@ class SearchBookJS extends BaseJS {
     loadPaginationSearchResult(totalPages, searchURL, pageDefaultData) {
         //hủy pagination từ twbs-paginaton plugin
         $('#pagingDiv').twbsPagination('destroy');
+        $('#pageNumberDiv').empty();
         //gọi hàm twbsPagination từ twbs-pagination plugin
         $('#pagingDiv').twbsPagination({
             totalPages: totalPages,
-            visiblePages: Enum.BookPaging.VISIBLE_PAGE_DEFAULT,
+            visiblePages: 0,
             onPageClick: function(event, page) {
+                $('#pageNumberDiv').html(`<p style="font-size: 14px;" class="my-auto p-custom">Trang: ` + page + `/` + totalPages + `</p>`);
                 if (page > Enum.BookPaging.PAGE_DEFAULT) {
                     //xóa kết quả tìm kiếm
                     $('#searchResultDiv').children().remove();
