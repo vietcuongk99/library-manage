@@ -63,10 +63,6 @@ namespace Library.Management.Entity
         /// Tổng số sách
         /// </summary>
         public int TotalBook { get; set; }
-        /// <summary>
-        /// Tổng số sách được mượn
-        /// </summary>
-        public int TotalBookBorrow { get; set; }
     }
     public class ResponseProcedureTotalBookBorrow
     {
@@ -78,6 +74,10 @@ namespace Library.Management.Entity
         /// Tổng số lượt đang mượn
         /// </summary>
         public int TotalBookBorrowActive { get; set; }
+    }
+    public class ReponseProcedureTotalBorrowInBook
+    {
+        public int TotalBookActived { get; set; }
     }
     public class ResponseProcedureChartInfo
     {
