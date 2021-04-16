@@ -80,12 +80,12 @@ class UserManager {
                 self.initEvents();
             } else {
                 $('#noUsers').show();
-                alert("Lấy dữ liệu thất bại")
+                commonBaseJS.showToastMsgFailed("Lấy dữ liệu thất bại")
             }
         }).fail(function (res) {
             $('#noUsers').show();
             commonBaseJS.showLoadingData(0);
-            alert("Lấy dữ liệu không thành công")
+            commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công")
         })
     }
 
@@ -176,7 +176,8 @@ class UserManager {
         }
 
         if (!bvalid) {
-            alert('Bạn không được xóa chính mình khỏi danh sách người dùng.');
+            $('.content-notify').text('Bạn không được xóa chính mình khỏi danh sách người dùng.');
+            $('#modalNotification').modal('show'); 
         }
 
         return bvalid;
@@ -189,11 +190,13 @@ class UserManager {
             typeUser = element.closest('tr').getAttribute('typeUser');
 
         if (userObject.conditionAccount == 2 && typeUser == 1) {
-            alert('Bạn không có quyền cấp tài khoản admin cho người dùng.');
+            $('.content-notify').text('Bạn không có quyền cấp tài khoản admin cho người dùng.');
+            $('#modalNotification').modal('show'); 
         }
         else {
             if (userObject.userID == thisTrId) {
-                alert('Bạn không được gỡ quyền admin của mình.');
+                $('.content-notify').text('Bạn không được gỡ quyền admin của mình.');
+                $('#modalNotification').modal('show'); 
             } else {
 
                 if (!element.checked) {
@@ -207,7 +210,8 @@ class UserManager {
                 }
 
                 if (!bvalid) {
-                    alert('Phải có ít nhất 1 admin.');
+                    $('.content-notify').text('Phải có ít nhất 1 admin.');
+                    $('#modalNotification').modal('show'); 
                 }
             }
         }
@@ -225,7 +229,8 @@ class UserManager {
         else if (userObject.conditionAccount == 2) {
             if (parseInt(typeUser) == 2 || parseInt(typeUser) == 3) {
                 bValid = false;
-                alert('Bạn không có quyền thay đổi thông tin của tài khoản admin khác.');
+                $('.content-notify').text('Bạn không có quyền thay đổi thông tin của tài khoản admin khác.');
+                $('#modalNotification').modal('show'); 
             }
         }
         return bValid;

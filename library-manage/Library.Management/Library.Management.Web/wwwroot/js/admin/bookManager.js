@@ -62,7 +62,7 @@ class BookManager {
 
                     //tính toán số trang hiển thị và gán cho biến toàn cục
                     totalPages = Math.ceil(totalBookRecord / RECORD_PER_PAGE);
-
+                    debugger
                     //gọi hàm loadPaginationSearchResult
                     //phân trang dữ liệu
                     BookManager.loadPaginationSearchResult(totalPages, searchURL);
@@ -187,7 +187,8 @@ class BookManager {
 
                     if (result) {
 
-                        alert(`Nhập khẩu thành công ${result.InsertCategorySuccess} thể loại mới và ${result.InsertBookSuccess} / ${result.TotalRecord} cuốn sách.`);
+                        $('.content-notify').text(`Nhập khẩu thành công ${result.InsertCategorySuccess} thể loại mới và ${result.InsertBookSuccess} / ${result.TotalRecord} cuốn sách.`);
+                        $('#modalNotification').modal('show'); 
                         $(".check-file-upload").val('');
                         $(".check-file-upload").next().text("Chọn file nhập khẩu");
                         $('.close').click();
