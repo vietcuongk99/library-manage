@@ -22,7 +22,7 @@ namespace Library.Management.DL
         {
             var _db = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
             _db.Open();
-            var storeName = "GetListBorrowBook";
+            var storeName = "Proc_GetListBorrowBook";
             var entities = _db.Query<Y>(storeName, commandType: CommandType.StoredProcedure);
             _db.Close();
             return (IReadOnlyList<Y>)await Task.FromResult(entities);
