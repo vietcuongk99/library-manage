@@ -32,7 +32,7 @@ class BookBorrow {
         });
 
         $('.img-circle').mousemove(function (e) {
-            $("div#pop-up").css('top', e.pageY - 80).css('left', e.pageX - 180);
+            $("div#pop-up").css({ top: e.target.offsetTop - 30, left: e.target.getBoundingClientRect().left - 130 });
         });
 
         $('.btn-action').on('click', this.confirmRequestBorrow.bind(this));
