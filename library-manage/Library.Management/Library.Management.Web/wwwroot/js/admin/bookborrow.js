@@ -81,9 +81,14 @@ class BookBorrow {
         $.ajax({
             method: "GET",
             url: url,
+            contentType: "application/json",
             async: false,
-            contentType: "application/json"
+            beforeSend: function () {
+                //show loading
+                commonBaseJS.showLoadingData(1);
+            }
         }).done(function (res) {
+            commonBaseJS.showLoadingData(0);
             if (res.success) {
                 var data = res.data;
 
@@ -95,6 +100,7 @@ class BookBorrow {
                 commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công")
             }
         }).fail(function (res) {
+            commonBaseJS.showLoadingData(0);
             commonBaseJS.showToastMsgFailed("Lấy dữ liệu không thành công")
         })
     }
@@ -113,8 +119,12 @@ class BookBorrow {
             data: JSON.stringify(listID),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            async: false,
+            beforeSend: function () {
+                //show loading
+                commonBaseJS.showLoadingData(1);
+            }
         }).done(function (res) {
+            commonBaseJS.showLoadingData(0);
             if (res.success) {
                 self.loadFormData(0);
                 self.appendRequestBookHTML(lstDataBookBorrow);
@@ -128,6 +138,7 @@ class BookBorrow {
                 }
             }
         }).fail(function (res) {
+            commonBaseJS.showLoadingData(0);
             commonBaseJS.showToastMsgFailed("Xác nhận không thành công");
         })
     }
@@ -135,8 +146,10 @@ class BookBorrow {
     appendRequestBookHTML(data) {
         $('.container-request-book').empty();
 
-        $.each(data, function (index, request) {
-            var elementHTML = `<div class="item-book-borrow" borrowID="${request.bookBorrowID}">
+        if (data && data.length > 0) {
+
+            $.each(data, function (index, request) {
+                var elementHTML = `<div class="item-book-borrow" borrowID="${request.bookBorrowID}">
                                 <div class="avt-item-circle">
                                     <img src="data:image/jpg;base64,${request.avatarUrl}" class="img-circle" />
                                 </div>
@@ -156,8 +169,13 @@ class BookBorrow {
                                 </div>
                             </div>`
 
-            $('.container-request-book').append($(elementHTML))
-        });
+                $('.container-request-book').append($(elementHTML))
+            });
+        }
+        else {
+            $('.container-request-book').append($(`<h2>Không có cuốn sách nào!</h2>`))
+        }
+
         this.initEvents();
         $('span.request').text(lstDataBookBorrow.length);
     }

@@ -175,7 +175,8 @@ class BookManager {
 
                     if (result) {
 
-                        alert(`Nhập khẩu thành công ${result.InsertCategorySuccess} thể loại mới và ${result.InsertBookSuccess} / ${result.TotalRecord} cuốn sách.`);
+                        $('.content-notify').text(`Nhập khẩu thành công ${result.InsertCategorySuccess} thể loại mới và ${result.InsertBookSuccess} / ${result.TotalRecord} cuốn sách.`);
+                        $('#modalNotification').modal('show'); 
                         $(".check-file-upload").val('');
                         $(".check-file-upload").next().text("Chọn file nhập khẩu");
                         $('.close').click();
