@@ -27,8 +27,9 @@ namespace Library.Management.DL
             var entities = _db.QueryMultiple(storeName, commandType: CommandType.StoredProcedure);
             var totalBook = entities.Read<ResponseProcedureTotalBook>();
             var totalBookBorrow = entities.Read<ResponseProcedureTotalBookBorrow>();
+            var totalBookActived = entities.Read<ReponseProcedureTotalBorrowInBook>();
             _db.Close();
-            return await Task.FromResult(new { TotalBook = totalBook, TotalBookBorrow = totalBookBorrow });
+            return await Task.FromResult(new { TotalBook = totalBook, TotalBookBorrow = totalBookBorrow, TotalBookActived = totalBookActived });
         }
 
     }
