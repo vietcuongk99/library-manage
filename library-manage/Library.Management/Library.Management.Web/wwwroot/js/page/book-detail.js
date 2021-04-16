@@ -12,8 +12,8 @@ $(document).ready(function() {
 class BookDetailJS extends BaseJS {
     constructor() {
         super();
-        this.loadBookActionButton();
         this.loadBookData();
+        this.loadBorrowList();
         this.loadBookComment();
         this.initEvent();
     }
@@ -150,87 +150,78 @@ class BookDetailJS extends BaseJS {
 
     //load giao diện ui nút mượn, trả, gia hạn, tải tài liệu
     loadBookActionButton() {
-        var userData = JSON.parse(localStorage.getItem("user"));
-        //nếu user là khách hoặc có quyền admin
-        //không hiển thị button mượn, trả, gia hạn, tải tài liệu
-        if (!userData || userData.conditionAccount == 0) {
-            $('#groupBookAction').children().remove();
-        }
-        //nếu user có tài khoản không phải admin
-        else {
-            //lấy ra ngày hiện tại
-            var dateNow = commonJS.getDateString(new Date(), Enum.ConvertOption.YEAR_FIRST),
-                //lấy ra danh sách mượn của user trong localStorage 
-                borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]"),
-                //lấy ra số lượng sách đang mượn
-                borrowListSize = commonJS.getBorrowListSize(),
-                //khai báo các thành phần html cho từng action với sách
-                //button mượn sách, trả sách, gia hạn thời gian mượn, mở tài liệu
-                borrowBtnHTML = $(`<button id="btnBorrowBook" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Mượn sách</button>`),
-                returnBtnHTML = $(`<button id="btnReturnBook" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Trả sách</button>`),
-                //var extendBtnHTML = $(`<button id="btnExtendDate" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Gia hạn</button>`);
-                showFileBtnHTML = $(`<button id="btnShowFile" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Mở tài liệu</button>`),
-                cancelResBtnHTML = $(`<button id="btnCancelBorrowRes" type="button" class="btn btn-sm btn-outline-success mb-2" data-toggle="modal">Hủy mượn sách</button>`);
-            //kiểm tra sách được mượn hay chưa
-            //khai báo biến đếm
-            let count = 0;
-            //duyệt id sách hiện tại trong danh sách mượn
-            for (let index = 0; index < borrowListSize; index++) {
-                //nếu id sách hiện tại trùng với id sách có trong danh sách mượn
-                if (bookId == borrowList[index].bookID) {
-                    //nếu sách đang mượn
-                    if (borrowList[index].status == 1) {
-                        //thêm nút trả, gia hạn và mở tài liệu
-                        $('#groupBookAction').children().remove();
-                        // $('#groupBookAction').append(returnBtnHTML, extendBtnHTML);
-                        $('#groupBookAction').append(returnBtnHTML);
-                        //gán data chứa id và ngày trả của bản ghi mượn hiện tại
-                        //dùng cho hàm returnBookEvent() và extendBookEvent()
-                        $('#groupBookAction').data('bookBorrowID', borrowList[index].bookBorrowID);
-                        $('#groupBookAction').data('returnDate', borrowList[index].returnDate);
-                        //gán thời gian trả hiện tại trong modal trả sách và modal gia hạn
-                        var returnDateValue = commonJS.getDateString(new Date(borrowList[index].returnDate), Enum.ConvertOption.DAY_FIRST)
-                        $('#returnDateValue').html(returnDateValue);
-                        $('#oldReturnDate').html(returnDateValue);
-                        //nếu sách vẫn còn hạn mượn
-                        if (borrowList[index].returnDate >= dateNow) {
-                            //thêm nút mở tài liệu
-                            $('#groupBookAction').append(showFileBtnHTML)
-                        } else {
-                            showFileBtnHTML.remove()
-                        }
-                        //thoát vòng lặp
-                        break
+        //lấy ra ngày hiện tại
+        var dateNow = commonJS.getDateString(new Date(), Enum.ConvertOption.YEAR_FIRST),
+            //lấy ra danh sách mượn của user trong localStorage 
+            borrowList = JSON.parse(localStorage.getItem("borrowList") || "[]"),
+            //lấy ra số lượng sách đang mượn
+            borrowListSize = commonJS.getBorrowListSize(),
+            //khai báo các thành phần html cho từng action với sách
+            //button mượn sách, trả sách, gia hạn thời gian mượn, mở tài liệu
+            borrowBtnHTML = $(`<button id="btnBorrowBook" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Mượn sách</button>`),
+            returnBtnHTML = $(`<button id="btnReturnBook" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Trả sách</button>`),
+            //var extendBtnHTML = $(`<button id="btnExtendDate" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Gia hạn</button>`);
+            showFileBtnHTML = $(`<button id="btnShowFile" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Mở tài liệu</button>`),
+            cancelResBtnHTML = $(`<button id="btnCancelBorrowRes" type="button" class="btn btn-sm btn-outline-success mb-2" data-toggle="modal">Hủy mượn sách</button>`);
+        //kiểm tra sách được mượn hay chưa
+        //khai báo biến đếm
+        let count = 0;
+        //duyệt id sách hiện tại trong danh sách mượn
+        for (let index = 0; index < borrowListSize; index++) {
+            //nếu id sách hiện tại trùng với id sách có trong danh sách mượn
+            if (bookId == borrowList[index].bookID) {
+                //nếu sách đang mượn
+                if (borrowList[index].status == 1) {
+                    //thêm nút trả, gia hạn và mở tài liệu
+                    $('#groupBookAction').children().remove();
+                    // $('#groupBookAction').append(returnBtnHTML, extendBtnHTML);
+                    $('#groupBookAction').append(returnBtnHTML);
+                    //gán data chứa id và ngày trả của bản ghi mượn hiện tại
+                    //dùng cho hàm returnBookEvent() và extendBookEvent()
+                    $('#groupBookAction').data('bookBorrowID', borrowList[index].bookBorrowID);
+                    $('#groupBookAction').data('returnDate', borrowList[index].returnDate);
+                    //gán thời gian trả hiện tại trong modal trả sách và modal gia hạn
+                    var returnDateValue = commonJS.getDateString(new Date(borrowList[index].returnDate), Enum.ConvertOption.DAY_FIRST)
+                    $('#returnDateValue').html(returnDateValue);
+                    $('#oldReturnDate').html(returnDateValue);
+                    //nếu sách vẫn còn hạn mượn
+                    if (borrowList[index].returnDate >= dateNow) {
+                        //thêm nút mở tài liệu
+                        $('#groupBookAction').append(showFileBtnHTML)
+                    } else {
+                        showFileBtnHTML.remove()
                     }
-                    //nếu sách đang chờ xử lý
-                    else {
-                        //xóa nút Mượn sách
-                        $('#groupBookAction').children().remove();
-                        //thêm nút hủy yêu cầu mượn sách
-                        $('#groupBookAction').append(cancelResBtnHTML);
-                        //gán data id bản ghi mượn sách
-                        $('#groupBookAction').data('bookBorrowID', borrowList[index].bookBorrowID);
-                        //thoát vòng lặp
-                        break
-                    }
+                    //thoát vòng lặp
+                    break
                 }
-                //nếu id sách hiện tại không trùng với id sách có trong danh sách mượn
-                //duyệt tiếp danh sách
+                //nếu sách đang chờ xử lý
                 else {
-                    //tăng biến đếm
-                    count++;
+                    //xóa nút Mượn sách
+                    $('#groupBookAction').children().remove();
+                    //thêm nút hủy yêu cầu mượn sách
+                    $('#groupBookAction').append(cancelResBtnHTML);
+                    //gán data id bản ghi mượn sách
+                    $('#groupBookAction').data('bookBorrowID', borrowList[index].bookBorrowID);
+                    //thoát vòng lặp
+                    break
                 }
             }
-            //nếu duyệt hết danh sách mượn (count == borrowListSize) => sách chưa được mượn
-            //nếu sách này chưa được mượn
-            if (count == borrowListSize) {
-                //loại bỏ ui của các button mượn, trả, gia hạn, mở tài liệu
-                $('#groupBookAction').children().remove();
-                //nếu số sách đang mượn không vượt quá MAX_BORROW_NUMBER = 6
-                if (borrowListSize < Enum.BookBorrow.MAX_BORROW_NUMBER) {
-                    //thêm nút mượn sách
-                    $('#groupBookAction').append(borrowBtnHTML);
-                }
+            //nếu id sách hiện tại không trùng với id sách có trong danh sách mượn
+            //duyệt tiếp danh sách
+            else {
+                //tăng biến đếm
+                count++;
+            }
+        }
+        //nếu duyệt hết danh sách mượn (count == borrowListSize) => sách chưa được mượn
+        //nếu sách này chưa được mượn
+        if (count == borrowListSize) {
+            //loại bỏ ui của các button mượn, trả, gia hạn, mở tài liệu
+            $('#groupBookAction').children().remove();
+            //nếu số sách đang mượn không vượt quá MAX_BORROW_NUMBER = 6
+            if (borrowListSize < Enum.BookBorrow.MAX_BORROW_NUMBER) {
+                //thêm nút mượn sách
+                $('#groupBookAction').append(borrowBtnHTML);
             }
         }
     }
@@ -858,5 +849,48 @@ class BookDetailJS extends BaseJS {
         })
 
 
+    }
+
+    //lấy ra danh sách mượn mới nhất của user
+    loadBorrowList() {
+        var userData = JSON.parse(localStorage.getItem("user"));
+        //nếu user là khách hoặc có quyền admin
+        //không hiển thị button mượn, trả, gia hạn, tải tài liệu
+        if (!userData || userData.conditionAccount == 0) {
+            $('#groupBookAction').children().remove();
+        }
+        //nếu user có tài khoản không phải admin
+        else {
+            // lấy userId từ localStorage
+            var userID = userData.userID;
+            //hiện loading
+            commonBaseJS.showLoadingData(1);
+            //call api
+            //cache: false
+            $.ajax({
+                method: "GET",
+                url: Enum.URL.HOST_URL + "api/BookBorrow/GetPagingData?userId=" + userID,
+                contentType: "application/json",
+                cache: false
+            }).done(function(res) {
+                //nếu server xử lý thành công
+                if (res.success && res.data && res.data.length > 0) {
+                    //gán data
+                    var list = res.data;
+                    //lưu danh sách mượn mới nhất vào localStorage
+                    commonJS.saveBorrowListToLocal(list);
+                    //ẩn loading
+                    commonBaseJS.showLoadingData(0);
+                    //gọi hàm load ui button mượn trả
+                    bookDetailJS.loadBookActionButton();
+                } else {
+                    //ẩn loading
+                    commonBaseJS.showLoadingData(0);
+                }
+            }).fail(function(res) {
+                //ẩn loading
+                commonBaseJS.showLoadingData(0);
+            })
+        }
     }
 }
