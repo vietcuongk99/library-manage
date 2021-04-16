@@ -273,26 +273,17 @@ namespace Library.Management.Web
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 05/04/2021
         [HttpPost("OpenFileBookInfo")]
-        public async Task<IActionResult> OpenFileBookInfo(string BookID)
+        public ActionServiceResult OpenFileBookInfo([FromQuery]string BookID)
         {
-            var bookInfo = await _baseBL.GetEntityById(BookID);
-                string FilePath = Directory.GetCurrentDirectory() + bookInfo.BookDownloadUri;
+            var res = new ActionServiceResult();
+            string FilePath = Directory.GetCurrentDirectory() + GlobalResource.DirectoryBookInfo + BookID + ".pdf";
             // Nếu tồn tại đường dẫn chứa ảnh thì gọi đến, không thì gọi về ảnh mặc định
-            var stream = new FileStream(FilePath, FileMode.Open);
-            return File(stream, "application/pdf", "FileDownloadName.pdf");
-                    //WebClient User = new WebClient();
-                    //Byte[] FileBuffer = User.DownloadData(FilePath);
-                    //if (FileBuffer != null)
-                    //{
-
-                    //    Response.ContentType = "application/pdf";
-                    //    Response.Headers.Add("content-length", FileBuffer.Length.ToString());
-                    //    using (Stream writer = System.IO.File.Create("C:/Users/Dell.DESKTOP-722I0QM/Downloads/File_PDF/MyPDF.pdf"))
-                    //    {
-                    //        writer.Write(FileBuffer, 0, FileBuffer.Length);
-                    //        writer.Flush();
-                    //    }
-                    //}
+            if (!System.IO.File.Exists(FilePath))
+            {
+                res.Success = false;
+                res.Message = GlobalResource.Failed;
+            }
+            return res;
         }
 
         /// <summary>
