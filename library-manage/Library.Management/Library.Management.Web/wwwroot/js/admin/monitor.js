@@ -25,6 +25,7 @@ class Monitor {
                     $('#total-books').text(res.data.totalBook[0].totalBook);
                     $('#total-borrows').text(res.data.totalBookBorrow[0].totalBorrowActivated);
                     $('.book-borrow-active').text(res.data.totalBookBorrow[0].totalBookBorrowActive);
+                    $('.count-book-borrow').text(res.data.totalBookBorrow[0].totalBookBorrow);
                 }
             } else {
                 commonBaseJS.showToastMsgFailed(res.message);
@@ -58,7 +59,7 @@ class Monitor {
                         }
                         dataChart.push(temp);
                     })
-                    debugger
+                    
                     var options = {
                         animationEnabled: true,
                         title: {
