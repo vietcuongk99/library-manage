@@ -642,7 +642,6 @@ class BookDetailJS extends BaseJS {
 
     //sự kiện khi click nút Mở tài liệu
     showFileEvent(bookDownloadUrl) {
-
         //nếu người dùng chưa mượn cuốn sách hiện tại
         if (!commonJS.checkValidBookBorrow(bookId)) {
             //show alert
@@ -650,15 +649,26 @@ class BookDetailJS extends BaseJS {
         }
         //nếu người dùng đã mượn cuốn sách hiện tại
         else {
-            if (bookDownloadUrl && bookDownloadUrl.trim().length > 0) {
-                //tạo url cho trang hiển thị file pdf
-                var showFileUrl = Enum.URL.HOST_URL + bookDownloadUrl;
-                //mở tab với url trên
-                window.open(showFileUrl, "blank")
-            } else {
+            $.ajax({
+                url: Enum.URL.HOST_URL + "api/BookDetail/OpenFileBookInfo?BookID=" + bookId,
+                method: "POST",
+                contentType: "application/json"
+            }).done(function(res) {
+                if (res.success) {
+                    if (bookDownloadUrl && bookDownloadUrl.trim().length > 0) {
+                        //tạo url cho trang hiển thị file pdf
+                        var showFileUrl = Enum.URL.HOST_URL + bookDownloadUrl;
+                        //mở tab với url trên
+                        window.open(showFileUrl, "blank")
+                    }
+                } else {
+                    //show alert
+                    commonBaseJS.showToastMsgInfomation('Sách chưa được bổ sung tài liệu.')
+                }
+            }).fail(function(res) {
                 //show alert
-                commonBaseJS.showToastMsgInfomation('Sách chưa được bổ sung tài liệu.')
-            }
+                commonBaseJS.showToastMsgInfomation('Mở tài liệu sách không thành công.')
+            })
         }
     }
 
