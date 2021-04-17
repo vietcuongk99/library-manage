@@ -9,6 +9,8 @@
     <title>Hệ thống quản lý thư viện</title>
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- icon page -->
+    <link rel="icon" type="image/jpg" href="../content/img/logo-app.jpg">
     <!-- Custom styles for this template -->
     <link href="../css/page/common.css" rel="stylesheet">
     <link href="../css/base/common.css" rel="stylesheet" />
@@ -39,69 +41,75 @@
         </div>
     </nav>
     <header>
-        <div class="container text-center">
+        <div class="container text-center text-uppercase">
+            <img src="../content/img/logo-app.jpg" style="width: 6em; height: auto" class="rounded-circle mb-4">
             <h3>Hệ thống quản lý thư viện</h3>
         </div>
+        <h5 class="mt-3 text-center">Miễn phí - Nhanh chóng - Thuận tiện</h5>
+        <button id="searchBtn" class="btn btn-success mx-auto d-block mt-3"><i class="fas fa-list-ul mr-2"></i>Danh mục sách</button>
     </header>
-    <!-- Page Content -->
+    <!-- Nội dung chính của trang -->
+    <div class="row border shadow-lg mt-3 mx-4" style="border-radius: 30px">
+        <div class="col-1"></div>
+        <div class="col-9 mx-auto">
+            <h4 class="mt-4 text-uppercase text-center text-success">Tính năng nổi bật</h4>
+            <!-- TÍNH NĂNG -->
+            <div class="row mt-2 mb-2">
+                <div class="col-md-4">
+                    <div class="card h-100 rounded-lg border-0">
+                        <div class="card-body">
+                            <h1 class="text-center"><i class="fas fa-search text-success"></i></h1>
+                            <h5 class="text-center">Tìm kiếm sách</h5>
+                            <p class="card-text">Tìm kiếm các đầu sách mà hệ thống cung cấp, ứng dụng Elastic Search.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 rounded-lg border-0">
+                        <div class="card-body">
+                            <h1 class="text-center"><i class="fas fa-book-open text-success"></i></h1>
+                            <h5 class="text-center">Mượn sách</h5>
+                            <p class="card-text">Mượn, trả sách nhanh chóng, tiện lợi và hoàn toàn miễn phí với hệ thống thư viện điện tử.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 rounded-lg border-0">
+                        <div class="card-body">
+                            <h1 class="text-center"><i class="fas fa-user-cog text-success"></i></h1>
+                            <h5 class="text-center">Tài khoản</h5>
+                            <p class="card-text">Tối ưu thông tin tài khoản khi sử dụng hệ thống cũng như quản lý thư viện của chính bạn.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <button type="button" class="btn btn-success btn-sm mx-auto" onclick="window.location.href='services.html'">Xem thêm</button>
+            </div>
+            <!-- /.row -->
+            <!-- SÁCH MỚI -->
+            <h4 class="mt-5 text-uppercase text-center text-success">Sách mới</h4>
+            <div id="newBookRow" class="mt-2">
+                <!-- nội dung sách mới ở đây -->
+            </div>
+            <div class="row mb-5">
+                <button id="showNewBookBtn" type="button" class="btn btn-success text-center btn-sm mx-auto">Xem thêm</button>
+            </div>
+            <!-- /.row -->
+            <!-- SÁCH HOT -->
+            <h4 class="mt-5 text-uppercase text-center text-success">Sách hot</h4>
+            <div id="hotBookRow" class="mt-2">
+                <!-- nội dung sách hot ở đây -->
+            </div>
+            <div class="row mb-5">
+                <button id="showHotBookBtn" type="button" class="btn btn-success text-center btn-sm mx-auto">Xem thêm</button>
+            </div>
+        </div>
+        <div class="col-1"></div>
+    </div>
+    <!-- /.container -->
     <div class="container">
-        <h4 class="mt-4 text-uppercase d-inline-flex align-middle">Tính năng</h4>
-        <button type="button" class="btn btn-success btn-sm d-inline ml-1 mt-4 align-middle mb-1" onclick="window.location.href='services.html'">Xem thêm</button>
-        <!-- TÍNH NĂNG -->
-        <div class="row mt-2">
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <h5 class="card-header text-center">Đăng ký</h5>
-                    <div class="card-body">
-                        <p class="card-text">Đăng ký tài khoản giúp bạn sử dụng các chức năng mà hệ thống cung cấp một cách trọn vẹn nhất.</p>
-                    </div>
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-outline-success float-right btn-custom-detail">Chi tiết</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <h5 class="card-header text-center">Mượn trả sách</h5>
-                    <div class="card-body">
-                        <p class="card-text">
-                            Quản lý danh sách mượn, trả sách và gia hạn thời gian mượn, trả sách của bạn.
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-outline-success float-right btn-custom-detail">Chi tiết</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <h5 class="card-header text-center">Tài khoản</h5>
-                    <div class="card-body">
-                        <p class="card-text">Tùy chỉnh thông tin tài khoản nhằm tối ưu thông tin của chính bạn khi sử dụng hệ thống.</p>
-                    </div>
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-outline-success float-right btn-custom-detail">Chi tiết</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /.row -->
-        <!-- SÁCH MỚI -->
-        <h4 class="text-uppercase d-inline-flex align-middle">Sách mới</h4>
-        <button id="showNewBookBtn" type="button" class="btn btn-success btn-sm d-inline ml-1 align-middle mb-1">Xem thêm</button>
-        <div id="newBookRow" class="mt-2">
-            <!-- nội dung sách mới ở đây -->
-        </div>
-        <!-- /.row -->
-        <!-- SÁCH HOT -->
-        <h4 class="text-uppercase d-inline-flex align-middle">Sách hot</h4>
-        <button id="showHotBookBtn" type="button" class="btn btn-success btn-sm d-inline ml-1 align-middle mb-1">Xem thêm</button>
-        <div id="hotBookRow" class="mt-2">
-            <!-- nội dung sách hot ở đây -->
-        </div>
-        <hr />
-        <!-- /.row -->
-        <!-- Features Section -->
+        <hr/>
         <div class="row">
             <div class="col-lg-6">
                 <h2>Hệ thống quản lý thư viện</h2>
@@ -118,10 +126,8 @@
                 <img class="img-fluid rounded" src="../content/img/landing-bg.png" alt="">
             </div>
         </div>
-        <!-- /.row -->
-        <hr>
     </div>
-    <!-- /.container -->
+    <hr>
     <!-- Footer -->
     <footer class="bg-dark">
         <div class="container">

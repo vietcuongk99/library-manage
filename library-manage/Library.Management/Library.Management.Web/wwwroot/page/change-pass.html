@@ -13,14 +13,14 @@
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <!-- icon page -->
+    <link rel="icon" type="image/jpg" href="../content/img/logo-app.jpg">
     <!-- Custom styles for this template -->
     <link href="../css/page/login&signup.css" rel="stylesheet">
     <link href="../css/page/common.css" rel="stylesheet">
     <link href="../css/base/common.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 </head>
-
 
 <body>
     <!-- Navigation -->
@@ -54,11 +54,15 @@
                     </div>
                     <div id="passwordInputDiv" class="form-group">
                         <label for="passwordInput">Mật khẩu</label>
-                        <input type="password" class="form-control" id="passwordInput">
+                        <div class="form-inline">
+                            <input type="password" class="form-control w-100" id="passwordInput"><i class="far fa-eye mr-auto" id="togglePassword" style="margin-left: -30px; cursor: pointer"></i>
+                        </div>
                     </div>
                     <div id="rePasswordInputDiv" class="form-group">
                         <label for="rePasswordInput">Nhập lại mật khẩu</label>
-                        <input type="password" class="form-control" id="rePasswordInput">
+                        <div class="form-inline">
+                            <input type="password" class="form-control w-100" id="rePasswordInput"><i class="far fa-eye mr-auto" id="toggleRePassword" style="margin-left: -30px; cursor: pointer"></i>
+                        </div>
                     </div>
                     <div class="text-center">
                         <button id="confirmBtn" type="button" class="btn btn-success">Thay đổi</button>

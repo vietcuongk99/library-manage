@@ -11,6 +11,8 @@
     <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+    <!-- icon page -->
+    <link rel="icon" type="image/jpg" href="../content/img/logo-app.jpg">
     <!-- Custom styles for this template -->
     <link href="../css/page/account.css" rel="stylesheet">
     <link href="../css/page/common.css" rel="stylesheet">
@@ -56,8 +58,10 @@
             <!-- Sidebar Column -->
             <div class="col-lg-3 mb-4">
                 <div class="list-group">
-                    <li class="list-group-item active" id="list-account-list" data-toggle="list" role="tab" href="#list-account-content" aria-controls="account">Tài khoản</li>
-                    <li class="list-group-item" id="list-library-list" data-toggle="list" role="tab" href="#list-library-content" aria-controls="library">Sách đang mượn</li>
+                    <li class="list-group-item active" id="list-account-list" data-toggle="list" role="tab" href="#list-account-content" aria-controls="account">
+                        <i class="fas fa-user mr-2"></i>Tài khoản</li>
+                    <li class="list-group-item" id="list-library-list" data-toggle="list" role="tab" href="#list-library-content" aria-controls="library">
+                        <i class="fas fa-book-open mr-2"></i>Sách đang mượn</li>
                 </div>
             </div>
             <!-- Content Column -->
@@ -75,7 +79,7 @@
                             </div>
                         </div>
                         <!-- Thông tin cá nhân -->
-                        <h3>Thông tin cá nhân</h3>
+                        <h3><i class="fas fa-id-card mr-3"></i>Thông tin cá nhân</h3>
                         <hr>
                         <div class="row">
                             <!-- Trường dữ liệu -->
@@ -120,7 +124,7 @@
                         </div>
                         <button id="changeInforBtn" type="button" class="btn btn-success mt-2" data-target="#modalUpdateInfor" data-toggle="modal">Cập nhật</button>
                         <!-- bảo mật -->
-                        <h3 class="mt-5">Thông tin tài khoản</h3>
+                        <h3 class="mt-5"><i class="fas fa-user-cog mr-3"></i>Thông tin tài khoản</h3>
                         <hr>
                         <div class="row">
                             <div class="col-8">
@@ -149,7 +153,7 @@
                     </div>
                     <!-- Sách đang mượn -->
                     <div class="tab-pane fade" id="list-library-content" role="tabpanel" aria-labelledby="list-library-list">
-                        <nav class="navbar navbar-light bg-light">
+                        <!-- <nav class="navbar navbar-light bg-light">
                             <input id="searchInput" class="form-control mr-5 w-25" type="search" placeholder="Tên sách" aria-label="Tìm kiếm">
                             <div class="form-inline float-right">
                                 <select id="borrowStatusFilter" class="custom-select custom-select-sm mr-1">
@@ -169,7 +173,7 @@
                                         <option value="2">Giảm dần</option>
                                     </select>
                             </div>
-                        </nav>
+                        </nav> -->
                         <!-- danh sách mượn -->
                         <div id="borrowListContent">
                         </div>
@@ -268,19 +272,25 @@
                         <div id="passwordDiv">
                             <div class="row mb-2 configPopUp">
                                 <label for="passwordInput" class="col-4">Mật khẩu cũ <span class="label-required">*</span></label>
-                                <input id="passwordInput" type="password" class="form-control col-7">
+                                <div class="col-7 form-inline">
+                                    <input type="password" class="form-control w-100" id="passwordInput"><i class="far fa-eye mr-auto" id="togglePassword" style="margin-left: -30px; cursor: pointer"></i>
+                                </div>
                             </div>
                         </div>
                         <div id="newPasswordDiv">
                             <div class="row mb-2 configPopUp">
                                 <label for="newPasswordInput" class="col-4">Mật khẩu mới <span class="label-required">*</span></label>
-                                <input id="newPasswordInput" type="password" class="form-control col-7">
+                                <div class="col-7 form-inline">
+                                    <input type="password" class="form-control w-100" id="newPasswordInput"><i class="far fa-eye mr-auto" id="toggleNewPassword" style="margin-left: -30px; cursor: pointer"></i>
+                                </div>
                             </div>
                         </div>
                         <div id="reNewPasswordDiv">
                             <div class="row mb-2 configPopUp">
                                 <label for="reNewPasswordInput" class="col-4">Xác nhận mật khẩu <span class="label-required">*</span></label>
-                                <input id="reNewPasswordInput" type="password" class="form-control col-7">
+                                <div class="col-7 form-inline">
+                                    <input type="password" class="form-control w-100" id="reNewPasswordInput"><i class="far fa-eye mr-auto" id="toggleRenewPassword" style="margin-left: -30px; cursor: pointer"></i>
+                                </div>
                             </div>
                         </div>
                     </div>

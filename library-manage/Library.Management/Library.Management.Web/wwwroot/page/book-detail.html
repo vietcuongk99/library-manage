@@ -12,12 +12,13 @@
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <!-- icon page -->
+    <link rel="icon" type="image/jpg" href="../content/img/logo-app.jpg">
     <!-- Custom styles for this template -->
     <link href="../css/page/common.css" rel="stylesheet">
     <link href="../css/base/common.css" rel="stylesheet" />
     <link href="../css/page/book-detail.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 </head>
 
 <body>
@@ -56,14 +57,14 @@
         <div class="row">
             <!-- mượn, trả, gia hạn, tải tài liệu -->
             <div class="col-md-4">
-                <img id="imageBook" class="img-thumbnail mb-2" alt="Ảnh bìa sách" style="width: 300px; height: 400px;" src="../content/img/avatar-book-default.jpg">
+                <img id="imageBook" class="img-thumbnail mb-2 rounded-0" alt="Ảnh bìa sách" style="width: 300px; height: 400px;" src="../content/img/avatar-book-default.jpg">
                 <ul id="groupBookAction" class="list-group" style="width: 300px;">
                 </ul>
             </div>
             <!-- thông tin sách -->
             <div class="col-md-8">
                 <h3 id="bookName" class="my-3 text-uppercase"></h3>
-                <h5 class="my-3">Thông tin sách</h5>
+                <h5 class="my-3"><i class="fas fa-book mr-3"></i>Thông tin sách</h5>
                 <div class="row">
                     <div class="col-3">
                         <b>Tác giả:</b>
@@ -201,7 +202,7 @@
         <!-- /.row -->
         <!-- Form nhập bình luận -->
         <div class="card my-4">
-            <h5 class="card-header">Bình luận</h5>
+            <h5 class="card-header">Bình luận của bạn</h5>
             <div class="card-body">
                 <form>
                     <div class="form-group">

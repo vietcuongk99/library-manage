@@ -92,6 +92,9 @@ class IndexJS extends BaseJS {
         //gán xử lý sự kiện khi click vào 1 card sách
         $('#newBookRow').on('click', 'div.card.h-100', this.cardOnClick);
         $('#hotBookRow').on('click', 'div.card.h-100', this.cardOnClick);
+        $('#searchBtn').on('click', function() {
+            window.open("search.html", "_self")
+        });
     }
 
     //chi tiết xử lý sự kiện khi click vào 1 card sách

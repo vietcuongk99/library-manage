@@ -17,8 +17,15 @@ class SignUpJS {
     //gán sự kiện cho các thẻ liên quan trên trang signup.html
     initEvent() {
         //this = signUpJS
-        $('#signUpBtn').click(this.signUpEvent.bind(this))
-        commonJS.addEnterEvent(this.signUpEvent)
+        $('#signUpBtn').click(this.signUpEvent.bind(this));
+        commonJS.addEnterEvent(this.signUpEvent);
+        //gán ẩn hiện mật khẩu cho input nhập mật khẩu
+        $(document).on('click', '#togglePassword', function() {
+            commonJS.togglePassword('#togglePassword', '#passwordInput');
+        });
+        $(document).on('click', '#toggleRePassword', function() {
+            commonJS.togglePassword('#toggleRePassword', '#rePasswordInput');
+        });
     }
 
     //chi tiết xử lý khi click nút "đăng ký"

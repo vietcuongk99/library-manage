@@ -8,16 +8,17 @@
     <meta name="description" content="Đăng nhập">
     <meta name="author" content="Cường, Bảo, Dũng">
 
-
     <title>Đăng ký tài khoản</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <!-- icon page -->
+    <link rel="icon" type="image/jpg" href="../content/img/logo-app.jpg">
     <!-- Custom styles for this template -->
     <link href="../css/page/common.css" rel="stylesheet">
     <link href="../css/page/login&signup.css" rel="stylesheet">
     <link href="../css/base/common.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 </head>
 
 <body>
@@ -44,7 +45,6 @@
             </div>
         </div>
     </nav>
-
     <main class=" d-flex align-items-center justify-content-center mt-5">
         <div class="row">
             <div class="col-1"></div>
@@ -61,11 +61,15 @@
                     </div>
                     <div id="passwordInputDiv" class="form-group">
                         <label for="passwordInput">Mật khẩu</label>
-                        <input type="password" class="form-control" id="passwordInput">
+                        <div class="form-inline">
+                            <input type="password" class="form-control w-100" id="passwordInput"><i class="far fa-eye mr-auto" id="togglePassword" style="margin-left: -30px; cursor: pointer"></i>
+                        </div>
                     </div>
                     <div id="rePasswordInputDiv" class="form-group">
                         <label for="rePasswordInput">Nhập lại mật khẩu</label>
-                        <input type="password" class="form-control" id="rePasswordInput">
+                        <div class="form-inline">
+                            <input type="password" class="form-control w-100" id="rePasswordInput"><i class="far fa-eye mr-auto" id="toggleRePassword" style="margin-left: -30px; cursor: pointer"></i>
+                        </div>
                     </div>
                     <div id="checkboxInputDiv" class="form-group form-check">
                         <input type="checkbox" class="form-check-input" id="checkBox">
@@ -75,23 +79,19 @@
                         <button id="signUpBtn" class="btn btn-success">Đăng ký</button>
                     </div>
                 </div>
-
             </div>
             <div class="col-1"></div>
         </div>
     </main>
-
-
+    <!-- custom alert -->
     <div class="toastMsg">
         <span class="toastMsg-img-success"></span> Thành công
         <div class="toastMsg-text"></div>
     </div>
-
     <div class="toastMsgFailed">
         <span class="toastMsgFailed-img"></span> Thất bại
         <div class="toastMsgFailed-text"></div>
     </div>
-
     <!-- Bootstrap core JavaScript -->
     <script src="../js/lib/jquery/jquery.min.js"></script>
     <script src="../js/lib/bootstrap/bootstrap.bundle.min.js"></script>
@@ -99,7 +99,6 @@
     <script src="../js/helper/enum.js"></script>
     <script src="../js/helper/common.js"></script>
     <script src="../js/page/signup.js"></script>
-
 </body>
 
 </html>

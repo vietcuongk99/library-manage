@@ -228,6 +228,16 @@ class AccountJS extends BaseJS {
         });
         //gán xử lý sự kiện khi click vào 1 card sách
         $('#borrowListContent').on('click', '.card.h-100', this.cardOnClick);
+        //gán ẩn hiện mật khẩu cho input nhập mật khẩu
+        $(document).on('click', '#togglePassword', function() {
+            commonJS.togglePassword('#togglePassword', '#passwordInput');
+        });
+        $(document).on('click', '#toggleNewPassword', function() {
+            commonJS.togglePassword('#toggleNewPassword', '#newPasswordInput');
+        });
+        $(document).on('click', '#toggleRenewPassword', function() {
+            commonJS.togglePassword('#toggleRenewPassword', '#reNewPasswordInput');
+        });
     }
 
     //xử lý sự kiện sau khi chọn file

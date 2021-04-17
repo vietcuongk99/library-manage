@@ -15,6 +15,13 @@ class ChangePassJS {
         //this = changePassJS object
         $('#confirmBtn').on('click', this.updatePassEvent.bind(this));
         commonJS.addEnterEvent(this.updatePassEvent);
+        //gán ẩn hiện mật khẩu cho input nhập mật khẩu
+        $(document).on('click', '#togglePassword', function() {
+            commonJS.togglePassword('#togglePassword', '#passwordInput');
+        });
+        $(document).on('click', '#toggleRePassword', function() {
+            commonJS.togglePassword('#toggleRePassword', '#rePasswordInput');
+        });
     }
 
     //chi tiết xử lý khi click nút "thay đổi"

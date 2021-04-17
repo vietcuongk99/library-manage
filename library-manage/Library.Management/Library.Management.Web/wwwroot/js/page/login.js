@@ -22,7 +22,11 @@ class LoginJS {
         commonJS.addEnterEvent(this.loginEvent)
         $('#guestLoginLink').prop('href', "./index.html").on('click', this.guestLoginEvent.bind(this))
         $('#signUpLink').prop('href', "./signup.html");
-        $('#changePassword').prop('href', "./change-pass.html").on('click', this.changePassEvent.bind(this))
+        $('#changePassword').prop('href', "./change-pass.html").on('click', this.changePassEvent.bind(this));
+        //gán ẩn hiện mật khẩu cho input nhập mật khẩu
+        $(document).on('click', '#togglePassword', function() {
+            commonJS.togglePassword('#togglePassword', '#passwordInput');
+        });
     }
 
     //chi tiết xử lý khi click nút "đăng nhập"

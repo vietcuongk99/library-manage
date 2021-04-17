@@ -20,10 +20,10 @@ body {
 }
 
 
-/* xử lý ảnh khung tìm kiếm trang index */
+/* xử lý ảnh chính trang index */
 
 header {
-    padding: 156px 0 100px;
+    padding: 156px 0 200px;
     background-image: url('/content/img/landing-bg.png');
     background-position: center;
     background-size: cover;
@@ -83,10 +83,10 @@ a:-webkit-any-link {
     color: #28a745;
 }
 
-    a:hover {
-        color: #0d3663;
-        text-decoration: none;
-    }
+a:hover {
+    color: #0d3663;
+    text-decoration: none;
+}
 
 
 /* xử lý thẻ input */
@@ -134,4 +134,12 @@ input {
     width: 8.375rem;
     height: auto;
     border-radius: 50%
+}
+
+
+/* custom hover card */
+
+.card.h-100:hover {
+    background-color: #212529;
+    color: white;
 }
