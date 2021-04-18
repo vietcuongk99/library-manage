@@ -357,6 +357,13 @@ namespace Library.Management.Web
             var client = new RestClient("https://viettelgroup.ai/voice/api/tts/v1/rest/syn");
             client.Timeout = -1;
             string voiceConfig = string.Empty;
+
+            text = text.Replace("\n", " ");
+            text = text.Replace("\r", " ");
+            if (text.Length > 5000)
+            {
+                text = text.Substring(0, 5000);
+            }
             switch (voice)
             {
                 case 1:
@@ -393,43 +400,55 @@ namespace Library.Management.Web
         /// <param name="speed">speed kéo dài từ 0.7 đến 1.3</param>
         /// <returns></returns>
         [HttpPost("GetAPIViettelAIV2")]
-        public ActionResult GetAPIViettelAIV2([FromQuery]int voice, int speed)
+        public ActionResult GetAPIViettelAIV2([FromQuery] int voice, int speed, Guid BookID)
         {
-            var filepath = Directory.GetCurrentDirectory() + GlobalResource.DirectoryBookInfo + "FileInfo.pdf";
-            byte[] bytes = System.IO.File.ReadAllBytes(filepath);
-            using (PdfDocument doc = new PdfDocument(filepath))
+            var filepath = Directory.GetCurrentDirectory() + GlobalResource.DirectoryBookInfo + BookID.ToString() + ".pdf";
+            if (!System.IO.File.Exists(filepath))
             {
-                string text = doc.GetTextWithFormatting();
-
-                var client = new RestClient("https://viettelgroup.ai/voice/api/tts/v1/rest/syn");
-                client.Timeout = -1;
-                string voiceConfig = string.Empty;
-                switch (voice)
+                return null;
+            }
+            else
+            {
+                byte[] bytes = System.IO.File.ReadAllBytes(filepath);
+                using (PdfDocument doc = new PdfDocument(filepath))
                 {
-                    case 1:
-                        voiceConfig = "hn-thanhtung";
-                        break;
-                    case 2:
-                        voiceConfig = "hn-phuongtrang";
-                        break;
+                    string text = doc.GetTextWithFormatting();
+                    text = text.Replace("\n", " ");
+                    text = text.Replace("\r", " ");
+                    if (text.Length > 5000)
+                    {
+                        text = text.Substring(0, 5000);
+                    }
+                    var client = new RestClient("https://viettelgroup.ai/voice/api/tts/v1/rest/syn");
+                    client.Timeout = -1;
+                    string voiceConfig = string.Empty;
+                    switch (voice)
+                    {
+                        case 1:
+                            voiceConfig = "hn-thanhtung";
+                            break;
+                        case 2:
+                            voiceConfig = "hn-phuongtrang";
+                            break;
+                    }
+                    var jsonObject = new
+                    {
+                        id = 3,
+                        speed = speed,
+                        text = text,
+                        timeout = 60000,
+                        tts_return_option = 2,
+                        voice = voiceConfig,
+                        without_filter = false
+                    };
+
+                    var request = new RestRequest(Method.POST);
+                    request.AddHeader("Content-Type", "application/json");
+                    request.AddJsonBody(jsonObject);
+                    IRestResponse response = client.Execute(request);
+                    var file = base.File(response.RawBytes, "audio/wav");
+                    return file;
                 }
-                var jsonObject = new
-                {
-                    id = 3,
-                    speed = speed,
-                    text = text,
-                    timeout = 60000,
-                    tts_return_option = 2,
-                    voice = voiceConfig,
-                    without_filter = false
-                };
-
-                var request = new RestRequest(Method.POST);
-                request.AddHeader("Content-Type", "application/json");
-                request.AddJsonBody(jsonObject);
-                IRestResponse response = client.Execute(request);
-                var file = base.File(response.RawBytes, "audio/wav");
-                return file;
             }
         }
     }
