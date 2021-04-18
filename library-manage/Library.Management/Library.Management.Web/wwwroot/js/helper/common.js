@@ -63,7 +63,7 @@ var commonJS = {
                 card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
                             </div>`),
                 bookHTML = $(`<div class="card h-100 rounded shadow">
-                                <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 23rem;">
+                                <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 20rem;">
                                 <div class="card-body">
                                     <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + book.bookName + `</p>
                                 </div>
@@ -87,7 +87,7 @@ var commonJS = {
                                     </div>`)
                     var bookHTML = $(`
                     <div class="card h-100 rounded shadow">
-                    <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 23rem;">
+                    <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 20rem;">
                             <div class="card-body">
                                 <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + data[index].bookName + `</p>
                             </div>
@@ -115,7 +115,7 @@ var commonJS = {
                             </div>`)
             var bookHTML = $(`
             <div class="card h-100 rounded shadow">
-                    <img class="card-img-top w-100 p-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 22rem">
+                    <img class="card-img-top w-100 p-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 20.5rem">
                     <div class="card-body">
                         <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + book.bookName + `</p>
                     </div>

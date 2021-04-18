@@ -884,7 +884,7 @@ class BookDetailJS extends BaseJS {
                 cache: false
             }).done(function(res) {
                 //nếu server xử lý thành công
-                if (res.success && res.data && res.data.length > 0) {
+                if (res.success && res.data) {
                     //gán data
                     var list = res.data;
                     //lưu danh sách mượn mới nhất vào localStorage
