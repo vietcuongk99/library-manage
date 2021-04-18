@@ -1,9 +1,11 @@
-﻿using Library.Management.BL;
+﻿using BitMiracle.Docotic.Pdf;
+using Library.Management.BL;
 using Library.Management.Entity;
 using Library.Management.Entity.Models;
 using Library.Management.Entity.Properties;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -316,6 +318,119 @@ namespace Library.Management.Web
                 }
             };
             return res;
+        }
+
+        /// <summary>
+        /// API Zalo đọc text
+        /// </summary>
+        /// <param name="input">text truyền vào</param>
+        /// <param name="speak_id">option 1 2 3 4 tương ứng các giọng đọc khác nhau</param>
+        /// <param name="speed"> mặc định truyền 1</param>
+        /// <returns></returns>
+        [HttpPost("GetAPIZaloAI")]
+        public ActionResult GetAPIZaloAI([FromQuery] string input, int speak_id, int speed)
+        {
+
+            IRestResponse response;
+            var client = new RestClient("https://api.zalo.ai/v1/tts/synthesize?apikey=9YX4lUKZXTV3a9EJ0suhFDzVNaaN6ODq");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddParameter("input", input);
+            request.AddParameter("speaker_id", speak_id.ToString());
+            request.AddParameter("speed", speed);
+            response = client.Execute(request);
+            var file = base.File(response.RawBytes, "audio/wav");
+            return file;
+        }
+
+        /// <summary>
+        /// API viettel đọc text
+        /// </summary>
+        /// <param name="text">đoạn text truyền vào để đọc</param>
+        /// <param name="voice">giọng đọc 1- nam 2 - nữ</param>
+        /// <param name="speed">speed kéo dài từ 0.7 đến 1.3</param>
+        /// <returns></returns>
+        [HttpPost("GetAPIViettelAI")]
+        public ActionResult GetAPIViettelAI([FromQuery]string text, int voice, int speed)
+        {
+            var client = new RestClient("https://viettelgroup.ai/voice/api/tts/v1/rest/syn");
+            client.Timeout = -1;
+            string voiceConfig = string.Empty;
+            switch (voice)
+            {
+                case 1:
+                    voiceConfig = "hn-thanhtung";
+                    break;
+                case 2:
+                    voiceConfig = "hn-phuongtrang";
+                    break;
+            }
+            var jsonObject = new
+            {
+                id = 3,
+                speed = speed,
+                text = text,
+                timeout = 60000,
+                tts_return_option = 2,
+                voice = voiceConfig,
+                without_filter = false
+            };
+
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddJsonBody(jsonObject);
+            IRestResponse response = client.Execute(request);
+            var file = base.File(response.RawBytes, "audio/wav");
+            return file;
+        }
+
+        /// <summary>
+        /// API viettel đọc text file pdf
+        /// </summary>
+        /// <param name="text">đoạn text truyền vào để đọc</param>
+        /// <param name="voice">giọng đọc 1- nam 2 - nữ</param>
+        /// <param name="speed">speed kéo dài từ 0.7 đến 1.3</param>
+        /// <returns></returns>
+        [HttpPost("GetAPIViettelAIV2")]
+        public ActionResult GetAPIViettelAIV2([FromQuery]int voice, int speed)
+        {
+            var filepath = Directory.GetCurrentDirectory() + GlobalResource.DirectoryBookInfo + "FileInfo.pdf";
+            byte[] bytes = System.IO.File.ReadAllBytes(filepath);
+            using (PdfDocument doc = new PdfDocument(filepath))
+            {
+                string text = doc.GetTextWithFormatting();
+
+                var client = new RestClient("https://viettelgroup.ai/voice/api/tts/v1/rest/syn");
+                client.Timeout = -1;
+                string voiceConfig = string.Empty;
+                switch (voice)
+                {
+                    case 1:
+                        voiceConfig = "hn-thanhtung";
+                        break;
+                    case 2:
+                        voiceConfig = "hn-phuongtrang";
+                        break;
+                }
+                var jsonObject = new
+                {
+                    id = 3,
+                    speed = speed,
+                    text = text,
+                    timeout = 60000,
+                    tts_return_option = 2,
+                    voice = voiceConfig,
+                    without_filter = false
+                };
+
+                var request = new RestRequest(Method.POST);
+                request.AddHeader("Content-Type", "application/json");
+                request.AddJsonBody(jsonObject);
+                IRestResponse response = client.Execute(request);
+                var file = base.File(response.RawBytes, "audio/wav");
+                return file;
+            }
         }
     }
 }
