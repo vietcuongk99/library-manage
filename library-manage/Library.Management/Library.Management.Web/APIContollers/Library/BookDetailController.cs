@@ -275,7 +275,7 @@ namespace Library.Management.Web
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 05/04/2021
         [HttpPost("OpenFileBookInfo")]
-        public ActionServiceResult OpenFileBookInfo([FromQuery]string BookID)
+        public ActionServiceResult OpenFileBookInfo([FromQuery] string BookID)
         {
             var res = new ActionServiceResult();
             string FilePath = Directory.GetCurrentDirectory() + GlobalResource.DirectoryBookInfo + BookID + ".pdf";
@@ -295,7 +295,7 @@ namespace Library.Management.Web
         /// <returns></returns>
         /// CreatedBy: VDDUNG1 07/04/2021
         [HttpGet("GetPagingDataV2")]
-        public async Task<ActionServiceResult> GetPagingDataV2([FromQuery]ParamFilterBookDetailV2 param)
+        public async Task<ActionServiceResult> GetPagingDataV2([FromQuery] ParamFilterBookDetailV2 param)
         {
             var res = await _bookDetailBL.GetPagingDataV2(param);
             if (res.Data != null)
@@ -352,7 +352,7 @@ namespace Library.Management.Web
         /// <param name="speed">speed kéo dài từ 0.7 đến 1.3</param>
         /// <returns></returns>
         [HttpPost("GetAPIViettelAI")]
-        public ActionResult GetAPIViettelAI([FromQuery]string text, int voice, int speed)
+        public ActionResult GetAPIViettelAI([FromQuery] string text, int voice, int speed)
         {
             var client = new RestClient("https://viettelgroup.ai/voice/api/tts/v1/rest/syn");
             client.Timeout = -1;
@@ -430,7 +430,20 @@ namespace Library.Management.Web
                         case 2:
                             voiceConfig = "hn-phuongtrang";
                             break;
+                        case 3:
+                            voiceConfig = "hcm-diemmy";
+                            break;
+                        case 4:
+                            voiceConfig = "hcm-minhquan";
+                            break;
+                        case 5:
+                            voiceConfig = "hue-baoquoc";
+                            break;
+                        case 6:
+                            voiceConfig = "lethiyen";
+                            break;
                     }
+
                     var jsonObject = new
                     {
                         id = 3,
