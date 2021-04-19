@@ -47,5 +47,12 @@ var Enum = {
         PAGE_DEFAULT: 1,
         //số trang hiển thị mặc định trên thanh pagination
         VISIBLE_PAGE_DEFAULT: 1
+    },
+    //action
+    CommentAction: {
+        //sửa
+        Update: 1,
+        //xóa
+        Delete: 2
     }
 }

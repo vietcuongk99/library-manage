@@ -134,22 +134,121 @@ var commonJS = {
     },
     //append dữ liệu comment
     //sử dụng trong trang book-detail
-    appendCommentData(data) {
+    appendCommentData(data, userID) {
         var commentGroupDiv = $(`<div></div>`);
         data.forEach(comment => {
             //convert datetime
             var timeComment = this.getDateTimeString(comment.createdDate);
             //lấy string biểu diễn avatar
             var avatarBase64String = "data:image/jpg;base64," + comment.avatarUrl;
+            //tạo nội dung ảnh đại diện
             var commentHTML = $(`<div class="media mb-4">
                                     <img class="d-flex mr-3 rounded-circle avatar-comment" src=` + avatarBase64String + ` alt="">
-                                    <div class="media-body">
-                                    <div class="row"><h5 class="mt-0 mx-3">` + comment.userName + `</h5><small class="mt-1">` + timeComment + `</small></div>` + comment.comment + `</div>
-                                <div>`);
-            commentHTML.data('commentId', comment.commentId);
+                                </div>`);
+            //tạo nội dung gồm tên user, thời gian và nội dung bình luận
+            var commentContentHTML = $(`<div class="media-body">
+                                            <div class="row">
+                                                <h5 class="mt-0 mx-3">` + comment.userName + `</h5>
+                                                <small class="mt-1">` + timeComment + `</small>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-8 text-break">
+                                                    <p>` + comment.comment + `</p>
+                                                </div>
+                                                <div class="col-4">
+                                                </div>
+                                            </div>
+                                        </div>`);
+            //tạo nội dung gồm button sửa và xóa                                
+            var commentActionHTML = $(`<div class="bg-white">
+                                            <button class="btn btn-success" type="button">Cập nhật</button>
+                                            <button class="btn btn-danger" type="button">Xóa</button>
+                                            <button class="btn btn-secondary" type="button">Hủy bỏ</button>
+                                    </div>`);
+            //nếu bình luận thuộc về user hiện tại
+            if (comment.userId == userID) {
+                //ẩn button cho bình luận của user hiện tại nếu có
+                commentContentHTML.children('.row').children('.col-4').html(commentActionHTML).hide();
+                //khai báo object chứa btn sửa bình luận
+                var updateCommentBtn = $(commentActionHTML.children())[0],
+                    //khai báo object chứa btn xóa bình luận
+                    deleteCommentBtn = $(commentActionHTML.children())[1],
+                    //khai báo object chứa btn xóa bình luận
+                    dismissCommentBtn = $(commentActionHTML.children())[2];
+                //gán id bình luận cho data
+                commentActionHTML.data('commentId', comment.commentId);
+                //gán nội dung bình luận cho data
+                commentActionHTML.data('commentContent', comment.comment);
+                //gán sự kiện khi click vào bình luận của user hiện tại
+                commentContentHTML.children('.row').children('.col-8').on('click', function() {
+                    //khai báo biến lưu nội dung bình luận
+                    var commentContent = commentActionHTML.data('commentContent');
+                    //hiện button sửa, xóa, hủy
+                    commentContentHTML.children('.row').children('.col-4').show();
+                    //thay đổi ui bình luận
+                    var inputCommentHTML = $(`<textarea class="form-control w-100">` + commentContent + `</textarea>`);
+                    commentContentHTML.children('.row').children('.col-8').html(inputCommentHTML);
+                });
+                //gán sự kiện cho nút xóa bình luận
+                $(deleteCommentBtn).on('click', function(event) {
+                    //lấy ra commentId
+                    var commentId = $(event.target).parent().data("commentId");
+                    //gọi hàm thực thi khi nút xóa bình luận được click
+                    commonJS.deleteCommentEvent(commentId);
+                });
+                //gán sự kiện cho nút sửa bình luận
+                $(updateCommentBtn).on('click', function(event) {
+                    debugger
+                    //lấy ra id bình luận
+                    var commentId = $(event.target).parent().data("commentId");
+                    //lấy ra input bình luận của người dùng
+                    var newCommentVal = $(commentContentHTML.children('.row').children('.col-8').children('textarea')).val();
+                    debugger
+                    if (newCommentVal.trim().length > 0) {
+                        //gọi hàm thực thi khi nút xóa bình luận được click
+                        commonJS.updateCommentEvent(commentId, newCommentVal);
+                    } else {}
+                });
+                //gán sự kiện cho nút hủy
+                $(dismissCommentBtn).on('click', function(event) {
+                    //khai báo biến lưu nội dung bình luận
+                    var commentContent = $(event.target).parent().data('commentContent');
+                    //tạo ui cho bình luận
+                    var commentContentDiv = $(`<p>` + commentContent + `</p>`);
+                    //thay đổi ui bình luận
+                    commentContentHTML.children('.row').children('.col-8').html(commentContentDiv);
+                    //ẩn button sửa, xóa, hủy
+                    commentContentHTML.children('.row').children('.col-4').hide();
+                })
+            }
+            //nếu bình luận không phải của user hiện tại 
+            else {}
+            //gán nội dung bình luận
+            commentHTML.append(commentContentHTML);
             commentGroupDiv.append(commentHTML);
-        })
+        });
+        //gán list bình luận
         $('#commentContentDiv').html(commentGroupDiv);
+    },
+    //xử lý sự kiện cho nút xóa bình luận
+    //sử dụng trong màn book-detail
+    deleteCommentEvent(commentId) {
+        //alert(commentId);
+        //gán commentId vào modal xóa bình luận
+        $('#modalDeleteComment').data('commentId', commentId);
+        //hiện modal Gia hạn
+        $('#modalDeleteComment').modal('show');
+    },
+    //xử lý sự kiện cho nút xóa bình luận
+    //sử dụng trong màn book-detail
+    updateCommentEvent(commentId, commentContent) {
+        //alert(commentId);
+        //gán commentId vào modal cập nhật bình luận
+        $('#modalUpdateComment').data('commentId', commentId);
+        //gán commentId vào modal cập nhật bình luận
+        $('#modalUpdateComment').data('commentContent', commentContent);
+        //hiện modal Gia hạn
+        $('#modalUpdateComment').modal('show');
     },
     //gán sự kiện khi ấn nút enter
     //sử dụng trong trang login, signup, change-pass
@@ -276,6 +375,7 @@ var commonJS = {
     //thêm ui hiển thị danh sách rỗng
     //sử dụng ở trang index, search, account, book-detail
     addEmptyListHTML(title, parentElementID, subElement) {
+        $(parentElementID).empty();
         var emptyDiv = $(`<div class="my-5">
                             <div class="row d-flex justify-content-center">
                                 <img class="empty-list-image" src="../content/img/empty-list.png">
@@ -284,7 +384,7 @@ var commonJS = {
                                 <p class="empty-list-title">` + title + `</p>
                             </div>
                         </div>`);
-        $(parentElementID).append(emptyDiv);
+        $(parentElementID).html(emptyDiv);
         if (subElement) {
             $(emptyDiv).append(subElement);
         }

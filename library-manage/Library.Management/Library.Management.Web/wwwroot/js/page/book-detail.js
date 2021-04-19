@@ -299,6 +299,31 @@ class BookDetailJS extends BaseJS {
         $('#sameCategoryBookDiv').on('click', 'div.card.h-100', this.cardOnClick);
         //gán sự kiện cho nút Xem thêm
         $('#showSameCategoryBook').on('click', this.showSameCategoryBook);
+
+        //gán sự kiện trong modal Xóa bình luận
+        $(document).on('click', '#dismissDeleteBtn', function() {
+            //đóng modal
+            $('#modalDeleteComment').modal('hide');
+        });
+        $(document).on('click', '#confirmDeleteBtn', function() {
+            //lấy ra commentId
+            var commentId = $('#modalDeleteComment').data("commentId");
+            //gọi hàm thực thi xóa bình luận
+            bookDetailJS.confirmDeleteComment(commentId);
+        });
+        //gán sự kiện trong modal Cập nhật bình luận
+        $(document).on('click', '#dismissUpdateBtn', function() {
+            //đóng modal
+            $('#modalUpdateComment').modal('hide');
+        });
+        $(document).on('click', '#confirmUpdateBtn', function() {
+            //lấy ra commentId
+            var commentId = $('#modalUpdateComment').data("commentId");
+            //lấy ra commentId
+            var commentContent = $('#modalUpdateComment').data("commentContent");
+            //gọi hàm thực thi cập nhật bình luận
+            bookDetailJS.confirmUpdateComment(commentId, commentContent);
+        })
     }
 
     //sự kiện khi click nút Mượn sách
@@ -791,6 +816,79 @@ class BookDetailJS extends BaseJS {
         }
     }
 
+    //chi tiết xử lý xóa bình luận
+    confirmDeleteComment(commentID) {
+        //đóng modal
+        $('#modalDeleteComment').modal('hide');
+        //hiện loading
+        commonBaseJS.showLoadingData(1);
+        //tạo data
+        var data = JSON.stringify([commentID]);
+        //call api
+        $.ajax({
+            url: Enum.URL.HOST_URL + "api/UserComment/GroupID",
+            contentType: "application/json",
+            data: data,
+            method: "DELETE"
+        }).done(function(res) {
+            //đóng loading
+            commonBaseJS.showLoadingData(0);
+            //nếu res báo thành công
+            if (res.success) {
+                //cập nhật bình luận mới nhất
+                bookDetailJS.loadBookComment();
+            }
+            //nếu res báo không thành công
+            else {
+                //hiện thông báo
+                commonBaseJS.showToastMsgInfomation(res.message);
+            }
+        }).fail(function(res) {
+            //đóng loading
+            commonBaseJS.showLoadingData(0);
+            //hiện thông báo
+            commonBaseJS.showToastMsgFailed(res.message);
+        })
+    }
+
+    //chi tiết xử lý cập nhật bình luận
+    confirmUpdateComment(commentID, commentContent) {
+        //đóng modal
+        $('#modalUpdateComment').modal('hide');
+        //hiện loading
+        commonBaseJS.showLoadingData(1);
+        //tạo data
+        var data = {
+            commentId: commentID,
+            comment: commentContent
+        };
+        //call api
+        $.ajax({
+            url: Enum.URL.HOST_URL + "api/UserComment/ModifyCommentBookDetail",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            method: "PUT"
+        }).done(function(res) {
+            //đóng loading
+            commonBaseJS.showLoadingData(0);
+            //nếu res báo thành công
+            if (res.success) {
+                //cập nhật bình luận mới nhất
+                bookDetailJS.loadBookComment();
+            }
+            //nếu res báo không thành công
+            else {
+                //hiện thông báo
+                commonBaseJS.showToastMsgInfomation(res.message);
+            }
+        }).fail(function(res) {
+            //đóng loading
+            commonBaseJS.showLoadingData(0);
+            //hiện thông báo
+            commonBaseJS.showToastMsgFailed(res.message);
+        })
+    }
+
     //chi tiết xử lý sự kiện khi click vào 1 card sách
     cardOnClick() {
         //lấy ra id của sách được chọn
@@ -814,6 +912,10 @@ class BookDetailJS extends BaseJS {
 
     //chi tiết xử lý phân trang danh sách bình luận
     loadCommentPagination(totalPages, defaultList) {
+        //lấy thông tin user hiện tại
+        var userObject = JSON.parse(localStorage.getItem("user")),
+            //lấy ra userId trong localStorage
+            userID = userObject.userID;
         //hủy pagination từ twbs-paginaton plugin
         $('#pagingDiv').twbsPagination('destroy');
         //gọi hàm twbsPagination từ twbs-pagination plugin
@@ -841,7 +943,7 @@ class BookDetailJS extends BaseJS {
                             //lấy ra danh sách bình luận
                             var data = res.data.dataItems;
                             //gán dữ liệu lên ui
-                            commonJS.appendCommentData(data);
+                            commonJS.appendCommentData(data, userID);
                         } else {
                             commonJS.addEmptyListHTML("Chưa có bình luận nào", "#commentContentDiv")
                         }
@@ -853,7 +955,7 @@ class BookDetailJS extends BaseJS {
                         commonBaseJS.showLoadingData(0);
                     })
                 } else {
-                    commonJS.appendCommentData(defaultList);
+                    commonJS.appendCommentData(defaultList, userID);
                 }
             }
         })
