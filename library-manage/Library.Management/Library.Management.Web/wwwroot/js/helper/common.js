@@ -180,7 +180,7 @@ var commonJS = {
                 //gán nội dung bình luận cho data
                 commentActionHTML.data('commentContent', comment.comment);
                 //gán sự kiện khi click vào bình luận của user hiện tại
-                commentContentHTML.children('.row').children('.col-8').on('click', function() {
+                commentContentHTML.children('.row').children('.col-8').children('p').on('click', function() {
                     //khai báo biến lưu nội dung bình luận
                     var commentContent = commentActionHTML.data('commentContent');
                     //hiện button sửa, xóa, hủy
@@ -195,19 +195,19 @@ var commonJS = {
                     var commentId = $(event.target).parent().data("commentId");
                     //gọi hàm thực thi khi nút xóa bình luận được click
                     commonJS.deleteCommentEvent(commentId);
+                    event.preventDefault();
                 });
                 //gán sự kiện cho nút sửa bình luận
                 $(updateCommentBtn).on('click', function(event) {
-                    debugger
                     //lấy ra id bình luận
                     var commentId = $(event.target).parent().data("commentId");
                     //lấy ra input bình luận của người dùng
                     var newCommentVal = $(commentContentHTML.children('.row').children('.col-8').children('textarea')).val();
-                    debugger
                     if (newCommentVal.trim().length > 0) {
                         //gọi hàm thực thi khi nút xóa bình luận được click
                         commonJS.updateCommentEvent(commentId, newCommentVal);
                     } else {}
+                    event.preventDefault();
                 });
                 //gán sự kiện cho nút hủy
                 $(dismissCommentBtn).on('click', function(event) {
@@ -219,7 +219,9 @@ var commonJS = {
                     commentContentHTML.children('.row').children('.col-8').html(commentContentDiv);
                     //ẩn button sửa, xóa, hủy
                     commentContentHTML.children('.row').children('.col-4').hide();
-                })
+                    event.preventDefault();
+                });
+
             }
             //nếu bình luận không phải của user hiện tại 
             else {}
