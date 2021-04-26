@@ -145,26 +145,26 @@ class SignUpJS {
         }
         if (!passwordValid) {
             alertDiv = $(`<small id="alertPasswordInput" class="form-text text-danger">Mật khẩu chứa tối thiểu 5 kí tự và không có khoảng trắng.</small>`)
-            if ($('#passwordInput').next()) {
-                $('#passwordInput').next().remove();
+            if ($('#alertPasswordInput')) {
+                $('#alertPasswordInput').remove();
             }
             $('#passwordInputDiv').append(alertDiv);
             result = false;
         } else {
-            if ($('#passwordInput').next()) {
-                $('#passwordInput').next().remove();
+            if ($('#alertPasswordInput')) {
+                $('#alertPasswordInput').remove();
             }
         }
         if (!rePasswordValid && passwordInput) {
             alertDiv = $(`<small id="alertRePassInput" class="form-text text-danger">Nhập lại mật khẩu chưa đúng.</small>`)
-            if ($('#rePasswordInput').next()) {
-                $('#rePasswordInput').next().remove();
+            if ($('#alertRePassInput')) {
+                $('#alertRePassInput').remove();
             }
             $('#rePasswordInputDiv').append(alertDiv);
             result = false;
         } else {
-            if ($('#rePasswordInput').next()) {
-                $('#rePasswordInput').next().remove();
+            if ($('#alertRePassInput')) {
+                $('#alertRePassInput').remove();
             }
         }
         if (!checkBoxValid) {

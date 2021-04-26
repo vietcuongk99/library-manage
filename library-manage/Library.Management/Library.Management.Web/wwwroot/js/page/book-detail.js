@@ -912,10 +912,10 @@ class BookDetailJS extends BaseJS {
 
     //chi tiết xử lý phân trang danh sách bình luận
     loadCommentPagination(totalPages, defaultList) {
-        //lấy thông tin user hiện tại
+        //lấy id của user hiện tại
         var userObject = JSON.parse(localStorage.getItem("user")),
-            //lấy ra userId trong localStorage
-            userID = userObject.userID;
+            userID;
+        (userObject) ? (userID = userObject.userID) : ("");
         //hủy pagination từ twbs-paginaton plugin
         $('#pagingDiv').twbsPagination('destroy');
         //gọi hàm twbsPagination từ twbs-pagination plugin
