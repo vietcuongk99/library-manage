@@ -331,8 +331,7 @@ class AccountJS extends BaseJS {
         if (!firstNameValid) {
             //khai báo thành phần alert
             alertDiv = $(`<div id="firstNameAlert" class="row mb-1">
-                <label class="col-4"></label>
-                <small class="form-text text-danger col-6">Không được để trống trường này.</small>
+                <small class="form-text text-danger col-12">Không được để trống trường này.</small>
             </div>`)
             if ($('#firstNameAlert')) {
                 $('#firstNameAlert').remove()
@@ -347,8 +346,7 @@ class AccountJS extends BaseJS {
         if (!lastNameValid) {
             //khai báo thành phần alert
             alertDiv = $(`<div id="lastNameAlert" class="row mb-1">
-                <label class="col-4"></label>
-                <small class="form-text text-danger col-6">Không được để trống trường này.</small>
+                <small class="form-text text-danger col-12">Không được để trống trường này.</small>
             </div>`)
             if ($('#lastNameAlert')) {
                 $('#lastNameAlert').remove()
@@ -363,8 +361,7 @@ class AccountJS extends BaseJS {
         if (!emailValid) {
             //khai báo thành phần alert
             alertDiv = $(`<div id="emailAlert" class="row mb-1">
-                <label class="col-4"></label>
-                <small class="form-text text-danger col-6">Email chưa đúng định dạng.</small>
+                <small class="form-text text-danger col-12">Email chưa đúng định dạng.</small>
             </div>`)
             if ($('#emailAlert')) {
                 $('#emailAlert').remove()
@@ -385,7 +382,7 @@ class AccountJS extends BaseJS {
         //khai báo kết quả trả về
         var result = true,
             alertDiv,
-            //lấy email input của người dùng
+            //lấy password input của người dùng
             passwordInput = $('#passwordInput').val().trim(),
             newPasswordInput = $('#newPasswordInput').val().trim(),
             reNewPasswordInput = $('#reNewPasswordInput').val().trim(),
@@ -397,7 +394,7 @@ class AccountJS extends BaseJS {
                     return password.length >= 5
                 }
             })(passwordInput),
-            //password chứa tối thiểu 5 kí tự và không có khoảng trắng
+            //password mới chứa tối thiểu 5 kí tự và không có khoảng trắng
             newPasswordValid = (function validateNewPassword(password) {
                 if (password.includes(" ")) {
                     return false
@@ -405,7 +402,7 @@ class AccountJS extends BaseJS {
                     return password.length >= 5
                 }
             })(newPasswordInput);
-        //password và repassword phải trùng khớp
+        //password mới và nhập lại password mới phải trùng khớp
         if (newPasswordInput) {
             var reNewPasswordValid = (function validateRePassWord(rePassword, password) {
                 return rePassword == password
@@ -436,8 +433,7 @@ class AccountJS extends BaseJS {
             //khai báo thành phần alert
             alertDiv = $(`<div id="newPasswordAlert" class="row mb-1">
                 <label class="col-4"></label>
-                <small class="form-text text-danger col-6">
-                Mật khẩu chứa tối thiểu 5 kí tự và không có khoảng trắng.</small>
+                <small class="form-text text-danger col-6">Mật khẩu chứa tối thiểu 5 kí tự và không có khoảng trắng.</small>
             </div>`)
             $('#newPasswordDiv').append(alertDiv)
             result = false;
@@ -521,7 +517,7 @@ class AccountJS extends BaseJS {
                 commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
             })
         } else {
-            commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng ký không thành công.");
+            commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, cập nhật không thành công.");
         }
     }
 
@@ -568,7 +564,7 @@ class AccountJS extends BaseJS {
                 commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
             })
         } else {
-            commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng ký không thành công.");
+            commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, cập nhật không thành công.");
         }
     }
 

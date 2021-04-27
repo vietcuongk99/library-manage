@@ -118,7 +118,8 @@ input {
 
 /* custom card bootstrap */
 
-.card {
+.card,
+.media {
     cursor: pointer;
 }
 
@@ -131,7 +132,7 @@ input {
 }
 
 .empty-list-image {
-    width: 8.375rem;
+    width: 7rem;
     height: auto;
     border-radius: 50%
 }
