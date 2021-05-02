@@ -185,7 +185,7 @@ class BookDetailJS extends BaseJS {
                     $('#returnDateValue').html(returnDateValue);
                     $('#oldReturnDate').html(returnDateValue);
                     //nếu sách vẫn còn hạn mượn
-                    if (borrowList[index].returnDate >= dateNow) {
+                    if (borrowList[index].returnDate > dateNow) {
                         //thêm nút mở tài liệu
                         $('#groupBookAction').append(showFileBtnHTML)
                     } else {
@@ -746,17 +746,9 @@ class BookDetailJS extends BaseJS {
         //nếu comment chưa validate
         if (!commentValidate) {
             //khai báo thành phần html
-            var alertDiv = $(`<p class="text-danger my-auto ml-4">Bạn cần nhập nội dung bình luận.</p>`)
-            if ($('#submitCommentBtn').next()) {
-                $('#submitCommentBtn').next().remove()
-            }
-            $('#submitDiv').append(alertDiv);
+            commonBaseJS.showToastMsgInfomation("Bạn cần nhập nội dung bình luận.");
             //gán result = false
             result = false
-        } else {
-            if ($('#submitCommentBtn').next()) {
-                $('#submitCommentBtn').next().remove()
-            }
         }
         return result;
     }

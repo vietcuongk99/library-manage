@@ -42,6 +42,8 @@ class ChangePassJS {
                 data: JSON.stringify(data)
             }).done(function(res) {
                 if (res.success) {
+                    //disable button xác nhận thay đổi mật khẩu
+                    $('#confirmBtn').prop('disabled', true);
                     commonBaseJS.showLoadingData(0);
                     //lưu thông tin email và pass mới vào sessionStorage
                     sessionStorage.setItem("email", $('#emailInput').val().trim());
@@ -117,8 +119,8 @@ class ChangePassJS {
             $('#passwordInputDiv').append(alertDiv);
             result = false;
         } else {
-            if ($('#passwordInput')) {
-                $('#passwordInput').remove()
+            if ($('#alertPasswordInput')) {
+                $('#alertPasswordInput').remove();
             }
         }
         if (!rePasswordValid && passwordInput) {

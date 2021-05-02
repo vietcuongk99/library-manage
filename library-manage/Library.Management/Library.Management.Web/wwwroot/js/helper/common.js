@@ -161,9 +161,9 @@ var commonJS = {
                                         </div>`);
             //tạo nội dung gồm button sửa và xóa                                
             var commentActionHTML = $(`<div class="bg-white">
-                                            <button class="btn btn-success" type="button">Cập nhật</button>
-                                            <button class="btn btn-danger" type="button">Xóa</button>
-                                            <button class="btn btn-secondary" type="button">Hủy bỏ</button>
+                                            <button class="btn btn-outline-success" type="button">Cập nhật</button>
+                                            <button class="btn btn-outline-danger" type="button">Xóa</button>
+                                            <button class="btn btn-outline-secondary" type="button">Hủy bỏ</button>
                                     </div>`);
             //nếu bình luận thuộc về user hiện tại
             if (comment.userId == userID) {
