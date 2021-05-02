@@ -21,7 +21,7 @@ class SearchBookJS extends BaseJS {
             searchBookJS.loadSearchResult();
         });
         //gán xử lý sự kiện khi click vào 1 card sách
-        $('#searchResultDiv').on('click', '.card.h-100', this.cardOnClick);
+        $('#searchResultDiv').on('click', '.card', this.cardOnClick);
         //gán xử lý khi chọn option lọc
         //dùng change()
         $('#categorySelect').on('change', function() {

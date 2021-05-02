@@ -62,10 +62,10 @@ var commonJS = {
             var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String,
                 card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
                             </div>`),
-                bookHTML = $(`<div class="card h-100 rounded shadow">
-                                <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 20rem;">
-                                <div class="card-body">
-                                    <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + book.bookName + `</p>
+                bookHTML = $(`<div class="card rounded shadow">
+                                <img class="w-100 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 21.5rem;">
+                                <div class="overlay h-100">
+                                    <p class="card-title text-uppercase text-center" style="font-weight: 600; text-overflow: ellipsis;">` + book.bookName + `</p>
                                 </div>
                             </div>`);
             bookHTML.data('bookId', book.bookID);
@@ -86,13 +86,12 @@ var commonJS = {
                     var card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
                                     </div>`)
                     var bookHTML = $(`
-                    <div class="card h-100 rounded shadow">
-                    <img class="card-img-top w-100 pt-1 px-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 20rem;">
-                            <div class="card-body">
-                                <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + data[index].bookName + `</p>
+                        <div class="card rounded shadow">
+                            <img class="w-100 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 21.5rem;">
+                            <div class="overlay h-100">
+                                <p class="card-title text-uppercase text-center" style="font-weight: 600; text-overflow: ellipsis;">` + data[index].bookName + `</p>
                             </div>
                         </div>`)
-                        // <p class="text-truncate text-center">` + data[index].bookAuthor + `</p>
                     bookHTML.data('bookId', data[index].bookID);
                     $(card).append(bookHTML);
                     row.append(card);

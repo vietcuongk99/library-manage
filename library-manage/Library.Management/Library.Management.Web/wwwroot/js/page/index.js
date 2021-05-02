@@ -90,8 +90,8 @@ class IndexJS extends BaseJS {
         //gán xử lý sự kiện khi click nút Xem thêm Sách Mới
         $('#showNewBookBtn').on('click', this.getAllNewBookEvent.bind(this));
         //gán xử lý sự kiện khi click vào 1 card sách
-        $('#newBookRow').on('click', 'div.card.h-100', this.cardOnClick);
-        $('#hotBookRow').on('click', 'div.card.h-100', this.cardOnClick);
+        $('#newBookRow').on('click', 'div.card', this.cardOnClick);
+        $('#hotBookRow').on('click', 'div.card', this.cardOnClick);
         $('#searchBtn').on('click', function() {
             window.open("search.html", "_self")
         });

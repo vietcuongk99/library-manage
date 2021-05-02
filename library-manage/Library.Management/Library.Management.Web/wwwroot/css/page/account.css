@@ -27,12 +27,23 @@
     background-color: #343a40;
     border-color: black;
 }
+
 .configPopUp {
     align-items: center;
 }
-    #modalUpdateInfor .modal-dialog {
-        max-width: 630px;
-    }
-input{
+
+#modalUpdateInfor .modal-dialog {
+    max-width: 630px;
+}
+
+input {
     font-size: 14px !important;
+}
+
+
+/* custom hover card */
+
+.card.h-100:hover {
+    background-color: #c5c5c5;
+    color: black;
 }

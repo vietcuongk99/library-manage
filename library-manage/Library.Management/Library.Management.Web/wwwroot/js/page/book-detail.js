@@ -296,7 +296,7 @@ class BookDetailJS extends BaseJS {
             bookDetailJS.showFileEvent(bookDownloadUrl)
         });
         //gán sự kiện khi chọn một card sách
-        $('#sameCategoryBookDiv').on('click', 'div.card.h-100', this.cardOnClick);
+        $('#sameCategoryBookDiv').on('click', 'div.card', this.cardOnClick);
         //gán sự kiện cho nút Xem thêm
         $('#showSameCategoryBook').on('click', this.showSameCategoryBook);
 
