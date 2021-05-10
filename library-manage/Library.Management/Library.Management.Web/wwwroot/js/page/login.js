@@ -51,11 +51,18 @@ class LoginJS {
                 if (res.success) {
                     //khai báo biến và lấy giá trị userID
                     //lưu thông tin đăng nhập vào localStorage
-                    var user = res.data,
-                        userID = user.userID;
+                    var user = res.data;
                     localStorage.setItem("user", JSON.stringify(user));
                     //gọi hàm getBorrowList()
-                    loginJS.getBorrowList(userID);
+                    //loginJS.getBorrowList(userID);
+                    //ẩn loading
+                    commonBaseJS.showLoadingData(0);
+                    //show alert
+                    commonBaseJS.showToastMsgSuccess("Đăng nhập thành công.");
+                    //chuyển sang trang index sau 1.5s
+                    setTimeout(function() {
+                        window.open("index.html", "_self")
+                    }, 1500);
                 } else {
                     //gọi phương thức thêm alert div của loginJS object
                     commonBaseJS.showLoadingData(0);
@@ -102,20 +109,21 @@ class LoginJS {
 
     //lấy ra danh sách mượn sách của người dùng
     getBorrowList(userID) {
-        //khai báo array chứa danh sách mượn cửa người dùng
-        var borrowList = [];
+        debugger
         //call api
         $.ajax({
             method: "GET",
             url: Enum.URL.HOST_URL + "api/BookBorrow/GetPagingData?userId=" + userID,
-            contentType: "application/json"
+            contentType: "application/json",
+            cache: false
         }).done(function(res) {
+            debugger
             //nếu server xử lý thành công
             if (res.success) {
                 //lấy data từ response
                 var list = res.data;
                 //lưu danh sách mượn vào localStorage
-                commonJS.saveBorrowListToLocal(borrowList, list);
+                commonJS.saveBorrowListToLocal(list);
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
                 //show alert

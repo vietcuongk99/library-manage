@@ -65,7 +65,7 @@ class ChangePassJS {
                 commonBaseJS.showToastMsgFailed("Gửi mã OTP không thành công.");
             })
         } else {
-            commonBaseJS.showToastMsgFailed("Xử lý dữ liệu không thành công.");
+            //commonBaseJS.showToastMsgFailed("Xử lý dữ liệu không thành công.");
         }
     }
 

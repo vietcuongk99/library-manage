@@ -759,7 +759,7 @@ class BookDetailJS extends BaseJS {
         var userObject = JSON.parse(localStorage.getItem("user"));
         //nếu user là khách (user = null)
         if (!userObject) {
-            commonBaseJS.showToastMsgFailed("Bạn cần đăng nhập để có thể gửi bình luận.");
+            commonBaseJS.showToastMsgInfomation("Bạn cần đăng nhập để có thể gửi bình luận.");
         } else {
             //lấy ra userId trong localStorage
             var userID = userObject.userID,

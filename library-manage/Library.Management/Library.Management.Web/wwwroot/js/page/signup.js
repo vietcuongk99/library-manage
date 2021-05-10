@@ -68,7 +68,7 @@ class SignUpJS {
             })
 
         } else {
-            commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng ký không thành công.");
+            //commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, đăng ký không thành công.");
         }
 
     }

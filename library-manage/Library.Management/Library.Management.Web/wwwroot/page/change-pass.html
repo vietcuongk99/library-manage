@@ -43,40 +43,34 @@
     </nav>
 
     <main class=" d-flex align-items-center justify-content-center mt-5">
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="col-10 border mx-3 px-5 py-5 bg-light">
-                <form>
-                    <div id="emailInputDiv" class="form-group">
-                        <label for="emailInput">Email đăng ký</label>
-                        <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
-                    </div>
-                    <div id="passwordInputDiv" class="form-group">
-                        <label for="passwordInput">Mật khẩu</label>
-                        <div class="form-inline">
-                            <input type="password" class="form-control w-100" id="passwordInput"><i class="far fa-eye mr-auto" id="togglePassword" style="margin-left: -30px; cursor: pointer"></i>
-                        </div>
-                    </div>
-                    <div id="rePasswordInputDiv" class="form-group">
-                        <label for="rePasswordInput">Nhập lại mật khẩu</label>
-                        <div class="form-inline">
-                            <input type="password" class="form-control w-100" id="rePasswordInput"><i class="far fa-eye mr-auto" id="toggleRePassword" style="margin-left: -30px; cursor: pointer"></i>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <button id="confirmBtn" type="button" class="btn btn-success">Thay đổi</button>
-                    </div>
-                </form>
+        <div class="form-group border px-5 py-4 bg-light" style="width: 30rem; height:auto">
+            <div id="emailInputDiv" class="form-group">
+                <label for="emailInput">Email đăng ký</label>
+                <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
             </div>
-            <div class="col-1"></div>
-        </div>
-
-        <!--Loading-->
-        <div class="loader">
-            <span class="animation icon"></span>
-            <div class="text-loading">Loading...</div>
+            <div id="passwordInputDiv" class="form-group">
+                <label for="passwordInput">Mật khẩu</label>
+                <div class="form-inline">
+                    <input type="password" class="form-control w-100" id="passwordInput"><i class="far fa-eye mr-auto" id="togglePassword" style="margin-left: -30px; cursor: pointer"></i>
+                </div>
+            </div>
+            <div id="rePasswordInputDiv" class="form-group">
+                <label for="rePasswordInput">Nhập lại mật khẩu</label>
+                <div class="form-inline">
+                    <input type="password" class="form-control w-100" id="rePasswordInput"><i class="far fa-eye mr-auto" id="toggleRePassword" style="margin-left: -30px; cursor: pointer"></i>
+                </div>
+            </div>
+            <div class="text-center">
+                <button id="confirmBtn" type="button" class="btn btn-success">Thay đổi</button>
+            </div>
         </div>
     </main>
+
+    <!--Loading-->
+    <div class="loader">
+        <span class="animation icon"></span>
+        <div class="text-loading">Loading...</div>
+    </div>
 
     <div class="toastMsg">
         <span class="toastMsg-img-success"></span> Thành công

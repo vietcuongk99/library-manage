@@ -433,7 +433,7 @@ class AccountJS extends BaseJS {
             //khai báo thành phần alert
             alertDiv = $(`<div id="newPasswordAlert" class="row mb-1">
                 <label class="col-4"></label>
-                <small class="form-text text-danger col-6">Mật khẩu chứa tối thiểu 5 kí tự và không có khoảng trắng.</small>
+                <small class="form-text text-danger col-6">Mật khẩu chứa tối thiểu 5 kí tự.</small>
             </div>`)
             $('#newPasswordDiv').append(alertDiv)
             result = false;
@@ -517,7 +517,7 @@ class AccountJS extends BaseJS {
                 commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
             })
         } else {
-            commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, cập nhật không thành công.");
+            //commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, cập nhật không thành công.");
         }
     }
 
@@ -564,7 +564,7 @@ class AccountJS extends BaseJS {
                 commonBaseJS.showToastMsgFailed("Cập nhật không thành công.");
             })
         } else {
-            commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, cập nhật không thành công.");
+            //commonBaseJS.showToastMsgFailed("Dữ liệu chưa được xử lý, cập nhật không thành công.");
         }
     }
 
