@@ -70,10 +70,10 @@
                     <!-- tài khoản -->
                     <div class="tab-pane fade show active" id="list-account-content" role="tabpanel" aria-labelledby="list-account-list">
                         <!-- Ảnh đại diện -->
-                        <div id="avatarUserDiv" class="container bg-dark text-center rounded mb-4">
+                        <div id="avatarUserDiv" class="container text-center rounded mb-4">
                             <div id="updateImg" class="p-2">
                                 <label>
-                                    <img id="userAvatar" src="../content/img/avatar-sample.png" class="img-thumbnail rounded-circle" alt="avatar">
+                                    <img id="userAvatar" src="../content/img/avatar-sample.png" class="img-thumbnail rounded-circle shadow" alt="avatar">
                                     <input id="chooseImg" type="file" hidden>
                                 </label>
                             </div>
@@ -122,7 +122,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button id="changeInforBtn" type="button" class="btn btn-success mt-2" data-target="#modalUpdateInfor" data-toggle="modal">Cập nhật</button>
+                        <button id="changeInforBtn" type="button" class="btn btn-aqua mt-2" data-target="#modalUpdateInfor" data-toggle="modal">Cập nhật</button>
                         <!-- bảo mật -->
                         <h3 class="mt-5"><i class="fas fa-user-cog mr-3"></i>Thông tin tài khoản</h3>
                         <hr>
@@ -144,7 +144,7 @@
                                     </div>
                                     <div class="col-9 form-inline">
                                         <input readonly id="userPassword" type="password" class="form-control" placeholder="..." value="">
-                                        <button id="changePasswordBtn" class="btn btn-success ml-2" data-target="#modalUpdatePassword" data-toggle="modal">Cập nhật</button>
+                                        <button id="changePasswordBtn" class="btn btn-aqua ml-2" data-target="#modalUpdatePassword" data-toggle="modal">Cập nhật</button>
                                     </div>
                                 </div>
                             </div>
@@ -153,27 +153,6 @@
                     </div>
                     <!-- Sách đang mượn -->
                     <div class="tab-pane fade" id="list-library-content" role="tabpanel" aria-labelledby="list-library-list">
-                        <!-- <nav class="navbar navbar-light bg-light">
-                            <input id="searchInput" class="form-control mr-5 w-25" type="search" placeholder="Tên sách" aria-label="Tìm kiếm">
-                            <div class="form-inline float-right">
-                                <select id="borrowStatusFilter" class="custom-select custom-select-sm mr-1">
-                                        <option value="0" selected>Trạng thái</option>
-                                        <option value="1">Đang mượn</option>
-                                        <option value="2">Quá hạn</option>
-                                        <option value="3">Chờ mượn sách</option>
-                                    </select>
-                                <select id="sortNameSelect" class="custom-select custom-select-sm mr-1">
-                                        <option value="0" selected>Sắp xếp theo</option>
-                                        <option value="1">Ngày mượn</option>
-                                        <option value="2">Ngày trả</option>
-                                    </select>
-                                <select id="sortTypeSelect" class="custom-select custom-select-sm">
-                                        <option value="0" selected>Cấp độ</option>
-                                        <option value="1">Tăng dần</option>
-                                        <option value="2">Giảm dần</option>
-                                    </select>
-                            </div>
-                        </nav> -->
                         <!-- danh sách mượn -->
                         <div id="borrowListContent">
                         </div>

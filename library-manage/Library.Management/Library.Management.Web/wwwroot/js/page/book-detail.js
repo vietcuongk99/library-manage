@@ -158,11 +158,11 @@ class BookDetailJS extends BaseJS {
             borrowListSize = commonJS.getBorrowListSize(),
             //khai báo các thành phần html cho từng action với sách
             //button mượn sách, trả sách, gia hạn thời gian mượn, mở tài liệu
-            borrowBtnHTML = $(`<button id="btnBorrowBook" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Mượn sách</button>`),
-            returnBtnHTML = $(`<button id="btnReturnBook" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Trả sách</button>`),
-            //var extendBtnHTML = $(`<button id="btnExtendDate" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Gia hạn</button>`);
-            showFileBtnHTML = $(`<button id="btnShowFile" type="button" class="btn btn-sm btn-success mb-2" data-toggle="modal">Mở tài liệu</button>`),
-            cancelResBtnHTML = $(`<button id="btnCancelBorrowRes" type="button" class="btn btn-sm btn-outline-success mb-2" data-toggle="modal">Hủy mượn sách</button>`);
+            borrowBtnHTML = $(`<button id="btnBorrowBook" type="button" class="btn btn-sm btn-aqua mb-2" data-toggle="modal">Mượn sách</button>`),
+            returnBtnHTML = $(`<button id="btnReturnBook" type="button" class="btn btn-sm btn-aqua mb-2" data-toggle="modal">Trả sách</button>`),
+            //var extendBtnHTML = $(`<button id="btnExtendDate" type="button" class="btn btn-sm btn-aqua mb-2" data-toggle="modal">Gia hạn</button>`);
+            showFileBtnHTML = $(`<button id="btnShowFile" type="button" class="btn btn-sm btn-aqua mb-2" data-toggle="modal">Mở tài liệu</button>`),
+            cancelResBtnHTML = $(`<button id="btnCancelBorrowRes" type="button" class="btn btn-sm btn-outline-aqua mb-2" data-toggle="modal">Hủy mượn sách</button>`);
         //kiểm tra sách được mượn hay chưa
         //khai báo biến đếm
         let count = 0;

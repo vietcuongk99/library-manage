@@ -40,77 +40,81 @@
             </div>
         </div>
     </nav>
-    <header>
-        <div class="container text-center text-uppercase">
-            <img src="../content/img/logo-app.jpg" style="width: 5em; height: auto" class="rounded-circle mb-4">
-            <h3>Hệ thống quản lý thư viện</h3>
+    <div class="bg-aqua pb-3">
+        <div class="header bg-white">
+            <div class="container text-center text-uppercase">
+                <img src="../content/img/logo-app.jpg" style="width: 5em; height: auto" class="rounded-circle shadow mb-4">
+                <h3>Hệ thống quản lý thư viện</h3>
+            </div>
+            <h5 class="mt-3 text-center">Miễn phí - Nhanh chóng - Thuận tiện</h5>
+            <button id="searchBtn" class="btn btn-dark mx-auto d-block mt-3"><i class="fas fa-list-ul mr-2"></i>Danh mục sách</button>
         </div>
-        <h5 class="mt-3 text-center">Miễn phí - Nhanh chóng - Thuận tiện</h5>
-        <button id="searchBtn" class="btn btn-success mx-auto d-block mt-3"><i class="fas fa-list-ul mr-2"></i>Danh mục sách</button>
-    </header>
-    <!-- Nội dung chính của trang -->
-    <div class="row border shadow-lg mt-3 mx-4" style="border-radius: 30px">
-        <div class="col-1"></div>
-        <div class="col-9 mx-auto">
-            <!-- SÁCH MỚI -->
-            <h4 class="mt-5 text-uppercase text-center text-success">Sách mới</h4>
-            <div id="newBookRow" class="mt-2">
-                <!-- nội dung sách mới ở đây -->
-            </div>
-            <div class="row mb-5">
-                <button id="showNewBookBtn" type="button" class="btn btn-success text-center btn-sm mx-auto">Xem thêm</button>
-            </div>
-            <!-- /.row -->
-            <!-- SÁCH HOT -->
-            <h4 class="mt-5 text-uppercase text-center text-success">Sách hot</h4>
-            <div id="hotBookRow" class="mt-2">
-                <!-- nội dung sách hot ở đây -->
-            </div>
-            <div class="row mb-5">
-                <button id="showHotBookBtn" type="button" class="btn btn-success text-center btn-sm mx-auto">Xem thêm</button>
-            </div>
-            <!-- TÍNH NĂNG -->
-            <h4 class="mt-4 text-uppercase text-center text-success">Tính năng nổi bật</h4>
-            <div class="row align-items-center">
-                <div class="col">
-                    <h4 class="text-success">Mượn sách</h4>
-                    <p>Hệ thống hỗ trợ người dùng mượn sách một cách nhanh chóng và thuận tiện. Người dùng có thể lựa chọn mượn số sách trong giới hạn và đọc ebook mà hệ thống cung cấp</p>
+        <!-- Nội dung chính của trang -->
+        <div class="row border shadow-lg mt-3 mx-4 bg-white" style="border-radius: 30px">
+            <div class="col-1"></div>
+            <div class="col-9 mx-auto">
+                <!-- SÁCH MỚI -->
+                <h4 class="mt-5 text-uppercase text-center text-aqua">Sách mới</h4>
+                <div id="newBookRow" class="mt-2">
+                    <!-- nội dung sách mới ở đây -->
                 </div>
-                <div class="col d-flex justify-content-center">
-                    <img src="../content/img/features/lend-book.jpg" style="height: 18em; width: auto;" class="rounded">
+                <div class="row mb-5">
+                    <button id="showNewBookBtn" type="button" class="btn btn-aqua text-center btn-sm mx-auto">Xem thêm</button>
                 </div>
+                <!-- /.row -->
+                <!-- SÁCH HOT -->
+                <h4 class="mt-5 text-uppercase text-center text-aqua">Sách hot</h4>
+                <div id="hotBookRow" class="mt-2">
+                    <!-- nội dung sách hot ở đây -->
+                </div>
+                <div class="row mb-5">
+                    <button id="showHotBookBtn" type="button" class="btn btn-aqua text-center btn-sm mx-auto">Xem thêm</button>
+                </div>
+                <!-- TÍNH NĂNG -->
+                <h4 class="mt-4 text-uppercase text-center text-aqua">Tính năng nổi bật</h4>
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h4 class="text-aqua">Mượn sách</h4>
+                        <p>Hệ thống hỗ trợ người dùng mượn sách một cách nhanh chóng và thuận tiện. Người dùng có thể lựa chọn mượn số sách trong giới hạn và đọc ebook mà hệ thống cung cấp</p>
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <img src="../content/img/features/lend-book.jpg" style="height: 18em; width: auto;" class="rounded">
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col d-flex justify-content-center">
+                        <img src="../content/img/features/search-book.jpg" style="height: 18em; width: auto;" class="rounded">
+                    </div>
+                    <div class="col">
+                        <h4 class="text-aqua">Tìm kiếm</h4>
+                        <p>Hệ thống giúp người dùng tìm kiếm đầu sách mong muốn một cách nhanh chóng và tiện lợi.</p>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h4 class="text-aqua">Tài khoản</h4>
+                        <p>Đăng ký tài khoản giúp người dùng có được trải nghiệm tốt nhất khi sử dụng hệ thống quản lý thư viện.</p>
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                        <img src="../content/img/features/create-account.jpg" style="height: 18em; width: auto;" class="rounded">
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col d-flex justify-content-center">
+                        <img src="../content/img/features/management.jpg" style="height: 18em; width: auto;" class="rounded">
+                    </div>
+                    <div class="col">
+                        <h4 class="text-aqua">Quản lý</h4>
+                        <p>Hệ thống hỗ trợ cho người dùng ở cấp độ quản lý cá nhân như thông tin tài khoản, sách đang mượn,... và cấp độ quản trị hệ thống như quản lý đầu sách, thống kê số liệu, quản lý tài khoản,...</p>
+                    </div>
+                </div>
+                <!-- /.row -->
             </div>
-            <div class="row align-items-center">
-                <div class="col d-flex justify-content-center">
-                    <img src="../content/img/features/search-book.jpg" style="height: 18em; width: auto;" class="rounded">
-                </div>
-                <div class="col">
-                    <h4 class="text-success">Tìm kiếm</h4>
-                    <p>Hệ thống giúp người dùng tìm kiếm đầu sách mong muốn một cách nhanh chóng và tiện lợi.</p>
-                </div>
-            </div>
-            <div class="row align-items-center">
-                <div class="col">
-                    <h4 class="text-success">Tài khoản</h4>
-                    <p>Đăng ký tài khoản giúp người dùng có được trải nghiệm tốt nhất khi sử dụng hệ thống quản lý thư viện.</p>
-                </div>
-                <div class="col d-flex justify-content-center">
-                    <img src="../content/img/features/create-account.jpg" style="height: 18em; width: auto;" class="rounded">
-                </div>
-            </div>
-            <div class="row align-items-center">
-                <div class="col d-flex justify-content-center">
-                    <img src="../content/img/features/management.jpg" style="height: 18em; width: auto;" class="rounded">
-                </div>
-                <div class="col">
-                    <h4 class="text-success">Quản lý</h4>
-                    <p>Hệ thống hỗ trợ cho người dùng ở cấp độ quản lý cá nhân như thông tin tài khoản, sách đang mượn,... và cấp độ quản trị hệ thống như quản lý đầu sách, thống kê số liệu, quản lý tài khoản,...</p>
-                </div>
-            </div>
-            <!-- /.row -->
+            <div class="col-1"></div>
         </div>
-        <div class="col-1"></div>
     </div>
+
+
     <!-- Footer -->
     <footer class="mb-5 mt-5">
         <!-- /.container -->

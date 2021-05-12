@@ -20,16 +20,6 @@ body {
 }
 
 
-/* xử lý ảnh chính trang index */
-
-header {
-    padding: 4rem 0 13rem 0;
-    background-image: url('/content/img/landing-bg.png');
-    background-position: center;
-    background-size: cover;
-}
-
-
 /* xử lý ảnh trên top nav bar */
 
 .main-icon {
@@ -111,8 +101,8 @@ input {
 /* custom pagination từ bootstrap */
 
 .page-item.active .page-link {
-    background-color: #28a745;
-    border-color: #28a745;
+    background-color: #3f8fc9;
+    border-color: #3f8fc9;
 }
 
 
@@ -167,6 +157,39 @@ input {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     text-align: center;
+}
+
+
+/* custom button và text màu xanh*/
+
+.btn-aqua {
+    background-color: #3f8fc9;
+    color: white;
+    transition: 0.3s;
+}
+
+.btn-aqua:hover {
+    background-color: #23323d;
+    /* Aqua Blue */
+    color: white;
+}
+
+.btn-outline-aqua {
+    background-color: white;
+    color: #3f8fc9;
+    border-color: #0d7ccc;
+    border-width: 1;
+    transition: 0.3s;
+}
+
+.btn-outline-aqua:hover {
+    background-color: #23323d;
+    /* Aqua Blue */
+    color: white;
+}
+
+.text-aqua {
+    color: #3f8fc9;
 }
 
 

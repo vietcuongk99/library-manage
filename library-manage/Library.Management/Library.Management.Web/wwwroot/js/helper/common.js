@@ -113,7 +113,7 @@ var commonJS = {
             var card = $(`<div class="col-6 col-md-4 col-sm-4 col-xl-4 col-lg-4 portfolio-item">
                             </div>`)
             var bookHTML = $(`
-            <div class="card h-100 rounded shadow">
+            <div class="card h-100 rounded shadow border-0">
                     <img class="card-img-top w-100 p-1 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 20.5rem">
                     <div class="card-body">
                         <p class="card-title text-truncate text-uppercase text-center" style="font-weight: 600">` + book.bookName + `</p>
@@ -160,8 +160,8 @@ var commonJS = {
                                         </div>`);
             //tạo nội dung gồm button sửa và xóa                                
             var commentActionHTML = $(`<div class="bg-white">
-                                            <button class="btn btn-outline-success" type="button">Cập nhật</button>
-                                            <button class="btn btn-outline-danger" type="button">Xóa</button>
+                                            <button class="btn btn-aqua" type="button">Cập nhật</button>
+                                            <button class="btn btn-outline-aqua" type="button">Xóa</button>
                                             <button class="btn btn-outline-secondary" type="button">Hủy bỏ</button>
                                     </div>`);
             //nếu bình luận thuộc về user hiện tại

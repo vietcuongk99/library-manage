@@ -14,9 +14,10 @@
 }
 
 #avatarUserDiv {
-    background-image: url('/content/img/landing-bg.png');
+    background-image: url('../../content/img/landing-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: rgba(63, 61, 61, 0.75);
 }
 
 
@@ -44,6 +45,7 @@ input {
 /* custom hover card */
 
 .card.h-100:hover {
-    background-color: #c5c5c5;
-    color: black;
+    background-color: #343a40;
+    color: white;
+    transition: 0.5s;
 }

@@ -42,7 +42,7 @@ var Enum = {
     //phân trang cho danh sách bình luận
     CommentPaging: {
         //số lượng bình luận hiển thị trên một trang
-        RECORD_PER_PAGE: 3,
+        RECORD_PER_PAGE: 10,
         //trang hiển thị mặc định
         PAGE_DEFAULT: 1,
         //số trang hiển thị mặc định trên thanh pagination

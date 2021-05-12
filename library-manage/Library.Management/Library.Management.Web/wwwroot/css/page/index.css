@@ -1,4 +1,19 @@
 /* custom bootstrap input-group */
-.btn-custom-detail{
+
+.btn-custom-detail {
     font-size: 14px;
+}
+
+
+/* xử lý ảnh chính trang index */
+
+.header {
+    padding: 4rem 0 13rem 0;
+    background-image: url('../../content/img/wave.png');
+    background-position: bottom;
+    background-size: cover
+}
+
+.bg-aqua {
+    background-color: #a2d9ff;
 }
