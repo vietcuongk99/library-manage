@@ -23,7 +23,7 @@ body {
 /* xử lý ảnh chính trang index */
 
 header {
-    padding: 156px 0 200px;
+    padding: 4rem 0 13rem 0;
     background-image: url('/content/img/landing-bg.png');
     background-position: center;
     background-size: cover;
