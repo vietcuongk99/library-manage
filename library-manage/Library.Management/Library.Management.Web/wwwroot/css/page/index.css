@@ -8,7 +8,7 @@
 /* xử lý ảnh chính trang index */
 
 .header {
-    padding: 4rem 0 13rem 0;
+    padding: 4rem 0 4rem 0;
     background-image: url('../../content/img/wave.png');
     background-position: bottom;
     background-size: cover

@@ -54,5 +54,14 @@ var Enum = {
         Update: 1,
         //xóa
         Delete: 2
+    },
+    //role người dùn
+    UserRole: {
+        //người dùng thường
+        Normal: 1,
+        //quản trị hệ thống
+        Admin: 2,
+        //quản lý thư viện
+        Manager: 3
     }
 }

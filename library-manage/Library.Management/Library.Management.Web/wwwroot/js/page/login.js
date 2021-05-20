@@ -51,8 +51,10 @@ class LoginJS {
                 if (res.success) {
                     //khai báo biến và lấy giá trị userID
                     //lưu thông tin đăng nhập vào localStorage
-                    var user = res.data;
+                    var user = res.data,
+                        userRole = res.data.conditionAccount;
                     localStorage.setItem("user", JSON.stringify(user));
+                    debugger
                     //gọi hàm getBorrowList()
                     //loginJS.getBorrowList(userID);
                     //ẩn loading
@@ -61,7 +63,11 @@ class LoginJS {
                     commonBaseJS.showToastMsgSuccess("Đăng nhập thành công.");
                     //chuyển sang trang index sau 1.5s
                     setTimeout(function() {
-                        window.open("index.html", "_self")
+                        //chuyển người dùng sang trang chủ nếu người dùng không phải cấp quản lý
+                        //chuyển người dùng sang trang quản lý hệ thống nếu người dùng thuộc cấp quản lý
+                        (userRole == Enum.UserRole.Normal) ?
+                        (window.open("index.html", "_self")) :
+                        (window.open(Enum.URL.HOST_URL + "admin", "_self"));
                     }, 1500);
                 } else {
                     //gọi phương thức thêm alert div của loginJS object

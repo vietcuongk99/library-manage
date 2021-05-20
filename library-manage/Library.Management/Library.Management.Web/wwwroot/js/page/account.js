@@ -251,7 +251,7 @@ class AccountJS extends BaseJS {
                 if (!validImageTypes.includes(this.files[0]['type'])) {
                     commonBaseJS.showToastMsgFailed("Định dạng file không hợp lệ (gif, jpeg, jpg, png)")
                 } else {
-                    $('#previewImg').attr('style', 'width: 300px; height: 300px');
+                    $('#previewImg').attr('style', 'width: 15rem; height: 15rem');
                     $('#modalUpdateAvatar').modal('show');
                     //When choose image complete using FileReader to convert image to Base64 string
                     var reader = new FileReader();

@@ -162,10 +162,10 @@ class BookBorrow {
                                     </div>
                                 </div>
                                 <div class="actions-item">
-                                    <button type="button" class="btn btn-danger btn-action btn-cancel">Hủy bỏ</button>
+                                    <button type="button" class="btn btn-action btn-outline-secondary">Hủy bỏ</button>
                                 </div>
                                 <div class="actions-item">
-                                    <button type="button" class="btn btn-primary btn-action btn-confirm">Xác nhận</button>
+                                    <button type="button" class="btn btn-action btn-aqua">Xác nhận</button>
                                 </div>
                             </div>`
 

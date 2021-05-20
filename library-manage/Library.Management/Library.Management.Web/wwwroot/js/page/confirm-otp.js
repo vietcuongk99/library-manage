@@ -58,7 +58,7 @@ class ConfirmOTPCodeJS {
                 commonBaseJS.showToastMsgFailed("Đổi mật khẩu không thành công.");
             })
         } else {
-            commonBaseJS.showToastMsgFailed("Xử lý dữ liệu không thành công.");
+            //commonBaseJS.showToastMsgFailed("Xử lý dữ liệu không thành công.");
         }
     }
 

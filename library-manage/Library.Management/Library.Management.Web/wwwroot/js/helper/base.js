@@ -34,7 +34,7 @@ class BaseJS {
             //thêm đường dẫn tới trang search-result
             $('#navItemList').append(searchBtn);
             //nếu user không có quyền manage/admin
-            if (userObject.conditionAccount == 1) {
+            if (userObject.conditionAccount == Enum.UserRole.Normal) {
                 //thêm dropdown
                 $('#navItemList').append(dropDownAction)
             }
