@@ -151,7 +151,7 @@ class AccountJS extends BaseJS {
             } else {
                 //thêm giao diện hiển thị list rỗng
                 var borrowDivHTML = $(`<div class="row d-flex justify-content-center mt-3">
-                                        <button id="borrowBtn" class="btn btn-success">Mượn sách</button>
+                                        <button id="borrowBtn" class="btn btn-aqua">Mượn sách</button>
                                     </div>`);
                 //gán sự kiện mở trang tìm kiếm cho button vừa tạo
                 $(document).on('click', '#borrowBtn', function() {

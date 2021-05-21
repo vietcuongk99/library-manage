@@ -60,9 +60,9 @@ var commonJS = {
         var row = $(`<div class="row mt-2"></div>`);
         data.forEach(book => {
             var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String,
-                card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
+                card = $(`<div class="col-6 col-md-4 col-lg-3 col-sm-6 portfolio-item">
                             </div>`),
-                bookHTML = $(`<div class="card rounded shadow">
+                bookHTML = $(`<div class="card rounded shadow border-0">
                                 <img class="w-100 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 21.5rem;">
                                 <div class="overlay h-100">
                                     <p class="card-title text-uppercase text-center" style="font-weight: 600; text-overflow: ellipsis;">` + book.bookName + `</p>
@@ -83,10 +83,10 @@ var commonJS = {
             if (totalItem < 4) {
                 if (data[index].bookID != currentBookID) {
                     var bookImgBase64String = "data:image/jpg;base64," + data[index].bookImageUriBase64String;
-                    var card = $(`<div class="col-6 col-md-6 col-lg-3 col-sm-6 portfolio-item">
+                    var card = $(`<div class="col-6 col-md-4 col-lg-3 col-sm-6 portfolio-item">
                                     </div>`)
                     var bookHTML = $(`
-                        <div class="card rounded shadow">
+                        <div class="card rounded shadow border-0">
                             <img class="w-100 mx-auto" src="` + bookImgBase64String + `" alt="" style="height: 21.5rem;">
                             <div class="overlay h-100">
                                 <p class="card-title text-uppercase text-center" style="font-weight: 600; text-overflow: ellipsis;">` + data[index].bookName + `</p>
@@ -110,7 +110,7 @@ var commonJS = {
         var row = $(`<div class="row mt-2"></div>`);
         data.forEach(book => {
             var bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
-            var card = $(`<div class="col-6 col-md-4 col-sm-4 col-xl-4 col-lg-4 portfolio-item">
+            var card = $(`<div class="col-6 col-md-4 col-sm-6 col-xl-4 col-lg-4 portfolio-item">
                             </div>`)
             var bookHTML = $(`
             <div class="card h-100 rounded shadow border-0">
