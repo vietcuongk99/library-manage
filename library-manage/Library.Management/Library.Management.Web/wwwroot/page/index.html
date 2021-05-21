@@ -13,7 +13,8 @@
     <link rel="icon" type="image/jpg" href="../content/img/logo-app.jpg">
     <!-- Custom styles for this template -->
     <link href="../css/page/common.css" rel="stylesheet">
-    <link href="../css/base/common.css" rel="stylesheet" />
+    <link href="../css/base/common.css" rel="stylesheet">
+    <link href="../css/base/slideshow.css" rel="stylesheet">
     <link href="../css/page/index.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 </head>
@@ -41,76 +42,89 @@
         </div>
     </nav>
     <div class="bg-gradient-aqua pb-3 container-fluid">
+        <!-- LOGO -->
         <div class="py-5">
             <div class="container text-center text-uppercase">
                 <img src="../content/img/logo-app.jpg" style="width: 5em; height: auto" class="rounded-circle shadow mb-4">
                 <h3>Hệ thống thư viện điện tử</h3>
             </div>
             <h5 class="mt-3 text-center">Miễn phí - Nhanh chóng - Thuận tiện</h5>
-            <button id="searchBtn" class="btn btn-dark mx-auto d-block mt-3"><i class="fas fa-list-ul mr-2"></i>Danh mục sách</button>
+            <button id="searchBtn" class="btn btn-aqua mx-auto d-block mt-3"><i class="fas fa-list-ul mr-2"></i>Danh mục sách</button>
         </div>
-        <!-- Nội dung chính của trang -->
-        <div class="row border shadow-lg mt-3 mx-4 bg-white" style="border-radius: 30px">
-            <div class="col-1"></div>
-            <div class="col-9 mx-auto">
-                <!-- SÁCH MỚI -->
-                <h4 class="mt-5 text-uppercase text-center text-aqua">Sách mới</h4>
-                <div id="newBookRow" class="mt-2">
-                    <!-- nội dung sách mới ở đây -->
+        <!-- THỂ LOẠI SÁCH -->
+        <div class="container-fluid my-3">
+            <h3 class="d-inline">Sách theo thể loại</h3>
+            <a id="searchLink" class="ml-3 text-aqua d-inline" href="#">Xem thêm</a>
+        </div>
+        <div class="slide-container">
+            <div class="container-fluid">
+                <div class="mySlides fade-in">
+                    <div id="categoryRow1" class="row"></div>
                 </div>
-                <div class="row mb-5">
-                    <button id="showNewBookBtn" type="button" class="btn btn-aqua text-center btn-sm mx-auto">Xem thêm</button>
+                <div class="mySlides fade-in">
+                    <div id="categoryRow2" class="row"></div>
                 </div>
-                <!-- /.row -->
-                <!-- SÁCH HOT -->
-                <h4 class="mt-5 text-uppercase text-center text-aqua">Sách hot</h4>
-                <div id="hotBookRow" class="mt-2">
-                    <!-- nội dung sách hot ở đây -->
-                </div>
-                <div class="row mb-5">
-                    <button id="showHotBookBtn" type="button" class="btn btn-aqua text-center btn-sm mx-auto">Xem thêm</button>
-                </div>
-                <!-- TÍNH NĂNG -->
-                <h4 class="mt-4 text-uppercase text-center text-aqua">Tính năng nổi bật</h4>
-                <div class="row align-items-center">
-                    <div class="col">
-                        <h4 class="text-aqua">Mượn sách</h4>
-                        <p>Hệ thống hỗ trợ người dùng mượn sách một cách nhanh chóng và thuận tiện. Người dùng có thể lựa chọn mượn số sách trong giới hạn và đọc ebook mà hệ thống cung cấp</p>
-                    </div>
-                    <div class="col d-flex justify-content-center">
-                        <img src="../content/img/features/lend-book.jpg" style="height: 18em; width: auto;" class="rounded">
-                    </div>
-                </div>
-                <div class="row align-items-center">
-                    <div class="col d-flex justify-content-center">
-                        <img src="../content/img/features/search-book.jpg" style="height: 18em; width: auto;" class="rounded">
-                    </div>
-                    <div class="col">
-                        <h4 class="text-aqua">Tìm kiếm</h4>
-                        <p>Hệ thống giúp người dùng tìm kiếm đầu sách mong muốn một cách nhanh chóng và tiện lợi.</p>
-                    </div>
-                </div>
-                <div class="row align-items-center">
-                    <div class="col">
-                        <h4 class="text-aqua">Tài khoản</h4>
-                        <p>Đăng ký tài khoản giúp người dùng có được trải nghiệm tốt nhất khi sử dụng hệ thống quản lý thư viện.</p>
-                    </div>
-                    <div class="col d-flex justify-content-center">
-                        <img src="../content/img/features/create-account.jpg" style="height: 18em; width: auto;" class="rounded">
-                    </div>
-                </div>
-                <div class="row align-items-center">
-                    <div class="col d-flex justify-content-center">
-                        <img src="../content/img/features/management.jpg" style="height: 18em; width: auto;" class="rounded">
-                    </div>
-                    <div class="col">
-                        <h4 class="text-aqua">Quản lý</h4>
-                        <p>Hệ thống hỗ trợ cho người dùng ở cấp độ quản lý cá nhân như thông tin tài khoản, sách đang mượn,... và cấp độ quản trị hệ thống như quản lý đầu sách, thống kê số liệu, quản lý tài khoản,...</p>
-                    </div>
-                </div>
-                <!-- /.row -->
             </div>
-            <div class="col-1"></div>
+            <button class="prev btn-outline-aqua" onclick="prevSlide(1)">&#10094;</button>
+            <button class="next btn-outline-aqua" onclick="nextSlide(1)">&#10095;</button>
+        </div>
+        <!-- SÁCH HOT VÀ MỚI -->
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div id="hotBookContent" class="col-xs-12 col-lg-6 border-0">
+                    <div class="container-fluid mb-3">
+                        <h3 class="d-inline">Mượn nhiều nhất</h3>
+                        <a id="getHotBook" class="ml-3 text-aqua d-inline" href="#">Xem thêm</a>
+                    </div>
+                </div>
+                <div id="newBookContent" class="col-xs-12 col-lg-6 border-0">
+                    <div class="container-fluid mb-3">
+                        <h3 class="d-inline">Mới nhất</h3>
+                        <a id="getNewBook" class="ml-3 text-aqua d-inline" href="#">Xem thêm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- TÍNH NĂNG -->
+        <div class="mx-auto container mt-5">
+            <h4 class="mt-4 text-uppercase text-center text-aqua">Tính năng nổi bật</h4>
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <h4 class="text-aqua">Mượn sách</h4>
+                    <p>Hệ thống hỗ trợ người dùng mượn sách một cách nhanh chóng và thuận tiện. Người dùng có thể lựa chọn mượn số sách trong giới hạn và đọc ebook mà hệ thống cung cấp</p>
+                </div>
+                <div class="col-sm-6 d-flex justify-content-center">
+                    <img src="../content/img/features/lend-book.jpg" style="height: 18em; width: auto;" class="rounded">
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-sm-6 d-flex justify-content-center">
+                    <img src="../content/img/features/search-book.jpg" style="height: 18em; width: auto;" class="rounded">
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="text-aqua">Tìm kiếm</h4>
+                    <p>Hệ thống giúp người dùng tìm kiếm đầu sách mong muốn một cách nhanh chóng và tiện lợi.</p>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <h4 class="text-aqua">Tài khoản</h4>
+                    <p>Đăng ký tài khoản giúp người dùng có được trải nghiệm tốt nhất khi sử dụng hệ thống quản lý thư viện.</p>
+                </div>
+                <div class="col-sm-6 d-flex justify-content-center">
+                    <img src="../content/img/features/create-account.jpg" style="height: 18em; width: auto;" class="rounded">
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-sm-6 d-flex justify-content-center">
+                    <img src="../content/img/features/management.jpg" style="height: 18em; width: auto;" class="rounded">
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="text-aqua">Quản lý</h4>
+                    <p>Hệ thống hỗ trợ cho người dùng ở cấp độ quản lý cá nhân như thông tin tài khoản, sách đang mượn,... và cấp độ quản trị hệ thống như quản lý đầu sách, thống kê số liệu, quản lý tài khoản,...</p>
+                </div>
+            </div>
+            <!-- /.row -->
         </div>
     </div>
 
@@ -206,6 +220,7 @@
     <script src="../js/helper/enum.js"></script>
     <script src="../js/helper/base.js"></script>
     <script src="../js/helper/common.js"></script>
+    <script src="../js/helper/slideshow.js"></script>
     <script src="../js/base/commonBase.js"></script>
     <script src="../js/page/index.js"></script>
 </body>

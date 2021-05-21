@@ -22,6 +22,7 @@ namespace Library.Management.Entity
         public string BookName { get; set; }
         public string BookImageUriBase64String { get; set; }
         public string BookAuthor { get; set; }
+        public string Description { get; set; }
     }
     /// <summary>
     /// ModifiedBy: CUONG 06/04/2021

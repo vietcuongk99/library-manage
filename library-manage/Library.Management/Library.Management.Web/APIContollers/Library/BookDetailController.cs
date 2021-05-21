@@ -200,6 +200,7 @@ namespace Library.Management.Web
                 bookUriConvertBase64.BookID = bookImageUri.BookID;
                 bookUriConvertBase64.BookName = bookImageUri.BookName;
                 bookUriConvertBase64.BookAuthor = bookImageUri.BookAuthor;
+                bookUriConvertBase64.Description = bookImageUri.Description;
                 if (bookImageUri.BookImageUri != null)
                 {
                     imagePath = Directory.GetCurrentDirectory() + bookImageUri.BookImageUri;

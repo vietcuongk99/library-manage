@@ -55,7 +55,7 @@ var commonJS = {
         return timeCommentConvert;
     },
     //append dữ liệu vào thẻ card
-    //sử dụng trong trang index, search
+    //sử dụng trong trang search
     appendBookDataToCard(data, selector) {
         var row = $(`<div class="row mt-2"></div>`);
         data.forEach(book => {
@@ -73,6 +73,33 @@ var commonJS = {
             row.append(card);
         })
         $(selector).html(row);
+    },
+    //append dữ liệu vào thẻ card
+    //sử dụng trong trang index
+    appendBookDataToCardV2(data, selector) {
+        data.forEach(book => {
+            let bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
+            let card = $(`<div class="card rounded-0 border-0">
+                            <div class="card-body border-0">
+                                <div class="row">
+                                    <div class="d-flex justify-content-center col-lg-5">
+                                        <img class="card-img" src="${bookImgBase64String}" style="max-width:19rem; height: 21.5rem;">
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <div class="card-title">
+                                            <h4>${book.bookName}</h4>
+                                            <h5 class="font-weight-light">${book.bookAuthor}</h5>
+                                        </div>
+                                        <div class="card-text" style="word-wrap: break-word;">
+                                            ${book.description}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`);
+            card.data('bookId', book.bookID);
+            $(selector).append(card);
+        })
     },
     //append dữ liệu sách cùng thể loại vào thẻ card
     //sử dụng trong trang book-detail

@@ -24,6 +24,7 @@ namespace Library.Management.Entity
         public string BookName { get; set; }
         public string BookImageUri { get; set; }
         public string BookAuthor { get; set; }
+        public string Description { get; set; }
     }
 
     /// <summary>
