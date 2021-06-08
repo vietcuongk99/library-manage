@@ -192,6 +192,10 @@ input {
     color: #3f8fc9;
 }
 
+#page-wrapper {
+    min-height: calc(100vh - 66px) !important;
+}
+
 
 /* custom hover media-body */
 
