@@ -15,9 +15,9 @@
             <li class="@Html.IsSelected(controller: "UserManager", action: "Index")">
                 <a href="@Url.Action("Index", "UserManager")" style="text-decoration: none;"><i class="fa fa-users"></i> <span class="nav-label">Quản lý người dùng</span></a>
             </li>
-            <li class="@Html.IsSelected(controller: "OtherPage", action: "Index")">
+            @*<li class="@Html.IsSelected(controller: "OtherPage", action: "Index")">
                 <a href="@Url.Action("Index", "OtherPage")" style="text-decoration: none;"><i class="fa fa-cog"></i> <span class="nav-label">Khác</span></a>
-            </li>
+            </li>*@
         </ul>
     </div>
 </nav>
