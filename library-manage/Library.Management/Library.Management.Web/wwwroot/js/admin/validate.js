@@ -10,7 +10,7 @@
         };
 
         // kiem tra ID có trống không
-        if (!value) {
+        if (!value && type_param != "NumberInput") {
             validateObj.idIsValid = false;
             return validateObj;
         }
