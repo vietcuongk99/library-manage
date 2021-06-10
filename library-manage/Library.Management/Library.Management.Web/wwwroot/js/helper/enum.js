@@ -33,7 +33,7 @@ var Enum = {
     //phân trang cho danh sách book
     BookPaging: {
         //số lượng bản ghi sách hiển thị trên một trang
-        RECORD_PER_PAGE: 20,
+        RECORD_PER_PAGE: 12,
         //khai báo trang hiển thị mặc định
         PAGE_DEFAULT: 1,
         //khai báo số trang hiển thị mặc định trên thanh pagination

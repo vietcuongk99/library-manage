@@ -319,7 +319,7 @@ namespace Library.Management.BL
                     where += " Order By b.BorrowTotal DESC";
                 }
             }
-            if (param.maxValueType == (int)ValueTypeBook.New)
+            else if (param.maxValueType == (int)ValueTypeBook.New)
             {
                 if (param.orderByType == (int)OrderByType.ASC)
                 {
@@ -329,6 +329,10 @@ namespace Library.Management.BL
                 {
                     where += " Order By b.CreatedDate DESC";
                 }
+            }
+            else
+            {
+                where += " Order By b.CreatedDate DESC";
             }
             string query = "Select * from Book b" + where;
             //res.Data = _baseDL.ExcureDataReader(query);

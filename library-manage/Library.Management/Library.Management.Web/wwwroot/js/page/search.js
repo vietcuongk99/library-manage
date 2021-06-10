@@ -20,6 +20,13 @@ class SearchBookJS extends BaseJS {
             localStorage.removeItem("searchURL");
             searchBookJS.loadSearchResult();
         });
+        // xử lý với nút Enter
+        $("#searchInput").keyup(function (event) {
+            if (event.keyCode === 13) {
+                localStorage.removeItem("searchURL");
+                searchBookJS.loadSearchResult();
+            }
+        });
         //gán xử lý sự kiện khi click vào 1 card sách
         $('#searchResultDiv').on('click', '.card', this.cardOnClick);
         //gán xử lý khi chọn option lọc

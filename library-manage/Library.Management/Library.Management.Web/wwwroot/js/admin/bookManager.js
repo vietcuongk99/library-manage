@@ -134,6 +134,13 @@ class BookManager {
             $('div#pop-up-search').hide();
             BookManager.loadData();
         });
+
+        $(".searchInp").keyup(function (event) {
+            if (event.keyCode === 13) {
+                $('div#pop-up-search').hide();
+                BookManager.loadData();
+            }
+        });
     }
 
     downloadTemplateFile(event) {

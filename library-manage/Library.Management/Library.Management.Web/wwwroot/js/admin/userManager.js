@@ -1,4 +1,4 @@
-﻿const RECORD_PER_PAGE = 20;
+﻿const RECORD_PER_PAGE = 12;
 //khai báo trang hiển thị mặc định
 //trang đầu tiên
 const PAGE_DEFAULT = 1;
@@ -23,15 +23,20 @@ class UserManager {
     }
 
     initEvents() {
+        const me = this
         $(".tdIsAdmin").on('change', this.changeCheckboxAdmin.bind(this));
         $(".btnDelete").on('click', this.onClickDeleteUser.bind(this));
         $("#confirmDeleteUser").on('click', this.confirmDeleteUser.bind(this));
+        $(".searchInp").keyup(function (event) {
+            if (event.keyCode === 13) {
+                me.loadDataUser();
+            }
+        });
     }
 
     loadDataUser() {
         var self = this,
             searchValue = $('.searchInp').val();
-        debugger
         $('#lstUserGrid').empty();
 
         $.ajax({
@@ -44,23 +49,27 @@ class UserManager {
                 commonBaseJS.showLoadingData(1);
             }
         }).done(function (res) {
-            if (res.success && res.data) {
-                var lstData = res.data.dataItems;
+            if (res.success) {
                 commonBaseJS.showLoadingData(0);
-                if (lstData.length > 0) {
-                    $('#noUsers').hide();
+                if (!res.data) {
+                    commonBaseJS.showToastMsgInfomation("Không có bản ghi nào để hiển thị")
+                }
+                else {
+                    var lstData = res.data.dataItems;
+                    if (lstData.length > 0) {
+                        $('#noUsers').hide();
 
-                    totalBookRecord = res.data.totalRecord;
+                        totalBookRecord = res.data.totalRecord;
 
-                    //tính toán số trang hiển thị và gán cho biến toàn cục
-                    totalPages = Math.ceil(totalBookRecord / RECORD_PER_PAGE);
+                        //tính toán số trang hiển thị và gán cho biến toàn cục
+                        totalPages = Math.ceil(totalBookRecord / RECORD_PER_PAGE);
 
-                    //gọi hàm loadPaginationSearchResult
-                    //phân trang dữ liệu
-                    self.loadPaginationSearchResult(totalPages, searchValue);
+                        //gọi hàm loadPaginationSearchResult
+                        //phân trang dữ liệu
+                        self.loadPaginationSearchResult(totalPages, searchValue);
 
-                    $.each(lstData, function (index, user) {
-                        var userHTML = `
+                        $.each(lstData, function (index, user) {
+                            var userHTML = `
                             <tr userID="${user.userId}" typeUser="${user.conditionAccount}">
                                 <td>${index + 1}</td>
                                 <td>${user.userName}</td>
@@ -72,14 +81,16 @@ class UserManager {
                                 <td align="center"><button type="button" class="fa fa-trash-o btn btn-light btnDelete" title="Xóa"></button></td>
                             </tr>`
 
-                        $(userHTML).data('userID', user.userId)
+                            $(userHTML).data('userID', user.userId)
 
-                        $('#lstUserGrid').append($(userHTML))
-                    });
+                            $('#lstUserGrid').append($(userHTML))
+                        });
+                    }
+                    self.initEvents();
                 }
-                self.initEvents();
             } else {
                 $('#noUsers').show();
+                commonBaseJS.showLoadingData(0);
                 commonBaseJS.showToastMsgFailed("Lấy dữ liệu thất bại")
             }
         }).fail(function (res) {
@@ -134,7 +145,7 @@ class UserManager {
         if (this.validatePermissionEdit(itemDel) && this.validateDelete(itemDel)) {
             listID = [];
             listID.push(itemDel.closest('tr').getAttribute('userID'));
-            $('#modalConfirmDelete').modal('show'); 
+            $('#modalConfirmDelete').modal('show');
         }
     }
 
@@ -177,7 +188,7 @@ class UserManager {
 
         if (!bvalid) {
             $('.content-notify').text('Bạn không được xóa chính mình khỏi danh sách người dùng.');
-            $('#modalNotification').modal('show'); 
+            $('#modalNotification').modal('show');
         }
 
         return bvalid;
@@ -191,12 +202,12 @@ class UserManager {
 
         if (userObject.conditionAccount == 2 && typeUser == 1) {
             $('.content-notify').text('Bạn không có quyền cấp tài khoản admin cho người dùng.');
-            $('#modalNotification').modal('show'); 
+            $('#modalNotification').modal('show');
         }
         else {
             if (userObject.userID == thisTrId) {
                 $('.content-notify').text('Bạn không được gỡ quyền admin của mình.');
-                $('#modalNotification').modal('show'); 
+                $('#modalNotification').modal('show');
             } else {
 
                 if (!element.checked) {
@@ -211,7 +222,7 @@ class UserManager {
 
                 if (!bvalid) {
                     $('.content-notify').text('Phải có ít nhất 1 admin.');
-                    $('#modalNotification').modal('show'); 
+                    $('#modalNotification').modal('show');
                 }
             }
         }
@@ -230,7 +241,7 @@ class UserManager {
             if (parseInt(typeUser) == 2 || parseInt(typeUser) == 3) {
                 bValid = false;
                 $('.content-notify').text('Bạn không có quyền thay đổi thông tin của tài khoản admin khác.');
-                $('#modalNotification').modal('show'); 
+                $('#modalNotification').modal('show');
             }
         }
         return bValid;
