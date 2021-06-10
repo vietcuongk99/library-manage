@@ -192,3 +192,8 @@ div#pop-up-search {
     width: 100%;
     text-align: right;
 }
+
+.pagination-sm{
+    position: absolute;
+    bottom: 50px;
+}
