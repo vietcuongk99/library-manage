@@ -173,7 +173,7 @@ class BookBorrow {
             });
         }
         else {
-            $('.container-request-book').append($(`<h2>Không có cuốn sách nào!</h2>`))
+            $('.container-request-book').append($(`<h2>Không có yêu cầu mượn sách</h2>`))
         }
 
         this.initEvents();

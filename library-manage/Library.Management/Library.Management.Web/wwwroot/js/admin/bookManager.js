@@ -57,7 +57,7 @@ class BookManager {
                     //phân trang dữ liệu
                     BookManager.loadPaginationSearchResult(totalPages, searchURL, res.data.dataItems)
                 } else {
-                    var row = $(`<div class="row mt-2"><h2>Không tìm thấy dữ liệu</h2></div>`);
+                    var row = $(`<div class="row mt-2"><h2>Không tìm thấy sách phù hợp</h2></div>`);
                     $("#searchResultDiv").html(row)
                 }
 
