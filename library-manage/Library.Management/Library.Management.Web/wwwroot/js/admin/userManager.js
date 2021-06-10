@@ -52,7 +52,7 @@ class UserManager {
             if (res.success) {
                 commonBaseJS.showLoadingData(0);
                 if (!res.data) {
-                    commonBaseJS.showToastMsgInfomation("Không có bản ghi nào để hiển thị")
+                    commonBaseJS.showToastMsgInfomation("Không tìm thấy tài khoản phù hợp")
                 }
                 else {
                     var lstData = res.data.dataItems;

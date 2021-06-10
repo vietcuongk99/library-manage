@@ -57,6 +57,7 @@ class BookManager {
                     //phân trang dữ liệu
                     BookManager.loadPaginationSearchResult(totalPages, searchURL, res.data.dataItems)
                 } else {
+                    commonBaseJS.showToastMsgInfomation("Không tìm thấy sách phù hợp")
                     var row = $(`<div class="row mt-2"><h2>Không tìm thấy sách phù hợp</h2></div>`);
                     $("#searchResultDiv").html(row)
                 }
