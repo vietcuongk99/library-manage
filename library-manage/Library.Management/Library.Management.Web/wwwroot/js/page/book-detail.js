@@ -35,13 +35,20 @@ class BookDetailJS extends BaseJS {
                 //gán data
                 var data = res.data;
                 //gán thông tin sách
-                $('#bookTitle').text(data.bookName);
-                $('#bookName').text(data.bookName);
-                $('#bookAuthor').text(data.bookAuthor);
-                $('#bookAmountPage').text(data.amountPage);
-                $('#borrowTotal').text(data.borrowTotal);
-                $('#yearPublication').text(data.yearOfPublication);
-                $('#bookDescription').text(data.description);
+                (data.bookName.trim().length > 0 && (data.bookName)) ? ($('#bookTitle').text(data.bookName)) : ($('#bookTitle').text("Chưa xác định"));
+                (data.bookName.trim().length > 0 && (data.bookName)) ? ($('#bookName').text(data.bookName)) : ($('#bookName').text("Chưa xác định"));
+                (data.bookAuthor.trim().length > 0 && (data.bookAuthor)) ? ($('#bookAuthor').text(data.bookAuthor)) : ($('#bookAuthor').text("Chưa xác định"));
+                (data.amountPage > 0 && (data.amountPage)) ? ($('#bookAmountPage').text(data.amountPage)) : ($('#bookAmountPage').text("Chưa xác định"));
+                (data.borrowTotal > 0 && (data.borrowTotal)) ? ($('#borrowTotal').text(data.borrowTotal)) : ($('#borrowTotal').text("Chưa có"));
+                (data.yearOfPublication > 0 && (data.yearOfPublication)) ? ($('#yearPublication').text(data.yearOfPublication)) : ($('#yearPublication').text("Chưa xác định"));
+                (data.description.trim().length > 0 && (data.description)) ? ($('#bookDescription').text(data.description)) : ($('#bookDescription').text("Chưa có"));
+                // $('#bookTitle').text(data.bookName);
+                // $('#bookName').text(data.bookName);
+                // $('#bookAuthor').text(data.bookAuthor);
+                // $('#bookAmountPage').text(data.amountPage);
+                // $('#borrowTotal').text(data.borrowTotal);
+                // $('#yearPublication').text(data.yearOfPublication);
+                // $('#bookDescription').text(data.description);
                 //gán data id loại sách
                 $('#bookCategoryName').data("id", data.bookCategoryId);
                 //load ảnh bìa sách
@@ -135,7 +142,7 @@ class BookDetailJS extends BaseJS {
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);
             } else {
-                $('#bookCategoryName').text("Chưa có");
+                $('#bookCategoryName').text("Chưa xác định");
                 commonBaseJS.showToastMsgFailed(res.message);
                 //ẩn loading
                 commonBaseJS.showLoadingData(0);

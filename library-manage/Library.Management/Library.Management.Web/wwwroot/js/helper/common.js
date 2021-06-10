@@ -275,7 +275,7 @@ var commonJS = {
         $('#modalUpdateComment').modal('show');
     },
     //gán sự kiện khi ấn nút enter
-    //sử dụng trong trang login, signup, change-pass
+    //sử dụng trong trang login, signup, change-pass, search
     addEnterEvent(action) {
         var enterClicked = false;
         $(document).on("keyup", function(event) {
