@@ -802,10 +802,10 @@ class BookDetailJS extends BaseJS {
                         //ẩn loading
                         commonBaseJS.showLoadingData(0);
                         //show alert
-                        commonBaseJS.showToastMsgSuccess(res.message);
+                        //commonBaseJS.showToastMsgSuccess(res.message);
                     } else {
                         commonBaseJS.showLoadingData(0);
-                        commonBaseJS.showToastMsgFailed(res.message);
+                        //commonBaseJS.showToastMsgFailed(res.message);
                     }
                 }).fail(function(res) {
                     commonBaseJS.showLoadingData(0);

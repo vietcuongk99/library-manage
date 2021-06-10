@@ -604,7 +604,10 @@ class AccountJS extends BaseJS {
             }
         }
         $('#bookName').html(borrowData.bookName);
-        $('#bookAuthor').html(borrowData.bookAuthor);
+        // $('#bookAuthor').html(borrowData.bookAuthor);
+        (borrowData.bookAuthor && borrowData.bookAuthor.trim().length > 0) ?
+        ($('#bookAuthor').html(borrowData.bookAuthor)) :
+        ($('#bookAuthor').html("Chưa xác định"));
         $('#borrowStatus').html(borrowStatusTxt);
         $('#borrowDate').html(borrowDate);
         $('#returnDate').html(returnDate);

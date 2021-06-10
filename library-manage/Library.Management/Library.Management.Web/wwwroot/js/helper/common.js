@@ -79,6 +79,10 @@ var commonJS = {
     appendBookDataToCardV2(data, selector) {
         data.forEach(book => {
             let bookImgBase64String = "data:image/jpg;base64," + book.bookImageUriBase64String;
+            let bookAuthor,
+                description;
+            (book.bookAuthor && book.bookAuthor.trim().length > 0) ? (bookAuthor = book.bookAuthor) : (bookAuthor = "Chưa xác định tác giả");
+            (book.description && book.description.trim().length > 0) ? (description = book.description) : (description = "Chưa có mô tả");
             let card = $(`<div class="card rounded-0 border-0">
                             <div class="card-body border-0">
                                 <div class="row">
@@ -88,10 +92,10 @@ var commonJS = {
                                     <div class="col-lg-7">
                                         <div class="card-title">
                                             <h4>${book.bookName}</h4>
-                                            <h5 class="font-weight-light">${book.bookAuthor}</h5>
+                                            <h5 class="font-weight-light">${bookAuthor}</h5>
                                         </div>
                                         <div class="card-text" style="word-wrap: break-word;">
-                                            ${book.description}
+                                            ${description}
                                         </div>
                                     </div>
                                 </div>
